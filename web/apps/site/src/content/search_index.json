@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-09T05:58:06.047Z",
+  "generated_at": "2026-03-09T19:08:56.497Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -1730,6 +1730,18 @@
       "topicName": "Binary Tree"
     },
     {
+      "id": "module:ml/evaluation/ab-test-analysis",
+      "type": "module",
+      "title": "A/B Test Analysis",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "ab-test-analysis",
+      "href": "/track/ml/evaluation#ab-test-analysis",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/mlops/ab-testing",
       "type": "module",
       "title": "A/B Testing",
@@ -1814,6 +1826,54 @@
       "topicName": "Optimization"
     },
     {
+      "id": "module:ml/mlops/admission-control",
+      "type": "module",
+      "title": "Admission Control",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "admission-control",
+      "href": "/track/ml/mlops#admission-control",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/advantage-normalization",
+      "type": "module",
+      "title": "Advantage Normalization",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "advantage-normalization",
+      "href": "/track/ml/reinforcement-learning#advantage-normalization",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/evaluation/agreement-rate",
+      "type": "module",
+      "title": "Agreement Rate",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "agreement-rate",
+      "href": "/track/ml/evaluation#agreement-rate",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/models/bic-aic",
+      "type": "module",
+      "title": "AIC and BIC",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "bic-aic",
+      "href": "/track/ml/models#bic-aic",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
+    },
+    {
       "id": "module:ml/computer-vision/alexnet",
       "type": "module",
       "title": "AlexNet",
@@ -1836,6 +1896,78 @@
       "href": "/track/dsa/backtracking#alternative-deduplication-in-backtracking",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Backtracking"
+    },
+    {
+      "id": "module:ml/llm/answer-frequency-table",
+      "type": "module",
+      "title": "Answer Frequency Table",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "answer-frequency-table",
+      "href": "/track/ml/llm#answer-frequency-table",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/answer-mode-count",
+      "type": "module",
+      "title": "Answer Mode Count",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "answer-mode-count",
+      "href": "/track/ml/llm#answer-mode-count",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/answer-repeat-rate",
+      "type": "module",
+      "title": "Answer Repeat Rate",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "answer-repeat-rate",
+      "href": "/track/ml/llm#answer-repeat-rate",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/answer-stability",
+      "type": "module",
+      "title": "Answer Stability",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "answer-stability",
+      "href": "/track/ml/llm#answer-stability",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/answer-uniqueness-rate",
+      "type": "module",
+      "title": "Answer Uniqueness Rate",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "answer-uniqueness-rate",
+      "href": "/track/ml/llm#answer-uniqueness-rate",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/answer-verification",
+      "type": "module",
+      "title": "Answer Verification",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "answer-verification",
+      "href": "/track/ml/llm#answer-verification",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
     },
     {
       "id": "doc:dsa/array/array",
@@ -1872,6 +2004,18 @@
       "href": "/track/ml/deep-learning#automatic-differentiation",
       "trackName": "Machine Learning",
       "topicName": "Deep Learning"
+    },
+    {
+      "id": "module:ml/mlops/backfill-replay",
+      "type": "module",
+      "title": "Backfill Replay",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "backfill-replay",
+      "href": "/track/ml/mlops#backfill-replay",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
     },
     {
       "id": "module:ml/deep-learning/backpropagation",
@@ -1922,6 +2066,18 @@
       "topicName": "Systems"
     },
     {
+      "id": "module:ml/evaluation/balanced-accuracy",
+      "type": "module",
+      "title": "Balanced Accuracy",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "balanced-accuracy",
+      "href": "/track/ml/evaluation#balanced-accuracy",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/reinforcement-learning/bandits",
       "type": "module",
       "title": "Bandits",
@@ -1932,6 +2088,42 @@
       "href": "/track/ml/reinforcement-learning#bandits",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/evaluation/base-rate-gap",
+      "type": "module",
+      "title": "Base Rate Gap",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "base-rate-gap",
+      "href": "/track/ml/evaluation#base-rate-gap",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/evaluation/base-rate-ratio",
+      "type": "module",
+      "title": "Base Rate Ratio",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "base-rate-ratio",
+      "href": "/track/ml/evaluation#base-rate-ratio",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/mlops/batch-fill-rate",
+      "type": "module",
+      "title": "Batch Fill Rate",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "batch-fill-rate",
+      "href": "/track/ml/mlops#batch-fill-rate",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
     },
     {
       "id": "module:ml/data/batch-iterator",
@@ -1982,6 +2174,18 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:ml/llm/beam-search",
+      "type": "module",
+      "title": "Beam Search Step",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "beam-search",
+      "href": "/track/ml/llm#beam-search",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/models/bernoulli-naive-bayes",
       "type": "module",
       "title": "Bernoulli Naive Bayes",
@@ -2030,6 +2234,102 @@
       "topicName": "Binary Tree"
     },
     {
+      "id": "module:ml/llm/bleu-meteor",
+      "type": "module",
+      "title": "BLEU and METEOR Overlap",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "bleu-meteor",
+      "href": "/track/ml/llm#bleu-meteor",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/bm25-ranking",
+      "type": "module",
+      "title": "BM25 Ranking Score",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "bm25-ranking",
+      "href": "/track/ml/llm#bm25-ranking",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/evaluation/bootstrap-intervals",
+      "type": "module",
+      "title": "Bootstrap Percentile Interval",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "bootstrap-intervals",
+      "href": "/track/ml/evaluation#bootstrap-intervals",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/bootstrap-target",
+      "type": "module",
+      "title": "Bootstrap Target",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "bootstrap-target",
+      "href": "/track/ml/reinforcement-learning#bootstrap-target",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/evaluation/bradley-terry-ranking",
+      "type": "module",
+      "title": "Bradley-Terry Pairwise Probability",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "bradley-terry-ranking",
+      "href": "/track/ml/evaluation#bradley-terry-ranking",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/evaluation/brier-score",
+      "type": "module",
+      "title": "Brier Score",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "brier-score",
+      "href": "/track/ml/evaluation#brier-score",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/data/budget-overrun-share",
+      "type": "module",
+      "title": "Budget Overrun Share",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "budget-overrun-share",
+      "href": "/track/ml/data#budget-overrun-share",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "doc:ml/evaluation/calibration",
+      "type": "doc",
+      "title": "Calibration",
+      "summary": "Calibration asks whether model confidence matches empirical correctness.",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "calibration",
+      "href": "/track/ml/evaluation#calibration",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/evaluation/calinski-harabasz",
       "type": "module",
       "title": "Calinski-Harabasz Index",
@@ -2054,6 +2354,66 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:ml/mlops/canary-rollout",
+      "type": "module",
+      "title": "Canary Rollout",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "canary-rollout",
+      "href": "/track/ml/mlops#canary-rollout",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/llm/candidate-diversity",
+      "type": "module",
+      "title": "Candidate Diversity",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "candidate-diversity",
+      "href": "/track/ml/llm#candidate-diversity",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/mlops/capacity-breach-rate",
+      "type": "module",
+      "title": "Capacity Breach Rate",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "capacity-breach-rate",
+      "href": "/track/ml/mlops#capacity-breach-rate",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/mlops/capacity-headroom",
+      "type": "module",
+      "title": "Capacity Headroom",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "capacity-headroom",
+      "href": "/track/ml/mlops#capacity-headroom",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/data/category-cross-features",
+      "type": "module",
+      "title": "Category Cross Features",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "category-cross-features",
+      "href": "/track/ml/data#category-cross-features",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/systems/check-gradients",
       "type": "module",
       "title": "Check Gradients Are Flowing",
@@ -2066,6 +2426,18 @@
       "topicName": "Systems"
     },
     {
+      "id": "module:ml/data/chi-square-feature-selection",
+      "type": "module",
+      "title": "Chi-Square Feature Selection",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "chi-square-feature-selection",
+      "href": "/track/ml/data#chi-square-feature-selection",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/generative/model-selection",
       "type": "module",
       "title": "Choose GAN vs VAE vs Diffusion",
@@ -2076,6 +2448,18 @@
       "href": "/track/ml/generative#model-selection",
       "trackName": "Machine Learning",
       "topicName": "Generative"
+    },
+    {
+      "id": "module:ml/systems/chunked-prefill",
+      "type": "module",
+      "title": "Chunked Prefill Rounds",
+      "summary": "> Track: `ml` | Topic: `systems`",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "chunked-prefill",
+      "href": "/track/ml/systems#chunked-prefill",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
     },
     {
       "id": "module:dsa/dynamic-programming/climbing-stairs-advanced",
@@ -2100,6 +2484,30 @@
       "href": "/track/ml/computer-vision#cnn-basics",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:ml/evaluation/cohen-kappa",
+      "type": "module",
+      "title": "Cohen Kappa",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "cohen-kappa",
+      "href": "/track/ml/evaluation#cohen-kappa",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/llm/sampling-pipeline",
+      "type": "module",
+      "title": "Combined Sampling Pipeline",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "sampling-pipeline",
+      "href": "/track/ml/llm#sampling-pipeline",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
     },
     {
       "id": "module:dsa/dynamic-programming/complete-knapsack-theory",
@@ -2138,6 +2546,18 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:ml/llm/consensus-disagreement-rate",
+      "type": "module",
+      "title": "Consensus Disagreement Rate",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "consensus-disagreement-rate",
+      "href": "/track/ml/llm#consensus-disagreement-rate",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/optimization/lr-constant",
       "type": "module",
       "title": "Constant Learning Rate",
@@ -2148,6 +2568,42 @@
       "href": "/track/ml/optimization#lr-constant",
       "trackName": "Machine Learning",
       "topicName": "Optimization"
+    },
+    {
+      "id": "module:ml/systems/context-parallelism",
+      "type": "module",
+      "title": "Context Parallel Attention Bytes",
+      "summary": "> Track: `ml` | Topic: `systems`",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "context-parallelism",
+      "href": "/track/ml/systems#context-parallelism",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/continuation-mask",
+      "type": "module",
+      "title": "Continuation Mask",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "continuation-mask",
+      "href": "/track/ml/reinforcement-learning#continuation-mask",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/systems/continuous-batching",
+      "type": "module",
+      "title": "Continuous Batching Step",
+      "summary": "> Track: `ml` | Topic: `systems`",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "continuous-batching",
+      "href": "/track/ml/systems#continuous-batching",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
     },
     {
       "id": "module:ml/computer-vision/contrast-brightness",
@@ -2210,6 +2666,18 @@
       "topicName": "Optimization"
     },
     {
+      "id": "module:ml/optimization/cosine-restarts",
+      "type": "module",
+      "title": "Cosine Restarts",
+      "summary": "> Track: `ml` | Topic: `optimization`",
+      "track": "ml",
+      "topic": "optimization",
+      "slug": "cosine-restarts",
+      "href": "/track/ml/optimization#cosine-restarts",
+      "trackName": "Machine Learning",
+      "topicName": "Optimization"
+    },
+    {
       "id": "module:ml/fundamentals/cosine-similarity",
       "type": "module",
       "title": "Cosine Similarity",
@@ -2222,6 +2690,30 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:ml/mlops/cost-per-request",
+      "type": "module",
+      "title": "Cost Per Request",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "cost-per-request",
+      "href": "/track/ml/mlops#cost-per-request",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/data/count-vectorizer",
+      "type": "module",
+      "title": "Count Vectorizer",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "count-vectorizer",
+      "href": "/track/ml/data#count-vectorizer",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/fundamentals/covariance",
       "type": "module",
       "title": "Covariance",
@@ -2232,6 +2724,18 @@
       "href": "/track/ml/fundamentals#covariance",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "module:ml/evaluation/coverage-error",
+      "type": "module",
+      "title": "Coverage Error",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "coverage-error",
+      "href": "/track/ml/evaluation#coverage-error",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/deep-learning/cross-entropy",
@@ -2249,7 +2753,7 @@
       "id": "doc:ml/data/data",
       "type": "doc",
       "title": "Data and Splitting",
-      "summary": "Reliable data setup and evaluation splits. Each bullet maps to a module under `modules/ml/data/`.",
+      "summary": "Reliable data setup, preprocessing, and evaluation splits. Each bullet maps to a module under `modules/ml/data/`.",
       "track": "ml",
       "topic": "data",
       "slug": "data",
@@ -2278,6 +2782,18 @@
       "topic": "data",
       "slug": "data-leakage",
       "href": "/track/ml/data#data-leakage",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "doc:ml/data/preprocessing",
+      "type": "doc",
+      "title": "Data Preprocessing",
+      "summary": "Preprocessing decides whether downstream models learn signal or shortcuts.",
+      "track": "ml",
+      "topic": "data",
+      "slug": "preprocessing",
+      "href": "/track/ml/data#preprocessing",
       "trackName": "Machine Learning",
       "topicName": "Data"
     },
@@ -2330,6 +2846,30 @@
       "topicName": "Models"
     },
     {
+      "id": "module:ml/generative/ddim-sampling",
+      "type": "module",
+      "title": "DDIM Deterministic Step",
+      "summary": "> Track: `ml` | Topic: `generative`",
+      "track": "ml",
+      "topic": "generative",
+      "slug": "ddim-sampling",
+      "href": "/track/ml/generative#ddim-sampling",
+      "trackName": "Machine Learning",
+      "topicName": "Generative"
+    },
+    {
+      "id": "module:ml/generative/ddpm-sampling",
+      "type": "module",
+      "title": "DDPM Reverse Mean Step",
+      "summary": "> Track: `ml` | Topic: `generative`",
+      "track": "ml",
+      "topic": "generative",
+      "slug": "ddpm-sampling",
+      "href": "/track/ml/generative#ddpm-sampling",
+      "trackName": "Machine Learning",
+      "topicName": "Generative"
+    },
+    {
       "id": "module:ml/systems/debug-overfit-underfit",
       "type": "module",
       "title": "Debug Overfitting vs Underfitting",
@@ -2352,6 +2892,30 @@
       "href": "/track/ml/models#decision-trees",
       "trackName": "Machine Learning",
       "topicName": "Models"
+    },
+    {
+      "id": "module:ml/evaluation/delong-test",
+      "type": "module",
+      "title": "DeLong Test",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "delong-test",
+      "href": "/track/ml/evaluation#delong-test",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/mlops/depth-spike-rate",
+      "type": "module",
+      "title": "Depth Spike Rate",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "depth-spike-rate",
+      "href": "/track/ml/mlops#depth-spike-rate",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
     },
     {
       "id": "module:ml/optimization/detect-nans",
@@ -2402,6 +2966,18 @@
       "topicName": "Generative"
     },
     {
+      "id": "doc:ml/systems/distributed",
+      "type": "doc",
+      "title": "Distributed ML Systems",
+      "summary": "Distributed training and serving are mostly about communication patterns and where state lives.",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "distributed",
+      "href": "/track/ml/systems#distributed",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
+    },
+    {
       "id": "module:ml/fundamentals/distributions",
       "type": "module",
       "title": "Distributions",
@@ -2438,6 +3014,18 @@
       "topicName": "Double Pointers"
     },
     {
+      "id": "module:ml/reinforcement-learning/double-q-learning",
+      "type": "module",
+      "title": "Double Q-Learning Target",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "double-q-learning",
+      "href": "/track/ml/reinforcement-learning#double-q-learning",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
       "id": "module:ml/llm/dpo",
       "type": "module",
       "title": "DPO (Direct Preference Optimization)",
@@ -2460,6 +3048,18 @@
       "href": "/track/ml/reinforcement-learning#dpo-vs-ppo",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/mlops/drift-detection",
+      "type": "module",
+      "title": "Drift Detection",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "drift-detection",
+      "href": "/track/ml/mlops#drift-detection",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
     },
     {
       "id": "module:ml/deep-learning/dropout",
@@ -2558,6 +3158,18 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:ml/reinforcement-learning/eligibility-traces",
+      "type": "module",
+      "title": "Eligibility Trace Update",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "eligibility-traces",
+      "href": "/track/ml/reinforcement-learning#eligibility-traces",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
       "id": "module:ml/llm/embeddings",
       "type": "module",
       "title": "Embeddings",
@@ -2582,6 +3194,54 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:ml/reinforcement-learning/end-of-episode-mask",
+      "type": "module",
+      "title": "End Of Episode Mask",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "end-of-episode-mask",
+      "href": "/track/ml/reinforcement-learning#end-of-episode-mask",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/data/entity-embedding-intuition",
+      "type": "module",
+      "title": "Entity Embedding Intuition",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "entity-embedding-intuition",
+      "href": "/track/ml/data#entity-embedding-intuition",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/entropy-bonus",
+      "type": "module",
+      "title": "Entropy Bonus",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "entropy-bonus",
+      "href": "/track/ml/reinforcement-learning#entropy-bonus",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/episode-end-rate",
+      "type": "module",
+      "title": "Episode End Rate",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "episode-end-rate",
+      "href": "/track/ml/reinforcement-learning#episode-end-rate",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
       "id": "module:ml/reinforcement-learning/bandit-epsilon-greedy",
       "type": "module",
       "title": "Epsilon-Greedy Bandit",
@@ -2592,6 +3252,18 @@
       "href": "/track/ml/reinforcement-learning#bandit-epsilon-greedy",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/mlops/error-budget",
+      "type": "module",
+      "title": "Error Budget",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "error-budget",
+      "href": "/track/ml/mlops#error-budget",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
     },
     {
       "id": "module:ml/mlops/etl-pipeline",
@@ -2616,6 +3288,54 @@
       "href": "/track/ml/fundamentals#expectation",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "module:ml/evaluation/expected-calibration-error",
+      "type": "module",
+      "title": "Expected Calibration Error",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "expected-calibration-error",
+      "href": "/track/ml/evaluation#expected-calibration-error",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/expected-sarsa",
+      "type": "module",
+      "title": "Expected SARSA Target",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "expected-sarsa",
+      "href": "/track/ml/reinforcement-learning#expected-sarsa",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/systems/expert-load-balancing",
+      "type": "module",
+      "title": "Expert Load Balancing Loss",
+      "summary": "> Track: `ml` | Topic: `systems`",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "expert-load-balancing",
+      "href": "/track/ml/systems#expert-load-balancing",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
+    },
+    {
+      "id": "module:ml/systems/expert-parallelism",
+      "type": "module",
+      "title": "Expert Parallel Dispatch",
+      "summary": "> Track: `ml` | Topic: `systems`",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "expert-parallelism",
+      "href": "/track/ml/systems#expert-parallelism",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
     },
     {
       "id": "module:ml/reinforcement-learning/exploration-exploitation",
@@ -2654,6 +3374,30 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:ml/data/feature-bucketing",
+      "type": "module",
+      "title": "Feature Bucketing",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "feature-bucketing",
+      "href": "/track/ml/data#feature-bucketing",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/feature-clipping",
+      "type": "module",
+      "title": "Feature Clipping",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "feature-clipping",
+      "href": "/track/ml/data#feature-clipping",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/mlops/feature-drift-psi",
       "type": "module",
       "title": "Feature Drift Detection (PSI)",
@@ -2664,6 +3408,18 @@
       "href": "/track/ml/mlops#feature-drift-psi",
       "trackName": "Machine Learning",
       "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/data/feature-scaling",
+      "type": "module",
+      "title": "Feature Scaling",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "feature-scaling",
+      "href": "/track/ml/data#feature-scaling",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
     },
     {
       "id": "module:ml/representation/features",
@@ -2688,6 +3444,18 @@
       "href": "/track/ml/deep-learning#feedforward-neural-network",
       "trackName": "Machine Learning",
       "topicName": "Deep Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/first-visit-monte-carlo-prediction",
+      "type": "module",
+      "title": "First-Visit Monte Carlo Prediction",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "first-visit-monte-carlo-prediction",
+      "href": "/track/ml/reinforcement-learning#first-visit-monte-carlo-prediction",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
     },
     {
       "id": "module:ml/deep-learning/focal-loss",
@@ -2738,6 +3506,30 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:ml/data/frequency-capping",
+      "type": "module",
+      "title": "Frequency Capping",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "frequency-capping",
+      "href": "/track/ml/data#frequency-capping",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/frequency-encoding",
+      "type": "module",
+      "title": "Frequency Encoding",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "frequency-encoding",
+      "href": "/track/ml/data#frequency-encoding",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/generative/gan",
       "type": "module",
       "title": "GAN",
@@ -2760,6 +3552,18 @@
       "href": "/track/ml/generative#gan-mode-collapse",
       "trackName": "Machine Learning",
       "topicName": "Generative"
+    },
+    {
+      "id": "module:ml/models/gaussian-mixture-model-em",
+      "type": "module",
+      "title": "Gaussian Mixture Model EM Step",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "gaussian-mixture-model-em",
+      "href": "/track/ml/models#gaussian-mixture-model-em",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
     },
     {
       "id": "module:ml/models/gaussian-naive-bayes",
@@ -2786,6 +3590,18 @@
       "topicName": "Models"
     },
     {
+      "id": "module:ml/reinforcement-learning/generalized-advantage-estimation",
+      "type": "module",
+      "title": "Generalized Advantage Estimation",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "generalized-advantage-estimation",
+      "href": "/track/ml/reinforcement-learning#generalized-advantage-estimation",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
       "id": "doc:ml/generative/generative",
       "type": "doc",
       "title": "Generative Models",
@@ -2810,6 +3626,18 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "doc:ml/systems/gpu",
+      "type": "doc",
+      "title": "GPU Performance",
+      "summary": "GPU reasoning should connect model math to memory traffic and achievable throughput.",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "gpu",
+      "href": "/track/ml/systems#gpu",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
+    },
+    {
       "id": "module:ml/systems/gradient-accumulation",
       "type": "module",
       "title": "Gradient Accumulation",
@@ -2820,6 +3648,18 @@
       "href": "/track/ml/systems#gradient-accumulation",
       "trackName": "Machine Learning",
       "topicName": "Systems"
+    },
+    {
+      "id": "module:ml/models/gradient-boosting",
+      "type": "module",
+      "title": "Gradient Boosting Step",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "gradient-boosting",
+      "href": "/track/ml/models#gradient-boosting",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
     },
     {
       "id": "module:ml/deep-learning/gradient-checking",
@@ -2906,6 +3746,18 @@
       "topicName": "Deep Learning"
     },
     {
+      "id": "module:ml/evaluation/hamming-loss",
+      "type": "module",
+      "title": "Hamming Loss",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "hamming-loss",
+      "href": "/track/ml/evaluation#hamming-loss",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/data/class-imbalance",
       "type": "module",
       "title": "Handling Class Imbalance",
@@ -2942,6 +3794,18 @@
       "topicName": "Hash Tables"
     },
     {
+      "id": "module:ml/data/hash-trick",
+      "type": "module",
+      "title": "Hash Trick",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "hash-trick",
+      "href": "/track/ml/data#hash-trick",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/deep-learning/he-initialization",
       "type": "module",
       "title": "He Initialization",
@@ -2952,6 +3816,18 @@
       "href": "/track/ml/deep-learning#he-initialization",
       "trackName": "Machine Learning",
       "topicName": "Deep Learning"
+    },
+    {
+      "id": "module:ml/mlops/headroom-gap",
+      "type": "module",
+      "title": "Headroom Gap",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "headroom-gap",
+      "href": "/track/ml/mlops#headroom-gap",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
     },
     {
       "id": "module:ml/fundamentals/hessian",
@@ -3000,6 +3876,18 @@
       "href": "/track/ml/computer-vision#image-preprocessing",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/importance-sampling",
+      "type": "module",
+      "title": "Importance Sampling Estimate",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "importance-sampling",
+      "href": "/track/ml/reinforcement-learning#importance-sampling",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
     },
     {
       "id": "module:ml/llm/inference-head-pruning",
@@ -3122,6 +4010,30 @@
       "topicName": "Stack And Queue"
     },
     {
+      "id": "module:ml/models/isolation-forest",
+      "type": "module",
+      "title": "Isolation Forest Score",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "isolation-forest",
+      "href": "/track/ml/models#isolation-forest",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
+    },
+    {
+      "id": "module:ml/evaluation/isotonic-calibration",
+      "type": "module",
+      "title": "Isotonic Calibration",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "isotonic-calibration",
+      "href": "/track/ml/evaluation#isotonic-calibration",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:dsa/binary-tree/iterative-traversal-of-binary-trees",
       "type": "module",
       "title": "Iterative Traversal of Binary Trees",
@@ -3170,6 +4082,30 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:ml/llm/judge-agreement-matrix",
+      "type": "module",
+      "title": "Judge Agreement Matrix",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "judge-agreement-matrix",
+      "href": "/track/ml/llm#judge-agreement-matrix",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/judge-calibration",
+      "type": "module",
+      "title": "Judge Calibration",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "judge-calibration",
+      "href": "/track/ml/llm#judge-calibration",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/models/k-means",
       "type": "module",
       "title": "K-Means",
@@ -3190,6 +4126,18 @@
       "topic": "models",
       "slug": "knn",
       "href": "/track/ml/models#knn",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
+    },
+    {
+      "id": "module:ml/models/kernel-pca",
+      "type": "module",
+      "title": "Kernel PCA",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "kernel-pca",
+      "href": "/track/ml/models#kernel-pca",
       "trackName": "Machine Learning",
       "topicName": "Models"
     },
@@ -3242,6 +4190,18 @@
       "topicName": "Deep Learning"
     },
     {
+      "id": "module:ml/llm/kv-cache",
+      "type": "module",
+      "title": "KV Cache Size",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "kv-cache",
+      "href": "/track/ml/llm#kv-cache",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/deep-learning/l1-regularization",
       "type": "module",
       "title": "L1 Regularization",
@@ -3290,6 +4250,18 @@
       "topicName": "Computer Vision"
     },
     {
+      "id": "module:ml/evaluation/lift-at-k",
+      "type": "module",
+      "title": "Lift At K",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "lift-at-k",
+      "href": "/track/ml/evaluation#lift-at-k",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/representation/autoencoder",
       "type": "module",
       "title": "Linear Autoencoder",
@@ -3300,6 +4272,18 @@
       "href": "/track/ml/representation#autoencoder",
       "trackName": "Machine Learning",
       "topicName": "Representation"
+    },
+    {
+      "id": "doc:ml/models/linear",
+      "type": "doc",
+      "title": "Linear Models",
+      "summary": "Linear models are the baseline family for prediction, calibration, and interpretation.",
+      "track": "ml",
+      "topic": "models",
+      "slug": "linear",
+      "href": "/track/ml/models#linear",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
     },
     {
       "id": "module:ml/models/linear-regression",
@@ -3350,6 +4334,54 @@
       "topicName": "Linked List"
     },
     {
+      "id": "module:ml/models/lle",
+      "type": "module",
+      "title": "LLE Reconstruction Weights",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "lle",
+      "href": "/track/ml/models#lle",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
+    },
+    {
+      "id": "doc:ml/llm/evaluation",
+      "type": "doc",
+      "title": "LLM Evaluation",
+      "summary": "LLM evaluation mixes language-model likelihood, task scoring, and model-judge style comparisons.",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "evaluation",
+      "href": "/track/ml/llm#evaluation",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "doc:ml/llm/inference-serving",
+      "type": "doc",
+      "title": "LLM Inference Serving",
+      "summary": "Serving quality depends on latency, memory, batching, and hardware efficiency more than on model architecture alone.",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "inference-serving",
+      "href": "/track/ml/llm#inference-serving",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/evaluation/log-loss",
+      "type": "module",
+      "title": "Log Loss",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "log-loss",
+      "href": "/track/ml/evaluation#log-loss",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/models/logistic-regression",
       "type": "module",
       "title": "Logistic Regression",
@@ -3386,6 +4418,30 @@
       "topicName": "Optimization"
     },
     {
+      "id": "doc:ml/README.md/README",
+      "type": "doc",
+      "title": "Machine Learning",
+      "summary": "This track should cover the full ML stack from math to deployment. The repo already has strong breadth under `modules/ml/`; the next improvement is making that coverage easier to s…",
+      "track": "ml",
+      "topic": "README.md",
+      "slug": "README",
+      "href": "/track/ml/README.md#README",
+      "trackName": "Machine Learning",
+      "topicName": "README.md"
+    },
+    {
+      "id": "module:ml/evaluation/macro-f1",
+      "type": "module",
+      "title": "Macro F1",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "macro-f1",
+      "href": "/track/ml/evaluation#macro-f1",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/evaluation/mae-vs-mse",
       "type": "module",
       "title": "MAE vs MSE",
@@ -3396,6 +4452,18 @@
       "href": "/track/ml/evaluation#mae-vs-mse",
       "trackName": "Machine Learning",
       "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/llm/majority-vote-margin",
+      "type": "module",
+      "title": "Majority Vote Margin",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "majority-vote-margin",
+      "href": "/track/ml/llm#majority-vote-margin",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
     },
     {
       "id": "module:ml/fundamentals/markov-chains",
@@ -3470,6 +4538,66 @@
       "topicName": "Deep Learning"
     },
     {
+      "id": "module:ml/evaluation/confidence-intervals",
+      "type": "module",
+      "title": "Mean Confidence Interval",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "confidence-intervals",
+      "href": "/track/ml/evaluation#confidence-intervals",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/data/mean-encoding-smoothing",
+      "type": "module",
+      "title": "Mean Encoding Smoothing",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "mean-encoding-smoothing",
+      "href": "/track/ml/data#mean-encoding-smoothing",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/imputation",
+      "type": "module",
+      "title": "Mean Imputation",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "imputation",
+      "href": "/track/ml/data#imputation",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/mean-overflow",
+      "type": "module",
+      "title": "Mean Overflow",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "mean-overflow",
+      "href": "/track/ml/data#mean-overflow",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/evaluation/mean-reciprocal-rank",
+      "type": "module",
+      "title": "Mean Reciprocal Rank",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "mean-reciprocal-rank",
+      "href": "/track/ml/evaluation#mean-reciprocal-rank",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/deep-learning/mse-loss",
       "type": "module",
       "title": "Mean Squared Error",
@@ -3494,6 +4622,30 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:ml/evaluation/micro-f1",
+      "type": "module",
+      "title": "Micro F1",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "micro-f1",
+      "href": "/track/ml/evaluation#micro-f1",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/data/missing-indicator",
+      "type": "module",
+      "title": "Missing-Value Indicators",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "missing-indicator",
+      "href": "/track/ml/data#missing-indicator",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/systems/mixed-precision",
       "type": "module",
       "title": "Mixed Precision Training",
@@ -3506,6 +4658,18 @@
       "topicName": "Systems"
     },
     {
+      "id": "doc:ml/roadmap/roadmap",
+      "type": "doc",
+      "title": "ML Coverage Roadmap",
+      "summary": "Goal: make the ML track feel complete against a broad problem-bank style curriculum without mirroring hundreds of narrow one-off problems. This roadmap is driven by the live Deep-M…",
+      "track": "ml",
+      "topic": "roadmap",
+      "slug": "roadmap",
+      "href": "/track/ml/roadmap#roadmap",
+      "trackName": "Machine Learning",
+      "topicName": "Roadmap"
+    },
+    {
       "id": "doc:ml/mlops/mlops",
       "type": "doc",
       "title": "MLOps and Production ML",
@@ -3516,6 +4680,18 @@
       "href": "/track/ml/mlops#mlops",
       "trackName": "Machine Learning",
       "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/llm/mmlu-evaluation",
+      "type": "module",
+      "title": "MMLU-Style Evaluation",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "mmlu-evaluation",
+      "href": "/track/ml/llm#mmlu-evaluation",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
     },
     {
       "id": "doc:ml/models/models",
@@ -3552,6 +4728,18 @@
       "href": "/track/dsa/monotonic-stack#monotonic-stack",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Monotonic Stack"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/monte-carlo-tree-search",
+      "type": "module",
+      "title": "Monte Carlo Tree Search UCT Score",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "monte-carlo-tree-search",
+      "href": "/track/ml/reinforcement-learning#monte-carlo-tree-search",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
     },
     {
       "id": "module:ml/llm/multi-head-attention",
@@ -3600,6 +4788,42 @@
       "href": "/track/ml/fundamentals#mutual-information",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/n-step-return",
+      "type": "module",
+      "title": "n-Step Return",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "n-step-return",
+      "href": "/track/ml/reinforcement-learning#n-step-return",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/n-step-td-prediction",
+      "type": "module",
+      "title": "n-Step TD Target",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "n-step-td-prediction",
+      "href": "/track/ml/reinforcement-learning#n-step-td-prediction",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/evaluation/ndcg",
+      "type": "module",
+      "title": "NDCG",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "ndcg",
+      "href": "/track/ml/evaluation#ndcg",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/optimization/nesterov",
@@ -3662,6 +4886,54 @@
       "topicName": "Computer Vision"
     },
     {
+      "id": "module:ml/reinforcement-learning/nonterminal-fraction",
+      "type": "module",
+      "title": "Nonterminal Fraction",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "nonterminal-fraction",
+      "href": "/track/ml/reinforcement-learning#nonterminal-fraction",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/llm/exact-match",
+      "type": "module",
+      "title": "Normalized Exact Match",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "exact-match",
+      "href": "/track/ml/llm#exact-match",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/off-policy-correction",
+      "type": "module",
+      "title": "Off-Policy Correction",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "off-policy-correction",
+      "href": "/track/ml/reinforcement-learning#off-policy-correction",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/off-policy-evaluation",
+      "type": "module",
+      "title": "Off-Policy Evaluation",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "off-policy-evaluation",
+      "href": "/track/ml/reinforcement-learning#off-policy-evaluation",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
       "id": "module:ml/mlops/offline-online-inference",
       "type": "module",
       "title": "Offline vs Online Inference",
@@ -3670,6 +4942,30 @@
       "topic": "mlops",
       "slug": "offline-online-inference",
       "href": "/track/ml/mlops#offline-online-inference",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/optimization/one-cycle-schedule",
+      "type": "module",
+      "title": "One-Cycle Schedule",
+      "summary": "> Track: `ml` | Topic: `optimization`",
+      "track": "ml",
+      "topic": "optimization",
+      "slug": "one-cycle-schedule",
+      "href": "/track/ml/optimization#one-cycle-schedule",
+      "trackName": "Machine Learning",
+      "topicName": "Optimization"
+    },
+    {
+      "id": "module:ml/mlops/online-shadow-mode",
+      "type": "module",
+      "title": "Online Shadow Mode",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "online-shadow-mode",
+      "href": "/track/ml/mlops#online-shadow-mode",
       "trackName": "Machine Learning",
       "topicName": "MLOps"
     },
@@ -3710,6 +5006,138 @@
       "topicName": "Systems"
     },
     {
+      "id": "module:ml/data/overflow-count",
+      "type": "module",
+      "title": "Overflow Count",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "overflow-count",
+      "href": "/track/ml/data#overflow-count",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/overflow-peak",
+      "type": "module",
+      "title": "Overflow Peak",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "overflow-peak",
+      "href": "/track/ml/data#overflow-peak",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/overflow-presence-rate",
+      "type": "module",
+      "title": "Overflow Presence Rate",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "overflow-presence-rate",
+      "href": "/track/ml/data#overflow-presence-rate",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/overflow-quantile",
+      "type": "module",
+      "title": "Overflow Quantile",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "overflow-quantile",
+      "href": "/track/ml/data#overflow-quantile",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/overflow-spread",
+      "type": "module",
+      "title": "Overflow Spread",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "overflow-spread",
+      "href": "/track/ml/data#overflow-spread",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/overflow-tail",
+      "type": "module",
+      "title": "Overflow Tail",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "overflow-tail",
+      "href": "/track/ml/data#overflow-tail",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/mlops/overload-duration-share",
+      "type": "module",
+      "title": "Overload Duration Share",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "overload-duration-share",
+      "href": "/track/ml/mlops#overload-duration-share",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/mlops/overload-margin",
+      "type": "module",
+      "title": "Overload Margin",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "overload-margin",
+      "href": "/track/ml/mlops#overload-margin",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/llm/judge-pairwise",
+      "type": "module",
+      "title": "Pairwise Judge Rates",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "judge-pairwise",
+      "href": "/track/ml/llm#judge-pairwise",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/representation/pairwise-ranking-loss",
+      "type": "module",
+      "title": "Pairwise Ranking Loss",
+      "summary": "> Track: `ml` | Topic: `representation`",
+      "track": "ml",
+      "topic": "representation",
+      "slug": "pairwise-ranking-loss",
+      "href": "/track/ml/representation#pairwise-ranking-loss",
+      "trackName": "Machine Learning",
+      "topicName": "Representation"
+    },
+    {
+      "id": "module:ml/llm/pass-at-k",
+      "type": "module",
+      "title": "Pass@k",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "pass-at-k",
+      "href": "/track/ml/llm#pass-at-k",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/fundamentals/pca",
       "type": "module",
       "title": "PCA",
@@ -3720,6 +5148,42 @@
       "href": "/track/ml/fundamentals#pca",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "module:ml/evaluation/permutation-test",
+      "type": "module",
+      "title": "Permutation Test for Mean Difference",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "permutation-test",
+      "href": "/track/ml/evaluation#permutation-test",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/llm/perplexity",
+      "type": "module",
+      "title": "Perplexity",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "perplexity",
+      "href": "/track/ml/llm#perplexity",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/policy-entropy",
+      "type": "module",
+      "title": "Policy Entropy",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "policy-entropy",
+      "href": "/track/ml/reinforcement-learning#policy-entropy",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
     },
     {
       "id": "module:ml/data/polynomial-features",
@@ -3758,6 +5222,18 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:ml/evaluation/positive-rate",
+      "type": "module",
+      "title": "Positive Rate",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "positive-rate",
+      "href": "/track/ml/evaluation#positive-rate",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/reinforcement-learning/ppo",
       "type": "module",
       "title": "PPO",
@@ -3768,6 +5244,18 @@
       "href": "/track/ml/reinforcement-learning#ppo",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/evaluation/pr-auc",
+      "type": "module",
+      "title": "PR-AUC",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "pr-auc",
+      "href": "/track/ml/evaluation#pr-auc",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/evaluation/precision-recall",
@@ -3806,6 +5294,30 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:ml/llm/prefix-cache",
+      "type": "module",
+      "title": "Prefix Cache Hit Length",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "prefix-cache",
+      "href": "/track/ml/llm#prefix-cache",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/systems/prefix-cache-metrics",
+      "type": "module",
+      "title": "Prefix Cache Savings",
+      "summary": "> Track: `ml` | Topic: `systems`",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "prefix-cache-metrics",
+      "href": "/track/ml/systems#prefix-cache-metrics",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
+    },
+    {
       "id": "module:ml/llm/pretraining",
       "type": "module",
       "title": "Pretraining (Next-Token Loss)",
@@ -3816,6 +5328,66 @@
       "href": "/track/ml/llm#pretraining",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/evaluation/prevalence-delta",
+      "type": "module",
+      "title": "Prevalence Delta",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "prevalence-delta",
+      "href": "/track/ml/evaluation#prevalence-delta",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/evaluation/prevalence-index",
+      "type": "module",
+      "title": "Prevalence Index",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "prevalence-index",
+      "href": "/track/ml/evaluation#prevalence-index",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/evaluation/prevalence-odds",
+      "type": "module",
+      "title": "Prevalence Odds",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "prevalence-odds",
+      "href": "/track/ml/evaluation#prevalence-odds",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/evaluation/prevalence-ratio",
+      "type": "module",
+      "title": "Prevalence Ratio",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "prevalence-ratio",
+      "href": "/track/ml/evaluation#prevalence-ratio",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "doc:ml/fundamentals/prob",
+      "type": "doc",
+      "title": "Probability for ML",
+      "summary": "Probability gives models a language for uncertainty, sampling, and latent variables.",
+      "track": "ml",
+      "topic": "fundamentals",
+      "slug": "prob",
+      "href": "/track/ml/fundamentals#prob",
+      "trackName": "Machine Learning",
+      "topicName": "Fundamentals"
     },
     {
       "id": "module:ml/llm/ptx-anchoring",
@@ -3842,6 +5414,18 @@
       "topicName": "Reinforcement Learning"
     },
     {
+      "id": "module:ml/reinforcement-learning/q-target",
+      "type": "module",
+      "title": "Q-Learning Target",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "q-target",
+      "href": "/track/ml/reinforcement-learning#q-target",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
       "id": "module:ml/llm/qlora",
       "type": "module",
       "title": "QLoRA",
@@ -3854,6 +5438,42 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:ml/mlops/queue-age-percentiles",
+      "type": "module",
+      "title": "Queue Age Percentiles",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "queue-age-percentiles",
+      "href": "/track/ml/mlops#queue-age-percentiles",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/mlops/queue-backlog-ratio",
+      "type": "module",
+      "title": "Queue Backlog Ratio",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "queue-backlog-ratio",
+      "href": "/track/ml/mlops#queue-backlog-ratio",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/mlops/queue-delay",
+      "type": "module",
+      "title": "Queue Delay",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "queue-delay",
+      "href": "/track/ml/mlops#queue-delay",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
       "id": "module:dsa/greedy-algorithm/queue-reconstruction-by-height-vector-explanation",
       "type": "module",
       "title": "Queue Reconstruction by Height (Vector Explanation)",
@@ -3864,6 +5484,18 @@
       "href": "/track/dsa/greedy-algorithm#queue-reconstruction-by-height-vector-explanation",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Greedy Algorithm"
+    },
+    {
+      "id": "module:ml/mlops/queue-utilization",
+      "type": "module",
+      "title": "Queue Utilization",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "queue-utilization",
+      "href": "/track/ml/mlops#queue-utilization",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
     },
     {
       "id": "module:ml/evaluation/r2-score",
@@ -3888,6 +5520,54 @@
       "href": "/track/ml/models#random-forest",
       "trackName": "Machine Learning",
       "topicName": "Models"
+    },
+    {
+      "id": "module:ml/data/rare-category-grouping",
+      "type": "module",
+      "title": "Rare Category Grouping",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "rare-category-grouping",
+      "href": "/track/ml/data#rare-category-grouping",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/data/rare-token-pruning",
+      "type": "module",
+      "title": "Rare Token Pruning",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "rare-token-pruning",
+      "href": "/track/ml/data#rare-token-pruning",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/llm/reciprocal-rank-fusion",
+      "type": "module",
+      "title": "Reciprocal Rank Fusion",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "reciprocal-rank-fusion",
+      "href": "/track/ml/llm#reciprocal-rank-fusion",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/reciprocal-rank-metric",
+      "type": "module",
+      "title": "Reciprocal Rank Metric",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "reciprocal-rank-metric",
+      "href": "/track/ml/llm#reciprocal-rank-metric",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
     },
     {
       "id": "module:dsa/binary-tree/recursive-traversal-of-binary-trees",
@@ -3962,6 +5642,54 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:ml/mlops/request-sla",
+      "type": "module",
+      "title": "Request SLA Compliance",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "request-sla",
+      "href": "/track/ml/mlops#request-sla",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/llm/rerank-disagreement-rate",
+      "type": "module",
+      "title": "Rerank Disagreement Rate",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "rerank-disagreement-rate",
+      "href": "/track/ml/llm#rerank-disagreement-rate",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/rerank-gain",
+      "type": "module",
+      "title": "Rerank Gain",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "rerank-gain",
+      "href": "/track/ml/llm#rerank-gain",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/reranker-metrics",
+      "type": "module",
+      "title": "Reranker Metrics",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "reranker-metrics",
+      "href": "/track/ml/llm#reranker-metrics",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/computer-vision/resnet",
       "type": "module",
       "title": "ResNet",
@@ -3972,6 +5700,90 @@
       "href": "/track/ml/computer-vision#resnet",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:ml/llm/retrieval-f1-at-k",
+      "type": "module",
+      "title": "Retrieval F1@k",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "retrieval-f1-at-k",
+      "href": "/track/ml/llm#retrieval-f1-at-k",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/retrieval-hit-rate",
+      "type": "module",
+      "title": "Retrieval Hit Rate",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "retrieval-hit-rate",
+      "href": "/track/ml/llm#retrieval-hit-rate",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/retrieval-precision-at-k",
+      "type": "module",
+      "title": "Retrieval Precision@k",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "retrieval-precision-at-k",
+      "href": "/track/ml/llm#retrieval-precision-at-k",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/retrieval-recall-at-k",
+      "type": "module",
+      "title": "Retrieval Recall@k",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "retrieval-recall-at-k",
+      "href": "/track/ml/llm#retrieval-recall-at-k",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/mlops/retry-rate",
+      "type": "module",
+      "title": "Retry Rate",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "retry-rate",
+      "href": "/track/ml/mlops#retry-rate",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/reward-clipping",
+      "type": "module",
+      "title": "Reward Clipping",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "reward-clipping",
+      "href": "/track/ml/reinforcement-learning#reward-clipping",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/reward-scale",
+      "type": "module",
+      "title": "Reward Scale",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "reward-scale",
+      "href": "/track/ml/reinforcement-learning#reward-scale",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
     },
     {
       "id": "module:ml/reinforcement-learning/return-discount",
@@ -3996,6 +5808,18 @@
       "href": "/track/ml/computer-vision#rgb-to-grayscale",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:ml/evaluation/risk-ratio",
+      "type": "module",
+      "title": "Risk Ratio",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "risk-ratio",
+      "href": "/track/ml/evaluation#risk-ratio",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/llm/rlhf",
@@ -4034,6 +5858,18 @@
       "topicName": "Optimization"
     },
     {
+      "id": "module:ml/data/robust-scaling",
+      "type": "module",
+      "title": "Robust Scaling",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "robust-scaling",
+      "href": "/track/ml/data#robust-scaling",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/evaluation/roc-auc",
       "type": "module",
       "title": "ROC-AUC",
@@ -4044,6 +5880,18 @@
       "href": "/track/ml/evaluation#roc-auc",
       "trackName": "Machine Learning",
       "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/systems/roofline-analysis",
+      "type": "module",
+      "title": "Roofline Analysis",
+      "summary": "> Track: `ml` | Topic: `systems`",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "roofline-analysis",
+      "href": "/track/ml/systems#roofline-analysis",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
     },
     {
       "id": "module:ml/deep-learning/rmse-loss",
@@ -4058,6 +5906,18 @@
       "topicName": "Deep Learning"
     },
     {
+      "id": "module:ml/llm/runner-up-vote-share",
+      "type": "module",
+      "title": "Runner-Up Vote Share",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "runner-up-vote-share",
+      "href": "/track/ml/llm#runner-up-vote-share",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/reinforcement-learning/sarsa",
       "type": "module",
       "title": "SARSA",
@@ -4070,6 +5930,18 @@
       "topicName": "Reinforcement Learning"
     },
     {
+      "id": "module:ml/mlops/saturation-rate",
+      "type": "module",
+      "title": "Saturation Rate",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "saturation-rate",
+      "href": "/track/ml/mlops#saturation-rate",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
       "id": "module:ml/llm/self-attention",
       "type": "module",
       "title": "Self-Attention",
@@ -4080,6 +5952,30 @@
       "href": "/track/ml/llm#self-attention",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/self-consistency-voting",
+      "type": "module",
+      "title": "Self-Consistency Voting",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "self-consistency-voting",
+      "href": "/track/ml/llm#self-consistency-voting",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/mlops/sequential-testing",
+      "type": "module",
+      "title": "Sequential Testing",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "sequential-testing",
+      "href": "/track/ml/mlops#sequential-testing",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
     },
     {
       "id": "module:ml/optimization/sgd",
@@ -4142,6 +6038,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:ml/data/smote",
+      "type": "module",
+      "title": "SMOTE Interpolation",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "smote",
+      "href": "/track/ml/data#smote",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/computer-vision/sobel-edge-detection",
       "type": "module",
       "title": "Sobel Edge Detection",
@@ -4152,6 +6060,18 @@
       "href": "/track/ml/computer-vision#sobel-edge-detection",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/soft-update-gap",
+      "type": "module",
+      "title": "Soft Update Gap",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "soft-update-gap",
+      "href": "/track/ml/reinforcement-learning#soft-update-gap",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
     },
     {
       "id": "module:ml/models/softmax-regression",
@@ -4202,6 +6122,18 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:ml/llm/speculative-decoding",
+      "type": "module",
+      "title": "Speculative Decoding Verification",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "speculative-decoding",
+      "href": "/track/ml/llm#speculative-decoding",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "doc:dsa/stack-and-queue/stack-and-queue",
       "type": "doc",
       "title": "Stack and Queue",
@@ -4224,6 +6156,18 @@
       "href": "/track/dsa/stack-and-queue#stack-and-queue-summary",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Stack And Queue"
+    },
+    {
+      "id": "doc:ml/fundamentals/stats",
+      "type": "doc",
+      "title": "Statistics for ML",
+      "summary": "Statistics turns noisy observations into estimates, intervals, and decisions.",
+      "track": "ml",
+      "topic": "fundamentals",
+      "slug": "stats",
+      "href": "/track/ml/fundamentals#stats",
+      "trackName": "Machine Learning",
+      "topicName": "Fundamentals"
     },
     {
       "id": "module:ml/optimization/lr-step-decay",
@@ -4322,6 +6266,174 @@
       "topicName": "Models"
     },
     {
+      "id": "module:ml/models/tsne-gradient",
+      "type": "module",
+      "title": "t-SNE Point Gradient",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "tsne-gradient",
+      "href": "/track/ml/models#tsne-gradient",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
+    },
+    {
+      "id": "module:ml/mlops/tail-latency-budget",
+      "type": "module",
+      "title": "Tail Latency Budget",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "tail-latency-budget",
+      "href": "/track/ml/mlops#tail-latency-budget",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/data/target-encoding",
+      "type": "module",
+      "title": "Target Encoding",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "target-encoding",
+      "href": "/track/ml/data#target-encoding",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/target-network-update",
+      "type": "module",
+      "title": "Target Network Update",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "target-network-update",
+      "href": "/track/ml/reinforcement-learning#target-network-update",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/td-error",
+      "type": "module",
+      "title": "TD Error",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "td-error",
+      "href": "/track/ml/reinforcement-learning#td-error",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/td-lambda",
+      "type": "module",
+      "title": "TD(lambda) Returns",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "td-lambda",
+      "href": "/track/ml/reinforcement-learning#td-lambda",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/llm/temperature-sampling",
+      "type": "module",
+      "title": "Temperature Sampling Probabilities",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "temperature-sampling",
+      "href": "/track/ml/llm#temperature-sampling",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/systems/tensor-parallelism",
+      "type": "module",
+      "title": "Tensor Parallel Linear All-Reduce",
+      "summary": "> Track: `ml` | Topic: `systems`",
+      "track": "ml",
+      "topic": "systems",
+      "slug": "tensor-parallelism",
+      "href": "/track/ml/systems#tensor-parallelism",
+      "trackName": "Machine Learning",
+      "topicName": "Systems"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/terminal-indicator",
+      "type": "module",
+      "title": "Terminal Indicator",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "terminal-indicator",
+      "href": "/track/ml/reinforcement-learning#terminal-indicator",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/terminal-mask",
+      "type": "module",
+      "title": "Terminal Mask",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "terminal-mask",
+      "href": "/track/ml/reinforcement-learning#terminal-mask",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/terminal-share",
+      "type": "module",
+      "title": "Terminal Share",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "terminal-share",
+      "href": "/track/ml/reinforcement-learning#terminal-share",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/data/tf-idf",
+      "type": "module",
+      "title": "TF-IDF Weights",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "tf-idf",
+      "href": "/track/ml/data#tf-idf",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/mlops/throughput-per-dollar",
+      "type": "module",
+      "title": "Throughput Per Dollar",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "throughput-per-dollar",
+      "href": "/track/ml/mlops#throughput-per-dollar",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
+      "id": "module:ml/data/token-budgeting",
+      "type": "module",
+      "title": "Token Budgeting",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "token-budgeting",
+      "href": "/track/ml/data#token-budgeting",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/llm/tokenization",
       "type": "module",
       "title": "Tokenization",
@@ -4330,6 +6442,66 @@
       "topic": "llm",
       "slug": "tokenization",
       "href": "/track/ml/llm#tokenization",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/tokenizer-comparison",
+      "type": "module",
+      "title": "Tokenizer Count Comparison",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "tokenizer-comparison",
+      "href": "/track/ml/llm#tokenizer-comparison",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/top-vote-share",
+      "type": "module",
+      "title": "Top Vote Share",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "top-vote-share",
+      "href": "/track/ml/llm#top-vote-share",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/evaluation/top-k-accuracy",
+      "type": "module",
+      "title": "Top-k Accuracy",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "top-k-accuracy",
+      "href": "/track/ml/evaluation#top-k-accuracy",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/llm/top-k-sampling",
+      "type": "module",
+      "title": "Top-k Sampling Filter",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "top-k-sampling",
+      "href": "/track/ml/llm#top-k-sampling",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/top-p-sampling",
+      "type": "module",
+      "title": "Top-p Sampling Filter",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "top-p-sampling",
+      "href": "/track/ml/llm#top-p-sampling",
       "trackName": "Machine Learning",
       "topicName": "LLM"
     },
@@ -4370,6 +6542,30 @@
       "topicName": "LLM"
     },
     {
+      "id": "doc:ml/models/trees",
+      "type": "doc",
+      "title": "Trees and Ensembles",
+      "summary": "Tree-based models dominate many tabular problems because they capture nonlinear structure with limited preprocessing.",
+      "track": "ml",
+      "topic": "models",
+      "slug": "trees",
+      "href": "/track/ml/models#trees",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
+    },
+    {
+      "id": "module:ml/data/truncation-rate",
+      "type": "module",
+      "title": "Truncation Rate",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "truncation-rate",
+      "href": "/track/ml/data#truncation-rate",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
       "id": "module:ml/fundamentals/two-sample-t-test",
       "type": "module",
       "title": "Two-Sample t-test",
@@ -4406,6 +6602,18 @@
       "topicName": "Binary Tree"
     },
     {
+      "id": "module:ml/mlops/utilization-gap",
+      "type": "module",
+      "title": "Utilization Gap",
+      "summary": "> Track: `ml` | Topic: `mlops`",
+      "track": "ml",
+      "topic": "mlops",
+      "slug": "utilization-gap",
+      "href": "/track/ml/mlops#utilization-gap",
+      "trackName": "Machine Learning",
+      "topicName": "MLOps"
+    },
+    {
       "id": "module:ml/generative/vae",
       "type": "module",
       "title": "VAE",
@@ -4428,6 +6636,18 @@
       "href": "/track/ml/generative#vae-posterior-collapse",
       "trackName": "Machine Learning",
       "topicName": "Generative"
+    },
+    {
+      "id": "module:ml/reinforcement-learning/value-normalization",
+      "type": "module",
+      "title": "Value Normalization",
+      "summary": "> Track: `ml` | Topic: `reinforcement-learning`",
+      "track": "ml",
+      "topic": "reinforcement-learning",
+      "slug": "value-normalization",
+      "href": "/track/ml/reinforcement-learning#value-normalization",
+      "trackName": "Machine Learning",
+      "topicName": "Reinforcement Learning"
     },
     {
       "id": "module:ml/deep-learning/vanishing-exploding-gradients",
@@ -4466,6 +6686,30 @@
       "topicName": "Computer Vision"
     },
     {
+      "id": "module:ml/llm/vote-concentration",
+      "type": "module",
+      "title": "Vote Concentration",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "vote-concentration",
+      "href": "/track/ml/llm#vote-concentration",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/vote-entropy",
+      "type": "module",
+      "title": "Vote Entropy",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "vote-entropy",
+      "href": "/track/ml/llm#vote-entropy",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/optimization/lr-warmup",
       "type": "module",
       "title": "Warmup",
@@ -4474,6 +6718,18 @@
       "topic": "optimization",
       "slug": "lr-warmup",
       "href": "/track/ml/optimization#lr-warmup",
+      "trackName": "Machine Learning",
+      "topicName": "Optimization"
+    },
+    {
+      "id": "module:ml/optimization/warmup-cosine-decay",
+      "type": "module",
+      "title": "Warmup Plus Cosine Decay",
+      "summary": "> Track: `ml` | Topic: `optimization`",
+      "track": "ml",
+      "topic": "optimization",
+      "slug": "warmup-cosine-decay",
+      "href": "/track/ml/optimization#warmup-cosine-decay",
       "trackName": "Machine Learning",
       "topicName": "Optimization"
     },
@@ -4490,6 +6746,30 @@
       "topicName": "Deep Learning"
     },
     {
+      "id": "module:ml/data/weight-of-evidence",
+      "type": "module",
+      "title": "Weight of Evidence",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "weight-of-evidence",
+      "href": "/track/ml/data#weight-of-evidence",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
+    },
+    {
+      "id": "module:ml/llm/retrieval-fusion",
+      "type": "module",
+      "title": "Weighted Retrieval Fusion",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "retrieval-fusion",
+      "href": "/track/ml/llm#retrieval-fusion",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "module:ml/deep-learning/batchnorm-transformers",
       "type": "module",
       "title": "Why BatchNorm is Bad for Transformers",
@@ -4502,6 +6782,18 @@
       "topicName": "Deep Learning"
     },
     {
+      "id": "module:ml/evaluation/wilson-interval",
+      "type": "module",
+      "title": "Wilson Interval",
+      "summary": "> Track: `ml` | Topic: `evaluation`",
+      "track": "ml",
+      "topic": "evaluation",
+      "slug": "wilson-interval",
+      "href": "/track/ml/evaluation#wilson-interval",
+      "trackName": "Machine Learning",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/deep-learning/xavier-initialization",
       "type": "module",
       "title": "Xavier/Glorot Initialization",
@@ -4512,6 +6804,30 @@
       "href": "/track/ml/deep-learning#xavier-initialization",
       "trackName": "Machine Learning",
       "topicName": "Deep Learning"
+    },
+    {
+      "id": "module:ml/models/xgboost-objective",
+      "type": "module",
+      "title": "XGBoost Split Gain",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "xgboost-objective",
+      "href": "/track/ml/models#xgboost-objective",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
+    },
+    {
+      "id": "module:ml/data/outlier-detection",
+      "type": "module",
+      "title": "Z-Score Outlier Screening",
+      "summary": "> Track: `ml` | Topic: `data`",
+      "track": "ml",
+      "topic": "data",
+      "slug": "outlier-detection",
+      "href": "/track/ml/data#outlier-detection",
+      "trackName": "Machine Learning",
+      "topicName": "Data"
     },
     {
       "id": "module:ml/systems/zero-gradients",

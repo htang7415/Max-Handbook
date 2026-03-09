@@ -173,6 +173,41 @@ Modules added:
 - `modules/ml/data/overflow-count`
 - `modules/ml/llm/vote-entropy`
 - `modules/ml/reinforcement-learning/reward-scale`
+- `modules/ml/mlops/queue-backlog-ratio`
+- `modules/ml/evaluation/base-rate-gap`
+- `modules/ml/data/budget-overrun-share`
+- `modules/ml/llm/vote-concentration`
+- `modules/ml/reinforcement-learning/terminal-mask`
+- `modules/ml/mlops/depth-spike-rate`
+- `modules/ml/evaluation/prevalence-ratio`
+- `modules/ml/data/mean-overflow`
+- `modules/ml/llm/top-vote-share`
+- `modules/ml/reinforcement-learning/nonterminal-fraction`
+- `modules/ml/mlops/capacity-breach-rate`
+- `modules/ml/evaluation/prevalence-delta`
+- `modules/ml/data/overflow-presence-rate`
+- `modules/ml/llm/runner-up-vote-share`
+- `modules/ml/reinforcement-learning/continuation-mask`
+- `modules/ml/mlops/utilization-gap`
+- `modules/ml/evaluation/risk-ratio`
+- `modules/ml/data/overflow-tail`
+- `modules/ml/llm/answer-uniqueness-rate`
+- `modules/ml/reinforcement-learning/episode-end-rate`
+- `modules/ml/mlops/overload-margin`
+- `modules/ml/evaluation/prevalence-index`
+- `modules/ml/data/overflow-quantile`
+- `modules/ml/llm/answer-repeat-rate`
+- `modules/ml/reinforcement-learning/terminal-share`
+- `modules/ml/mlops/headroom-gap`
+- `modules/ml/evaluation/base-rate-ratio`
+- `modules/ml/data/overflow-peak`
+- `modules/ml/llm/answer-mode-count`
+- `modules/ml/reinforcement-learning/end-of-episode-mask`
+- `modules/ml/mlops/overload-duration-share`
+- `modules/ml/evaluation/prevalence-odds`
+- `modules/ml/data/overflow-spread`
+- `modules/ml/llm/answer-frequency-table`
+- `modules/ml/reinforcement-learning/terminal-indicator`
 
 ## Top 10 Docs to Write Next
 
@@ -192,17 +227,17 @@ Modules added:
 `modules/ml/generative/diffusion-guidance-tradeoffs` already covers the classifier-free guidance idea, so it is no longer tracked as a separate module.
 `modules/ml/mlops/ab-testing`, `modules/ml/mlops/canary-deployment`, `modules/ml/mlops/feature-drift-psi`, and `modules/ml/representation/contrastive-loss` already cover the basic title areas, so exact-title follow-ups are lower priority than uncovered concepts.
 
-- `modules/ml/mlops/queue-backlog-ratio`: queue age relative to the service target.
-- `modules/ml/evaluation/base-rate-gap`: difference between two binary prevalence rates.
-- `modules/ml/data/budget-overrun-share`: overflow divided by total original length.
-- `modules/ml/llm/vote-concentration`: concentration of normalized answer votes.
-- `modules/ml/reinforcement-learning/terminal-mask`: binary mask for terminal transitions.
-- `modules/ml/mlops/depth-spike-rate`: fraction of observations above a backlog threshold.
+- `modules/ml/mlops/pressure-score`: simple combined overload severity proxy.
+- `modules/ml/evaluation/log-prevalence-ratio`: log transform of multiplicative prevalence comparison.
+- `modules/ml/data/overflow-density`: overflow normalized by batch size and cap.
+- `modules/ml/llm/vote-frequency-gap`: count gap between the top two normalized answers.
+- `modules/ml/reinforcement-learning/not-done-mask`: scalar or vector mask for continuing transitions.
+- `modules/ml/mlops/breach-severity-index`: combined breach incidence and margin score.
 
 ## Second Wave After That
 
-- `modules/ml/evaluation/prevalence-ratio`
-- `modules/ml/data/mean-overflow`
-- `modules/ml/llm/top-vote-share`
-- `modules/ml/reinforcement-learning/nonterminal-fraction`
-- `modules/ml/mlops/capacity-breach-rate`
+- `modules/ml/evaluation/log-odds`
+- `modules/ml/data/overflow-gini`
+- `modules/ml/llm/vote-imbalance`
+- `modules/ml/reinforcement-learning/done-fraction`
+- `modules/ml/mlops/surge-pressure`

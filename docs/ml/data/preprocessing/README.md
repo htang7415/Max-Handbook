@@ -14,6 +14,13 @@ Preprocessing decides whether downstream models learn signal or shortcuts.
 - Token budgeting under fixed prompt or feature limits (`modules/ml/data/token-budgeting`)
 - Truncation rate under hard token limits (`modules/ml/data/truncation-rate`)
 - Overflow count beyond hard token limits (`modules/ml/data/overflow-count`)
+- Budget overrun share beyond hard token limits (`modules/ml/data/budget-overrun-share`)
+- Mean overflow beyond hard token limits (`modules/ml/data/mean-overflow`)
+- Overflow presence rate beyond hard token limits (`modules/ml/data/overflow-presence-rate`)
+- Overflow tail under hard token limits (`modules/ml/data/overflow-tail`)
+- Overflow quantile under hard token limits (`modules/ml/data/overflow-quantile`)
+- Overflow peak under hard token limits (`modules/ml/data/overflow-peak`)
+- Overflow spread under hard token limits (`modules/ml/data/overflow-spread`)
 - Hash trick for fixed-width sparse features (`modules/ml/data/hash-trick`)
 - Chi-square feature scoring for sparse features (`modules/ml/data/chi-square-feature-selection`)
 - Frequency encoding for categorical counts (`modules/ml/data/frequency-encoding`)
@@ -43,6 +50,13 @@ Preprocessing decides whether downstream models learn signal or shortcuts.
 - Token budgeting when prompts or sparse features have hard length limits
 - Truncation rate as a diagnostic for whether a length cap is too aggressive
 - Overflow count as a severity metric for how much content a hard cap removes
+- Budget overrun share as a normalized severity metric across datasets
+- Mean overflow as an average per-example severity metric
+- Overflow presence rate as an incidence metric for how often clipping happens
+- Overflow tail as a percentile summary of the most severe truncation cases
+- Overflow quantiles when teams need a configurable severity percentile
+- Overflow peak for the single worst truncation case in a batch
+- Overflow spread for how widely truncation severity varies across examples
 - Vocabulary-free hashing for large sparse feature spaces
 - Chi-square filtering for sparse lexical or one-hot features
 - Frequency encoding as a label-free categorical baseline

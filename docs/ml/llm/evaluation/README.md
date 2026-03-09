@@ -35,6 +35,13 @@ LLM evaluation mixes language-model likelihood, task scoring, and model-judge st
 - Answer stability across repeated decoding runs
 - Majority-vote margin between the top two normalized answers
 - Vote entropy over normalized answer counts
+- Vote concentration of the most common normalized answer
+- Top vote share for the most common normalized answer
+- Runner-up vote share for the second-most common normalized answer
+- Answer uniqueness rate across normalized sampled answers
+- Answer repeat rate as the complement of uniqueness
+- Answer mode count for the largest normalized vote block
+- Answer frequency tables for direct vote inspection
 - Self-consistency voting across multiple sampled traces
 - Candidate diversity across multiple sampled candidates
 - Judge confidence aligned with correctness
