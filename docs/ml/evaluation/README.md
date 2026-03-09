@@ -6,13 +6,19 @@ Each bullet maps to a module under `modules/ml/evaluation/` unless noted.
 ## Classification
 
 - Accuracy (when it fails) (`modules/ml/evaluation/accuracy`)
+- Agreement rate (`modules/ml/evaluation/agreement-rate`)
+- Positive rate (`modules/ml/evaluation/positive-rate`)
+- Cohen kappa (`modules/ml/evaluation/cohen-kappa`)
 - Top-k accuracy (`modules/ml/evaluation/top-k-accuracy`)
 - Hamming loss (`modules/ml/evaluation/hamming-loss`)
 - Log loss (`modules/ml/evaluation/log-loss`)
 - Macro F1 (`modules/ml/evaluation/macro-f1`)
+- Balanced accuracy (`modules/ml/evaluation/balanced-accuracy`)
+- Micro F1 (`modules/ml/evaluation/micro-f1`)
 - Precision / Recall (`modules/ml/evaluation/precision-recall`)
 - F1 (`modules/ml/evaluation/f1-score`)
 - ROC-AUC (`modules/ml/evaluation/roc-auc`)
+- PR-AUC (`modules/ml/evaluation/pr-auc`)
 - Confusion matrix (`modules/ml/evaluation/confusion-matrix`)
 - Matthews correlation coefficient (`modules/ml/evaluation/matthews-correlation`)
 - Jaccard index (`modules/ml/evaluation/jaccard-index`)
@@ -52,6 +58,7 @@ Each bullet maps to a module under `modules/ml/evaluation/` unless noted.
 
 ## Ranking and Retrieval
 
+- Lift@k (`modules/ml/evaluation/lift-at-k`)
 - Mean reciprocal rank (`modules/ml/evaluation/mean-reciprocal-rank`)
 - NDCG (`modules/ml/evaluation/ndcg`)
 - Coverage error (`modules/ml/evaluation/coverage-error`)

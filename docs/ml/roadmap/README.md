@@ -138,6 +138,41 @@ Modules added:
 - `modules/ml/data/entity-embedding-intuition`
 - `modules/ml/llm/retrieval-hit-rate`
 - `modules/ml/reinforcement-learning/td-error`
+- `modules/ml/mlops/throughput-per-dollar`
+- `modules/ml/evaluation/balanced-accuracy`
+- `modules/ml/data/rare-token-pruning`
+- `modules/ml/llm/rerank-gain`
+- `modules/ml/reinforcement-learning/reward-clipping`
+- `modules/ml/mlops/batch-fill-rate`
+- `modules/ml/evaluation/micro-f1`
+- `modules/ml/data/feature-bucketing`
+- `modules/ml/llm/rerank-disagreement-rate`
+- `modules/ml/reinforcement-learning/q-target`
+- `modules/ml/mlops/admission-control`
+- `modules/ml/evaluation/cohen-kappa`
+- `modules/ml/data/frequency-capping`
+- `modules/ml/llm/candidate-diversity`
+- `modules/ml/reinforcement-learning/policy-entropy`
+- `modules/ml/mlops/queue-delay`
+- `modules/ml/evaluation/pr-auc`
+- `modules/ml/data/token-budgeting`
+- `modules/ml/llm/answer-stability`
+- `modules/ml/reinforcement-learning/soft-update-gap`
+- `modules/ml/mlops/retry-rate`
+- `modules/ml/evaluation/agreement-rate`
+- `modules/ml/data/feature-clipping`
+- `modules/ml/llm/judge-agreement-matrix`
+- `modules/ml/reinforcement-learning/entropy-bonus`
+- `modules/ml/mlops/queue-age-percentiles`
+- `modules/ml/evaluation/lift-at-k`
+- `modules/ml/data/truncation-rate`
+- `modules/ml/llm/majority-vote-margin`
+- `modules/ml/reinforcement-learning/bootstrap-target`
+- `modules/ml/mlops/saturation-rate`
+- `modules/ml/evaluation/positive-rate`
+- `modules/ml/data/overflow-count`
+- `modules/ml/llm/vote-entropy`
+- `modules/ml/reinforcement-learning/reward-scale`
 
 ## Top 10 Docs to Write Next
 
@@ -157,17 +192,17 @@ Modules added:
 `modules/ml/generative/diffusion-guidance-tradeoffs` already covers the classifier-free guidance idea, so it is no longer tracked as a separate module.
 `modules/ml/mlops/ab-testing`, `modules/ml/mlops/canary-deployment`, `modules/ml/mlops/feature-drift-psi`, and `modules/ml/representation/contrastive-loss` already cover the basic title areas, so exact-title follow-ups are lower priority than uncovered concepts.
 
-- `modules/ml/mlops/throughput-per-dollar`: simple serving efficiency primitive.
-- `modules/ml/evaluation/balanced-accuracy`: class-imbalance friendly classification metric.
-- `modules/ml/data/rare-token-pruning`: vocabulary cleanup primitive for sparse text.
-- `modules/ml/llm/rerank-gain`: quantify value added by reranking.
-- `modules/ml/reinforcement-learning/reward-clipping`: reward-scale stabilization primitive.
-- `modules/ml/mlops/batch-fill-rate`: serving batch-efficiency metric.
+- `modules/ml/mlops/queue-backlog-ratio`: queue age relative to the service target.
+- `modules/ml/evaluation/base-rate-gap`: difference between two binary prevalence rates.
+- `modules/ml/data/budget-overrun-share`: overflow divided by total original length.
+- `modules/ml/llm/vote-concentration`: concentration of normalized answer votes.
+- `modules/ml/reinforcement-learning/terminal-mask`: binary mask for terminal transitions.
+- `modules/ml/mlops/depth-spike-rate`: fraction of observations above a backlog threshold.
 
 ## Second Wave After That
 
-- `modules/ml/evaluation/micro-f1`
-- `modules/ml/data/feature-bucketing`
-- `modules/ml/llm/rerank-disagreement-rate`
-- `modules/ml/reinforcement-learning/q-target`
-- `modules/ml/mlops/admission-control`
+- `modules/ml/evaluation/prevalence-ratio`
+- `modules/ml/data/mean-overflow`
+- `modules/ml/llm/top-vote-share`
+- `modules/ml/reinforcement-learning/nonterminal-fraction`
+- `modules/ml/mlops/capacity-breach-rate`

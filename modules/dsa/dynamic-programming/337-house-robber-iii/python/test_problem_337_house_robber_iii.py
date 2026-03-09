@@ -16,11 +16,15 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_house_robber_iii_basic():
+def test_house_robber_iii_example():
     root = build_tree([3, 2, 3, None, 3, None, 1])
     assert Solution().rob(root) == 7
 
 
-def test_house_robber_iii_more():
+def test_house_robber_iii_edge_empty():
+    assert Solution().rob(None) == 0
+
+
+def test_house_robber_iii_tricky_skip_root():
     root = build_tree([3, 4, 5, 1, 3, None, 1])
     assert Solution().rob(root) == 9

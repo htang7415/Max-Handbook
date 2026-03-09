@@ -16,11 +16,15 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_binary_tree_cameras_basic():
+def test_binary_tree_cameras_example():
     root = build_tree([0, 0, None, 0, 0])
     assert Solution().minCameraCover(root) == 1
 
 
-def test_binary_tree_cameras_two():
+def test_binary_tree_cameras_edge_empty():
+    assert Solution().minCameraCover(None) == 0
+
+
+def test_binary_tree_cameras_tricky_chain():
     root = build_tree([0, 0, None, 0, None, 0, None, None, 0])
     assert Solution().minCameraCover(root) == 2
