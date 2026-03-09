@@ -1,15 +1,17 @@
-# Multi-Head Attention
+# Multi-Head Attention (Minimal)
 
 > Track: `ml` | Topic: `llm`
 
 ## Concept
 
-Multi-head attention runs attention in parallel subspaces and concatenates results.
+Multi-head attention splits the model dimension into smaller subspaces, runs
+attention independently in each head, and concatenates the head outputs. This
+lets the model attend to different patterns in parallel.
 
 ## Math
-$$\mathrm{head}_i = \mathrm{Attention}(Q_i, K_i, V_i),\quad \mathrm{MHA}(Q,K,V) = \mathrm{Concat}(\mathrm{head}_i) W^O$$
+$$\mathrm{head}_i = \mathrm{Attention}(Q_i, K_i, V_i),\quad \mathrm{MHA}(Q,K,V) = \mathrm{Concat}(\mathrm{head}_1, \dots, \mathrm{head}_h)$$
 
-- $W^O$ -- output projection matrix
+- $h$ -- number of heads
 - $Q_i$ -- i-th query matrix
 - $K_i$ -- i-th key matrix
 - $V_i$ -- i-th value matrix
@@ -17,7 +19,12 @@ $$\mathrm{head}_i = \mathrm{Attention}(Q_i, K_i, V_i),\quad \mathrm{MHA}(Q,K,V) 
 - $Q$ -- query matrix
 - $K$ -- key matrix
 - $V$ -- value matrix
-- $W$ -- weight matrix
+
+## Key Points
+
+- Each head sees only a slice of the model dimension.
+- Concatenation merges those per-head outputs back into one representation.
+- This minimal lab omits learned Q/K/V and output projection matrices to stay small.
 
 ## Function
 

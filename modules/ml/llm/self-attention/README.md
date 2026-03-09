@@ -4,7 +4,9 @@
 
 ## Concept
 
-Self-attention lets each token attend to all others by comparing queries and keys.
+Self-attention lets each token build a weighted combination of all token values.
+Queries ask what a token is looking for, keys describe what each token offers,
+and values carry the information that gets mixed together.
 
 ## Math
 
@@ -14,9 +16,13 @@ $$\mathrm{Attention}(Q,K,V) = \mathrm{softmax}\left(\frac{QK^{\top}}{\sqrt{d_k}}
 - $Q$ -- query matrix
 - $K$ -- key matrix
 - $V$ -- value matrix
+- $\mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)$ -- attention weights over tokens
 
-- $d$ -- dimension
-- $k$ -- index or number of neighbors
+## Key Points
+
+- Dot products between queries and keys produce similarity scores.
+- Softmax turns those scores into normalized weights.
+- The output is a weighted sum of the value vectors.
 
 ## Function
 

@@ -3,6 +3,14 @@ from __future__ import annotations
 import math
 
 
+def _validate_matrix(a: list[list[float]], name: str) -> None:
+    if not a or not a[0]:
+        raise ValueError(f"{name} must be non-empty")
+    width = len(a[0])
+    if any(len(row) != width for row in a):
+        raise ValueError(f"{name} must be rectangular")
+
+
 def _softmax(row: list[float]) -> list[float]:
     m = max(row)
     exps = [math.exp(x - m) for x in row]
@@ -25,6 +33,14 @@ def _transpose(a: list[list[float]]) -> list[list[float]]:
 
 
 def self_attention(q: list[list[float]], k: list[list[float]], v: list[list[float]]) -> list[list[float]]:
+    _validate_matrix(q, "q")
+    _validate_matrix(k, "k")
+    _validate_matrix(v, "v")
+    if len(q) != len(k) or len(k) != len(v):
+        raise ValueError("q, k, and v must have the same sequence length")
+    if len(q[0]) != len(k[0]):
+        raise ValueError("q and k must have the same feature dimension")
+
     dk = len(k[0])
     scores = _matmul(q, _transpose(k))
     scaled = [[val / math.sqrt(dk) for val in row] for row in scores]

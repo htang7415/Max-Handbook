@@ -1,4 +1,7 @@
 def dropout(x: list[float], p: float, seed: int = 0) -> list[float]:
+    if not 0.0 <= p < 1.0:
+        raise ValueError("p must satisfy 0 <= p < 1")
+
     out = []
     state = seed
     for v in x:

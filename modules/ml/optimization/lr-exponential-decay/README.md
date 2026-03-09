@@ -11,10 +11,10 @@ $$\eta_t = \eta_0 \exp(-k t)$$
 
 - $\eta$ -- learning rate (step size)
 - $t$ -- timestep or iteration
-- $k$ -- index or number of neighbors
+- $k$ -- decay rate controlling how quickly the learning rate shrinks
 
 - $\eta_t$ -- learning rate (step size) at step t
-- $\eta_0$ -- learning rate (step size) for 0
+- $\eta_0$ -- initial learning rate at step 0
 
 ## Function
 

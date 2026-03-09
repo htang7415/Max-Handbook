@@ -11,10 +11,10 @@ $$G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k}$$
 
 - $G_t$ -- return at step t
 - $\gamma$ -- discount factor
-- $r_t$ -- reward at step t
+- $r_{t+k}$ -- reward observed $k$ steps after time $t$
 - $G$ -- return
 - $t$ -- timestep or iteration
-- $k$ -- index or number of neighbors
+- $k$ -- future-step offset in the discounted sum
 - $r$ -- reward
 
 ## Function

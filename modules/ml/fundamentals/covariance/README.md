@@ -4,19 +4,25 @@
 
 ## Concept
 
-Covariance measures how two variables vary together.
+Covariance measures whether two variables move together. If large values of one
+variable tend to occur with large values of the other, covariance is positive;
+if one tends to be large when the other is small, covariance is negative.
 
 ## Math
 
 $$\mathrm{cov}(X,Y)=\mathbb{E}[(X-\mu_X)(Y-\mu_Y)]$$
 
 - $\mathbb{E}$ -- expectation
-- $\mu$ -- mean
-- $X$ -- data matrix
-- $Y$ -- target matrix
+- $X, Y$ -- random variables
+- $\mu_X$ -- mean of $X$
+- $\mu_Y$ -- mean of $Y$
+- \mathrm{cov}(X,Y) -- covariance between the variables
 
-- $\mu_X$ -- mean for X
-- $\mu_Y$ -- mean for Y
+## Key Points
+
+- Covariance captures direction of co-movement, not normalized strength.
+- Its magnitude depends on scale, which is why correlation is often easier to compare.
+- Zero covariance means no linear relationship, not necessarily independence.
 
 ## Function
 

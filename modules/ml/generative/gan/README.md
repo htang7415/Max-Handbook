@@ -4,11 +4,17 @@
 
 ## Concept
 
-A Generative Adversarial Network (GAN) consists of two neural networks -- a generator $G$ and a discriminator $D$ -- trained simultaneously in a minimax game. The generator maps random noise $z$ to synthetic samples, while the discriminator tries to distinguish real data from generated data. Training alternates between updating $D$ to better classify real versus fake, and updating $G$ to better fool $D$.
+A GAN trains a generator and discriminator in opposition. The generator tries to
+map latent noise $z$ into realistic samples; the discriminator tries to tell
+real samples from generated ones.
 
-GANs matter because they can produce remarkably sharp, high-fidelity samples without requiring an explicit density model. The adversarial setup avoids the pixel-wise loss functions that cause blurriness in other generative models. However, this two-player game is inherently unstable: if one player becomes too strong, gradients for the other vanish and training collapses.
+From first principles, the discriminator supplies a learned training signal:
+instead of comparing generated outputs to a fixed target pixel by pixel, the
+generator is rewarded when it makes the discriminator uncertain.
 
-The original GAN objective can suffer from vanishing gradients when $D$ is optimal. Wasserstein GAN (WGAN) replaces the JS-divergence with the Earth Mover distance, providing smoother gradients and more stable training. Other stabilization techniques include spectral normalization, gradient penalties, and progressive growing.
+This adversarial setup can produce sharp samples, but it is also fragile. If
+the discriminator becomes too confident, generator gradients can become weak or
+unhelpful. That is why GAN training often needs stabilization tricks.
 
 ## Math
 
@@ -22,15 +28,14 @@ $$\mathcal{L}_D = -\log D(x) - \log(1 - D(G(z)))$$
 
 - $D(x)$ -- discriminator output (probability that $x$ is real)
 - $G(z)$ -- generator output given noise $z$
+- $p_{\text{data}}$ -- true data distribution
 - $p_z$ -- prior distribution over latent noise (typically $\mathcal{N}(0, I)$)
-
 - $\mathbb{E}$ -- expectation
-- $x$ -- input (feature vector or sample)
-- $p$ -- probability
-- $z$ -- latent variable
-- $\mathcal{L}$ -- loss function
+- $x$ -- real data sample
+- $z$ -- latent noise sample
+- $\mathcal{L}_D$ -- discriminator loss
 - $\mathcal{N}$ -- normal (Gaussian) distribution
-- $I$ -- identity matrix
+- $I$ -- identity covariance matrix in the Gaussian prior
 
 ## Key Points
 

@@ -4,11 +4,19 @@
 
 ## Concept
 
-Diffusion models are a class of generative models built on two processes: a forward process that gradually adds Gaussian noise to data over $T$ timesteps until the signal is destroyed, and a learned reverse process that denoises step-by-step to recover the original data distribution. The forward process requires no learning -- it is a fixed Markov chain defined by a noise schedule $\{\beta_t\}$. The reverse process is parameterized by a neural network $\epsilon_\theta$ trained to predict the noise added at each step.
+Diffusion models learn to reverse a simple corruption process. The forward
+process gradually adds Gaussian noise until a sample becomes nearly pure noise;
+the reverse model learns how to denoise one step at a time.
 
-The training objective simplifies to a denoising score-matching loss: the network learns to predict the noise $\epsilon$ that was added to a clean sample $x_0$ to produce a noisy sample $x_t$. At generation time, the model starts from pure noise $x_T \sim \mathcal{N}(0, I)$ and iteratively denoises through all $T$ steps to produce a sample.
+The first-principles picture is straightforward:
+1. Start with a real sample.
+2. Corrupt it slightly, then more, then more.
+3. Train a network to predict the noise that was added.
+4. Reverse that process during generation.
 
-Diffusion models achieve state-of-the-art image quality and diversity, surpassing GANs on benchmarks like FID. The main drawback is sampling speed, since generation requires hundreds or thousands of sequential denoising steps. Accelerated samplers such as DDIM reduce this to tens of steps by converting the stochastic process into a deterministic ODE, making diffusion models practical for real applications.
+Because each reverse step is local and relatively simple, the model can learn a
+high-quality generative process. The main cost is speed: generation requires
+many denoising steps.
 
 ## Math
 
@@ -29,7 +37,6 @@ $$\mathcal{L} = \mathbb{E}_{t, x_0, \epsilon}\!\left[\|\epsilon - \epsilon_\thet
 - $x_{t-1}$ -- noisy sample at step $t-1$
 - $x_T$ -- pure noise sample at step $T$
 - $\beta_t$ -- noise variance at step $t$
-- $\beta_s$ -- noise variance at step $s$
 - $\bar{\alpha}_t$ -- cumulative product term at step $t$
 - $\epsilon$ -- Gaussian noise sample
 - $\epsilon_\theta$ -- noise predictor network
@@ -37,9 +44,8 @@ $$\mathcal{L} = \mathbb{E}_{t, x_0, \epsilon}\!\left[\|\epsilon - \epsilon_\thet
 - $\mathbb{E}$ -- expectation
 - $\mathcal{N}$ -- normal (Gaussian) distribution
 - $\mathcal{L}$ -- training loss
-- $I$ -- identity matrix
+- $I$ -- identity covariance matrix
 - $t$ -- timestep
-- $s$ -- step index in the product
 
 ## Key Points
 

@@ -3,6 +3,14 @@ from __future__ import annotations
 import math
 
 
+def _validate_matrix(a: list[list[float]], name: str) -> None:
+    if not a or not a[0]:
+        raise ValueError(f"{name} must be non-empty")
+    width = len(a[0])
+    if any(len(row) != width for row in a):
+        raise ValueError(f"{name} must be rectangular")
+
+
 def _softmax(row: list[float]) -> list[float]:
     m = max(row)
     exps = [math.exp(x - m) for x in row]
@@ -33,7 +41,20 @@ def _attention(q: list[list[float]], k: list[list[float]], v: list[list[float]])
 
 
 def multi_head_attention(q: list[list[float]], k: list[list[float]], v: list[list[float]], heads: int) -> list[list[float]]:
+    _validate_matrix(q, "q")
+    _validate_matrix(k, "k")
+    _validate_matrix(v, "v")
+    if heads <= 0:
+        raise ValueError("heads must be positive")
+    if len(q) != len(k) or len(k) != len(v):
+        raise ValueError("q, k, and v must have the same sequence length")
+    if len(q[0]) != len(k[0]) or len(k[0]) != len(v[0]):
+        raise ValueError("q, k, and v must share the same model dimension")
+
     d_model = len(q[0])
+    if d_model % heads != 0:
+        raise ValueError("model dimension must be divisible by heads")
+
     head_dim = d_model // heads
     outputs = []
     for h in range(heads):

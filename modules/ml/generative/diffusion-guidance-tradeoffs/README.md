@@ -4,37 +4,42 @@
 
 ## Concept
 
-Classifier-free guidance is a technique that steers diffusion model sampling toward a conditioning signal (e.g., a text prompt) by amplifying the difference between the conditional and unconditional noise predictions. During training, the model learns both a conditional prediction $\epsilon_\theta(x_t, c)$ and an unconditional prediction $\epsilon_\theta(x_t)$ by randomly dropping the condition $c$. At inference, the two predictions are combined with a guidance scale $w$ that controls how strongly the condition influences generation.
+Classifier-free guidance steers diffusion sampling toward a condition, such as a
+text prompt, by comparing two denoising predictions: one conditional and one
+unconditional. The unconditional prediction captures the model's generic prior;
+the conditional prediction says how the prompt wants the sample to change.
 
-The guidance scale creates a fundamental trade-off between fidelity and diversity. When $w = 0$, sampling is fully unconditional and produces maximum diversity but ignores the prompt. As $w$ increases, samples align more closely with the condition -- colors become more vivid, objects more recognizable -- but the distribution narrows and diversity drops. Very high guidance values produce oversaturated, artifact-prone images.
+Guidance works by moving from the unconditional prediction toward the
+conditional one. If the scale is small, the model stays diverse but less prompt
+faithful. If the scale is large, the model follows the prompt more aggressively
+but can oversaturate or collapse diversity.
 
-This trade-off mirrors the precision-recall trade-off in classification. Higher guidance improves precision (samples that match the condition) at the cost of recall (coverage of the full conditional distribution). In practice, $w$ between 3 and 15 is typical, and the optimal value depends on the application. Creative tasks favor lower guidance for variety, while tasks requiring exact prompt adherence favor higher guidance.
+From first principles, guidance is just extrapolation in prediction space:
+"start from what the model would do without the prompt, then move some multiple
+of the prompt-specific correction."
 
 ## Math
 
-The guided noise prediction combines conditional and unconditional estimates:
+The guided noise prediction blends conditional and unconditional estimates:
 
-$$\tilde{\epsilon} = (1 + w)\,\epsilon_\theta(x_t, c) - w\,\epsilon_\theta(x_t)$$
+$$\tilde{\epsilon} = \epsilon_\theta(x_t) + w\bigl(\epsilon_\theta(x_t, c) - \epsilon_\theta(x_t)\bigr)$$
 
-This is equivalent to extrapolating away from the unconditional prediction:
+This makes the endpoints easy to read:
 
-$$\tilde{\epsilon} = \epsilon_\theta(x_t) + (1 + w)\bigl(\epsilon_\theta(x_t, c) - \epsilon_\theta(x_t)\bigr)$$
+$$w = 0 \Rightarrow \tilde{\epsilon} = \epsilon_\theta(x_t),\qquad
+w = 1 \Rightarrow \tilde{\epsilon} = \epsilon_\theta(x_t, c)$$
 
 - $w$ -- guidance scale (0 = unconditional, higher = stronger conditioning)
 - $\epsilon_\theta(x_t, c)$ -- noise prediction conditioned on $c$
 - $\epsilon_\theta(x_t)$ -- unconditional noise prediction (condition dropped)
 - $c$ -- conditioning signal (e.g., text embedding, class label)
-
-- $x_t$ -- noisy sample at step t
-- $\epsilon_\theta$ -- noise term parameterized by \theta
-- $\epsilon$ -- noise term
-- $\theta$ -- model parameters
-- $x$ -- input (feature vector or sample)
-- $t$ -- timestep or iteration
+- $x_t$ -- noisy sample at timestep $t$
+- $\tilde{\epsilon}$ -- guided noise prediction used for sampling
 
 ## Key Points
 
 - At $w = 0$ the model samples unconditionally; increasing $w$ trades diversity for stronger adherence to the conditioning signal.
+- At $w = 1$ the guided prediction equals the conditional prediction.
 - Typical guidance scales are $w \in [3, 15]$; values beyond this range tend to produce oversaturated images with artifacts.
 - Classifier-free guidance requires no external classifier -- the model is trained to handle both conditional and unconditional denoising by randomly dropping the condition.
 - The fidelity-diversity trade-off from guidance is analogous to the temperature parameter in language models: higher guidance concentrates the output distribution.

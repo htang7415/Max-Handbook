@@ -4,18 +4,24 @@
 
 ## Concept
 
-MAE penalizes absolute residuals.
+Mean absolute error penalizes prediction errors by their absolute size. It grows
+linearly with the residual, so it is less sensitive to outliers than MSE.
 
 ## Math
 
 $$\mathrm{MAE} = \frac{1}{n}\sum_i |y_i - \hat{y}_i|$$
 
 - $\mathrm{MAE}$ -- mean absolute error
-- $\hat{y}$ -- prediction
-- $y_i$ -- i-th target/label
+- $y_i$ -- i-th target value
+- $\hat{y}_i$ -- i-th prediction
 - $n$ -- number of samples
 - $i$ -- index
-- $y$ -- target/label
+
+## Key Points
+
+- MAE weights all residual magnitudes linearly.
+- It is more robust to outliers than MSE.
+- The absolute value introduces a non-differentiable point at zero residual.
 
 ## Function
 

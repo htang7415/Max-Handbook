@@ -23,10 +23,6 @@ $$B_{\text{eff}} = K \cdot B_{\text{micro}}$$
 - $B_{\text{micro}}$ -- micro-batch size (samples per forward/backward pass)
 - $B_{\text{eff}}$ -- effective batch size seen by the optimizer
 
-- $B$ -- matrix
-- $g$ -- gradient
-- $k$ -- index or number of neighbors
-
 ## Key Points
 
 - Gradient accumulation enables large effective batch sizes on hardware with limited memory by trading compute time for memory.

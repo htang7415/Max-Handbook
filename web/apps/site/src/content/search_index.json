@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-09T05:42:32.390Z",
+  "generated_at": "2026-03-09T05:58:06.047Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -3556,7 +3556,7 @@
     {
       "id": "module:ml/llm/multi-head-attention",
       "type": "module",
-      "title": "Multi-Head Attention",
+      "title": "Multi-Head Attention (Minimal)",
       "summary": "> Track: `ml` | Topic: `llm`",
       "track": "ml",
       "topic": "llm",

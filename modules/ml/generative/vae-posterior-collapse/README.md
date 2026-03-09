@@ -4,11 +4,18 @@
 
 ## Concept
 
-Posterior collapse is a pathology in VAE training where the decoder learns to ignore the latent variable $z$ entirely. When this happens, the approximate posterior $q_\phi(z|x)$ collapses to match the prior $p(z)$, causing the KL divergence term in the ELBO to approach zero. The model degenerates into a standard autoregressive or feedforward decoder with no meaningful latent representation.
+Posterior collapse happens when a VAE decoder becomes so capable that it stops
+using the latent variable at all. The encoder then learns to match the prior
+instead of encoding information about the data.
 
-This failure is especially common when the decoder is powerful (e.g., an autoregressive model like an LSTM or Transformer). A strong decoder can reconstruct $x$ without extracting information from $z$, so the optimizer finds it easiest to simply set $q_\phi(z|x) \approx p(z)$ and pay zero KL cost. The result is a latent space that carries no information and cannot be used for interpolation or controlled generation.
+From first principles, the failure mode is:
+1. The decoder can already reconstruct well on its own.
+2. Using the latent code gives little extra benefit.
+3. The optimizer reduces KL cost by pushing the posterior toward the prior.
+4. The latent channel becomes uninformative.
 
-The most widely used remedy is KL annealing: the KL term weight starts at zero and is gradually increased to its full value over the course of training, giving the encoder time to learn useful representations before the regularization penalty kicks in. The free-bits strategy sets a minimum target for the KL per latent dimension, preventing any single dimension from collapsing. Reducing decoder capacity can also help by forcing the model to rely on $z$.
+The result is a model with a nominal latent space that carries almost no useful
+signal for interpolation or controlled generation.
 
 ## Math
 
@@ -27,18 +34,15 @@ $$\mathcal{L} = \mathbb{E}_{q_\phi(z|x)}[\log p_\theta(x|z)] - \lambda \cdot D_{
 - $\lambda$ -- annealing coefficient, linearly increased from 0 to 1 during training
 - $q_\phi(z|x)$ -- approximate posterior (encoder output)
 - $p(z)$ -- prior distribution, typically $\mathcal{N}(0, I)$
-
 - $\mathrm{ELBO}$ -- evidence lower bound
 - $\mathbb{E}$ -- expectation
 - $\phi$ -- model/encoder parameters
-- $\theta$ -- model parameters
-- $q$ -- probability distribution
+- $\theta$ -- decoder parameters
 - $z$ -- latent variable
-- $x$ -- input (feature vector or sample)
-- $p$ -- probability
+- $x$ -- observed data sample
 - $\mathcal{L}$ -- loss function
 - $\mathcal{N}$ -- normal (Gaussian) distribution
-- $I$ -- identity matrix
+- $I$ -- identity covariance matrix
 
 ## Key Points
 
