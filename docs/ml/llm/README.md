@@ -28,10 +28,12 @@ Each bullet maps to a module under `modules/ml/llm/`.
 - BLEU / METEOR overlap (`modules/ml/llm/bleu-meteor`)
 - Pass@k (`modules/ml/llm/pass-at-k`)
 - Pairwise judge rates (`modules/ml/llm/judge-pairwise`)
+- Reranker metrics (`modules/ml/llm/reranker-metrics`)
 
 ## Retrieval and Lexical Baselines
 
 - BM25 ranking (`modules/ml/llm/bm25-ranking`)
+- Weighted retrieval fusion (`modules/ml/llm/retrieval-fusion`)
 
 ## Decoding
 
@@ -39,6 +41,7 @@ Each bullet maps to a module under `modules/ml/llm/`.
 - Top-k sampling (`modules/ml/llm/top-k-sampling`)
 - Top-p sampling (`modules/ml/llm/top-p-sampling`)
 - Temperature sampling (`modules/ml/llm/temperature-sampling`)
+- Combined sampling pipeline (`modules/ml/llm/sampling-pipeline`)
 
 ## Alignment and Optimization
 

@@ -10,6 +10,8 @@ LLM evaluation mixes language-model likelihood, task scoring, and model-judge st
 - BLEU / METEOR overlap (`modules/ml/llm/bleu-meteor`)
 - Pass@k (`modules/ml/llm/pass-at-k`)
 - Pairwise judge rates (`modules/ml/llm/judge-pairwise`)
+- Reranker metrics (`modules/ml/llm/reranker-metrics`)
+- Bradley-Terry pairwise probability (`modules/ml/evaluation/bradley-terry-ranking`)
 
 ## Concepts to Cover Well
 
@@ -19,3 +21,5 @@ LLM evaluation mixes language-model likelihood, task scoring, and model-judge st
 - Pass@k for code and reasoning tasks
 - Benchmark-style scoring such as MMLU variants
 - Judge-based and pairwise preference evaluation
+- Bradley-Terry style pairwise ranking models
+- Retrieval and reranker metrics such as MRR and Recall@k

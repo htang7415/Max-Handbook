@@ -20,6 +20,7 @@ Each bullet maps to a module under `modules/ml/systems/`.
 - Tensor parallel linear communication (`modules/ml/systems/tensor-parallelism`)
 - Context parallel attention bytes (`modules/ml/systems/context-parallelism`)
 - Expert parallel dispatch (`modules/ml/systems/expert-parallelism`)
+- Expert load-balancing loss (`modules/ml/systems/expert-load-balancing`)
 
 ## Serving Mechanics
 

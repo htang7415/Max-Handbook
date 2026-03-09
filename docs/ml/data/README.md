@@ -11,10 +11,12 @@ Each bullet maps to a module under `modules/ml/data/`.
 - Stratified split (`modules/ml/data/stratified-split`)
 - Data leakage (common failure modes) (`modules/ml/data/data-leakage`)
 - Feature scaling (`modules/ml/data/feature-scaling`)
+- Robust scaling (`modules/ml/data/robust-scaling`)
 - Polynomial feature expansion (`modules/ml/data/polynomial-features`)
 - TF-IDF lexical features (`modules/ml/data/tf-idf`)
 - Handling class imbalance (`modules/ml/data/class-imbalance`)
 - Missing-data imputation (`modules/ml/data/imputation`)
+- Missing-value indicators (`modules/ml/data/missing-indicator`)
 - SMOTE-style synthetic oversampling (`modules/ml/data/smote`)
 - Z-score outlier screening (`modules/ml/data/outlier-detection`)
 

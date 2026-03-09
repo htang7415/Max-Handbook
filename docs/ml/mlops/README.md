@@ -14,4 +14,5 @@ Each bullet maps to a module under `modules/ml/mlops/`.
 - Canary deployment (`modules/ml/mlops/canary-deployment`)
 - A/B testing (`modules/ml/mlops/ab-testing`)
 - SLA metrics (`modules/ml/mlops/sla-metrics`)
+- Request-level SLA compliance (`modules/ml/mlops/request-sla`)
 - Request batching (`modules/ml/mlops/request-batching`)

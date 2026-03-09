@@ -30,11 +30,17 @@ Each bullet maps to a module under `modules/ml/evaluation/` unless noted.
 ## Calibration
 
 - Expected calibration error (`modules/ml/evaluation/expected-calibration-error`)
+- Isotonic calibration (`modules/ml/evaluation/isotonic-calibration`)
 
 ## Uncertainty
 
 - Mean confidence intervals (`modules/ml/evaluation/confidence-intervals`)
 - Bootstrap percentile intervals (`modules/ml/evaluation/bootstrap-intervals`)
+
+## Statistical Testing
+
+- Permutation test for mean difference (`modules/ml/evaluation/permutation-test`)
+- Bradley-Terry pairwise probability (`modules/ml/evaluation/bradley-terry-ranking`)
 
 See also:
 

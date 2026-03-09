@@ -26,6 +26,16 @@ modules/<track>/<topic>/<slug>/
 
 Fill in the README with a concise explanation, implement the code, and write tests.
 
+For DSA problem modules, prefer the reusable learning template in
+`templates/dsa-problem/`. It adds recognition cues, baseline idea, core
+insight, invariant/state, edge cases, common mistakes, and self-check prompts.
+You can scaffold one with:
+
+```bash
+./scripts/new_dsa_problem.sh <topic> <slug> "<title>"
+# Example: ./scripts/new_dsa_problem.sh array 704-binary-search "704.Binary Search"
+```
+
 ## Testing
 
 Run tests **one module at a time**:
@@ -50,3 +60,4 @@ make run-rust MANIFEST=modules/dsa/arrays/prefix-sum/rust/Cargo.toml
 - Keep code minimal and readable
 - Add concise comments only where logic is not self-evident
 - Each module should be self-contained
+- Keep one canonical solution per file; put alternate approaches in separate files

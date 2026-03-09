@@ -73,6 +73,16 @@ Modules added:
 - `modules/ml/llm/tokenizer-comparison`
 - `modules/ml/reinforcement-learning/importance-sampling`
 - `modules/ml/llm/top-k-sampling`
+- `modules/ml/evaluation/permutation-test`
+- `modules/ml/evaluation/isotonic-calibration`
+- `modules/ml/llm/reranker-metrics`
+- `modules/ml/systems/expert-load-balancing`
+- `modules/ml/data/missing-indicator`
+- `modules/ml/evaluation/bradley-terry-ranking`
+- `modules/ml/mlops/request-sla`
+- `modules/ml/llm/sampling-pipeline`
+- `modules/ml/data/robust-scaling`
+- `modules/ml/llm/retrieval-fusion`
 
 ## Top 10 Docs to Write Next
 
@@ -87,32 +97,27 @@ Modules added:
 - `docs/ml/evaluation/uncertainty/README.md`: cover predictive uncertainty, confidence, and when probability estimates are actionable.
 - `docs/ml/reinforcement-learning/rl-for-llm/README.md`: connect reward modeling, PPO-style alignment, and GRPO/GSPO ideas.
 
-## Top 10 New Modules to Add Next
+## Next Modules to Add
 
 `modules/ml/generative/diffusion-guidance-tradeoffs` already covers the classifier-free guidance idea, so it is no longer tracked as a separate module.
-`modules/ml/mlops/ab-testing`, `modules/ml/mlops/canary-deployment`, `modules/ml/mlops/feature-drift-psi`, and `modules/ml/representation/contrastive-loss` already cover the corresponding title areas, so they are no longer tracked as missing.
+`modules/ml/mlops/ab-testing`, `modules/ml/mlops/canary-deployment`, `modules/ml/mlops/feature-drift-psi`, and `modules/ml/representation/contrastive-loss` already cover the basic title areas, so exact-title follow-ups are lower priority than uncovered concepts.
 
-- `modules/ml/evaluation/permutation-test`: inferred experiment-analysis gap beyond rate calculators.
-- `modules/ml/evaluation/isotonic-calibration`: inferred calibration gap beyond ECE.
-- `modules/ml/llm/reranker-metrics`: inferred retrieval-evaluation gap after BM25.
-- `modules/ml/systems/expert-load-balancing`: inferred MoE systems gap beyond routing and dispatch.
-- `modules/ml/data/missing-indicator`: inferred preprocessing gap complementary to imputation.
-- `modules/ml/evaluation/bradley-terry-ranking`: exact Deep-ML title match for pairwise ranking models.
-- `modules/ml/mlops/request-sla`: inferred serving-metrics gap complementary to existing SLA basics.
-- `modules/ml/llm/sampling-pipeline`: exact Deep-ML title match for combined temperature plus top-k plus top-p logic.
-- `modules/ml/data/robust-scaling`: inferred preprocessing gap beyond z-score and min-max scaling.
-- `modules/ml/llm/retrieval-fusion`: inferred retrieval systems gap after BM25.
+- `modules/ml/evaluation/wilson-interval`: inferred classification-uncertainty gap for proportions.
+- `modules/ml/reinforcement-learning/td-lambda`: natural continuation after eligibility traces.
+- `modules/ml/evaluation/ab-test-analysis`: exact Deep-ML title match for model-comparison statistics.
+- `modules/ml/mlops/canary-rollout`: exact Deep-ML title direction beyond the current canary split baseline.
+- `modules/ml/mlops/drift-detection`: exact Deep-ML title direction beyond PSI-only drift.
+- `modules/ml/evaluation/delong-test`: inferred ranking-metric significance test gap.
+- `modules/ml/data/hash-trick`: inferred sparse-feature engineering gap after TF-IDF.
+- `modules/ml/llm/reciprocal-rank-fusion`: exact retrieval-fusion variant worth isolating from weighted score fusion.
+- `modules/ml/reinforcement-learning/generalized-advantage-estimation`: inferred policy-gradient variance-reduction gap.
+- `modules/ml/evaluation/brier-score`: inferred probabilistic scoring gap complementary to ECE.
 
 ## Second Wave After That
 
-- `modules/ml/evaluation/bradley-terry-ranking`
-- `modules/ml/mlops/request-sla`
-- `modules/ml/llm/sampling-pipeline`
-- `modules/ml/data/robust-scaling`
-- `modules/ml/llm/retrieval-fusion`
-- `modules/ml/evaluation/wilson-interval`
-- `modules/ml/reinforcement-learning/td-lambda`
-- `modules/ml/evaluation/ab-test-analysis`
-- `modules/ml/mlops/canary-rollout`
-- `modules/ml/mlops/drift-detection`
 - `modules/ml/representation/pairwise-ranking-loss`
+- `modules/ml/mlops/online-shadow-mode`
+- `modules/ml/optimization/one-cycle-schedule`
+- `modules/ml/data/target-encoding`
+- `modules/ml/llm/retrieval-recall-at-k`
+- `modules/ml/reinforcement-learning/off-policy-correction`
