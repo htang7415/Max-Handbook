@@ -16,11 +16,16 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_bottom_left_basic():
+def test_bottom_left_example():
     root = build_tree([2, 1, 3])
     assert Solution().findBottomLeftValue(root) == 1
 
 
-def test_bottom_left_deeper():
+def test_bottom_left_edge_single():
+    root = build_tree([1])
+    assert Solution().findBottomLeftValue(root) == 1
+
+
+def test_bottom_left_tricky_deeper():
     root = build_tree([1, 2, 3, 4, None, 5, 6, None, None, 7])
     assert Solution().findBottomLeftValue(root) == 7

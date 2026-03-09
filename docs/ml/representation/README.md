@@ -23,6 +23,7 @@ match “similar” in meaning or behavior.
 - Invariances and equivariances
 - Bottlenecks and sparsity
 - Contrastive pairs (positive / negative)
+- Pairwise ranking losses for ordered preferences
 - Probing and linear separability
 - Transfer learning and freezing
 
@@ -53,3 +54,4 @@ match “similar” in meaning or behavior.
 - Compute cosine similarity across example embeddings and rank neighbors.
 - Run PCA on hidden states and visualize the top components.
 - Train a simple contrastive embedding and test retrieval accuracy.
+- Compare pairwise-ranking loss values for preferred vs rejected scores.

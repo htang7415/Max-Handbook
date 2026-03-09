@@ -6,6 +6,7 @@ Calibration asks whether model confidence matches empirical correctness.
 
 - Expected calibration error (`modules/ml/evaluation/expected-calibration-error`)
 - Isotonic calibration (`modules/ml/evaluation/isotonic-calibration`)
+- Brier score (`modules/ml/evaluation/brier-score`)
 - Confusion matrix (`modules/ml/evaluation/confusion-matrix`)
 - Precision / Recall (`modules/ml/evaluation/precision-recall`)
 - ROC-AUC (`modules/ml/evaluation/roc-auc`)
@@ -15,5 +16,6 @@ Calibration asks whether model confidence matches empirical correctness.
 - Confidence vs accuracy
 - Thresholding vs ranking quality
 - Reliability diagrams and expected calibration error
+- Brier score as a probability-sensitive summary metric
 - Monotonic post-hoc calibration with isotonic regression
 - Why a high-AUC model can still be badly calibrated

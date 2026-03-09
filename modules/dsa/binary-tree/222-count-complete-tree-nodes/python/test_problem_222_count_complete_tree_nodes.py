@@ -16,10 +16,15 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_count_nodes_basic():
+def test_count_nodes_example():
     root = build_tree([1, 2, 3, 4, 5, 6])
     assert Solution().countNodes(root) == 6
 
 
-def test_count_nodes_empty():
+def test_count_nodes_edge_empty():
     assert Solution().countNodes(None) == 0
+
+
+def test_count_nodes_tricky_last_level_partial():
+    root = build_tree([1, 2, 3, 4, 5])
+    assert Solution().countNodes(root) == 5

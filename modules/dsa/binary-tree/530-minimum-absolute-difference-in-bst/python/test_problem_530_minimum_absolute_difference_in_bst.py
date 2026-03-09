@@ -16,11 +16,16 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_min_diff_basic():
+def test_min_diff_example():
     root = build_tree([4, 2, 6, 1, 3])
     assert Solution().getMinimumDifference(root) == 1
 
 
-def test_min_diff_another():
+def test_min_diff_edge_two_nodes():
+    root = build_tree([1, None, 3])
+    assert Solution().getMinimumDifference(root) == 2
+
+
+def test_min_diff_tricky_internal_gap():
     root = build_tree([1, 0, 48, None, None, 12, 49])
     assert Solution().getMinimumDifference(root) == 1

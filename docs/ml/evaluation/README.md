@@ -31,16 +31,25 @@ Each bullet maps to a module under `modules/ml/evaluation/` unless noted.
 
 - Expected calibration error (`modules/ml/evaluation/expected-calibration-error`)
 - Isotonic calibration (`modules/ml/evaluation/isotonic-calibration`)
+- Brier score (`modules/ml/evaluation/brier-score`)
 
 ## Uncertainty
 
 - Mean confidence intervals (`modules/ml/evaluation/confidence-intervals`)
 - Bootstrap percentile intervals (`modules/ml/evaluation/bootstrap-intervals`)
+- Wilson interval for binary rates (`modules/ml/evaluation/wilson-interval`)
 
 ## Statistical Testing
 
 - Permutation test for mean difference (`modules/ml/evaluation/permutation-test`)
 - Bradley-Terry pairwise probability (`modules/ml/evaluation/bradley-terry-ranking`)
+- A/B test analysis for rate lift (`modules/ml/evaluation/ab-test-analysis`)
+- DeLong test for paired ROC-AUC (`modules/ml/evaluation/delong-test`)
+
+## Ranking and Retrieval
+
+- Mean reciprocal rank (`modules/ml/evaluation/mean-reciprocal-rank`)
+- NDCG (`modules/ml/evaluation/ndcg`)
 
 See also:
 

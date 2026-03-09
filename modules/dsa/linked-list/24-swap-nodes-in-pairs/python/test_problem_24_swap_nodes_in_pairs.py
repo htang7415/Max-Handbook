@@ -18,13 +18,19 @@ def to_list(head: ListNode | None) -> list[int]:
     return result
 
 
-def test_swap_nodes_in_pairs_even():
+def test_swap_nodes_in_pairs_example():
     head = build_list([1, 2, 3, 4])
     result = swap_nodes_in_pairs(head)
     assert to_list(result) == [2, 1, 4, 3]
 
 
-def test_swap_nodes_in_pairs_odd():
+def test_swap_nodes_in_pairs_edge_single():
+    head = build_list([1])
+    result = swap_nodes_in_pairs(head)
+    assert to_list(result) == [1]
+
+
+def test_swap_nodes_in_pairs_tricky_odd():
     head = build_list([1, 2, 3])
     result = swap_nodes_in_pairs(head)
     assert to_list(result) == [2, 1, 3]

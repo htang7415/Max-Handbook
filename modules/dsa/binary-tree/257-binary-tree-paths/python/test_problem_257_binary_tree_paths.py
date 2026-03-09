@@ -16,7 +16,16 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_binary_tree_paths():
+def test_binary_tree_paths_example():
     root = build_tree([1, 2, 3, None, 5])
     result = Solution().binaryTreePaths(root)
     assert set(result) == {"1->2->5", "1->3"}
+
+
+def test_binary_tree_paths_edge_empty():
+    assert Solution().binaryTreePaths(None) == []
+
+
+def test_binary_tree_paths_tricky_single_node():
+    root = build_tree([1])
+    assert Solution().binaryTreePaths(root) == ["1"]

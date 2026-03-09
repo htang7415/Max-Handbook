@@ -23,15 +23,22 @@ def find_node(root: TreeNode | None, val: int) -> TreeNode | None:
     return current
 
 
-def test_lca_bst_root():
+def test_lca_bst_example():
     root = build_tree([6, 2, 8, 0, 4, 7, 9, None, None, 3, 5])
     p = find_node(root, 2)
     q = find_node(root, 8)
     assert Solution().lowestCommonAncestor(root, p, q).val == 6
 
 
-def test_lca_bst_subtree():
+def test_lca_bst_edge_same_subtree():
     root = build_tree([6, 2, 8, 0, 4, 7, 9, None, None, 3, 5])
     p = find_node(root, 2)
     q = find_node(root, 4)
+    assert Solution().lowestCommonAncestor(root, p, q).val == 2
+
+
+def test_lca_bst_tricky_one_node_is_ancestor():
+    root = build_tree([6, 2, 8, 0, 4, 7, 9, None, None, 3, 5])
+    p = find_node(root, 2)
+    q = find_node(root, 3)
     assert Solution().lowestCommonAncestor(root, p, q).val == 2

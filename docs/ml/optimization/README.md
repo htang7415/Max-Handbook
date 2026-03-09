@@ -22,6 +22,8 @@ Each bullet maps to a module under `modules/ml/optimization/`.
 - Warmup (`modules/ml/optimization/lr-warmup`)
 - Cosine decay (`modules/ml/optimization/lr-cosine-decay`)
 - Warmup plus cosine decay (`modules/ml/optimization/warmup-cosine-decay`)
+- One-cycle schedule (`modules/ml/optimization/one-cycle-schedule`)
+- Cosine restarts (`modules/ml/optimization/cosine-restarts`)
 
 ## Training Stability
 

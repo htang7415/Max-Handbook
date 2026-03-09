@@ -16,11 +16,15 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_valid_bst_true():
+def test_valid_bst_example():
     root = build_tree([2, 1, 3])
     assert Solution().isValidBST(root) is True
 
 
-def test_valid_bst_false():
+def test_valid_bst_edge_empty():
+    assert Solution().isValidBST(None) is True
+
+
+def test_valid_bst_tricky_global_violation():
     root = build_tree([5, 1, 4, None, None, 3, 6])
     assert Solution().isValidBST(root) is False

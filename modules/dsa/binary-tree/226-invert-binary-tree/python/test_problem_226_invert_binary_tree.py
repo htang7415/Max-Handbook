@@ -34,7 +34,17 @@ def level_order(root: TreeNode | None) -> list[int | None]:
     return result
 
 
-def test_invert_tree():
+def test_invert_tree_example():
     root = build_tree([4, 2, 7, 1, 3, 6, 9])
     inverted = Solution().invertTree(root)
     assert level_order(inverted) == [4, 7, 2, 9, 6, 3, 1]
+
+
+def test_invert_tree_edge_empty():
+    assert Solution().invertTree(None) is None
+
+
+def test_invert_tree_tricky_skewed():
+    root = build_tree([1, 2, None, 3])
+    inverted = Solution().invertTree(root)
+    assert level_order(inverted) == [1, None, 2, None, 3]

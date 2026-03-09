@@ -18,11 +18,17 @@ def to_list(head: ListNode | None) -> list[int]:
     return result
 
 
-def test_reverse_linked_list_basic():
+def test_reverse_linked_list_example():
     head = build_list([1, 2, 3])
     result = reverse_linked_list(head)
     assert to_list(result) == [3, 2, 1]
 
 
-def test_reverse_linked_list_empty():
+def test_reverse_linked_list_edge_empty():
     assert reverse_linked_list(None) is None
+
+
+def test_reverse_linked_list_tricky_single():
+    head = build_list([1])
+    result = reverse_linked_list(head)
+    assert to_list(result) == [1]

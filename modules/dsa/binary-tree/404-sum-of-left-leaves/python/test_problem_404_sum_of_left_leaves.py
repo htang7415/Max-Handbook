@@ -16,11 +16,16 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_sum_left_leaves_basic():
+def test_sum_left_leaves_example():
     root = build_tree([3, 9, 20, None, None, 15, 7])
     assert Solution().sumOfLeftLeaves(root) == 24
 
 
-def test_sum_left_leaves_single():
+def test_sum_left_leaves_edge_single():
     root = build_tree([1])
+    assert Solution().sumOfLeftLeaves(root) == 0
+
+
+def test_sum_left_leaves_tricky_right_only():
+    root = build_tree([1, None, 2, None, 3])
     assert Solution().sumOfLeftLeaves(root) == 0

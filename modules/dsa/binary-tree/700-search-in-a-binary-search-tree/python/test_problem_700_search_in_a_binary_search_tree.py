@@ -16,13 +16,17 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_search_bst_found():
+def test_search_bst_example():
     root = build_tree([4, 2, 7, 1, 3])
     node = Solution().searchBST(root, 2)
     assert node is not None
     assert node.val == 2
 
 
-def test_search_bst_missing():
+def test_search_bst_edge_empty():
+    assert Solution().searchBST(None, 5) is None
+
+
+def test_search_bst_tricky_missing():
     root = build_tree([4, 2, 7, 1, 3])
     assert Solution().searchBST(root, 5) is None

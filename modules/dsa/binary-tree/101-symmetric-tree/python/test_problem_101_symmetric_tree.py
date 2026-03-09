@@ -16,11 +16,15 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_symmetric_true():
+def test_symmetric_example():
     root = build_tree([1, 2, 2, 3, 4, 4, 3])
     assert Solution().isSymmetric(root) is True
 
 
-def test_symmetric_false():
+def test_symmetric_edge_empty():
+    assert Solution().isSymmetric(None) is True
+
+
+def test_symmetric_tricky_structure_mismatch():
     root = build_tree([1, 2, 2, None, 3, None, 3])
     assert Solution().isSymmetric(root) is False

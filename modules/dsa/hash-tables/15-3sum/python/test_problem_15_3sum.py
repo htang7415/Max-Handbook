@@ -9,9 +9,9 @@ def test_three_sum_example():
     ]
 
 
-def test_three_sum_no_solution():
+def test_three_sum_edge_no_solution():
     assert three_sum([1, 2, -2, -1]) == []
 
 
-def test_three_sum_deduplicates_triplets():
+def test_three_sum_tricky_deduplicates_triplets():
     assert three_sum([0, 0, 0, 0]) == [[0, 0, 0]]

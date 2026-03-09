@@ -16,10 +16,15 @@ def build_tree(values: list[int | None]) -> TreeNode | None:
     return root
 
 
-def test_max_depth_basic():
+def test_max_depth_example():
     root = build_tree([3, 9, 20, None, None, 15, 7])
     assert Solution().maxDepth(root) == 3
 
 
-def test_max_depth_empty():
+def test_max_depth_edge_empty():
     assert Solution().maxDepth(None) == 0
+
+
+def test_max_depth_tricky_skewed():
+    root = build_tree([1, None, 2, None, 3, None, 4])
+    assert Solution().maxDepth(root) == 4

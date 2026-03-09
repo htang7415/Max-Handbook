@@ -25,8 +25,14 @@ Each bullet maps to a module under `modules/ml/llm/`.
 - Perplexity (`modules/ml/llm/perplexity`)
 - MMLU-style evaluation (`modules/ml/llm/mmlu-evaluation`)
 - Normalized exact match (`modules/ml/llm/exact-match`)
+- Answer verification (`modules/ml/llm/answer-verification`)
+- Self-consistency voting (`modules/ml/llm/self-consistency-voting`)
 - BLEU / METEOR overlap (`modules/ml/llm/bleu-meteor`)
 - Pass@k (`modules/ml/llm/pass-at-k`)
+- Retrieval Recall@k (`modules/ml/llm/retrieval-recall-at-k`)
+- Mean reciprocal rank (`modules/ml/evaluation/mean-reciprocal-rank`)
+- NDCG (`modules/ml/evaluation/ndcg`)
+- Reciprocal rank for one query (`modules/ml/llm/reciprocal-rank-metric`)
 - Pairwise judge rates (`modules/ml/llm/judge-pairwise`)
 - Reranker metrics (`modules/ml/llm/reranker-metrics`)
 
@@ -34,6 +40,7 @@ Each bullet maps to a module under `modules/ml/llm/`.
 
 - BM25 ranking (`modules/ml/llm/bm25-ranking`)
 - Weighted retrieval fusion (`modules/ml/llm/retrieval-fusion`)
+- Reciprocal-rank fusion (`modules/ml/llm/reciprocal-rank-fusion`)
 
 ## Decoding
 

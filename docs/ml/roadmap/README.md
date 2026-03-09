@@ -83,6 +83,36 @@ Modules added:
 - `modules/ml/llm/sampling-pipeline`
 - `modules/ml/data/robust-scaling`
 - `modules/ml/llm/retrieval-fusion`
+- `modules/ml/evaluation/wilson-interval`
+- `modules/ml/reinforcement-learning/td-lambda`
+- `modules/ml/evaluation/ab-test-analysis`
+- `modules/ml/mlops/canary-rollout`
+- `modules/ml/mlops/drift-detection`
+- `modules/ml/evaluation/delong-test`
+- `modules/ml/data/hash-trick`
+- `modules/ml/llm/reciprocal-rank-fusion`
+- `modules/ml/reinforcement-learning/generalized-advantage-estimation`
+- `modules/ml/evaluation/brier-score`
+- `modules/ml/representation/pairwise-ranking-loss`
+- `modules/ml/mlops/online-shadow-mode`
+- `modules/ml/optimization/one-cycle-schedule`
+- `modules/ml/data/target-encoding`
+- `modules/ml/llm/retrieval-recall-at-k`
+- `modules/ml/reinforcement-learning/off-policy-correction`
+- `modules/ml/evaluation/mean-reciprocal-rank`
+- `modules/ml/data/count-vectorizer`
+- `modules/ml/llm/answer-verification`
+- `modules/ml/reinforcement-learning/advantage-normalization`
+- `modules/ml/mlops/sequential-testing`
+- `modules/ml/reinforcement-learning/off-policy-evaluation`
+- `modules/ml/data/frequency-encoding`
+- `modules/ml/llm/reciprocal-rank-metric`
+- `modules/ml/optimization/cosine-restarts`
+- `modules/ml/mlops/error-budget`
+- `modules/ml/evaluation/ndcg`
+- `modules/ml/data/chi-square-feature-selection`
+- `modules/ml/llm/self-consistency-voting`
+- `modules/ml/reinforcement-learning/value-normalization`
 
 ## Top 10 Docs to Write Next
 
@@ -102,22 +132,17 @@ Modules added:
 `modules/ml/generative/diffusion-guidance-tradeoffs` already covers the classifier-free guidance idea, so it is no longer tracked as a separate module.
 `modules/ml/mlops/ab-testing`, `modules/ml/mlops/canary-deployment`, `modules/ml/mlops/feature-drift-psi`, and `modules/ml/representation/contrastive-loss` already cover the basic title areas, so exact-title follow-ups are lower priority than uncovered concepts.
 
-- `modules/ml/evaluation/wilson-interval`: inferred classification-uncertainty gap for proportions.
-- `modules/ml/reinforcement-learning/td-lambda`: natural continuation after eligibility traces.
-- `modules/ml/evaluation/ab-test-analysis`: exact Deep-ML title match for model-comparison statistics.
-- `modules/ml/mlops/canary-rollout`: exact Deep-ML title direction beyond the current canary split baseline.
-- `modules/ml/mlops/drift-detection`: exact Deep-ML title direction beyond PSI-only drift.
-- `modules/ml/evaluation/delong-test`: inferred ranking-metric significance test gap.
-- `modules/ml/data/hash-trick`: inferred sparse-feature engineering gap after TF-IDF.
-- `modules/ml/llm/reciprocal-rank-fusion`: exact retrieval-fusion variant worth isolating from weighted score fusion.
-- `modules/ml/reinforcement-learning/generalized-advantage-estimation`: inferred policy-gradient variance-reduction gap.
-- `modules/ml/evaluation/brier-score`: inferred probabilistic scoring gap complementary to ECE.
+- `modules/ml/mlops/backfill-replay`: offline serving validation pattern before rollout.
+- `modules/ml/evaluation/top-k-accuracy`: classification ranking metric gap.
+- `modules/ml/data/rare-category-grouping`: preprocessing guardrail for long-tail categoricals.
+- `modules/ml/llm/retrieval-precision-at-k`: retrieval precision counterpart to Recall@k.
+- `modules/ml/reinforcement-learning/double-q-learning`: value-overestimation fix not yet isolated.
+- `modules/ml/mlops/cost-per-request`: serving economics primitive.
 
 ## Second Wave After That
 
-- `modules/ml/representation/pairwise-ranking-loss`
-- `modules/ml/mlops/online-shadow-mode`
-- `modules/ml/optimization/one-cycle-schedule`
-- `modules/ml/data/target-encoding`
-- `modules/ml/llm/retrieval-recall-at-k`
-- `modules/ml/reinforcement-learning/off-policy-correction`
+- `modules/ml/evaluation/hamming-loss`
+- `modules/ml/data/weight-of-evidence`
+- `modules/ml/llm/judge-calibration`
+- `modules/ml/reinforcement-learning/target-network-update`
+- `modules/ml/mlops/capacity-headroom`
