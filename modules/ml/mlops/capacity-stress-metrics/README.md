@@ -29,16 +29,25 @@ routinely breaching it, or collapsing into a severe tail.
   \frac{1}{N}\sum_{i=1}^{N}\mathbf{1}[x_i > C]\left(1 + \frac{x_i - C}{C}\right)
   $$
 
+## From Math To Code
+
+- Convert raw observations into excess ratios above capacity before computing any higher-order summary.
+- Use breach rate for frequency, then add margin or pressure only when severity matters.
+- Bucket metrics are summaries of the excess-ratio distribution, not separate first-principles ideas.
+- Tail metrics should be read only after the simpler frequency and severity numbers are clear.
+
 ## Minimal Code Mental Model
 
 ```python
 breaches, rate = capacity_breach_rate(observations, capacity)
+ratios = excess_ratios(observations, capacity)
 pressure = pressure_score(observations, capacity)
 ```
 
-## Function
+## Functions
 
 ```python
+def excess_ratios(observations: list[float], capacity: float) -> list[float]:
 def capacity_breach_rate(observations: list[float], capacity: float) -> tuple[int, float]:
 def headroom_gap(observations: list[float], ceiling: float) -> tuple[list[float], float]:
 def overload_margin(observations: list[float], capacity: float) -> float:

@@ -27,16 +27,27 @@ $$
 \eta_t = \eta_0 \frac{1 + \cos(\pi t / T)}{2}
 $$
 
+## From Math To Code
+
+- Break schedules into reusable scaling factors before multiplying by the base learning rate.
+- Warmup is just a ramp factor applied at the earliest steps.
+- Cosine decay is just a smooth factor between `1` and `0`.
+- Composite schedules like warmup-cosine are easier to understand once those two pieces are separate.
+
 ## Minimal Code Mental Model
 
 ```python
+warm = warmup_factor(t=20, warmup_steps=100)
+decay = cosine_decay_factor(t=200, t_max=1000)
 lr = warmup_cosine_lr(base_lr=1e-3, step=200, warmup_steps=100, total_steps=1000)
 peak = one_cycle_lr(max_lr=1e-2, step=50, total_steps=500)
 ```
 
-## Function
+## Functions
 
 ```python
+def warmup_factor(t: int, warmup_steps: int) -> float:
+def cosine_decay_factor(t: int, t_max: int) -> float:
 def constant_lr(lr: float) -> float:
 def step_decay(lr: float, step: int, gamma: float, t: int) -> float:
 def exp_decay(lr: float, k: float, t: float) -> float:

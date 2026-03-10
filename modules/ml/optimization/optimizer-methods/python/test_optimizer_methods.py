@@ -7,9 +7,11 @@ from optimizer_methods import (
     adam_step,
     adamw_step,
     momentum_step,
+    momentum_velocity,
     nesterov_step,
     rmsprop_step,
     sgd_step,
+    weight_decay_term,
 )
 
 
@@ -23,6 +25,7 @@ def test_momentum_and_nesterov_return_updated_weight_and_velocity() -> None:
     assert w_m < 1.0 and w_n < 1.0
     assert v_m == pytest.approx(1.0)
     assert v_n == pytest.approx(1.0)
+    assert momentum_velocity(1.0, 0.0, 0.9) == pytest.approx(1.0)
 
 
 def test_adaptive_optimizers_accumulate_state() -> None:
@@ -33,3 +36,4 @@ def test_adaptive_optimizers_accumulate_state() -> None:
     assert g2 > 0.0 and v_r > 0.0
     assert m_a > 0.0 and v_a > 0.0
     assert m_w > 0.0 and v_w > 0.0
+    assert weight_decay_term(1.0, 0.1, 0.1) == pytest.approx(0.01)

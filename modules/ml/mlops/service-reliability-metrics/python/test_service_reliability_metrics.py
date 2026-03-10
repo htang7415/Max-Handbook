@@ -6,9 +6,11 @@ from service_reliability_metrics import (
     queue_age_percentiles,
     queue_backlog_ratio,
     queue_delay,
+    queue_delay_values,
     queue_utilization,
     request_sla_compliance,
     retry_rate,
+    sla_violations,
     saturation_rate,
     violation_rate,
 )
@@ -18,6 +20,7 @@ def test_request_sla_compliance_counts_requests_under_threshold() -> None:
     compliant, fraction = request_sla_compliance([80.0, 120.0, 220.0], sla_ms=150.0)
     assert compliant == 2
     assert fraction == pytest.approx(2 / 3)
+    assert sla_violations([80.0, 120.0, 220.0], sla_ms=150.0) == [0, 0, 1]
 
 
 def test_request_sla_compliance_validates_inputs() -> None:
@@ -44,6 +47,7 @@ def test_queue_delay_returns_per_item_delays_and_mean() -> None:
     delays, mean_delay = queue_delay([1.0, 4.0], [3.0, 5.0])
     assert delays == [2.0, 1.0]
     assert mean_delay == 1.5
+    assert queue_delay_values([1.0, 4.0], [3.0, 5.0]) == [2.0, 1.0]
 
 
 def test_queue_utilization_returns_fraction_and_flag() -> None:

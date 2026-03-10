@@ -3,6 +3,20 @@ from __future__ import annotations
 import math
 
 
+def warmup_factor(t: int, warmup_steps: int) -> float:
+    if warmup_steps <= 0:
+        raise ValueError("warmup_steps must be positive")
+    if t < 0:
+        raise ValueError("t must be non-negative")
+    return min(1.0, t / warmup_steps)
+
+
+def cosine_decay_factor(t: int, t_max: int) -> float:
+    if t_max <= 0:
+        raise ValueError("t_max must be positive")
+    return 0.5 * (1 + math.cos(math.pi * t / t_max))
+
+
 def constant_lr(lr: float) -> float:
     return lr
 
@@ -16,11 +30,11 @@ def exp_decay(lr: float, k: float, t: float) -> float:
 
 
 def cosine_decay(lr: float, t: int, t_max: int) -> float:
-    return lr * 0.5 * (1 + math.cos(math.pi * t / t_max))
+    return lr * cosine_decay_factor(t, t_max)
 
 
 def warmup_lr(lr: float, t: int, warmup_steps: int) -> float:
-    return lr * min(1.0, t / warmup_steps)
+    return lr * warmup_factor(t, warmup_steps)
 
 
 def cosine_restart_lr(base_lr: float, step: int, cycle_length: int) -> float:
@@ -31,7 +45,7 @@ def cosine_restart_lr(base_lr: float, step: int, cycle_length: int) -> float:
     if cycle_length <= 0:
         raise ValueError("cycle_length must be positive")
     position = step % cycle_length
-    return base_lr * 0.5 * (1.0 + math.cos(math.pi * position / cycle_length))
+    return base_lr * cosine_decay_factor(position, cycle_length)
 
 
 def warmup_cosine_lr(

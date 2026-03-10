@@ -3,17 +3,23 @@ from __future__ import annotations
 import math
 
 
-def psi(expected: list[float], actual: list[float]) -> float:
+def psi_terms(expected: list[float], actual: list[float]) -> list[float]:
     if len(expected) != len(actual):
         raise ValueError("expected and actual must have the same length")
     if any(value < 0.0 for value in expected + actual):
         raise ValueError("expected and actual must be non-negative")
 
-    total = 0.0
+    terms: list[float] = []
     for e, a in zip(expected, actual):
         if e > 0 and a > 0:
-            total += (a - e) * math.log(a / e)
-    return total
+            terms.append((a - e) * math.log(a / e))
+        else:
+            terms.append(0.0)
+    return terms
+
+
+def psi(expected: list[float], actual: list[float]) -> float:
+    return sum(psi_terms(expected, actual))
 
 
 def ks_drift_score(reference: list[float], current: list[float]) -> float:

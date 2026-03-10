@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import pytest
 
-from monitoring_and_drift_methods import drift_detected, ks_drift_score, mean_shift, missing_rate, psi
+from monitoring_and_drift_methods import drift_detected, ks_drift_score, mean_shift, missing_rate, psi, psi_terms
 
 
 def test_psi_is_zero_for_identical_distributions() -> None:
     assert psi([0.5, 0.5], [0.5, 0.5]) == 0.0
+    assert psi_terms([0.5, 0.5], [0.5, 0.5]) == [0.0, 0.0]
 
 
 def test_psi_validates_lengths() -> None:

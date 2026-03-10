@@ -34,11 +34,20 @@ $$
 \mathrm{SaturationRate} = \frac{\sum_{i=1}^{N} \mathbf{1}[u_i \ge \tau]}{N}
 $$
 
+## From Math To Code
+
+- Turn each request into a binary SLA violation indicator first.
+- Count compliant requests by subtracting total violations from the request count.
+- Compute queue delay per request before averaging it into one service-level summary.
+- Convert utilization into thresholded saturation events only after the raw ratios are visible.
+
 ## Minimal Code Mental Model
 
 ```python
+violations = sla_violations(latencies_ms, sla_ms=200.0)
 compliant, compliance = request_sla_compliance(latencies_ms, sla_ms=200.0)
-delays, mean_delay = queue_delay(enqueued_at, started_at)
+delays = queue_delay_values(enqueued_at, started_at)
+_, mean_delay = queue_delay(enqueued_at, started_at)
 retried, retry_fraction = retry_rate(retry_counts)
 utilization, saturated_now = queue_utilization(queue_depth, queue_capacity)
 ```
@@ -46,9 +55,11 @@ utilization, saturated_now = queue_utilization(queue_depth, queue_capacity)
 ## Functions
 
 ```python
+def sla_violations(latencies_ms: list[float], sla_ms: float) -> list[int]:
 def request_sla_compliance(latencies_ms: list[float], sla_ms: float) -> tuple[int, float]:
 def violation_rate(violations: int, total: int) -> float:
 def retry_rate(retry_counts: list[int]) -> tuple[int, float]:
+def queue_delay_values(enqueued_at: list[float], started_at: list[float]) -> list[float]:
 def queue_delay(enqueued_at: list[float], started_at: list[float]) -> tuple[list[float], float]:
 def queue_utilization(queue_depth: int, queue_capacity: int) -> tuple[float, bool]:
 def queue_age_percentiles(queue_ages: list[float]) -> tuple[float, float]:

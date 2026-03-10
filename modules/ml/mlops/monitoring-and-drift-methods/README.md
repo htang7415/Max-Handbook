@@ -34,9 +34,17 @@ $$
 \Delta \mu = |\mu_{\text{new}} - \mu_{\text{old}}|
 $$
 
+## From Math To Code
+
+- Compare bucket proportions term by term before summing them into PSI.
+- Treat KS drift as the largest gap between two empirical CDFs, not just a mean difference.
+- Keep prediction shift separate from input drift because labels often arrive later.
+- Start with the simplest health checks, like missing-rate, before moving to richer drift summaries.
+
 ## Minimal Code Mental Model
 
 ```python
+terms = psi_terms(expected_bins, actual_bins)
 population_shift = psi(expected_bins, actual_bins)
 ks_score = ks_drift_score(reference, current)
 prediction_shift = mean_shift(old_predictions, new_predictions)
@@ -46,6 +54,7 @@ null_fraction = missing_rate(values)
 ## Functions
 
 ```python
+def psi_terms(expected: list[float], actual: list[float]) -> list[float]:
 def psi(expected: list[float], actual: list[float]) -> float:
 def ks_drift_score(reference: list[float], current: list[float]) -> float:
 def drift_detected(reference: list[float], current: list[float], threshold: float = 0.2) -> bool:

@@ -8,6 +8,7 @@ from capacity_stress_metrics import (
     breach_bucket_slope,
     breach_bucket_tail,
     capacity_breach_rate,
+    excess_ratios,
     headroom_gap,
     overload_margin,
     pressure_score,
@@ -29,6 +30,7 @@ def test_overload_and_pressure_distinguish_mild_from_severe_excess() -> None:
     observations = [8.0, 12.0, 15.0]
 
     assert overload_margin(observations, capacity=10.0) == pytest.approx(7 / 3)
+    assert excess_ratios(observations, capacity=10.0) == pytest.approx([0.0, 0.2, 0.5])
     assert pressure_score(observations, capacity=10.0) == pytest.approx((1.2 + 1.5) / 3)
     assert surge_pressure(observations, capacity=10.0) == pytest.approx((0.2**2 + 0.5**2) / 3)
 

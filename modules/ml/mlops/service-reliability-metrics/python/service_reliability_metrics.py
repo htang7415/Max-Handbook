@@ -3,6 +3,14 @@ from __future__ import annotations
 import math
 
 
+def sla_violations(latencies_ms: list[float], sla_ms: float) -> list[int]:
+    if sla_ms <= 0.0:
+        raise ValueError("sla_ms must be positive")
+    if any(latency < 0.0 for latency in latencies_ms):
+        raise ValueError("latencies_ms must be non-negative")
+    return [int(latency > sla_ms) for latency in latencies_ms]
+
+
 def request_sla_compliance(latencies_ms: list[float], sla_ms: float) -> tuple[int, float]:
     if sla_ms <= 0.0:
         raise ValueError("sla_ms must be positive")
@@ -11,7 +19,7 @@ def request_sla_compliance(latencies_ms: list[float], sla_ms: float) -> tuple[in
     if any(latency < 0.0 for latency in latencies_ms):
         raise ValueError("latencies_ms must be non-negative")
 
-    compliant = sum(latency <= sla_ms for latency in latencies_ms)
+    compliant = len(latencies_ms) - sum(sla_violations(latencies_ms, sla_ms))
     return compliant, compliant / len(latencies_ms)
 
 
@@ -41,12 +49,19 @@ def queue_delay(enqueued_at: list[float], started_at: list[float]) -> tuple[list
     if not enqueued_at:
         return [], 0.0
 
+    delays = queue_delay_values(enqueued_at, started_at)
+    return delays, sum(delays) / len(delays)
+
+
+def queue_delay_values(enqueued_at: list[float], started_at: list[float]) -> list[float]:
+    if len(enqueued_at) != len(started_at):
+        raise ValueError("enqueued_at and started_at must have the same length")
     delays: list[float] = []
     for arrival_time, service_time in zip(enqueued_at, started_at):
         if service_time < arrival_time:
             raise ValueError("started_at times must be at or after enqueued_at times")
         delays.append(service_time - arrival_time)
-    return delays, sum(delays) / len(delays)
+    return delays
 
 
 def queue_utilization(queue_depth: int, queue_capacity: int) -> tuple[float, bool]:

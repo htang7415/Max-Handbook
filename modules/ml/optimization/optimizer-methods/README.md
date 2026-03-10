@@ -32,17 +32,27 @@ $$
 \text{Adaptive: } w_{t+1} = w_t - \eta \frac{m_t}{\sqrt{v_t} + \epsilon}
 $$
 
+## From Math To Code
+
+- Build the update in stages: gradient, momentum state, then parameter step.
+- Reuse the same velocity equation across momentum and Nesterov so the code mirrors the math.
+- Treat decoupled weight decay as a separate shrinkage term, not as part of the gradient itself.
+- Read adaptive optimizers as moving-average estimators for first and second moments.
+
 ## Minimal Code Mental Model
 
 ```python
+v = momentum_velocity(grad, v, mu)
 w = sgd_step(w, grad, lr)
 w, v = momentum_step(w, grad, v, lr, mu)
+shrink = weight_decay_term(w, lr, wd)
 w, m, v = adamw_step(w, grad, m, v, lr, wd, beta1, beta2, eps)
 ```
 
-## Function
+## Functions
 
 ```python
+def momentum_velocity(grad: float, v: float, mu: float) -> float:
 def sgd_step(w: float, grad: float, lr: float) -> float:
 def momentum_step(w: float, grad: float, v: float, lr: float, mu: float) -> tuple[float, float]:
 def nesterov_step(w: float, grad: float, v: float, lr: float, mu: float) -> tuple[float, float]:
@@ -50,6 +60,7 @@ def adagrad_step(w: float, grad: float, g2: float, lr: float, eps: float) -> tup
 def rmsprop_step(w: float, grad: float, v: float, lr: float, beta: float, eps: float) -> tuple[float, float]:
 def adam_step(w: float, grad: float, m: float, v: float, lr: float, beta1: float, beta2: float, eps: float) -> tuple[float, float, float]:
 def adamw_step(w: float, grad: float, m: float, v: float, lr: float, wd: float, beta1: float, beta2: float, eps: float) -> tuple[float, float, float]:
+def weight_decay_term(w: float, lr: float, wd: float) -> float:
 ```
 
 ## When To Use What

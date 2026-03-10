@@ -35,6 +35,11 @@ def _bucket_counts(observations: list[float], capacity: float, cutoffs: list[flo
     return counts, breached_count
 
 
+def excess_ratios(observations: list[float], capacity: float) -> list[float]:
+    _validate_observations(observations, capacity)
+    return [max(0.0, (observation - capacity) / capacity) for observation in observations]
+
+
 def capacity_breach_rate(observations: list[float], capacity: float) -> tuple[int, float]:
     _validate_observations(observations, capacity)
     if not observations:
@@ -69,9 +74,9 @@ def pressure_score(observations: list[float], capacity: float) -> float:
         return 0.0
 
     total = 0.0
-    for observation in observations:
-        if observation > capacity:
-            total += 1.0 + (observation - capacity) / capacity
+    for excess_ratio in excess_ratios(observations, capacity):
+        if excess_ratio > 0.0:
+            total += 1.0 + excess_ratio
     return total / len(observations)
 
 
@@ -80,11 +85,7 @@ def surge_pressure(observations: list[float], capacity: float) -> float:
     if not observations:
         return 0.0
 
-    total = 0.0
-    for observation in observations:
-        if observation > capacity:
-            excess_ratio = (observation - capacity) / capacity
-            total += excess_ratio * excess_ratio
+    total = sum(excess_ratio * excess_ratio for excess_ratio in excess_ratios(observations, capacity))
     return total / len(observations)
 
 
