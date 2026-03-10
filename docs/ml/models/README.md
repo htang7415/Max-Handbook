@@ -1,34 +1,62 @@
 # Models and Classical ML
 
-Classical ML models and baselines.
-Each bullet maps to a module under `modules/ml/models/`.
+Classical ML is still the fastest path to good baselines, interpretable behavior, and small-data wins.
 
-## Core Models
+## Purpose
 
-- Linear regression (`modules/ml/models/linear-regression`)
-- Logistic regression (`modules/ml/models/logistic-regression`)
-- Softmax regression (`modules/ml/models/softmax-regression`)
-- Elastic Net (`modules/ml/models/elastic-net`)
-- Decision Trees (`modules/ml/models/decision-trees`)
-- Random Forest (bagging) (`modules/ml/models/random-forest`)
-- AdaBoost (`modules/ml/models/adaboost`)
-- Gradient Boosting (`modules/ml/models/gradient-boosting`)
-- XGBoost split objective (`modules/ml/models/xgboost-objective`)
-- Isolation Forest (`modules/ml/models/isolation-forest`)
-- Kernel PCA (`modules/ml/models/kernel-pca`)
-- Locally Linear Embedding (LLE) (`modules/ml/models/lle`)
-- t-SNE point gradient (`modules/ml/models/tsne-gradient`)
-- AIC / BIC model selection (`modules/ml/models/bic-aic`)
-- KNN (`modules/ml/models/knn`)
-- K-Means (`modules/ml/models/k-means`)
-- DBSCAN (`modules/ml/models/dbscan`)
-- Gaussian Mixture Model with EM (`modules/ml/models/gaussian-mixture-model-em`)
-- Gaussian Naive Bayes (`modules/ml/models/gaussian-naive-bayes`)
-- Bernoulli Naive Bayes (`modules/ml/models/bernoulli-naive-bayes`)
-- SVM (Pegasos) (`modules/ml/models/svm-pegasos`)
-- Gaussian Process Regression (GPR) (`modules/ml/models/gaussian-process-regression`)
+Use this page to choose the right model family before reaching for deeper systems:
+- linear models
+- tree and ensemble models
+- nearest-neighbor and clustering models
+- probabilistic models
+- dimensionality reduction
 
-See also:
+## First Principles
+
+- Linear models work well when the signal is mostly additive after good preprocessing.
+- Tree models win when interactions and thresholds matter but data is still structured.
+- Distance-based methods depend heavily on scaling and representation.
+- Probabilistic models are useful when distributions or uncertainty assumptions matter.
+- Dimensionality reduction helps when geometry matters more than raw feature count.
+
+## Core Math
+
+- Linear model:
+  $$
+  \hat{y} = w^\top x + b
+  $$
+- Logistic model:
+  $$
+  p(y=1 \mid x) = \sigma(w^\top x + b)
+  $$
+- Tree split objective is usually impurity or loss reduction.
+- EM-style mixture models alternate between soft assignment and parameter re-estimation.
+
+## Minimal Code Mental Model
+
+```python
+model.fit(x_train, y_train)
+pred = model.predict(x_val)
+score = evaluate(pred, y_val)
+```
+
+## Canonical Modules
+
+- Linear models: `linear-regression`, `logistic-regression`, `softmax-regression`, `elastic-net`
+- Trees and ensembles: `decision-trees`, `random-forest`, `gradient-boosting`, `xgboost-objective`, `adaboost`
+- Clustering and neighbors: `knn`, `k-means`, `dbscan`, `gaussian-mixture-model-em`
+- Probabilistic baselines: `gaussian-naive-bayes`, `bernoulli-naive-bayes`, `gaussian-process-regression`
+- Dimensionality reduction: `kernel-pca`, `lle`, `tsne-gradient`, `bic-aic`
+
+## Supporting Guides
 
 - Linear-model map (`docs/ml/models/linear`)
 - Tree and ensemble map (`docs/ml/models/trees`)
+
+## When To Use What
+
+- Start with linear models when you want a strong, fast baseline.
+- Use trees or boosting when nonlinear thresholds and feature interactions matter.
+- Use clustering and neighbor methods when geometry is part of the task.
+- Use probabilistic models when assumptions about distributions are actually helpful.
+- Use dimensionality reduction when you need structure, visualization, or compressed features.

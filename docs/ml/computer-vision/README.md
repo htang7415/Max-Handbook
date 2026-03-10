@@ -1,31 +1,49 @@
 # Computer Vision
 
-Vision preprocessing and CNN architecture basics.
-Each bullet maps to a module under `modules/ml/computer-vision/`.
+Computer vision is about turning images into features that preserve spatial structure.
 
-Leaf guides:
+## Purpose
 
-- Architecture map (`docs/ml/computer-vision/architectures`)
+Use this page to keep vision study in the right order:
+- image preprocessing
+- convolution and pooling
+- CNN architecture choices
+- common vision-specific postprocessing
 
-## CNN Fundamentals
+## First Principles
 
-- CNNs (`modules/ml/computer-vision/cnn-basics`)
-- Convolution layers (`modules/ml/computer-vision/convolution-layer`)
-- Pooling (max, average) (`modules/ml/computer-vision/pooling`)
-- Global average pooling (`modules/ml/computer-vision/global-average-pooling`)
-- 2D vs 3D CNN (`modules/ml/computer-vision/cnn-2d-vs-3d`)
-- Image preprocessing (`modules/ml/computer-vision/image-preprocessing`)
-- RGB to grayscale (`modules/ml/computer-vision/rgb-to-grayscale`)
-- Contrast and brightness (`modules/ml/computer-vision/contrast-brightness`)
-- Bilinear resizing (`modules/ml/computer-vision/bilinear-resizing`)
-- Sobel edge detection (`modules/ml/computer-vision/sobel-edge-detection`)
-- Optical flow (EPE) (`modules/ml/computer-vision/optical-flow-epe`)
-- Data augmentation (`modules/ml/computer-vision/data-augmentation`)
-- Non-maximum suppression (`modules/ml/computer-vision/non-maximum-suppression`)
+- Images have local structure, so convolution reuses weights across space.
+- Downsampling trades spatial detail for larger receptive fields and lower cost.
+- Preprocessing and augmentation matter because image scale, lighting, and crop choices change what the model sees.
+- Architecture choices mainly change how efficiently the model builds hierarchical visual features.
 
-## Classic Architectures
+## Core Math
 
-- LeNet-5 (`modules/ml/computer-vision/lenet-5`)
-- AlexNet (`modules/ml/computer-vision/alexnet`)
-- VGGNet (`modules/ml/computer-vision/vggnet`)
-- ResNet (`modules/ml/computer-vision/resnet`)
+- Convolution at location $(i, j)$:
+  $$
+  y_{i,j} = \sum_{u,v} K_{u,v} x_{i+u,j+v}
+  $$
+- Pooling keeps a summary over a local region instead of every pixel.
+
+## Minimal Code Mental Model
+
+```python
+x = preprocess(image)
+features = conv(x)
+features = pool(features)
+logits = classifier(features)
+```
+
+## Canonical Modules
+
+- Vision basics: `cnn-basics`, `convolution-layer`, `pooling`, `global-average-pooling`
+- Image preparation: `image-preprocessing`, `rgb-to-grayscale`, `contrast-brightness`, `bilinear-resizing`, `data-augmentation`
+- Postprocessing and signals: `non-maximum-suppression`, `sobel-edge-detection`, `optical-flow-epe`
+- Architectures: `resnet` with the architecture guide in `docs/ml/computer-vision/architectures`
+
+## When To Use What
+
+- Start with convolution, pooling, and preprocessing before named architectures.
+- Use `data-augmentation` when robustness is the bottleneck.
+- Use `global-average-pooling` when you want a lighter classifier head than flattening.
+- Use `non-maximum-suppression` only when the task produces overlapping detections or proposals.

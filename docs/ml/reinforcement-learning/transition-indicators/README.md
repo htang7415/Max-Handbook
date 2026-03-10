@@ -18,6 +18,7 @@ Transition indicators turn episode termination state into tensors that control b
 
 ## Good Defaults
 
-- `terminal-mask` for TD target logic
-- `done-fraction` or `episode-end-rate` for replay-buffer diagnostics
-- `bootstrap-target` plus `terminal-mask` as the core teaching pair
+- Start with the canonical module `transition-indicators`
+- Use `terminal_mask` for TD target logic
+- Use `done_fraction` for replay-buffer diagnostics
+- Use `bootstrap-target` plus `terminal_mask` as the core teaching pair

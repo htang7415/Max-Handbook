@@ -1,71 +1,65 @@
 # NLP and LLMs
 
-Transformers, training stages, and alignment for LLMs.
-Each bullet maps to a module under `modules/ml/llm/`.
+This section is about how modern language models represent text, train, decode, align, and serve.
 
-## Core Concepts
+## Purpose
 
-- Tokenization (`modules/ml/llm/tokenization`)
-- Tokenizer comparison (`modules/ml/llm/tokenizer-comparison`)
-- Embeddings (`modules/ml/llm/embeddings`)
-- Positional encoding (`modules/ml/llm/positional-encoding`)
-- Transformer (`modules/ml/llm/transformer`)
-- Self-attention (`modules/ml/llm/self-attention`)
-- Multi-head attention (`modules/ml/llm/multi-head-attention`)
-- Masked attention (`modules/ml/llm/attention-causal`)
+Use this page to keep the LLM stack in the right order:
+- tokenization and representations
+- attention and transformer structure
+- training stages
+- evaluation
+- decoding and inference systems
 
-## Training Stages
+## First Principles
 
-- Pretraining (next-token prediction / PTX loss) (`modules/ml/llm/pretraining`)
-- Supervised fine-tuning (SFT) (`modules/ml/llm/supervised-fine-tuning`)
-- Alignment / preference learning (`modules/ml/llm/preference-learning`)
+- Tokenization defines the units the model sees.
+- Attention lets each token condition on earlier context.
+- The transformer stacks attention and feed-forward blocks into a scalable sequence model.
+- Training moves from pretraining to task adaptation and then often to alignment.
+- Good LLM systems are not just good models; they also need good decoding and serving behavior.
 
-## Evaluation
+## Core Math
 
-- LLM evaluation guide (`docs/ml/llm/evaluation`)
-- Likelihood and task scoring: `perplexity`, `exact-match`, `answer-verification`, `pass-at-k`, `mmlu-evaluation`, `bleu-meteor`
-- Consensus and sampling: `self-consistency-voting`, `answer-stability`, `candidate-diversity`, plus the vote metrics guide
-- Judge and preference evaluation: `judge-calibration`, `judge-pairwise`, `judge-agreement-matrix`
-- Retrieval and reranking: `retrieval-metrics`, `reranker-metrics`, `mean-reciprocal-rank`, `ndcg`
+- Self-attention weight:
+  $$
+  \mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+  $$
+- Next-token pretraining objective:
+  $$
+  -\sum_t \log p(x_t \mid x_{<t})
+  $$
+- Preference-style alignment learns to score preferred outputs above rejected ones.
 
-## Retrieval and Lexical Baselines
+## Minimal Code Mental Model
 
-- BM25 ranking (`modules/ml/llm/bm25-ranking`)
-- Weighted retrieval fusion (`modules/ml/llm/retrieval-fusion`)
-- Reciprocal-rank fusion (`modules/ml/llm/reciprocal-rank-fusion`)
+```python
+tokens = tokenizer(text)
+hidden = transformer(tokens)
+next_token = decode(hidden[-1], strategy=\"top_p\")
+```
 
-## Decoding
+## Canonical Modules
 
-- Decoding methods family (`modules/ml/llm/decoding-methods`)
-- Beam search (`modules/ml/llm/beam-search`)
-- Top-k sampling (`modules/ml/llm/top-k-sampling`)
-- Top-p sampling (`modules/ml/llm/top-p-sampling`)
-- Temperature sampling (`modules/ml/llm/temperature-sampling`)
-- Combined sampling pipeline (`modules/ml/llm/sampling-pipeline`)
+- Tokenization and representations: `tokenization`, `tokenizer-comparison`, `embeddings`, `positional-encoding`
+- Transformer core: `self-attention`, `multi-head-attention`, `attention-causal`, `transformer`
+- Training stages: `pretraining`, `supervised-fine-tuning`, `preference-learning`
+- Evaluation: `docs/ml/llm/evaluation`
+- Decoding: `decoding-methods`
+- Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion`, `reciprocal-rank-fusion`
+- Alignment and optimization: `rlhf`, `dpo`, `kl-regularization`, `ptx-anchoring`
+- Efficiency and systems: `lora`, `qlora`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `qk-clip`
 
-## Alignment and Optimization
-
-- RLHF (`modules/ml/llm/rlhf`)
-- DPO (`modules/ml/llm/dpo`)
-- KL regularization (`modules/ml/llm/kl-regularization`)
-- PTX anchoring (`modules/ml/llm/ptx-anchoring`)
-
-## Efficiency and Systems
-
-- LoRA (`modules/ml/llm/lora`) / QLoRA (`modules/ml/llm/qlora`)
-- KV cache sizing (`modules/ml/llm/kv-cache`)
-- Prefix-cache reuse (`modules/ml/llm/prefix-cache`)
-- Speculative decoding verification (`modules/ml/llm/speculative-decoding`)
-- Inference head pruning (`modules/ml/llm/inference-head-pruning`)
-- Sparse attention (`modules/ml/llm/sparse-attention`)
-- QK-clip / MuonClip attention stabilization (`modules/ml/llm/qk-clip`)
-- Sparse MoE layers (top-k expert routing) (`modules/ml/llm/moe-routing`)
-- FP16 / BF16 / FP8 (`modules/ml/llm/fp16-bf16-fp8`)
-- INT8 / INT4 (`modules/ml/llm/int8-int4-quantization`)
-
-See also:
+## Supporting Guides
 
 - Tokenization guide (`docs/ml/llm/tokenization`)
 - Alignment guide (`docs/ml/llm/alignment`)
 - LLM evaluation guide (`docs/ml/llm/evaluation`)
 - Inference serving guide (`docs/ml/llm/inference-serving`)
+
+## When To Use What
+
+- Start with tokenization, embeddings, and attention before jumping to alignment or serving.
+- Use the evaluation guide before choosing metrics module by module.
+- Use decoding methods when generation behavior is the issue.
+- Use serving and systems topics when latency, memory, or throughput becomes the bottleneck.

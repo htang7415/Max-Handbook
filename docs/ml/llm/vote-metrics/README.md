@@ -21,7 +21,8 @@ Vote metrics summarize how multiple sampled answers agree, disagree, or fragment
 
 ## Good Defaults
 
-- `answer-stability` for repeated-run consistency
-- `majority-vote-margin` plus `vote-entropy` for confidence-style summaries
-- `answer-uniqueness-rate` for diversity
-- `minority-cluster-entropy` or `minority-cluster-tail-concentration` when disagreement structure matters
+- Start with the canonical module `vote-metrics`
+- Use `answer_stability` for repeated-run consistency
+- Use `majority_vote_margin` plus `vote_entropy` for confidence-style summaries
+- Use `answer_uniqueness_rate` for diversity
+- Use `minority_cluster_entropy` when disagreement structure matters

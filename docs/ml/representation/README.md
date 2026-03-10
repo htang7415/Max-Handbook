@@ -1,63 +1,60 @@
 # Representation Learning
 
-How models turn raw inputs into useful features.
-A good representation organizes data geometry so that similarity, clustering,
-and downstream tasks become simple.
+Representation learning asks how to turn raw input into geometry that makes downstream tasks easier.
 
-## Leaf Guides
+## Purpose
+
+Use this page to organize representation learning into:
+- embeddings and feature spaces
+- similarity geometry
+- contrastive and metric-learning objectives
+- transfer and reuse
+
+## First Principles
+
+- A representation maps input $x$ to features $z = f(x)$.
+- Good representations preserve task-relevant structure and suppress nuisance variation.
+- Geometry matters because retrieval, clustering, and transfer all depend on which points become close.
+- Modern representation learning is mostly about useful embedding spaces, not handcrafted features alone.
+
+## Core Math
+
+- Embedding map:
+  $$
+  z = f(x)
+  $$
+- Cosine similarity:
+  $$
+  \frac{z_1^\top z_2}{\|z_1\|\|z_2\|}
+  $$
+- Triplet margin shape:
+  $$
+  \max(0, d(a,p) - d(a,n) + m)
+  $$
+
+## Minimal Code Mental Model
+
+```python
+z_anchor = encoder(anchor)
+z_positive = encoder(positive)
+z_negative = encoder(negative)
+loss = triplet_loss(z_anchor, z_positive, z_negative)
+```
+
+## Canonical Modules
+
+- Embeddings and features: `embeddings`, `features`, `autoencoder`
+- Similarity learning: `contrastive-loss`, `triplet-loss`, `pairwise-ranking-loss`
+- Reuse and structure: embedding and metric-learning guides
+
+## Supporting Guides
 
 - Embeddings map (`docs/ml/representation/embeddings`)
 - Metric learning map (`docs/ml/representation/metric-learning`)
 
-## Concept
+## When To Use What
 
-- A representation is a mapping from input $x$ to features $z = f(x)$.
-- Useful representations compress nuisance variation and preserve task-relevant structure.
-- The same representation can support multiple tasks via transfer learning.
-
-## Purpose
-
-Enable retrieval, clustering, and prediction by making “close” in feature space
-match “similar” in meaning or behavior.
-
-## Core Concepts
-
-- Embeddings (dense vector features)
-- Tokenization and vocabularies
-- Feature engineering vs learned features
-- Invariances and equivariances
-- Bottlenecks and sparsity
-- Contrastive pairs (positive / negative)
-- Triplet objectives for anchor-positive-negative geometry
-- Pairwise ranking losses for ordered preferences
-- Probing and linear separability
-- Transfer learning and freezing
-
-## Math
-
-- Dot product, cosine similarity, and normalization
-- Distance metrics (Euclidean, Mahalanobis)
-- PCA and SVD for linear subspaces
-- Autoencoders as non-linear compression
-- Contrastive objectives (InfoNCE-style)
-
-## Key points
-
-- Normalize embeddings when cosine similarity drives retrieval.
-- Evaluate representations with downstream tasks, probing, or retrieval metrics.
-- Representation quality is about geometry, not just reconstruction error.
-- Watch for collapse, anisotropy, and shortcut features.
-
-## Pitfalls
-
-- Representation collapse (nearly constant vectors).
-- Anisotropy (vectors cluster too tightly, hurting similarity search).
-- Leakage or shortcuts that inflate evaluation results.
-- Train / test shift that breaks learned features.
-
-## Practice
-
-- Compute cosine similarity across example embeddings and rank neighbors.
-- Run PCA on hidden states and visualize the top components.
-- Train a simple contrastive embedding and test retrieval accuracy.
-- Compare pairwise-ranking loss values for preferred vs rejected scores.
+- Start with embeddings and cosine similarity before metric-learning losses.
+- Use `contrastive-loss` when you have positive and negative pairs.
+- Use `triplet-loss` when anchor-positive-negative structure is explicit.
+- Use `pairwise-ranking-loss` when relative ordering matters more than absolute distance.

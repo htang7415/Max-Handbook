@@ -105,7 +105,11 @@ pnpm --filter @codelab/site dev
   - Minimal Code Mental Model
   - Canonical Modules
   - When To Use What
-  - Common Mistakes
+- For the ML track, avoid dedicated `Pitfalls` or `Common Mistakes` sections in docs unless a topic is unusually error-prone.
+- Prefer folding warnings into:
+  - First Principles
+  - When To Use What
+  - short inline cautions near the relevant concept
 - Use `docs/` to provide the system map and comparisons. Use `modules/` to provide the smallest **useful** learning unit, which may be larger than a single formula.
 - If consolidating existing ML modules, preserve URL stability. Prefer redirects or compatibility handling over breaking slugs.
 

@@ -1,86 +1,71 @@
 # Reinforcement Learning
 
-Agents learning from rewards and exploration.
-Each bullet maps to a module under `modules/ml/reinforcement-learning/`.
+Reinforcement learning is about choosing actions that improve long-run reward, not just immediate reward.
 
-## Core Ideas
+## Purpose
 
-- MDPs (`modules/ml/reinforcement-learning/mdp`)
-- Reward, return, discount factor (`modules/ml/reinforcement-learning/return-discount`)
-- Exploration vs exploitation (`modules/ml/reinforcement-learning/exploration-exploitation`)
+Use this page to learn the main RL ideas in the right order:
+- environment and return
+- value estimation and bootstrapping
+- exploration
+- value-based vs policy-based updates
+- RL for LLMs only after the basics make sense
 
-## Algorithms
+## First Principles
 
-- Bandits (`modules/ml/reinforcement-learning/bandits`)
-- epsilon-greedy (`modules/ml/reinforcement-learning/bandit-epsilon-greedy`)
-- UCB (`modules/ml/reinforcement-learning/ucb`)
-- REINFORCE (`modules/ml/reinforcement-learning/reinforce`)
-- PPO (why clipping helps) (`modules/ml/reinforcement-learning/ppo`)
-- Policy entropy (`modules/ml/reinforcement-learning/policy-entropy`)
-- Entropy bonus (`modules/ml/reinforcement-learning/entropy-bonus`)
-- Generalized advantage estimation (`modules/ml/reinforcement-learning/generalized-advantage-estimation`)
-- Advantage normalization (`modules/ml/reinforcement-learning/advantage-normalization`)
-- Value normalization (`modules/ml/reinforcement-learning/value-normalization`)
-- Q-Learning (`modules/ml/reinforcement-learning/q-learning`)
-- Double Q-learning (`modules/ml/reinforcement-learning/double-q-learning`)
-- Expected SARSA (`modules/ml/reinforcement-learning/expected-sarsa`)
-- Reward clipping (`modules/ml/reinforcement-learning/reward-clipping`)
-- Reward scale (`modules/ml/reinforcement-learning/reward-scale`)
-- Target-network update (`modules/ml/reinforcement-learning/target-network-update`)
-- Soft-update gap (`modules/ml/reinforcement-learning/soft-update-gap`)
-- SARSA (`modules/ml/reinforcement-learning/sarsa`)
+- `Return` is the discounted sum of future rewards.
+- `Value estimation` asks how good a state or action is.
+- `Bootstrapping` uses current estimates to update future estimates.
+- `Exploration` trades short-term reward for better information.
+- `Policy methods` optimize action probabilities directly; `value methods` optimize targets such as Q-values.
 
-## Prediction and Planning
+## Core Math
 
-- First-visit Monte Carlo prediction (`modules/ml/reinforcement-learning/first-visit-monte-carlo-prediction`)
-- n-step TD prediction (`modules/ml/reinforcement-learning/n-step-td-prediction`)
-- n-step return (`modules/ml/reinforcement-learning/n-step-return`)
-- TD error (`modules/ml/reinforcement-learning/td-error`)
-- Q-learning target (`modules/ml/reinforcement-learning/q-target`)
-- Bootstrap target (`modules/ml/reinforcement-learning/bootstrap-target`)
-- Terminal mask (`modules/ml/reinforcement-learning/terminal-mask`)
-- Nonterminal fraction (`modules/ml/reinforcement-learning/nonterminal-fraction`)
-- Continuation mask (`modules/ml/reinforcement-learning/continuation-mask`)
-- Episode end rate (`modules/ml/reinforcement-learning/episode-end-rate`)
-- Terminal share (`modules/ml/reinforcement-learning/terminal-share`)
-- End-of-episode mask (`modules/ml/reinforcement-learning/end-of-episode-mask`)
-- Terminal indicator (`modules/ml/reinforcement-learning/terminal-indicator`)
-- Not-done mask (`modules/ml/reinforcement-learning/not-done-mask`)
-- Done fraction (`modules/ml/reinforcement-learning/done-fraction`)
-- Done indicator (`modules/ml/reinforcement-learning/done-indicator`)
-- Done indicator batch (`modules/ml/reinforcement-learning/done-indicator-batch`)
-- Undone indicator (`modules/ml/reinforcement-learning/undone-indicator`)
-- Continuing indicator (`modules/ml/reinforcement-learning/continuing-indicator`)
-- Nonterminal indicator (`modules/ml/reinforcement-learning/nonterminal-indicator`)
-- Ongoing indicator (`modules/ml/reinforcement-learning/ongoing-indicator`)
-- Live transition indicator (`modules/ml/reinforcement-learning/live-transition-indicator`)
-- Active transition indicator (`modules/ml/reinforcement-learning/active-transition-indicator`)
-- Surviving transition indicator (`modules/ml/reinforcement-learning/surviving-transition-indicator`)
-- Persistent transition indicator (`modules/ml/reinforcement-learning/persistent-transition-indicator`)
-- Residual transition indicator (`modules/ml/reinforcement-learning/residual-transition-indicator`)
-- Continuing transition batch (`modules/ml/reinforcement-learning/continuing-transition-batch`)
-- Alive transition batch (`modules/ml/reinforcement-learning/alive-transition-batch`)
-- Open transition batch (`modules/ml/reinforcement-learning/open-transition-batch`)
-- Sustained transition batch (`modules/ml/reinforcement-learning/sustained-transition-batch`)
-- Steady transition batch (`modules/ml/reinforcement-learning/steady-transition-batch`)
-- Durable transition batch (`modules/ml/reinforcement-learning/durable-transition-batch`)
-- Lasting transition batch (`modules/ml/reinforcement-learning/lasting-transition-batch`)
-- Enduring transition batch (`modules/ml/reinforcement-learning/enduring-transition-batch`)
-- Resilient transition batch (`modules/ml/reinforcement-learning/resilient-transition-batch`)
-- Persistent transition batch (`modules/ml/reinforcement-learning/persistent-transition-batch`)
-- Eligibility traces (`modules/ml/reinforcement-learning/eligibility-traces`)
-- TD(lambda) returns (`modules/ml/reinforcement-learning/td-lambda`)
-- Monte Carlo Tree Search (UCT) (`modules/ml/reinforcement-learning/monte-carlo-tree-search`)
-- Importance sampling (`modules/ml/reinforcement-learning/importance-sampling`)
-- Off-policy correction (`modules/ml/reinforcement-learning/off-policy-correction`)
-- Off-policy evaluation (`modules/ml/reinforcement-learning/off-policy-evaluation`)
+- Return:
+  $$
+  G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k+1}
+  $$
+- Bellman target:
+  $$
+  Q(s,a) \leftarrow r + \gamma \max_{a'} Q(s', a')
+  $$
+- TD error:
+  $$
+  \delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)
+  $$
+- Policy gradient shape:
+  $$
+  \nabla J(\theta) = \mathbb{E}\left[\nabla \log \pi_\theta(a \mid s) A(s,a)\right]
+  $$
 
-## LLM-related RL
+## Minimal Code Mental Model
 
-- DPO vs PPO (`modules/ml/reinforcement-learning/dpo-vs-ppo`)
-- Group-based optimization (GSPO / GRPO) (`modules/ml/reinforcement-learning/group-based-optimization`)
+```python
+action = policy(state)
+next_state, reward, done = env.step(action)
+replay.add(state, action, reward, next_state, done)
+update_value_or_policy(replay.sample())
+```
 
-See also:
+## Canonical Modules
+
+- Foundations: `mdp`, `return-discount`, `exploration-exploitation`
+- Bandits and exploration: `bandits`, `bandit-epsilon-greedy`, `ucb`
+- Value-based RL: `q-learning`, `double-q-learning`, `expected-sarsa`, `target-network-update`, `q-target`
+- Policy-based RL: `reinforce`, `ppo`, `policy-entropy`, `entropy-bonus`, `generalized-advantage-estimation`
+- Prediction and planning: `first-visit-monte-carlo-prediction`, `n-step-td-prediction`, `td-lambda`, `monte-carlo-tree-search`
+- Off-policy ideas: `importance-sampling`, `off-policy-correction`, `off-policy-evaluation`
+
+## Supporting Guides
 
 - RL-for-LLM guide (`docs/ml/reinforcement-learning/rl-for-llm`)
 - Transition indicators guide (`docs/ml/reinforcement-learning/transition-indicators`)
+
+## When To Use What
+
+- Start with bandits when there is no state transition structure.
+- Use value-based RL when bootstrapped action values are the main learning object.
+- Use policy gradients or PPO when the policy itself is the main object and action spaces are harder to optimize with pure Q-learning.
+- Use Monte Carlo or n-step prediction when you want the connection between returns and bootstrapping to be explicit.
+- Use `transition-indicators` when you need the simplest done-mask logic for TD targets or batched RL code.
+- Use RL-for-LLM only after MDPs, returns, bootstrapping, and policy gradients are already clear.

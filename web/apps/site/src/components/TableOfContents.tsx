@@ -17,7 +17,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   const pathname = usePathname();
   const [activeId, setActiveId] = useState<string>("");
   const filteredHeadings =
-    pathname?.startsWith("/track/dsa/")
+    pathname?.startsWith("/track/dsa/") || pathname?.startsWith("/track/ml/")
       ? headings.filter((heading) => !/^Pitfalls$/i.test(heading.text))
       : headings;
 

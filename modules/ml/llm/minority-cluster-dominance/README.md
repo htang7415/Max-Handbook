@@ -1,34 +1,8 @@
-# Minority Cluster Dominance
+---
+aliasOf: vote-metrics
+---
 
-> Track: `ml` | Topic: `llm`
+# minority cluster dominance
 
-## Concept
-
-Minority cluster dominance measures the gap between the largest minority cluster share and the next-largest minority cluster share.
-
-## Math
-
-If minority cluster shares are $p_{(1)} \ge p_{(2)} \ge \dots$ after removing the
-dominant normalized answer cluster:
-
-$$
-\mathrm{DominanceGap} = p_{(1)} - p_{(2)}
-$$
-
-## Key Points
-
-- Larger values mean one minority alternative dominates the other minority clusters.
-- This ignores the largest overall normalized answer cluster by design.
-- This module returns `0.0` when no minority cluster exists.
-
-## Function
-
-```python
-def minority_cluster_dominance(answers: list[str]) -> float:
-```
-
-## Run tests
-
-```bash
-pytest modules/ml/llm/minority-cluster-dominance/python -q
-```
+Alias entry preserved for old anchors.
+Use modules/ml/llm/vote-metrics as the canonical module.

@@ -1,30 +1,97 @@
 # ML Coverage Roadmap
 
-Goal: make the ML track feel complete against a broad problem-bank style curriculum without mirroring hundreds of narrow one-off problems.
-This roadmap is driven by the live Deep-ML title list captured in `artifacts/deepml/problem_titles.md`.
+Goal: keep the ML track systematic, concise, and useful for 2026-era AI learning.
+Scope is driven by `artifacts/deepml/problem_titles.md`, with additions outside that file only when they are clearly important for modern AI practice.
 
-## First Principle
+## Current Status
 
-- Fill docs gaps before adding lots of new modules.
-- Add new modules only for canonical concepts not already represented.
-- Prefer one module that teaches a family over several tiny variants.
+- Visible ML modules: `307`
+- Hidden ML aliases: `194`
+- Strategy: show canonical learning units first, keep old slugs only for compatibility
 
-## Current Canonical Families
+## Authoring Rules
 
-- `modules/ml/deep-learning/activation-functions`
-- `modules/ml/deep-learning/normalization-methods`
-- `modules/ml/evaluation/agreement-metrics`
-- `modules/ml/evaluation/calibration-metrics`
-- `modules/ml/evaluation/ranking-metrics`
-- `modules/ml/evaluation/classification-metrics-core`
-- `modules/ml/evaluation/uncertainty-intervals`
-- `modules/ml/evaluation/binary-rate-comparison-metrics`
-- `modules/ml/llm/decoding-methods`
-- `modules/ml/llm/retrieval-metrics`
-- `modules/ml/data/scaling-methods`
-- `modules/ml/data/categorical-encoding-methods`
-- `modules/ml/data/sparse-text-feature-methods`
-- `modules/ml/data/structured-feature-methods`
+- Prefer concise teaching-first docs over long inventories.
+- Prefer one coherent family module over many narrow variants.
+- Keep concept, math, and minimal code together.
+- Avoid duplicate ML modules.
+- Hide legacy narrow slugs as aliases instead of surfacing them in the main learning path.
+
+## Canonical Learning Units
+
+### Fundamentals
+
+- Guides: `docs/ml/fundamentals/math`, `docs/ml/fundamentals/prob`, `docs/ml/fundamentals/stats`
+- Core modules: `vectors-matrices`, `expectation`, `gradient-descent`, `pca`, `svd`, `kl-divergence`
+
+### Data
+
+- Guides: `docs/ml/data/preprocessing`, `docs/ml/data/overflow-metrics`
+- Canonical families: `scaling-methods`, `categorical-encoding-methods`, `sparse-text-feature-methods`, `structured-feature-methods`, `overflow-metrics`
+- Core standalone modules: `train-validation-test-split`, `stratified-split`, `imputation`, `smote`
+
+### Classical Models
+
+- Guides: `docs/ml/models/linear`, `docs/ml/models/trees`
+- Core modules: `gaussian-mixture-model-em`, `gradient-boosting`, `kernel-pca`, `isolation-forest`, `xgboost-objective`
+
+### Deep Learning
+
+- Guides: `docs/ml/deep-learning/training-techniques`
+- Canonical families: `activation-functions`, `normalization-methods`
+- Core standalone modules: `backpropagation`, `automatic-differentiation`, `cross-entropy`, `label-smoothing`, `knowledge-distillation-loss`
+
+### Evaluation
+
+- Guides: `docs/ml/evaluation/calibration`, `docs/ml/evaluation/uncertainty`
+- Canonical families: `classification-metrics-core`, `ranking-metrics`, `calibration-metrics`, `uncertainty-intervals`, `agreement-metrics`, `binary-rate-comparison-metrics`
+- Core standalone modules: `permutation-test`, `ab-test-analysis`, `delong-test`
+
+### LLM
+
+- Guides: `docs/ml/llm/tokenization`, `docs/ml/llm/alignment`, `docs/ml/llm/evaluation`, `docs/ml/llm/inference-serving`, `docs/ml/llm/vote-metrics`
+- Canonical families: `decoding-methods`, `retrieval-metrics`, `vote-metrics`
+- Core standalone modules: `perplexity`, `exact-match`, `answer-verification`, `pass-at-k`, `mmlu-evaluation`, `bm25-ranking`, `kv-cache`, `speculative-decoding`, `qk-clip`
+
+### Reinforcement Learning
+
+- Guides: `docs/ml/reinforcement-learning/rl-for-llm`, `docs/ml/reinforcement-learning/transition-indicators`
+- Canonical families: `transition-indicators`
+- Core standalone modules: `bandits`, `q-learning`, `double-q-learning`, `expected-sarsa`, `ppo`, `generalized-advantage-estimation`, `importance-sampling`, `off-policy-evaluation`
+
+### Systems and MLOps
+
+- Guides: `docs/ml/systems/gpu`, `docs/ml/systems/distributed`, `docs/ml/mlops/monitoring`, `docs/ml/mlops/serving`, `docs/ml/mlops/breach-buckets`
+- Canonical families: `capacity-stress-metrics`
+- Core standalone modules: `roofline-analysis`, `continuous-batching`, `chunked-prefill`, `tensor-parallelism`, `context-parallelism`, `expert-parallelism`, `request-sla`, `error-budget`, `cost-per-request`, `throughput-per-dollar`
+
+### Generative and Representation
+
+- Guides: `docs/ml/generative/diffusion`, `docs/ml/representation/embeddings`, `docs/ml/representation/metric-learning`
+- Core generative modules: `diffusion-models`, `ddpm-sampling`, `ddim-sampling`, `diffusion-guidance-tradeoffs`, `ema-diffusion-weights`, `model-selection`
+- Core representation modules: `embeddings`, `contrastive-loss`, `triplet-loss`, `pairwise-ranking-loss`
+
+## Supporting Content
+
+Supporting content should stay visible when it teaches a distinct mental model, but it should not replace the canonical entry point.
+
+- Specialized evaluation tasks: `bradley-terry-ranking`, `judge-calibration`, `judge-pairwise`, `judge-agreement-matrix`
+- Specialized LLM systems topics: `prefix-cache`, `prefix-cache-metrics`, `retrieval-fusion`, `reciprocal-rank-fusion`
+- Specialized RL topics: `td-lambda`, `n-step-td-prediction`, `first-visit-monte-carlo-prediction`, `monte-carlo-tree-search`
+- Specialized generative comparisons: `gan-mode-collapse`, `vae-posterior-collapse`
+
+## Legacy / Hidden
+
+These should stay out of the main learning path and remain alias-only unless they become the best teaching unit again.
+
+- Old activation and normalization variant slugs
+- Old decoding variant slugs
+- Old ranking, calibration, classification, uncertainty, and agreement metric slugs
+- Old retrieval metric and reranker metric slugs
+- Old scaling, categorical encoding, sparse text, structured feature, and overflow metric slugs
+- Old vote, minority-cluster, and answer-fragmentation metric slugs
+- Old breach-bucket and capacity-stress detail slugs
+- Old transition-mask and transition-batch helper slugs
 
 ## Study Paths
 
@@ -33,353 +100,9 @@ This roadmap is driven by the live Deep-ML title list captured in `artifacts/dee
 - `docs/ml/path-llm-systems/README.md`
 - `docs/ml/path-math-first/README.md`
 
-## Added in This Pass
+## Next Cleanup Priorities
 
-Docs added:
-
-- `docs/ml/README.md`
-- `docs/ml/fundamentals/prob/README.md`
-- `docs/ml/fundamentals/stats/README.md`
-- `docs/ml/data/preprocessing/README.md`
-- `docs/ml/models/linear/README.md`
-- `docs/ml/models/trees/README.md`
-- `docs/ml/evaluation/calibration/README.md`
-- `docs/ml/llm/evaluation/README.md`
-- `docs/ml/llm/inference-serving/README.md`
-- `docs/ml/systems/gpu/README.md`
-- `docs/ml/systems/distributed/README.md`
-- `docs/ml/fundamentals/math/README.md`
-- `docs/ml/representation/embeddings/README.md`
-- `docs/ml/generative/diffusion/README.md`
-- `docs/ml/optimization/schedules/README.md`
-- `docs/ml/mlops/monitoring/README.md`
-- `docs/ml/mlops/serving/README.md`
-- `docs/ml/llm/tokenization/README.md`
-- `docs/ml/llm/alignment/README.md`
-- `docs/ml/evaluation/uncertainty/README.md`
-- `docs/ml/reinforcement-learning/rl-for-llm/README.md`
-- `docs/ml/data/overflow-metrics/README.md`
-- `docs/ml/llm/vote-metrics/README.md`
-- `docs/ml/mlops/breach-buckets/README.md`
-- `docs/ml/reinforcement-learning/transition-indicators/README.md`
-- `docs/ml/deep-learning/training-techniques/README.md`
-- `docs/ml/computer-vision/architectures/README.md`
-- `docs/ml/representation/metric-learning/README.md`
-
-Modules added:
-
-- `modules/ml/evaluation/expected-calibration-error`
-- `modules/ml/data/imputation`
-- `modules/ml/models/gaussian-mixture-model-em`
-- `modules/ml/llm/perplexity`
-- `modules/ml/llm/kv-cache`
-- `modules/ml/systems/roofline-analysis`
-- `modules/ml/data/smote`
-- `modules/ml/models/gradient-boosting`
-- `modules/ml/llm/speculative-decoding`
-- `modules/ml/llm/prefix-cache`
-- `modules/ml/systems/continuous-batching`
-- `modules/ml/models/isolation-forest`
-- `modules/ml/models/kernel-pca`
-- `modules/ml/models/xgboost-objective`
-- `modules/ml/llm/mmlu-evaluation`
-- `modules/ml/llm/pass-at-k`
-- `modules/ml/systems/context-parallelism`
-- `modules/ml/systems/tensor-parallelism`
-- `modules/ml/systems/prefix-cache-metrics`
-- `modules/ml/generative/ddpm-sampling`
-- `modules/ml/data/outlier-detection`
-- `modules/ml/systems/expert-parallelism`
-- `modules/ml/systems/chunked-prefill`
-- `modules/ml/evaluation/confidence-intervals`
-- `modules/ml/llm/exact-match`
-- `modules/ml/llm/judge-pairwise`
-- `modules/ml/models/lle`
-- `modules/ml/models/tsne-gradient`
-- `modules/ml/models/bic-aic`
-- `modules/ml/llm/bleu-meteor`
-- `modules/ml/generative/ddim-sampling`
-- `modules/ml/data/tf-idf`
-- `modules/ml/llm/bm25-ranking`
-- `modules/ml/reinforcement-learning/monte-carlo-tree-search`
-- `modules/ml/reinforcement-learning/first-visit-monte-carlo-prediction`
-- `modules/ml/reinforcement-learning/n-step-td-prediction`
-- `modules/ml/data/feature-scaling`
-- `modules/ml/llm/beam-search`
-- `modules/ml/llm/top-p-sampling`
-- `modules/ml/llm/temperature-sampling`
-- `modules/ml/reinforcement-learning/eligibility-traces`
-- `modules/ml/evaluation/bootstrap-intervals`
-- `modules/ml/optimization/warmup-cosine-decay`
-- `modules/ml/llm/tokenizer-comparison`
-- `modules/ml/reinforcement-learning/importance-sampling`
-- `modules/ml/llm/top-k-sampling`
-- `modules/ml/evaluation/permutation-test`
-- `modules/ml/evaluation/isotonic-calibration`
-- `modules/ml/llm/reranker-metrics`
-- `modules/ml/systems/expert-load-balancing`
-- `modules/ml/data/missing-indicator`
-- `modules/ml/evaluation/bradley-terry-ranking`
-- `modules/ml/mlops/request-sla`
-- `modules/ml/llm/sampling-pipeline`
-- `modules/ml/data/robust-scaling`
-- `modules/ml/llm/retrieval-fusion`
-- `modules/ml/evaluation/wilson-interval`
-- `modules/ml/reinforcement-learning/td-lambda`
-- `modules/ml/evaluation/ab-test-analysis`
-- `modules/ml/mlops/canary-rollout`
-- `modules/ml/mlops/drift-detection`
-- `modules/ml/evaluation/delong-test`
-- `modules/ml/data/hash-trick`
-- `modules/ml/llm/reciprocal-rank-fusion`
-- `modules/ml/reinforcement-learning/generalized-advantage-estimation`
-- `modules/ml/evaluation/brier-score`
-- `modules/ml/representation/pairwise-ranking-loss`
-- `modules/ml/mlops/online-shadow-mode`
-- `modules/ml/optimization/one-cycle-schedule`
-- `modules/ml/data/target-encoding`
-- `modules/ml/llm/retrieval-recall-at-k`
-- `modules/ml/reinforcement-learning/off-policy-correction`
-- `modules/ml/evaluation/mean-reciprocal-rank`
-- `modules/ml/data/count-vectorizer`
-- `modules/ml/llm/answer-verification`
-- `modules/ml/reinforcement-learning/advantage-normalization`
-- `modules/ml/mlops/sequential-testing`
-- `modules/ml/reinforcement-learning/off-policy-evaluation`
-- `modules/ml/data/frequency-encoding`
-- `modules/ml/llm/reciprocal-rank-metric`
-- `modules/ml/optimization/cosine-restarts`
-- `modules/ml/mlops/error-budget`
-- `modules/ml/evaluation/ndcg`
-- `modules/ml/data/chi-square-feature-selection`
-- `modules/ml/llm/self-consistency-voting`
-- `modules/ml/reinforcement-learning/value-normalization`
-- `modules/ml/mlops/backfill-replay`
-- `modules/ml/evaluation/top-k-accuracy`
-- `modules/ml/data/rare-category-grouping`
-- `modules/ml/llm/retrieval-precision-at-k`
-- `modules/ml/reinforcement-learning/double-q-learning`
-- `modules/ml/mlops/cost-per-request`
-- `modules/ml/evaluation/hamming-loss`
-- `modules/ml/data/weight-of-evidence`
-- `modules/ml/llm/judge-calibration`
-- `modules/ml/reinforcement-learning/target-network-update`
-- `modules/ml/mlops/capacity-headroom`
-- `modules/ml/evaluation/log-loss`
-- `modules/ml/data/mean-encoding-smoothing`
-- `modules/ml/llm/retrieval-f1-at-k`
-- `modules/ml/reinforcement-learning/expected-sarsa`
-- `modules/ml/mlops/tail-latency-budget`
-- `modules/ml/evaluation/coverage-error`
-- `modules/ml/data/category-cross-features`
-- `modules/ml/llm/consensus-disagreement-rate`
-- `modules/ml/reinforcement-learning/n-step-return`
-- `modules/ml/mlops/queue-utilization`
-- `modules/ml/evaluation/macro-f1`
-- `modules/ml/data/entity-embedding-intuition`
-- `modules/ml/llm/retrieval-hit-rate`
-- `modules/ml/reinforcement-learning/td-error`
-- `modules/ml/mlops/throughput-per-dollar`
-- `modules/ml/evaluation/balanced-accuracy`
-- `modules/ml/data/rare-token-pruning`
-- `modules/ml/llm/rerank-gain`
-- `modules/ml/reinforcement-learning/reward-clipping`
-- `modules/ml/mlops/batch-fill-rate`
-- `modules/ml/evaluation/micro-f1`
-- `modules/ml/data/feature-bucketing`
-- `modules/ml/llm/rerank-disagreement-rate`
-- `modules/ml/reinforcement-learning/q-target`
-- `modules/ml/mlops/admission-control`
-- `modules/ml/evaluation/cohen-kappa`
-- `modules/ml/data/frequency-capping`
-- `modules/ml/llm/candidate-diversity`
-- `modules/ml/reinforcement-learning/policy-entropy`
-- `modules/ml/mlops/queue-delay`
-- `modules/ml/evaluation/pr-auc`
-- `modules/ml/data/token-budgeting`
-- `modules/ml/llm/answer-stability`
-- `modules/ml/reinforcement-learning/soft-update-gap`
-- `modules/ml/mlops/retry-rate`
-- `modules/ml/evaluation/agreement-rate`
-- `modules/ml/data/feature-clipping`
-- `modules/ml/llm/judge-agreement-matrix`
-- `modules/ml/reinforcement-learning/entropy-bonus`
-- `modules/ml/mlops/queue-age-percentiles`
-- `modules/ml/evaluation/lift-at-k`
-- `modules/ml/data/truncation-rate`
-- `modules/ml/llm/majority-vote-margin`
-- `modules/ml/reinforcement-learning/bootstrap-target`
-- `modules/ml/mlops/saturation-rate`
-- `modules/ml/evaluation/positive-rate`
-- `modules/ml/data/overflow-count`
-- `modules/ml/llm/vote-entropy`
-- `modules/ml/reinforcement-learning/reward-scale`
-- `modules/ml/mlops/queue-backlog-ratio`
-- `modules/ml/evaluation/base-rate-gap`
-- `modules/ml/data/budget-overrun-share`
-- `modules/ml/llm/vote-concentration`
-- `modules/ml/reinforcement-learning/terminal-mask`
-- `modules/ml/mlops/depth-spike-rate`
-- `modules/ml/evaluation/prevalence-ratio`
-- `modules/ml/data/mean-overflow`
-- `modules/ml/llm/top-vote-share`
-- `modules/ml/reinforcement-learning/nonterminal-fraction`
-- `modules/ml/mlops/capacity-breach-rate`
-- `modules/ml/evaluation/prevalence-delta`
-- `modules/ml/data/overflow-presence-rate`
-- `modules/ml/llm/runner-up-vote-share`
-- `modules/ml/reinforcement-learning/continuation-mask`
-- `modules/ml/mlops/utilization-gap`
-- `modules/ml/evaluation/risk-ratio`
-- `modules/ml/data/overflow-tail`
-- `modules/ml/llm/answer-uniqueness-rate`
-- `modules/ml/reinforcement-learning/episode-end-rate`
-- `modules/ml/mlops/overload-margin`
-- `modules/ml/evaluation/prevalence-index`
-- `modules/ml/data/overflow-quantile`
-- `modules/ml/llm/answer-repeat-rate`
-- `modules/ml/reinforcement-learning/terminal-share`
-- `modules/ml/mlops/headroom-gap`
-- `modules/ml/evaluation/base-rate-ratio`
-- `modules/ml/data/overflow-peak`
-- `modules/ml/llm/answer-mode-count`
-- `modules/ml/reinforcement-learning/end-of-episode-mask`
-- `modules/ml/mlops/overload-duration-share`
-- `modules/ml/evaluation/prevalence-odds`
-- `modules/ml/data/overflow-spread`
-- `modules/ml/llm/answer-frequency-table`
-- `modules/ml/reinforcement-learning/terminal-indicator`
-- `modules/ml/mlops/breach-severity-index`
-- `modules/ml/evaluation/log-odds`
-- `modules/ml/data/overflow-gini`
-- `modules/ml/llm/vote-imbalance`
-- `modules/ml/reinforcement-learning/done-fraction`
-- `modules/ml/mlops/pressure-score`
-- `modules/ml/evaluation/log-prevalence-ratio`
-- `modules/ml/data/overflow-density`
-- `modules/ml/llm/vote-frequency-gap`
-- `modules/ml/reinforcement-learning/not-done-mask`
-- `modules/ml/mlops/surge-pressure`
-- `modules/ml/evaluation/log-risk-ratio`
-- `modules/ml/data/overflow-threshold-rate`
-- `modules/ml/llm/vote-tail-mass`
-- `modules/ml/reinforcement-learning/done-indicator`
-- `modules/ml/mlops/breach-burden`
-- `modules/ml/evaluation/log-relative-risk`
-- `modules/ml/data/overflow-threshold-count`
-- `modules/ml/llm/nonmajority-vote-share`
-- `modules/ml/reinforcement-learning/done-indicator-batch`
-- `modules/ml/mlops/breach-heat`
-- `modules/ml/evaluation/log-rate-ratio`
-- `modules/ml/data/overflow-cutoff-rate`
-- `modules/ml/llm/minority-vote-share`
-- `modules/ml/reinforcement-learning/undone-indicator`
-- `modules/ml/mlops/breach-spectrum`
-- `modules/ml/evaluation/log-event-rate`
-- `modules/ml/data/overflow-cutoff-count`
-- `modules/ml/llm/minority-answer-share`
-- `modules/ml/reinforcement-learning/continuing-indicator`
-- `modules/ml/mlops/breach-bucket-share`
-- `modules/ml/evaluation/log-hit-rate`
-- `modules/ml/data/overflow-cutoff-mean`
-- `modules/ml/llm/minority-cluster-count`
-- `modules/ml/reinforcement-learning/nonterminal-indicator`
-- `modules/ml/mlops/breach-bucket-mass`
-- `modules/ml/evaluation/log-failure-rate`
-- `modules/ml/data/overflow-cutoff-peak`
-- `modules/ml/llm/minority-cluster-share`
-- `modules/ml/reinforcement-learning/ongoing-indicator`
-- `modules/ml/mlops/breach-bucket-entropy`
-- `modules/ml/evaluation/log-miss-rate`
-- `modules/ml/data/overflow-cutoff-std`
-- `modules/ml/llm/minority-cluster-mode`
-- `modules/ml/reinforcement-learning/live-transition-indicator`
-- `modules/ml/mlops/breach-bucket-tail`
-- `modules/ml/evaluation/log-error-rate`
-- `modules/ml/data/overflow-cutoff-median`
-- `modules/ml/llm/minority-cluster-entropy`
-- `modules/ml/reinforcement-learning/active-transition-indicator`
-- `modules/ml/mlops/breach-bucket-cdf`
-- `modules/ml/evaluation/log-reject-rate`
-- `modules/ml/data/overflow-cutoff-iqr`
-- `modules/ml/llm/minority-cluster-top-share`
-- `modules/ml/reinforcement-learning/surviving-transition-indicator`
-- `modules/ml/mlops/breach-bucket-cumulative-share`
-- `modules/ml/evaluation/log-abort-rate`
-- `modules/ml/data/overflow-cutoff-range`
-- `modules/ml/llm/minority-cluster-dominance`
-- `modules/ml/reinforcement-learning/persistent-transition-indicator`
-- `modules/ml/mlops/breach-bucket-quantile`
-- `modules/ml/evaluation/log-defect-rate`
-- `modules/ml/data/overflow-cutoff-max-gap`
-- `modules/ml/llm/minority-cluster-balance`
-- `modules/ml/reinforcement-learning/residual-transition-indicator`
-- `modules/ml/mlops/breach-bucket-step-function`
-- `modules/ml/evaluation/log-drop-rate`
-- `modules/ml/data/overflow-cutoff-skew`
-- `modules/ml/llm/minority-cluster-tail-entropy`
-- `modules/ml/reinforcement-learning/continuing-transition-batch`
-- `modules/ml/mlops/breach-bucket-knee`
-- `modules/ml/evaluation/log-timeout-rate`
-- `modules/ml/data/overflow-cutoff-upper-tail`
-- `modules/ml/llm/minority-cluster-residual-mass`
-- `modules/ml/reinforcement-learning/alive-transition-batch`
-- `modules/ml/mlops/breach-bucket-turning-point`
-- `modules/ml/evaluation/log-skip-rate`
-- `modules/ml/data/overflow-cutoff-tail-mass`
-- `modules/ml/llm/minority-cluster-remainder-ratio`
-- `modules/ml/reinforcement-learning/open-transition-batch`
-- `modules/ml/mlops/breach-bucket-curvature`
-- `modules/ml/evaluation/log-shed-rate`
-- `modules/ml/data/overflow-cutoff-tail-gini`
-- `modules/ml/llm/minority-cluster-tail-balance`
-- `modules/ml/reinforcement-learning/sustained-transition-batch`
-- `modules/ml/mlops/breach-bucket-inflection`
-- `modules/ml/evaluation/log-deferral-rate`
-- `modules/ml/data/overflow-cutoff-top-share`
-- `modules/ml/llm/minority-cluster-tail-gap`
-- `modules/ml/reinforcement-learning/steady-transition-batch`
-- `modules/ml/mlops/breach-bucket-arc`
-- `modules/ml/evaluation/log-abandon-rate`
-- `modules/ml/data/overflow-cutoff-tail-mean`
-- `modules/ml/llm/minority-cluster-tail-share`
-- `modules/ml/reinforcement-learning/durable-transition-batch`
-- `modules/ml/mlops/breach-bucket-wave`
-- `modules/ml/evaluation/log-fallback-rate`
-- `modules/ml/data/overflow-cutoff-tail-count`
-- `modules/ml/llm/minority-cluster-tail-top-share`
-- `modules/ml/reinforcement-learning/lasting-transition-batch`
-- `modules/ml/mlops/breach-bucket-bend`
-- `modules/ml/evaluation/log-escape-rate`
-- `modules/ml/data/overflow-cutoff-tail-variance`
-- `modules/ml/llm/minority-cluster-tail-ratio`
-- `modules/ml/reinforcement-learning/enduring-transition-batch`
-- `modules/ml/mlops/breach-bucket-span`
-- `modules/ml/evaluation/log-detour-rate`
-- `modules/ml/data/overflow-cutoff-tail-skew`
-- `modules/ml/llm/minority-cluster-tail-concentration`
-- `modules/ml/reinforcement-learning/resilient-transition-batch`
-- `modules/ml/mlops/breach-bucket-slope`
-- `modules/ml/evaluation/log-bypass-rate`
-- `modules/ml/data/overflow-cutoff-tail-range`
-- `modules/ml/llm/minority-cluster-tail-entropy-gap`
-- `modules/ml/reinforcement-learning/persistent-transition-batch`
-- `modules/ml/mlops/breach-bucket-step-area`
-- `modules/ml/llm/qk-clip`
-- `modules/ml/generative/ema-diffusion-weights`
-- `modules/ml/representation/triplet-loss`
-- `modules/ml/deep-learning/label-smoothing`
-- `modules/ml/computer-vision/global-average-pooling`
-
-## Docs Backlog Status
-
-Tracked docs backlog from this pass is currently exhausted.
-Future work should focus on rebalancing underrepresented areas and consolidating long-tail metric families.
-
-## Module Backlog Status
-
-`modules/ml/generative/diffusion-guidance-tradeoffs` already covers the classifier-free guidance idea, so it is no longer tracked as a separate module.
-`modules/ml/mlops/ab-testing`, `modules/ml/mlops/canary-deployment`, `modules/ml/mlops/feature-drift-psi`, and `modules/ml/representation/contrastive-loss` already cover the basic title areas, so exact-title follow-ups are lower priority than uncovered concepts.
-
-Tracked ML module backlog is currently exhausted.
-Focus can shift to rebalancing underrepresented areas and consolidating long-tail metric families.
+- Keep refactoring section docs toward the concise first-principles format
+- Deepen thin but high-value areas: `representation`, `generative`, `computer-vision`, `systems`
+- Consolidate only when a merge creates a better learning unit, not just a smaller module count
+- Keep checking new additions against `problem_titles.md` before adding more ML surface area

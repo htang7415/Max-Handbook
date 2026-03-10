@@ -20,7 +20,8 @@ Breach bucket metrics summarize overload severity after turning capacity breache
 
 ## Good Defaults
 
-- `capacity-breach-rate` before any bucketized analysis
-- `breach-bucket-share` as the base distribution view
-- `breach-bucket-entropy` for concentration
-- `breach-bucket-slope` when abrupt escalation matters
+- Start with the canonical module `capacity-stress-metrics`
+- Use `capacity_breach_rate` before any bucketized analysis
+- Use `breach_bucket_share` as the base distribution view
+- Use `breach_bucket_entropy` for concentration
+- Use `breach_bucket_slope` when abrupt escalation matters

@@ -56,27 +56,19 @@ preference = judge_pairwise(answer_a, answer_b)
 
 - Likelihood: `perplexity`
 - Task scoring: `exact-match`, `answer-verification`, `pass-at-k`, `mmlu-evaluation`, `bleu-meteor`
-- Consensus and sampling: `self-consistency-voting`, `answer-stability`, `candidate-diversity`
+- Consensus and sampling: `vote-metrics`
 - Judge and preference: `judge-calibration`, `judge-pairwise`, `judge-agreement-matrix`, `bradley-terry-ranking`
 - Retrieval and reranking: `retrieval-metrics`, `reranker-metrics`
 
 ## Supporting Guides
 
-- Vote and minority-cluster metrics (`docs/ml/llm/vote-metrics`)
+- Vote and minority-cluster guide (`docs/ml/llm/vote-metrics`)
 
 ## When To Use What
 
 - Use `perplexity` for pretraining-style language modeling comparisons, not as a full product metric.
 - Use `exact-match` or `answer-verification` when references are strong and deterministic.
 - Use `pass@k` when multiple attempts matter, especially for code and reasoning tasks.
-- Use `self-consistency-voting` and the vote guide when you are sampling multiple traces.
+- Use `vote-metrics` and the vote guide when you are sampling multiple traces.
 - Use judge-based methods when references are weak or style matters.
 - Use retrieval metrics when answer quality depends on document ranking.
-
-## Common Mistakes
-
-- Treating perplexity as end-task quality.
-- Listing every vote metric before understanding answer stability and majority vote.
-- Using judge scores without checking agreement or calibration.
-- Mixing family modules and every child metric in the main learning path.
-- Forgetting normalization in exact-match style tasks.

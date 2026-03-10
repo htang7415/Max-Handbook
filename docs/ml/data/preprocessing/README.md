@@ -59,7 +59,7 @@ overflow = truncation_rate(token_lengths, max_tokens=4096)
 
 ## Supporting Guides
 
-- Overflow metrics guide (`docs/ml/data/overflow-metrics`)
+- Overflow metrics guide (`docs/ml/data/overflow-metrics`) with the canonical module `overflow-metrics`
 
 ## When To Use What
 
@@ -70,11 +70,3 @@ overflow = truncation_rate(token_lengths, max_tokens=4096)
 - Use crosses, buckets, or entity embeddings when simple features miss interactions or category structure.
 - Use missing indicators when the fact that a value is missing may itself carry signal.
 - Use overflow diagnostics only when the system has a hard token or length cap.
-
-## Common Mistakes
-
-- Fitting preprocessors on the full dataset instead of train only.
-- Using target encoding without split-aware leakage control.
-- Applying SMOTE before the train/validation split.
-- Treating every overflow metric as a first-class concept instead of starting with one or two useful ones.
-- Building too many engineered features before establishing a simple baseline.

@@ -1,74 +1,62 @@
 # Data and Splitting
 
-Reliable data setup, preprocessing, and evaluation splits.
-Each bullet maps to a module under `modules/ml/data/`.
+Data work is about preparing inputs so models learn stable signal instead of leakage, noise, or brittle shortcuts.
 
-Leaf guides:
+## Purpose
 
-- Preprocessing map (`docs/ml/data/preprocessing`)
-- Overflow metrics guide (`docs/ml/data/overflow-metrics`)
+Use this page to organize the data side of ML into four parts:
+- splits and leakage control
+- preprocessing and feature construction
+- missingness and imbalance handling
+- hard-budget diagnostics such as token overflow
 
-## Concepts
+## First Principles
+
+- A good split is part of the model, because it defines what “generalization” means.
+- Preprocessing should be fit on training data and then reused, not relearned on every split.
+- Feature construction should start simple and only become denser if the baseline misses real structure.
+- Missingness, imbalance, and overflow are data problems first, not optimizer problems.
+
+## Core Math
+
+- Train/validation/test split:
+  $$
+  \mathcal{D} = \mathcal{D}_{train} \cup \mathcal{D}_{val} \cup \mathcal{D}_{test}
+  $$
+- Stratified sampling keeps class proportions approximately stable across splits.
+- Overflow rate:
+  $$
+  \frac{\#\{\text{examples over budget}\}}{N}
+  $$
+
+## Minimal Code Mental Model
+
+```python
+train, val, test = stratified_split(dataset, labels)
+preprocessor.fit(train)
+x_train = preprocessor.transform(train)
+x_val = preprocessor.transform(val)
+```
+
+## Canonical Modules
+
+- Splits and leakage: `train-validation-test-split`, `stratified-split`, `data-leakage`
+- Preprocessing: `docs/ml/data/preprocessing`
+- Structured tabular features: `structured-feature-methods`
+- Sparse text features: `sparse-text-feature-methods`
+- Missingness and imbalance: `imputation`, `missing-indicator`, `class-imbalance`, `smote`
+- Overflow and length budgets: `overflow-metrics` with the guide in `docs/ml/data/overflow-metrics`
+
+## Supporting Modules
 
 - Dataset vs batch vs epoch (`modules/ml/data/dataset-batch-epoch`)
 - Batch iterator (`modules/ml/data/batch-iterator`)
-- Train / validation / test split (`modules/ml/data/train-validation-test-split`)
-- Stratified split (`modules/ml/data/stratified-split`)
-- Data leakage (common failure modes) (`modules/ml/data/data-leakage`)
-- Feature scaling (`modules/ml/data/feature-scaling`)
-- Robust scaling (`modules/ml/data/robust-scaling`)
-- Feature clipping (`modules/ml/data/feature-clipping`)
 - Polynomial feature expansion (`modules/ml/data/polynomial-features`)
-- Structured feature methods (`modules/ml/data/structured-feature-methods`)
-- Count vectorizer (`modules/ml/data/count-vectorizer`)
-- TF-IDF lexical features (`modules/ml/data/tf-idf`)
-- Token budgeting under fixed length limits (`modules/ml/data/token-budgeting`)
-- Truncation rate under hard length caps (`modules/ml/data/truncation-rate`)
-- Overflow count beyond hard length caps (`modules/ml/data/overflow-count`)
-- Budget overrun share beyond hard length caps (`modules/ml/data/budget-overrun-share`)
-- Mean overflow beyond hard length caps (`modules/ml/data/mean-overflow`)
-- Overflow presence rate beyond hard length caps (`modules/ml/data/overflow-presence-rate`)
-- Overflow tail under hard length caps (`modules/ml/data/overflow-tail`)
-- Overflow quantile under hard length caps (`modules/ml/data/overflow-quantile`)
-- Overflow peak under hard length caps (`modules/ml/data/overflow-peak`)
-- Overflow spread under hard length caps (`modules/ml/data/overflow-spread`)
-- Overflow density under hard length caps (`modules/ml/data/overflow-density`)
-- Overflow Gini under hard length caps (`modules/ml/data/overflow-gini`)
-- Overflow threshold rate under hard length caps (`modules/ml/data/overflow-threshold-rate`)
-- Overflow threshold count under hard length caps (`modules/ml/data/overflow-threshold-count`)
-- Overflow cutoff rate under hard length caps (`modules/ml/data/overflow-cutoff-rate`)
-- Overflow cutoff count under hard length caps (`modules/ml/data/overflow-cutoff-count`)
-- Overflow cutoff mean under hard length caps (`modules/ml/data/overflow-cutoff-mean`)
-- Overflow cutoff peak under hard length caps (`modules/ml/data/overflow-cutoff-peak`)
-- Overflow cutoff std under hard length caps (`modules/ml/data/overflow-cutoff-std`)
-- Overflow cutoff median under hard length caps (`modules/ml/data/overflow-cutoff-median`)
-- Overflow cutoff IQR under hard length caps (`modules/ml/data/overflow-cutoff-iqr`)
-- Overflow cutoff range under hard length caps (`modules/ml/data/overflow-cutoff-range`)
-- Overflow cutoff max gap under hard length caps (`modules/ml/data/overflow-cutoff-max-gap`)
-- Overflow cutoff skew under hard length caps (`modules/ml/data/overflow-cutoff-skew`)
-- Overflow cutoff upper tail under hard length caps (`modules/ml/data/overflow-cutoff-upper-tail`)
-- Overflow cutoff tail mass under hard length caps (`modules/ml/data/overflow-cutoff-tail-mass`)
-- Overflow cutoff tail Gini under hard length caps (`modules/ml/data/overflow-cutoff-tail-gini`)
-- Overflow cutoff top share under hard length caps (`modules/ml/data/overflow-cutoff-top-share`)
-- Overflow cutoff tail mean under hard length caps (`modules/ml/data/overflow-cutoff-tail-mean`)
-- Overflow cutoff tail count under hard length caps (`modules/ml/data/overflow-cutoff-tail-count`)
-- Overflow cutoff tail variance under hard length caps (`modules/ml/data/overflow-cutoff-tail-variance`)
-- Overflow cutoff tail skew under hard length caps (`modules/ml/data/overflow-cutoff-tail-skew`)
-- Overflow cutoff tail range under hard length caps (`modules/ml/data/overflow-cutoff-tail-range`)
-- Hash trick for sparse features (`modules/ml/data/hash-trick`)
-- Chi-square feature scoring (`modules/ml/data/chi-square-feature-selection`)
-- Frequency encoding for categorical features (`modules/ml/data/frequency-encoding`)
-- Frequency capping for sparse counts (`modules/ml/data/frequency-capping`)
-- Target encoding for categorical features (`modules/ml/data/target-encoding`)
-- Rare-category grouping (`modules/ml/data/rare-category-grouping`)
-- Weight of evidence (`modules/ml/data/weight-of-evidence`)
-- Mean encoding smoothing (`modules/ml/data/mean-encoding-smoothing`)
-- Category cross features (`modules/ml/data/category-cross-features`)
-- Entity embedding intuition (`modules/ml/data/entity-embedding-intuition`)
-- Rare-token pruning (`modules/ml/data/rare-token-pruning`)
-- Feature bucketing (`modules/ml/data/feature-bucketing`)
-- Handling class imbalance (`modules/ml/data/class-imbalance`)
-- Missing-data imputation (`modules/ml/data/imputation`)
-- Missing-value indicators (`modules/ml/data/missing-indicator`)
-- SMOTE-style synthetic oversampling (`modules/ml/data/smote`)
-- Z-score outlier screening (`modules/ml/data/outlier-detection`)
+- Outlier detection (`modules/ml/data/outlier-detection`)
+
+## When To Use What
+
+- Use stratified splits when label balance matters.
+- Use the preprocessing guide before choosing specific encoders or feature transforms.
+- Use sparse lexical features before heavier text pipelines when a simple baseline is enough.
+- Use overflow metrics only when the system has a real token or length budget.

@@ -1,73 +1,71 @@
 # MLOps and Production ML
 
-Operational concerns for production ML.
-Each bullet maps to a module under `modules/ml/mlops/`.
+Production ML is mostly about keeping a useful model useful after deployment.
 
-Leaf guides:
+## Purpose
+
+Use this page to reason about:
+- safe rollout
+- monitoring and alerting
+- serving behavior and latency
+- cost, capacity, and failure budgets
+
+## First Principles
+
+- A working production system needs clean data, reliable serving, safe rollout, and useful monitoring.
+- Monitoring should catch user harm, not just metric movement.
+- Rollout should be staged so bad models fail small before they fail big.
+- Capacity and latency limits matter because a correct model that misses SLA is still a bad system.
+- Cost matters because model quality must survive the budget, not just the benchmark.
+
+## Core Math
+
+- SLA compliance:
+  $$
+  \frac{\#\{\text{requests within target}\}}{\#\{\text{requests}\}}
+  $$
+- Error budget:
+  $$
+  1 - \mathrm{SLO}
+  $$
+- PSI-style drift:
+  $$
+  \sum_i (p_i - q_i)\log\frac{p_i}{q_i}
+  $$
+- Cost per request:
+  $$
+  \frac{\mathrm{total\ cost}}{\mathrm{request\ count}}
+  $$
+
+## Minimal Code Mental Model
+
+```python
+if drift_score > threshold or queue_delay > budget:
+    page_team()
+if canary_metrics_ok:
+    rollout_fraction += step
+cost = total_spend / request_count
+```
+
+## Canonical Modules
+
+- Data quality and ingestion: `etl-pipeline`, `data-quality-checks`
+- Monitoring and drift: `feature-drift-psi`, `drift-detection`, `prediction-monitoring`
+- Safe rollout: `canary-deployment`, `canary-rollout`, `online-shadow-mode`, `ab-testing`, `sequential-testing`
+- Serving and control: `offline-online-inference`, `batch-vs-realtime`, `request-sla`, `admission-control`, `request-batching`
+- Cost and budgets: `error-budget`, `cost-per-request`, `throughput-per-dollar`, `tail-latency-budget`, `capacity-stress-metrics`
+
+## Supporting Guides
 
 - Monitoring map (`docs/ml/mlops/monitoring`)
 - Serving map (`docs/ml/mlops/serving`)
 - Breach bucket metrics (`docs/ml/mlops/breach-buckets`)
 
-## Production Concepts
+## When To Use What
 
-- ETL pipeline (`modules/ml/mlops/etl-pipeline`)
-- Offline vs online inference (`modules/ml/mlops/offline-online-inference`)
-- Batch vs real-time inference (`modules/ml/mlops/batch-vs-realtime`)
-- Data quality checks (`modules/ml/mlops/data-quality-checks`)
-- Feature drift detection (PSI) (`modules/ml/mlops/feature-drift-psi`)
-- Drift detection with KS distance (`modules/ml/mlops/drift-detection`)
-- Prediction distribution monitoring (`modules/ml/mlops/prediction-monitoring`)
-- Canary deployment (`modules/ml/mlops/canary-deployment`)
-- Canary rollout progression (`modules/ml/mlops/canary-rollout`)
-- Online shadow mode (`modules/ml/mlops/online-shadow-mode`)
-- A/B testing (`modules/ml/mlops/ab-testing`)
-- A/B test statistical analysis (`modules/ml/evaluation/ab-test-analysis`)
-- Sequential testing (`modules/ml/mlops/sequential-testing`)
-- SLA metrics (`modules/ml/mlops/sla-metrics`)
-- Request-level SLA compliance (`modules/ml/mlops/request-sla`)
-- Admission control (`modules/ml/mlops/admission-control`)
-- Request batching (`modules/ml/mlops/request-batching`)
-- Queue delay (`modules/ml/mlops/queue-delay`)
-- Queue age percentiles (`modules/ml/mlops/queue-age-percentiles`)
-- Retry rate (`modules/ml/mlops/retry-rate`)
-- Saturation rate (`modules/ml/mlops/saturation-rate`)
-- Queue backlog ratio (`modules/ml/mlops/queue-backlog-ratio`)
-- Depth spike rate (`modules/ml/mlops/depth-spike-rate`)
-- Capacity breach rate (`modules/ml/mlops/capacity-breach-rate`)
-- Utilization gap (`modules/ml/mlops/utilization-gap`)
-- Overload margin (`modules/ml/mlops/overload-margin`)
-- Headroom gap (`modules/ml/mlops/headroom-gap`)
-- Overload duration share (`modules/ml/mlops/overload-duration-share`)
-- Pressure score (`modules/ml/mlops/pressure-score`)
-- Surge pressure (`modules/ml/mlops/surge-pressure`)
-- Breach severity index (`modules/ml/mlops/breach-severity-index`)
-- Breach burden (`modules/ml/mlops/breach-burden`)
-- Breach heat (`modules/ml/mlops/breach-heat`)
-- Breach spectrum (`modules/ml/mlops/breach-spectrum`)
-- Breach bucket share (`modules/ml/mlops/breach-bucket-share`)
-- Breach bucket mass (`modules/ml/mlops/breach-bucket-mass`)
-- Breach bucket entropy (`modules/ml/mlops/breach-bucket-entropy`)
-- Breach bucket tail (`modules/ml/mlops/breach-bucket-tail`)
-- Breach bucket CDF (`modules/ml/mlops/breach-bucket-cdf`)
-- Breach bucket cumulative share (`modules/ml/mlops/breach-bucket-cumulative-share`)
-- Breach bucket quantile (`modules/ml/mlops/breach-bucket-quantile`)
-- Breach bucket step function (`modules/ml/mlops/breach-bucket-step-function`)
-- Breach bucket knee (`modules/ml/mlops/breach-bucket-knee`)
-- Breach bucket turning point (`modules/ml/mlops/breach-bucket-turning-point`)
-- Breach bucket curvature (`modules/ml/mlops/breach-bucket-curvature`)
-- Breach bucket inflection (`modules/ml/mlops/breach-bucket-inflection`)
-- Breach bucket arc (`modules/ml/mlops/breach-bucket-arc`)
-- Breach bucket wave (`modules/ml/mlops/breach-bucket-wave`)
-- Breach bucket bend (`modules/ml/mlops/breach-bucket-bend`)
-- Breach bucket span (`modules/ml/mlops/breach-bucket-span`)
-- Breach bucket slope (`modules/ml/mlops/breach-bucket-slope`)
-- Breach bucket step area (`modules/ml/mlops/breach-bucket-step-area`)
-- Error-budget tracking (`modules/ml/mlops/error-budget`)
-- Backfill replay (`modules/ml/mlops/backfill-replay`)
-- Cost per request (`modules/ml/mlops/cost-per-request`)
-- Capacity headroom (`modules/ml/mlops/capacity-headroom`)
-- Tail-latency budget (`modules/ml/mlops/tail-latency-budget`)
-- Queue utilization (`modules/ml/mlops/queue-utilization`)
-- Throughput per dollar (`modules/ml/mlops/throughput-per-dollar`)
-- Batch fill rate (`modules/ml/mlops/batch-fill-rate`)
+- Use shadow or canary rollout before direct replacement.
+- Use drift and prediction monitoring when the input or output distribution may change.
+- Use request-SLA and queue metrics when latency is part of product quality.
+- Use `capacity-stress-metrics` when capacity pressure is the main production risk.
+- Use error budgets when deployment speed must be balanced with reliability.
+- Use cost-per-request and throughput-per-dollar when scaling model size or serving changes.

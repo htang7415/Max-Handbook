@@ -1,34 +1,58 @@
-# Training Loop Mechanics
+# ML Systems
 
-Training loop mechanics and debugging signals.
-Each bullet maps to a module under `modules/ml/systems/`.
+ML systems are about how training and inference actually run on hardware.
 
-## Core Steps
+## Purpose
 
-- Zeroing gradients (`modules/ml/systems/zero-gradients`)
-- Forward pass (`modules/ml/systems/forward-pass`)
-- Backward pass (`modules/ml/systems/backward-pass`)
-- Optimizer step (`modules/ml/systems/optimizer-step`)
-- Gradient accumulation (`modules/ml/systems/gradient-accumulation`)
-- Mixed precision training (`modules/ml/systems/mixed-precision`)
-- Check gradients are flowing (`modules/ml/systems/check-gradients`)
-- Debug overfitting vs underfitting (`modules/ml/systems/debug-overfit-underfit`)
+Use this page to organize systems thinking into four parts:
+- training loop mechanics
+- profiling and bottlenecks
+- inference scheduling
+- distributed execution
 
-## Performance Models
+## First Principles
 
-- Roofline analysis (`modules/ml/systems/roofline-analysis`)
-- Tensor parallel linear communication (`modules/ml/systems/tensor-parallelism`)
-- Context parallel attention bytes (`modules/ml/systems/context-parallelism`)
-- Expert parallel dispatch (`modules/ml/systems/expert-parallelism`)
-- Expert load-balancing loss (`modules/ml/systems/expert-load-balancing`)
+- The training loop is a sequence of state updates, not a black box.
+- Memory movement is often the real bottleneck, not raw FLOPs.
+- Serving quality depends on batching, caching, and scheduling, not just model quality.
+- Parallelism changes communication cost as much as it changes throughput.
 
-## Serving Mechanics
+## Core Math
 
-- Continuous batching (`modules/ml/systems/continuous-batching`)
-- Chunked prefill rounds (`modules/ml/systems/chunked-prefill`)
-- Prefix cache savings metrics (`modules/ml/systems/prefix-cache-metrics`)
+- Arithmetic intensity:
+  $$
+  \frac{\mathrm{FLOPs}}{\mathrm{bytes\ moved}}
+  $$
+- Batch throughput:
+  $$
+  \frac{\mathrm{tokens\ or\ examples}}{\mathrm{second}}
+  $$
+- Communication grows with tensor size and synchronization frequency.
 
-See also:
+## Minimal Code Mental Model
+
+```python
+optimizer.zero_grad()
+loss = model(batch).loss
+loss.backward()
+optimizer.step()
+```
+
+## Canonical Modules
+
+- Training loop: `zero-gradients`, `forward-pass`, `backward-pass`, `optimizer-step`, `gradient-accumulation`, `mixed-precision`
+- Profiling and debugging: `check-gradients`, `debug-overfit-underfit`, `roofline-analysis`
+- Inference scheduling: `continuous-batching`, `chunked-prefill`, `prefix-cache-metrics`
+- Distributed execution: `tensor-parallelism`, `context-parallelism`, `expert-parallelism`, `expert-load-balancing`
+
+## Supporting Guides
 
 - GPU systems guide (`docs/ml/systems/gpu`)
 - Distributed systems guide (`docs/ml/systems/distributed`)
+
+## When To Use What
+
+- Start with the training loop modules before distributed systems.
+- Use `roofline-analysis` when you need a first-principles performance model.
+- Use batching and cache modules when latency and throughput are the main problem.
+- Use tensor, context, or expert parallelism only when one-device execution is no longer enough.

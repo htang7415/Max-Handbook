@@ -855,8 +855,8 @@ export default async function TopicPage({
   for (const entry of entries) {
     allHeadings.push({ id: entry.slug, text: entry.title, level: 2 });
     const { pitfalls, practice } = splitSections(entry.parsed.sections);
-    // DSA pages keep pitfalls in the main content but omit them from the right-side TOC.
-    if (pitfalls && trackId !== "dsa") {
+    // DSA and ML pages keep pitfalls in the main content but omit them from the right-side TOC.
+    if (pitfalls && trackId !== "dsa" && trackId !== "ml") {
       allHeadings.push({
         id: `${entry.slug}-${pitfalls.id}`,
         text: pitfalls.label,

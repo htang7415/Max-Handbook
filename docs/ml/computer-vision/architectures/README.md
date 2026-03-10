@@ -1,20 +1,47 @@
 # Vision Architectures
 
-CNN architectures mainly differ in how they trade depth, width, skip connections, and classifier heads.
+CNN architectures mainly differ in how they scale depth, downsampling, and skip connections.
 
-## Current Anchors
+## Purpose
 
-- LeNet-5 (`modules/ml/computer-vision/lenet-5`)
-- AlexNet (`modules/ml/computer-vision/alexnet`)
-- VGGNet (`modules/ml/computer-vision/vggnet`)
-- ResNet (`modules/ml/computer-vision/resnet`)
-- Pooling (`modules/ml/computer-vision/pooling`)
-- Global average pooling (`modules/ml/computer-vision/global-average-pooling`)
+Use this page to compare the small set of vision architectures worth remembering:
+- early CNN stacks
+- deeper block-based CNNs
+- residual connections
+- classifier head choices
 
-## Concepts to Cover Well
+## First Principles
 
-- Early CNNs as progressively deeper feature hierarchies
-- Pooling vs stride for spatial downsampling
-- VGG-style repeated blocks vs ResNet skip connections
-- Global average pooling as a lighter classifier head than flattening
-- Why architecture choices change parameter count, stability, and translation tolerance
+- Early CNNs show the basic pattern: convolution, nonlinearity, pooling, classifier.
+- VGG-style models deepen this pattern by repeating similar blocks.
+- ResNets add skip connections so deeper networks train more reliably.
+- Global average pooling changes the classifier head from a large dense map to a small summary.
+
+## Core Math
+
+- Residual block shape:
+  $$
+  y = F(x) + x
+  $$
+- This helps optimization because the network can learn a small correction to the identity.
+
+## Minimal Code Mental Model
+
+```python
+residual = x
+x = conv_bn_relu(x)
+x = conv_bn(x)
+x = relu(x + residual)
+```
+
+## Canonical Modules
+
+- Historical progression: `lenet-5`, `alexnet`, `vggnet`, `resnet`
+- Downsampling and heads: `pooling`, `global-average-pooling`
+
+## When To Use What
+
+- Use `lenet-5` or `alexnet` for intuition, not as the modern default.
+- Use `vggnet` to understand repeated convolutional blocks.
+- Use `resnet` as the main modern CNN reference point.
+- Use `global-average-pooling` when parameter efficiency matters more than a large dense head.

@@ -21,7 +21,8 @@ Overflow metrics describe what happens when examples exceed a hard token or leng
 
 ## Good Defaults
 
-- `truncation-rate` for a first dashboard number
-- `budget-overrun-share` for normalized cross-dataset comparisons
-- `overflow-quantile` or `overflow-peak` for worst-case visibility
-- `overflow-cutoff-rate` plus one tail metric when a product threshold defines failure
+- Start with the canonical module `overflow-metrics`
+- Use `truncation_rate` for the first dashboard number
+- Use `budget_overrun_share` for normalized cross-dataset comparisons
+- Use `overflow_quantile` for worst-case visibility
+- Use `overflow_cutoff_rate` plus `overflow_cutoff_tail_mass` when a product threshold defines failure
