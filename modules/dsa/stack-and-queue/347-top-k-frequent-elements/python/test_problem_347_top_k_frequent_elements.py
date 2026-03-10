@@ -13,3 +13,8 @@ def test_top_k_edge_single():
 def test_top_k_tricky_negative_values():
     result = Solution().topKFrequent([4, 1, -1, 2, -1, 2, 3], 2)
     assert set(result) == {-1, 2}
+
+
+def test_top_k_tricky_all_distinct_requested():
+    result = Solution().topKFrequent([5, 6, 7], 3)
+    assert set(result) == {5, 6, 7}

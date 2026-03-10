@@ -11,3 +11,7 @@ def test_house_robber_ii_edge_single_house():
 
 def test_house_robber_ii_tricky_circle_choice():
     assert Solution().rob([1, 2, 3, 1]) == 4
+
+
+def test_house_robber_ii_tricky_two_houses():
+    assert Solution().rob([2, 7]) == 7

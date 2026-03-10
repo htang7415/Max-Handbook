@@ -10,7 +10,7 @@ Decide whether the string can be built by repeating one of its proper substrings
 
 - The question is about a whole-string repetition pattern.
 - You only need a yes/no answer.
-- A structural string trick may be simpler than checking every substring manually.
+- Prefix/suffix structure matters more than checking every candidate substring directly.
 
 ## Baseline Idea
 
@@ -18,24 +18,24 @@ Try every substring length that divides `len(s)` and test whether repeating it r
 
 ## Core Insight
 
-If `s` is made of repeated pieces, then `s` appears inside `(s + s)[1:-1]`. Non-repeating strings do not.
+If a string is built from a repeating unit, then its longest proper prefix that is also a suffix reveals that period. KMP's `lps` table makes that check direct.
 
 ## Invariant / State
 
-- `doubled = s + s` contains every cyclic shift of `s`.
-- Removing the first and last characters prevents matching the original string trivially at the ends.
+- `lps[i]` stores the longest proper prefix of `s[:i+1]` that is also a suffix.
+- If `lps[-1] = k`, then the candidate repeating block length is `n - k`.
 
 ## Walkthrough
 
 For `"abab"`:
-- `doubled = "abababab"`.
-- `doubled[1:-1] = "bababa"`.
-- `"abab"` appears inside that substring, so the pattern repeats.
+- Build `lps = [0, 0, 1, 2]`.
+- The longest proper prefix/suffix length is `2`.
+- The candidate block length is `4 - 2 = 2`, and `4 % 2 == 0`, so the pattern repeats.
 
 ## Complexity
 
-- Time: depends on substring search, typically linear-ish in practice for this built-in approach
-- Space: `O(n)` for the doubled string
+- Time: `O(n)`
+- Space: `O(n)` for the `lps` table
 
 ## Edge Cases
 
@@ -45,21 +45,21 @@ For `"abab"`:
 
 ## Common Mistakes
 
-- Forgetting to remove the first and last characters
-- Treating the empty string as repeating
-- Assuming any repeated character implies a repeated substring pattern
+- Treating any nonzero prefix/suffix match as enough without checking divisibility
+- Building the `lps` table incorrectly on mismatch fallback
+- Treating a single character as a repeated pattern
 
 ## Pattern Transfer
 
 - 28.Implement strStr()
-- KMP-style periodicity checks
-- String rotation/repetition tricks
+- KMP prefix-function problems
+- String periodicity checks
 
 ## Self-Check
 
-- Why do we slice to `doubled[1:-1]`?
-- Why does a repeating string reappear inside the doubled middle section?
-- Why does a single-character string return `False`?
+- What does `lps[-1]` tell you about the whole string?
+- Why is the candidate period length `n - lps[-1]`?
+- Why must that candidate period divide the full length exactly?
 
 ## Function
 

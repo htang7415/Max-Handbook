@@ -10,27 +10,28 @@ Reverse the order of the words in a string while collapsing extra spaces.
 
 - The task is about words, not individual characters.
 - Extra spaces must be removed in the final answer.
-- Splitting on whitespace gives the exact word units to reorder.
+- In-place character work can solve both spacing cleanup and word reversal.
 
 ## Baseline Idea
 
-Scan the string manually, build each word character by character, then reconstruct the result. That works, but Python's string helpers make the intent much clearer here.
+Split the string into words, reverse the list, and join with single spaces. That works in Python, but it hides the underlying string-manipulation pattern.
 
 ## Core Insight
 
-`split()` already handles repeated spaces by extracting just the words. Once you have the word list, reverse it and join with single spaces.
+First compact spaces so the string has single separators only. Then reverse the whole character array, and finally reverse each word in place to restore each word's spelling.
 
 ## Invariant / State
 
-- After `split()`, the list contains exactly the words in left-to-right order.
-- `join()` always rebuilds the output with single spaces between words.
+- After compaction, words are separated by exactly one space and there are no leading or trailing spaces.
+- After reversing the whole array, words appear in reverse order but each word's characters are reversed.
+- Reversing each word restores the correct spelling.
 
 ## Walkthrough
 
 For `"  hello   world  "`:
-- `split()` gives `["hello", "world"]`.
-- Reverse the list to `["world", "hello"]`.
-- Join to get `"world hello"`.
+- Compact spaces to `"hello world"`.
+- Reverse the whole string to `"dlrow olleh"`.
+- Reverse each word to get `"world hello"`.
 
 ## Complexity
 
@@ -48,19 +49,19 @@ For `"  hello   world  "`:
 
 - Reversing characters instead of words
 - Preserving extra spaces in the output
-- Forgetting that the final spacing must be normalized
+- Forgetting to reverse each word after reversing the whole string
 
 ## Pattern Transfer
 
-- Tokenize, transform, rebuild string problems
+- Two-phase in-place reversal problems
 - String normalization tasks
-- Word-based parsing
+- Pointer-based word parsing
 
 ## Self-Check
 
-- Why does `split()` solve the spacing issue directly?
+- Why do spaces need to be compacted before reversing?
 - What should the result be for an input containing only spaces?
-- Why is joining with `" "` important here?
+- Why do we reverse the whole string before reversing each word?
 
 ## Function
 

@@ -33,3 +33,9 @@ def test_maximum_binary_tree_tricky_decreasing():
     nums = [5, 4, 3, 2, 1]
     root = Solution().constructMaximumBinaryTree(nums)
     assert level_order(root) == [5, None, 4, None, 3, None, 2, None, 1]
+
+
+def test_maximum_binary_tree_tricky_increasing():
+    nums = [1, 2, 3, 4, 5]
+    root = Solution().constructMaximumBinaryTree(nums)
+    assert level_order(root) == [5, 4, None, 3, None, 2, None, 1]

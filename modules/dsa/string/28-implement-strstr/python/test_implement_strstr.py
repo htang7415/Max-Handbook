@@ -11,3 +11,7 @@ def test_strstr_edge_empty_needle():
 
 def test_strstr_tricky_overlapping_match():
     assert Solution().strStr("mississippi", "issi") == 1
+
+
+def test_strstr_tricky_prefix_suffix_fallback():
+    assert Solution().strStr("ababcabcabababd", "ababd") == 10

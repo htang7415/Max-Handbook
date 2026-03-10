@@ -18,12 +18,12 @@ Try every possible set of transaction boundaries recursively and keep the best a
 
 ## Core Insight
 
-Track `k` buy states and `k` sell states. `buy[i]` is the best balance after the `i + 1`th buy, and `sell[i]` is the best profit after the `i + 1`th sell. Each new price updates all transaction stages. If `k` is very large, the problem collapses to the unlimited-transactions version.
+Track transaction stages directly. `buy[t]` is the best balance after the `t`th buy, and `sell[t]` is the best profit after the `t`th sell. Each price updates those stages in `O(k)`. If `k` is very large, the problem collapses to the unlimited-transactions version.
 
 ## Invariant / State
 
-- `buy[i]` is the best profit balance after performing exactly `i + 1` buys and at most `i` sells.
-- `sell[i]` is the best profit after performing exactly `i + 1` sells.
+- `buy[t]` is the best balance after completing `t - 1` sells and then buying once more.
+- `sell[t]` is the best profit after completing exactly `t` sells.
 
 ## Walkthrough
 
@@ -49,6 +49,7 @@ For `k = 2` and `[3, 2, 6, 5, 0, 3]`:
 - Treating it like the one-transaction or two-transaction stock problems
 - Forgetting the unlimited-transactions shortcut when `k` is large
 - Mixing up what a buy state and a sell state represent
+- Copying whole DP arrays every day instead of updating the transaction states directly
 
 ## Pattern Transfer
 
@@ -58,9 +59,9 @@ For `k = 2` and `[3, 2, 6, 5, 0, 3]`:
 
 ## Self-Check
 
-- What does `buy[i]` mean?
+- What does `buy[t]` mean?
 - Why can large `k` be reduced to unlimited transactions?
-- How does transaction `i` depend on transaction `i - 1`?
+- How does transaction `t` depend on transaction `t - 1`?
 
 ## Function
 

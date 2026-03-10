@@ -1,19 +1,40 @@
-from collections import defaultdict
-
-
 def four_sum(nums: list[int], target: int) -> list[list[int]]:
-    pair_sums: dict[int, list[tuple[int, int]]] = defaultdict(list)
-    result: set[tuple[int, int, int, int]] = set()
+    nums.sort()
+    result: list[list[int]] = []
     n = len(nums)
 
-    for right_start in range(1, n):
-        for end in range(right_start + 1, n):
-            complement = target - nums[right_start] - nums[end]
-            for first, second in pair_sums.get(complement, []):
-                result.add(
-                    tuple(sorted((nums[first], nums[second], nums[right_start], nums[end])))
-                )
-        for left in range(right_start):
-            pair_sums[nums[left] + nums[right_start]].append((left, right_start))
+    for i in range(n - 3):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+        if nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target:
+            break
+        if nums[i] + nums[n - 3] + nums[n - 2] + nums[n - 1] < target:
+            continue
 
-    return [list(quadruplet) for quadruplet in sorted(result)]
+        for j in range(i + 1, n - 2):
+            if j > i + 1 and nums[j] == nums[j - 1]:
+                continue
+            if nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target:
+                break
+            if nums[i] + nums[j] + nums[n - 2] + nums[n - 1] < target:
+                continue
+
+            left, right = j + 1, n - 1
+            while left < right:
+                total = nums[i] + nums[j] + nums[left] + nums[right]
+                if total < target:
+                    left += 1
+                elif total > target:
+                    right -= 1
+                else:
+                    result.append([nums[i], nums[j], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+
+                    # Skip duplicate third and fourth values for this fixed pair.
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
+
+    return result

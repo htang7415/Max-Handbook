@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-10T20:00:16.103Z",
+  "generated_at": "2026-03-10T20:37:56.148Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -1958,18 +1958,6 @@
       "topicName": "Fundamentals"
     },
     {
-      "id": "doc:ml/path-beginner/path-beginner",
-      "type": "doc",
-      "title": "Beginner Path",
-      "summary": "Use this path if you want a practical ML foundation without trying to learn the whole track at once.",
-      "track": "ml",
-      "topic": "path-beginner",
-      "slug": "path-beginner",
-      "href": "/track/ml/path-beginner#path-beginner",
-      "trackName": "Machine Learning",
-      "topicName": "Path Beginner"
-    },
-    {
       "id": "module:ml/computer-vision/bilinear-resizing",
       "type": "module",
       "title": "Bilinear Resizing",
@@ -3494,18 +3482,6 @@
       "topicName": "LLM"
     },
     {
-      "id": "doc:ml/path-llm-systems/path-llm-systems",
-      "type": "doc",
-      "title": "LLM Systems Path",
-      "summary": "Use this path if your goal is modern inference, retrieval, evaluation, and serving for LLM applications.",
-      "track": "ml",
-      "topic": "path-llm-systems",
-      "slug": "path-llm-systems",
-      "href": "/track/ml/path-llm-systems#path-llm-systems",
-      "trackName": "Machine Learning",
-      "topicName": "Path LLM Systems"
-    },
-    {
       "id": "doc:ml/llm/tokenization",
       "type": "doc",
       "title": "LLM Tokenization",
@@ -3528,6 +3504,18 @@
       "href": "/track/ml/evaluation#log-rate-metrics",
       "trackName": "Machine Learning",
       "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/llm/long-context-and-caching",
+      "type": "module",
+      "title": "Long Context and Caching",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "long-context-and-caching",
+      "href": "/track/ml/llm#long-context-and-caching",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
     },
     {
       "id": "module:ml/deep-learning/loss-functions",
@@ -3614,18 +3602,6 @@
       "topicName": "Fundamentals"
     },
     {
-      "id": "doc:ml/path-math-first/path-math-first",
-      "type": "doc",
-      "title": "Math-First Path",
-      "summary": "Use this path if you want to understand ML from equations upward before optimizing for breadth.",
-      "track": "ml",
-      "topic": "path-math-first",
-      "slug": "path-math-first",
-      "href": "/track/ml/path-math-first#path-math-first",
-      "trackName": "Machine Learning",
-      "topicName": "Path Math First"
-    },
-    {
       "id": "module:ml/data/imputation",
       "type": "module",
       "title": "Mean Imputation",
@@ -3672,18 +3648,6 @@
       "href": "/track/ml/data#missing-indicator",
       "trackName": "Machine Learning",
       "topicName": "Data"
-    },
-    {
-      "id": "doc:ml/roadmap/roadmap",
-      "type": "doc",
-      "title": "ML Coverage Roadmap",
-      "summary": "Goal: keep the ML track systematic, concise, and useful for 2026-era AI learning. Scope is driven by `artifacts/deepml/problem_titles.md`, with additions outside that file only whe…",
-      "track": "ml",
-      "topic": "roadmap",
-      "slug": "roadmap",
-      "href": "/track/ml/roadmap#roadmap",
-      "trackName": "Machine Learning",
-      "topicName": "Roadmap"
     },
     {
       "id": "doc:ml/mlops/monitoring",
@@ -3792,6 +3756,18 @@
       "href": "/track/ml/reinforcement-learning#monte-carlo-tree-search",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ml/llm/multimodal-llms",
+      "type": "module",
+      "title": "Multimodal LLMs",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "multimodal-llms",
+      "href": "/track/ml/llm#multimodal-llms",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
     },
     {
       "id": "module:dsa/dynamic-programming/multiple-knapsack-theory",
@@ -4212,6 +4188,18 @@
       "href": "/track/ml/evaluation#ranking-metrics",
       "trackName": "Machine Learning",
       "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ml/llm/reasoning-and-test-time-compute",
+      "type": "module",
+      "title": "Reasoning and Test-Time Compute",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "reasoning-and-test-time-compute",
+      "href": "/track/ml/llm#reasoning-and-test-time-compute",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
     },
     {
       "id": "module:dsa/binary-tree/recursive-traversal-of-binary-trees",

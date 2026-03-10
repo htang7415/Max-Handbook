@@ -22,12 +22,13 @@ In a circle, you cannot take both the first and last house. So solve two linear 
 - rob houses `0..n-2`
 - rob houses `1..n-1`
 
-Take the larger of those two answers.
+Take the larger of those two answers without copying the subarrays.
 
 ## Invariant / State
 
 - For the linear helper, `prev1` is the best result up to the previous house.
 - `prev2` is the best result up to the house before that.
+- The helper only scans an index range, so the overall solution stays `O(1)` extra space.
 
 ## Walkthrough
 
@@ -52,6 +53,7 @@ For `[2, 3, 2]`:
 - Solving it like the linear house robber problem without handling the circle
 - Forgetting the single-house special case
 - Including both first and last houses in the same scenario
+- Slicing the array for the two linear cases and adding avoidable extra work
 
 ## Pattern Transfer
 

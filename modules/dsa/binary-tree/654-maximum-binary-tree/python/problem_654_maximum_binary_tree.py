@@ -12,11 +12,16 @@ class TreeNode:
 
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
-        if not nums:
-            return None
-        max_val = max(nums)
-        idx = nums.index(max_val)
-        root = TreeNode(max_val)
-        root.left = self.constructMaximumBinaryTree(nums[:idx])
-        root.right = self.constructMaximumBinaryTree(nums[idx + 1 :])
-        return root
+        stack: list[TreeNode] = []
+
+        for value in nums:
+            current = TreeNode(value)
+            while stack and stack[-1].val < value:
+                current.left = stack.pop()
+
+            if stack:
+                stack[-1].right = current
+
+            stack.append(current)
+
+        return stack[0] if stack else None

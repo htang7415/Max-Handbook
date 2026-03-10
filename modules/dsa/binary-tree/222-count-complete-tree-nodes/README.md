@@ -8,32 +8,33 @@ Return the number of nodes in the tree.
 
 ## Recognition Cues
 
-- The current implementation is simple recursive counting.
-- Each subtree contributes its own node count plus one for the root.
-- No extra state beyond recursion is needed.
+- The tree is complete, not just arbitrary.
+- A complete tree may contain perfect subtrees.
+- Height checks can avoid visiting every node.
 
 ## Baseline Idea
 
-Traverse the tree and count nodes directly. That is already the implementation used here.
+Traverse the tree and count nodes directly in `O(n)`.
 
 ## Core Insight
 
-The total nodes in a tree equal `1 + count(left) + count(right)`.
+If the leftmost height and rightmost height of a subtree are equal, that subtree is perfect and its node count is `(2^h) - 1`.
 
 ## Invariant / State
 
-- `countNodes(node)` returns the number of nodes in the subtree rooted at `node`.
+- Equal leftmost and rightmost heights mean the current subtree is perfect.
+- Otherwise, recurse into left and right children and combine the counts.
 
 ## Walkthrough
 
 For `[1,2,3,4,5,6]`:
-- Count the left subtree rooted at `2`.
-- Count the right subtree rooted at `3`.
-- Add `1` for the root to get `6`.
+- The root is not a perfect subtree because its left and right boundary heights differ.
+- The left subtree rooted at `2` is perfect, so count it in `O(1)` from its height.
+- Recurse only where the last level is incomplete, then combine the counts.
 
 ## Complexity
 
-- Time: `O(n)`
+- Time: `O((log n)^2)`
 - Space: `O(h)` recursion stack
 
 ## Edge Cases
@@ -44,21 +45,21 @@ For `[1,2,3,4,5,6]`:
 
 ## Common Mistakes
 
-- Forgetting the base case for `None`
-- Counting edges instead of nodes
-- Assuming completeness changes the DFS recurrence in this implementation
+- Forgetting that the perfect-subtree formula counts nodes, not edges
+- Measuring only one side height and assuming the subtree is perfect
+- Falling back to full traversal and missing the complete-tree optimization
 
 ## Pattern Transfer
 
-- Tree size aggregation
-- Recursive subtree counting
-- 104.Maximum Depth of Binary Tree
+- Height-based complete-tree checks
+- Perfect binary tree counting
+- Binary-search-style structure exploitation on trees
 
 ## Self-Check
 
-- What does `countNodes(node)` return?
-- Why does the empty tree return `0`?
-- Why is the recurrence `1 + left + right`?
+- When does a complete subtree become a perfect subtree?
+- Why does equal leftmost and rightmost height imply `(2^h) - 1` nodes?
+- Why is the complexity `O((log n)^2)` instead of `O(n)`?
 
 ## Function
 

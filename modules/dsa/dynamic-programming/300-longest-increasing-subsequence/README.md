@@ -9,8 +9,8 @@ Find the length of the longest strictly increasing subsequence.
 ## Recognition Cues
 
 - Order matters, but the subsequence does not need to be contiguous.
-- Each position can extend earlier smaller values.
-- The `O(n^2)` DP focuses on subsequences ending at each index.
+- You want the length only, not the actual subsequence.
+- Replacing larger tails with smaller values can keep future options open.
 
 ## Baseline Idea
 
@@ -18,23 +18,23 @@ Enumerate subsequences recursively and keep the longest increasing one. That wor
 
 ## Core Insight
 
-Let `dp[i]` be the LIS length ending exactly at index `i`. To compute it, inspect all earlier indices `j < i`; if `nums[j] < nums[i]`, then `nums[i]` can extend the subsequence ending at `j`.
+Maintain `tails`, where `tails[length - 1]` is the smallest possible tail value of an increasing subsequence of that length. For each number, binary search the first tail it can replace.
 
 ## Invariant / State
 
-- `dp[i]` is the best increasing subsequence length that must end at `nums[i]`.
+- `tails` stays sorted.
+- Replacing a tail with a smaller value never hurts a future longer subsequence.
 
 ## Walkthrough
 
 For `[10, 9, 2, 5, 3, 7, 101, 18]`:
-- `2` starts a subsequence of length `1`.
-- `5` extends `2` to length `2`.
-- `7` extends the best earlier smaller value to length `3`.
-- `101` extends again to length `4`.
+- Start with `tails = []`.
+- Insert `10`, then replace it with `9`, then with `2`, keeping the best tail for length `1`.
+- Extend to `[2, 3, 7, 18]`, so the LIS length is `4`.
 
 ## Complexity
 
-- Time: `O(n^2)`
+- Time: `O(n log n)`
 - Space: `O(n)`
 
 ## Edge Cases
@@ -46,20 +46,20 @@ For `[10, 9, 2, 5, 3, 7, 101, 18]`:
 ## Common Mistakes
 
 - Confusing subsequence with subarray
-- Using `<=` instead of `<` for strict increase
-- Forgetting that the final answer is `max(dp)`, not just `dp[-1]`
+- Using `bisect_right` and allowing duplicates into a strictly increasing subsequence
+- Assuming `tails` stores the actual LIS rather than the best tail values
 
 ## Pattern Transfer
 
 - 674.Longest Continuous Increasing Subsequence for the contiguous variant
-- Sequence DP by ending position
-- 1143-style state definitions on prefixes/endpoints
+- Patience sorting style sequence problems
+- Binary search over monotone helper state
 
 ## Self-Check
 
-- What does `dp[i]` represent?
-- Why can `nums[i]` only extend earlier smaller values?
-- Why is the answer not always at the last index?
+- What does `tails[i]` represent?
+- Why is replacing a larger tail with a smaller one safe?
+- Why does binary search apply here?
 
 ## Function
 

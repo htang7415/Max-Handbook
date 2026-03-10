@@ -10,32 +10,32 @@ Return the starting index of the first occurrence of `needle` inside `haystack`.
 
 - You need substring matching.
 - The answer is the first valid starting index.
-- A sliding comparison over the string is enough for the basic solution.
+- Repeated prefix/suffix structure can be reused after a mismatch.
 
 ## Baseline Idea
 
-Try every starting index and compare the next `len(needle)` characters. This is the straightforward solution for the basic version.
+Try every starting index and compare the next `len(needle)` characters. That works, but it repeats work after mismatches.
 
 ## Core Insight
 
-Only positions where `needle` fully fits can be valid starts, so compare `haystack[i:i+m]` against `needle` for each such index.
+KMP preprocesses `needle` so a mismatch can jump to the longest reusable prefix instead of restarting from scratch.
 
 ## Invariant / State
 
-- `i` is the current candidate starting index.
-- The search only needs to examine `0` through `n - m`.
+- `lps[i]` stores the length of the longest proper prefix of `needle[:i+1]` that is also a suffix.
+- `needle_index` is how many characters of `needle` currently match the suffix of the scanned `haystack` prefix.
 
 ## Walkthrough
 
 For `haystack = "hello"` and `needle = "ll"`:
-- Try index `0`: `"he"` does not match.
-- Try index `1`: `"el"` does not match.
-- Try index `2`: `"ll"` matches, so return `2`.
+- Build `lps = [0, 1]` for `"ll"`.
+- Scan `"hello"` left to right while tracking the current matched prefix length.
+- When the second `l` is matched, the full pattern is found and the answer is `2`.
 
 ## Complexity
 
-- Time: `O((n - m + 1) * m)` in the simple scan
-- Space: `O(1)` auxiliary space
+- Time: `O(n + m)`
+- Space: `O(m)` for the `lps` table
 
 ## Edge Cases
 
@@ -46,8 +46,8 @@ For `haystack = "hello"` and `needle = "ll"`:
 ## Common Mistakes
 
 - Forgetting that an empty `needle` returns `0`
-- Iterating too far and reading past the valid start range
-- Returning the last match instead of the first match
+- Building the `lps` table incorrectly on repeated prefixes
+- Resetting to the start of `needle` instead of falling back with `lps`
 
 ## Pattern Transfer
 
@@ -57,9 +57,9 @@ For `haystack = "hello"` and `needle = "ll"`:
 
 ## Self-Check
 
-- Why is the last valid start index `n - m`?
+- What does `lps[i]` mean?
 - What should happen when `needle` is empty?
-- Why do overlapping matches still work with the simple scan?
+- Why does KMP avoid re-checking characters after a mismatch?
 
 ## Function
 

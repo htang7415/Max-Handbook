@@ -12,7 +12,7 @@ This track is optimized for:
 
 ## How To Use This Track
 
-- Start with one study path, not the whole tree.
+- Start with one section, not the whole tree.
 - Use section docs for the concept map.
 - Use canonical modules for the main learning unit.
 - Use alias or narrow modules only after the canonical family is clear.
@@ -34,10 +34,8 @@ code = implement_smallest_working_version(equation)
 
 ## Start Here
 
-- If you are unsure, start with `docs/ml/path-beginner`.
 - If your goal is interview prep, use `docs/ml/path-interview`.
-- If your goal is serving and inference, use `docs/ml/path-llm-systems`.
-- If you want equations first, use `docs/ml/path-math-first`.
+- Otherwise, start with `docs/ml/fundamentals`, then move to `docs/ml/data` and `docs/ml/models`.
 
 ## Main Sections
 
@@ -57,7 +55,7 @@ code = implement_smallest_working_version(equation)
 - Deep learning: `activation-functions`, `normalization-methods`
 - Evaluation: `classification-metrics-core`, `ranking-metrics`, `calibration-metrics`, `uncertainty-intervals`, `agreement-metrics`, `binary-rate-comparison-metrics`
 - Data: `scaling-methods`, `categorical-encoding-methods`, `sparse-text-feature-methods`, `structured-feature-methods`, `overflow-metrics`
-- LLM: `decoding-methods`, `retrieval-metrics`, `vote-metrics`
+- LLM: `reasoning-and-test-time-compute`, `long-context-and-caching`, `multimodal-llms`, `decoding-methods`, `retrieval-metrics`, `vote-metrics`
 - Production and RL helpers: `capacity-stress-metrics`, `transition-indicators`
 
 ## Scope Rule
@@ -65,4 +63,3 @@ code = implement_smallest_working_version(equation)
 - Prefer concise explanations over exhaustive catalogs.
 - Prefer canonical families over many near-duplicate modules.
 - Only add ML topics outside `problem_titles.md` when they are clearly important to AI practice in 2026.
-- Use `docs/ml/roadmap` for pruning and coverage review.

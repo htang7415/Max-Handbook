@@ -11,3 +11,7 @@ def test_stock_iv_edge_zero_transactions():
 
 def test_stock_iv_tricky_two_transactions():
     assert Solution().maxProfit(2, [3, 2, 6, 5, 0, 3]) == 7
+
+
+def test_stock_iv_tricky_large_k_shortcut():
+    assert Solution().maxProfit(100, [1, 2, 3, 4, 5]) == 4

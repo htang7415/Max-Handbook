@@ -11,12 +11,12 @@ class Solution:
                 if prices[i] > prices[i - 1]:
                     profit += prices[i] - prices[i - 1]
             return profit
-        buy = [float("-inf")] * k
-        sell = [0] * k
+
+        buy = [float("-inf")] * (k + 1)
+        sell = [0] * (k + 1)
         for price in prices:
-            prev_buy = buy[:]
-            prev_sell = sell[:]
-            for i in range(k):
-                buy[i] = max(prev_buy[i], (prev_sell[i - 1] if i > 0 else 0) - price)
-                sell[i] = max(prev_sell[i], buy[i] + price)
-        return sell[-1]
+            for transaction in range(1, k + 1):
+                buy[transaction] = max(buy[transaction], sell[transaction - 1] - price)
+                sell[transaction] = max(sell[transaction], buy[transaction] + price)
+
+        return sell[k]

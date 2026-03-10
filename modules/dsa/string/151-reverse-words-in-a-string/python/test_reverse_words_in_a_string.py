@@ -11,3 +11,7 @@ def test_reverse_words_edge_only_spaces():
 
 def test_reverse_words_tricky_extra_spaces():
     assert Solution().reverseWords("  hello   world  ") == "world hello"
+
+
+def test_reverse_words_tricky_multiple_words():
+    assert Solution().reverseWords("a good   example") == "example good a"

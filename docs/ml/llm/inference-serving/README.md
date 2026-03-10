@@ -4,6 +4,7 @@ Serving quality depends on latency, memory, batching, and hardware efficiency mo
 
 ## Current Anchors
 
+- Long context and prompt/context caching (`modules/ml/llm/long-context-and-caching`)
 - KV cache sizing (`modules/ml/llm/kv-cache`)
 - Prefix-cache reuse (`modules/ml/llm/prefix-cache`)
 - Prefix-cache savings metrics (`modules/ml/systems/prefix-cache-metrics`)
@@ -17,6 +18,8 @@ Serving quality depends on latency, memory, batching, and hardware efficiency mo
 
 ## Concepts to Cover Well
 
+- Long-context budgets and quadratic prefill growth
+- Prompt/context caching and shared-prefix reuse
 - TTFT, ITL, and tokens/sec
 - Continuous batching and chunked prefill
 - KV cache memory budgets and eviction

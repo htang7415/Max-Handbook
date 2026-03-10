@@ -8,6 +8,8 @@ Use this page to keep the LLM stack in the right order:
 - tokenization and representations
 - attention and transformer structure
 - training stages
+- reasoning and test-time compute
+- multimodal inputs
 - evaluation
 - decoding and inference systems
 
@@ -17,6 +19,8 @@ Use this page to keep the LLM stack in the right order:
 - Attention lets each token condition on earlier context.
 - The transformer stacks attention and feed-forward blocks into a scalable sequence model.
 - Training moves from pretraining to task adaptation and then often to alignment.
+- Reasoning models trade extra inference compute for better answers on harder tasks.
+- Modern LLMs often consume images, audio, or video by turning them into token-like embeddings.
 - Good LLM systems are not just good models; they also need good decoding and serving behavior.
 
 ## Core Math
@@ -44,11 +48,12 @@ next_token = decode(hidden[-1], strategy="top_p")
 - Tokenization and representations: `token-representation-methods`
 - Transformer core: `attention-mechanisms`, `transformer`
 - Training stages: `pretraining`, `alignment-methods`
+- Reasoning: `reasoning-and-test-time-compute`
+- Multimodal inputs: `multimodal-llms`
 - Evaluation: `docs/ml/llm/evaluation`
 - Decoding: `decoding-methods`
 - Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion-methods`
-- Alignment and optimization: `alignment-methods`
-- Efficiency and systems: `parameter-efficient-fine-tuning`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `qk-clip`
+- Efficiency and systems: `long-context-and-caching`, `parameter-efficient-fine-tuning`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `qk-clip`
 
 ## Supporting Guides
 
@@ -60,6 +65,8 @@ next_token = decode(hidden[-1], strategy="top_p")
 ## When To Use What
 
 - Start with token-representation methods and attention before jumping to alignment or serving.
+- Use `reasoning-and-test-time-compute` before tuning sampling-heavy reasoning workflows.
+- Use `multimodal-llms` when the system has to mix text with images, audio, or video.
 - Use the evaluation guide before choosing metrics module by module.
 - Use decoding methods when generation behavior is the issue.
 - Use serving and systems topics when latency, memory, or throughput becomes the bottleneck.

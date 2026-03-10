@@ -5,21 +5,9 @@ import { sortTopicsForTrack } from "@/lib/roadmap";
 import { notFound } from "next/navigation";
 
 const ML_STUDY_PATHS: Record<string, { label: string; note: string }> = {
-  "path-beginner": {
-    label: "Beginner Path",
-    note: "Practical foundation across data, models, evaluation, and deep learning.",
-  },
   "path-interview": {
     label: "Interview Path",
     note: "Fast recall on core ML trade-offs, metrics, and modern model intuition.",
-  },
-  "path-llm-systems": {
-    label: "LLM Systems Path",
-    note: "Inference, retrieval, serving, and evaluation for modern LLM applications.",
-  },
-  "path-math-first": {
-    label: "Math-First Path",
-    note: "Equations, likelihood, and optimization before broader model coverage.",
   },
 };
 
@@ -69,9 +57,8 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
   const studyPaths = isMlTrack
     ? topics.filter((topic) => topic.topic in ML_STUDY_PATHS)
     : [];
-  const roadmapTopic = isMlTrack ? topics.find((topic) => topic.topic === "roadmap") : undefined;
   const sectionTopics = isMlTrack
-    ? topics.filter((topic) => !(topic.topic in ML_STUDY_PATHS) && topic.topic !== "roadmap")
+    ? topics.filter((topic) => !(topic.topic in ML_STUDY_PATHS))
     : topics;
 
   return (
@@ -136,21 +123,6 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
             </div>
           </section>
 
-          {roadmapTopic ? (
-            <section className="mt-7">
-              <h2 className="text-[0.72rem] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-                Utility
-              </h2>
-              <div className="mt-2 space-y-0.5">
-                <TopicLink
-                  href={`/track/${track.id}/${roadmapTopic.topic}`}
-                  accentVar={track.accentVar}
-                  name="Roadmap"
-                  note="Coverage, pruning, and canonical-vs-legacy audit."
-                />
-              </div>
-            </section>
-          ) : null}
         </div>
       ) : (
         <div className="mt-6 space-y-0.5">

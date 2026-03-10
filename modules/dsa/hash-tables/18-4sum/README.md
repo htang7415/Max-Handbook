@@ -9,8 +9,8 @@ Return all unique quadruplets whose values sum to the target.
 ## Recognition Cues
 
 - Four nested loops would be too slow.
-- The target equation can be split into two pair sums.
-- You need unique quadruplets, not just the count.
+- Sorting helps manage duplicates and enables pruning.
+- After fixing two values, the remaining task becomes a two-pointer search on a sorted suffix.
 
 ## Baseline Idea
 
@@ -18,25 +18,24 @@ Try every quadruple directly. That takes `O(n^4)`.
 
 ## Core Insight
 
-Precompute earlier pair sums in a hash table. For each later pair, look up the complementary sum needed to reach the target.
+Sort the array, fix the first two values, then use left and right pointers to search for the remaining pair. The sorted order makes both pruning and duplicate skipping straightforward.
 
 ## Invariant / State
 
-- `pair_sums[s]` stores index pairs seen so far whose values sum to `s`.
-- Each later pair checks whether an earlier pair completes the target.
-- Sorted tuples in `result` deduplicate quadruplets by value.
+- For fixed indices `i` and `j`, the pointers search only in the range to the right of `j`.
+- Duplicate anchors and duplicate pointer values are skipped so each quadruplet appears once.
 
 ## Walkthrough
 
 For `[1, 0, -1, 0, -2, 2]` with target `0`:
-- Earlier pairs build sums like `1`, `0`, and `-1`.
-- Later pairs look up the needed complementary sums.
-- Valid quadruplets such as `[-2, -1, 1, 2]` and `[-2, 0, 0, 2]` are collected.
+- Sort to `[-2, -1, 0, 0, 1, 2]`.
+- Fix `-2`, then `-1`, and search with pointers.
+- Repeat for the next anchor choices, skipping duplicates and collecting only unique quadruplets.
 
 ## Complexity
 
-- Time: `O(n^3)` in this implementation
-- Space: `O(n^2)`
+- Time: `O(n^3)` after sorting
+- Space: `O(1)` extra space, ignoring output
 
 ## Edge Cases
 
@@ -47,20 +46,21 @@ For `[1, 0, -1, 0, -2, 2]` with target `0`:
 ## Common Mistakes
 
 - Returning duplicate quadruplets
-- Allowing the same index to be reused
-- Building pair sums too late to match with future pairs
+- Forgetting to skip duplicates for the first or second anchor
+- Moving the wrong pointer after comparing the sum to `target`
 
 ## Pattern Transfer
 
 - 454.4Sum II
 - 15.3Sum
-- Pair-sum hashing with deduplication
+- Sorted `k`-sum problems
+- Two-pointer search after fixing anchors
 
 ## Self-Check
 
-- Why are pair sums the right decomposition here?
-- What does the hash table store?
-- Why is deduplication still needed after using indices?
+- Why is this one dimension harder than `3Sum`?
+- Which loops or pointers need duplicate skipping?
+- After fixing two numbers, what problem are the pointers solving?
 
 ## Function
 
