@@ -30,9 +30,18 @@ $$
 
 Causal masking sets future attention scores to $-\infty$ before softmax.
 
+## From Math To Code
+
+- Build scaled dot-product scores first.
+- Softmax those scores row-wise to get attention weights.
+- Multiply attention weights by values to get the mixed output.
+- Add masking only when the sequence should not see all positions.
+
 ## Minimal Code Mental Model
 
 ```python
+scores = scaled_dot_product_scores(q, k)
+weights = attention_weights(q, k)
 attn = self_attention(q, k, v)
 mha = multi_head_attention(q, k, v, heads=8)
 masked = causal_self_attention(Q, K, V)
@@ -42,6 +51,8 @@ mask = window_mask(seq_len=128, window=16)
 ## Function
 
 ```python
+def scaled_dot_product_scores(q: list[list[float]], k: list[list[float]]) -> list[list[float]]:
+def attention_weights(q: list[list[float]], k: list[list[float]]) -> list[list[float]]:
 def self_attention(q: list[list[float]], k: list[list[float]], v: list[list[float]]) -> list[list[float]]:
 def multi_head_attention(q: list[list[float]], k: list[list[float]], v: list[list[float]], heads: int) -> list[list[float]]:
 def causal_mask(seq_len: int) -> np.ndarray:

@@ -24,21 +24,41 @@ $$
 \mu_k' = \frac{\sum_i r_{ik} x_i}{\sum_i r_{ik}}
 $$
 
+$$
+\sigma_k^{2\prime} = \frac{\sum_i r_{ik}(x_i-\mu_k')^2}{\sum_i r_{ik}}
+$$
+
+$$
+\pi_k' = \frac{1}{n}\sum_i r_{ik}
+$$
+
 - $r_{ik}$ -- responsibility of component $k$ for point $i$
 - $\pi_k$ -- mixture weight of component $k$
 - $\mu_k$ -- mean of component $k$
 - $\sigma_k^2$ -- variance of component $k$
 - $K$ -- number of components
 
+## From Math To Code
+
+- The E-step computes one responsibility vector per data point.
+- The M-step turns those soft assignments into updated weights, means, and variances.
+
 ## Minimal Code Mental Model
 
 ```python
+resp = responsibilities_1d(data, weights, means, variances)
 weights, means, variances = em_step_1d(data, weights, means, variances)
 ```
 
 ## Function
 
 ```python
+def responsibilities_1d(
+    data: list[float],
+    weights: list[float],
+    means: list[float],
+    variances: list[float],
+) -> list[list[float]]:
 def em_step_1d(
     data: list[float],
     weights: list[float],

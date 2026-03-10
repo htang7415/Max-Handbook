@@ -26,9 +26,17 @@ probabilities, not just as ranking scores.
   $$
 - Isotonic calibration learns a monotonic mapping from score to probability.
 
+## From Math To Code
+
+- Put predictions into confidence bins first.
+- Compare average confidence with average accuracy inside each bin.
+- Aggregate those bin gaps into ECE.
+- Use a monotonic remapping only when recalibration itself is the goal.
+
 ## Minimal Code Mental Model
 
 ```python
+bins = calibration_bins(confidences, predictions, labels, num_bins=10)
 ece = expected_calibration_error(confidences, predictions, labels)
 score = brier_score(labels, probabilities)
 calibrated = isotonic_calibration(scores, labels)
@@ -43,6 +51,12 @@ def expected_calibration_error(
     labels: list[int],
     num_bins: int = 10,
 ) -> float:
+def calibration_bins(
+    confidences: list[float],
+    predictions: list[int],
+    labels: list[int],
+    num_bins: int = 10,
+) -> list[dict[str, float]]:
 def brier_score(labels: list[int], probabilities: list[float]) -> float:
 def isotonic_calibration(scores: list[float], labels: list[int]) -> list[float]:
 ```

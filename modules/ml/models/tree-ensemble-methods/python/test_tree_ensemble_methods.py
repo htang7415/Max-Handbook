@@ -4,6 +4,8 @@ import pytest
 
 from tree_ensemble_methods import (
     bootstrap_indices,
+    boosting_residuals,
+    class_probabilities,
     gini_impurity,
     gradient_boosting_step,
     split_gain,
@@ -14,6 +16,7 @@ from tree_ensemble_methods import (
 def test_gini_impurity() -> None:
     assert gini_impurity([0, 0, 1, 1]) == 0.5
     assert gini_impurity([]) == 0.0
+    assert class_probabilities([0, 0, 1, 1]) == pytest.approx([0.5, 0.5])
 
 
 def test_bootstrap_indices_len() -> None:
@@ -43,6 +46,7 @@ def test_gradient_boosting_step_updates_predictions_and_residuals() -> None:
     )
     assert updated == [2.0, 3.5]
     assert residuals == [1.0, 1.5]
+    assert boosting_residuals([3.0, 5.0], updated) == [1.0, 1.5]
 
 
 def test_split_gain_matches_formula() -> None:

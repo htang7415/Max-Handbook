@@ -33,9 +33,16 @@ $$
 \hat{\mu}_{WIS} = \frac{\sum_i r_i w_i}{\sum_i w_i}
 $$
 
+## From Math To Code
+
+- Compute one importance weight per sample.
+- Multiply rewards by those weights for the ordinary estimator.
+- Normalize by the total weight only if you explicitly want the weighted estimator.
+
 ## Minimal Code Mental Model
 
 ```python
+weights = importance_weights(target_probs, behavior_probs)
 ordinary = importance_sampling_estimate(rewards, target_probs, behavior_probs)
 weighted = weighted_importance_sampling_estimate(rewards, target_probs, behavior_probs)
 ordinary, weighted = off_policy_estimates(rewards, target_probs, behavior_probs)
@@ -44,6 +51,7 @@ ordinary, weighted = off_policy_estimates(rewards, target_probs, behavior_probs)
 ## Function
 
 ```python
+def importance_weights(target_probs: list[float], behavior_probs: list[float]) -> list[float]:
 def importance_sampling_estimate(rewards: list[float], target_probs: list[float], behavior_probs: list[float]) -> float:
 def weighted_importance_sampling_estimate(rewards: list[float], target_probs: list[float], behavior_probs: list[float]) -> float:
 def off_policy_estimates(rewards: list[float], target_probs: list[float], behavior_probs: list[float]) -> tuple[float, float]:

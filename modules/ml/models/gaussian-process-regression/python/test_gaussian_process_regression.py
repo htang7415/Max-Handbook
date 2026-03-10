@@ -1,4 +1,4 @@
-from gaussian_process_regression import gp_posterior_predict, kernel_matrix, rbf_kernel
+from gaussian_process_regression import gp_posterior_predict, gp_posterior_weights, kernel_matrix, rbf_kernel
 
 
 def test_rbf_kernel():
@@ -21,3 +21,8 @@ def test_gp_posterior_predict_hits_training_points():
     assert abs(mean[1] - 3.0) < 1e-5
     assert var[0] < 1e-6
     assert var[1] < 1e-6
+
+
+def test_gp_posterior_weights_have_one_weight_per_training_point() -> None:
+    alpha = gp_posterior_weights([[0.0], [1.0]], [1.0, 3.0], length_scale=1.0, noise=1e-6)
+    assert len(alpha) == 2

@@ -48,13 +48,12 @@ def _invert_matrix(a: list[list[float]]) -> list[list[float]]:
     return [row[n:] for row in aug]
 
 
-def gp_posterior_predict(
+def gp_posterior_weights(
     x_train: list[list[float]],
     y_train: list[float],
-    x_test: list[list[float]],
     length_scale: float,
     noise: float,
-) -> tuple[list[float], list[float]]:
+) -> list[float]:
     if len(x_train) != len(y_train):
         raise ValueError("x_train and y_train must have the same length")
     if noise < 0:
@@ -65,10 +64,23 @@ def gp_posterior_predict(
         k_xx[i][i] += noise ** 2
 
     k_inv = _invert_matrix(k_xx)
+    return _matvec(k_inv, y_train)
+
+
+def gp_posterior_predict(
+    x_train: list[list[float]],
+    y_train: list[float],
+    x_test: list[list[float]],
+    length_scale: float,
+    noise: float,
+) -> tuple[list[float], list[float]]:
+    alpha = gp_posterior_weights(x_train, y_train, length_scale, noise)
+    k_xx = kernel_matrix(x_train, x_train, length_scale)
+    for i in range(len(k_xx)):
+        k_xx[i][i] += noise ** 2
+    k_inv = _invert_matrix(k_xx)
     k_xs = kernel_matrix(x_train, x_test, length_scale)
     k_ss = kernel_matrix(x_test, x_test, length_scale)
-
-    alpha = _matvec(k_inv, y_train)
     mean = [
         sum(k_xs[i][j] * alpha[i] for i in range(len(x_train)))
         for j in range(len(x_test))

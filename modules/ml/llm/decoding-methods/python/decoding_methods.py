@@ -3,6 +3,12 @@ from __future__ import annotations
 import math
 
 
+def temperature_scaled_logits(logits: list[float], temperature: float) -> list[float]:
+    if temperature <= 0.0:
+        raise ValueError("temperature must be positive")
+    return [logit / temperature for logit in logits]
+
+
 def greedy_choice(scores: list[float]) -> int:
     if not scores:
         raise ValueError("scores must be non-empty")
@@ -10,12 +16,10 @@ def greedy_choice(scores: list[float]) -> int:
 
 
 def temperature_probabilities(logits: list[float], temperature: float) -> list[float]:
-    if temperature <= 0.0:
-        raise ValueError("temperature must be positive")
     if not logits:
         return []
 
-    scaled = [logit / temperature for logit in logits]
+    scaled = temperature_scaled_logits(logits, temperature)
     max_scaled = max(scaled)
     exps = [math.exp(value - max_scaled) for value in scaled]
     total = sum(exps)

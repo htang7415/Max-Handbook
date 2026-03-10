@@ -4,6 +4,7 @@ from decoding_methods import (
     beam_search_step,
     greedy_choice,
     sampling_pipeline_candidates,
+    temperature_scaled_logits,
     temperature_probabilities,
     top_k_filter,
     top_p_filter,
@@ -21,6 +22,10 @@ def test_temperature_probabilities_are_normalized_and_sharpen_with_lower_tempera
     assert sum(cold) == pytest.approx(1.0)
     assert sum(warm) == pytest.approx(1.0)
     assert cold[1] > warm[1]
+
+
+def test_temperature_scaled_logits_divide_by_temperature() -> None:
+    assert temperature_scaled_logits([2.0, 0.0], temperature=0.5) == [4.0, 0.0]
 
 
 def test_top_k_and_top_p_filters_keep_expected_candidates() -> None:

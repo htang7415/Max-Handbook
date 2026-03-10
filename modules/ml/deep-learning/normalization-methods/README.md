@@ -31,16 +31,26 @@ axes they normalize over.
   \mathrm{RMSNorm}(x)=\frac{x}{\sqrt{\frac{1}{d}\sum_i x_i^2+\epsilon}}
   $$
 
+## From Math To Code
+
+- Compute the mean and variance for the axes you want to normalize over.
+- Reuse those statistics to standardize activations.
+- Skip centering only when you explicitly want RMS-only scaling.
+
 ## Minimal Code Mental Model
 
 ```python
+mean, variance = mean_variance(x_token)
+y_token = normalize_with_stats(x_token, mean, variance)
 y_batch = batchnorm(x_batch)
-y_token = layernorm(x_token)
+rms_scaled = rmsnorm(x_token)
 ```
 
 ## Function
 
 ```python
+def mean_variance(x: list[float]) -> tuple[float, float]:
+def normalize_with_stats(x: list[float], mean: float, variance: float, eps: float = 1e-5) -> list[float]:
 def batchnorm(x: list[float], eps: float = 1e-5) -> list[float]:
 def layernorm(x: list[float], eps: float = 1e-5) -> list[float]:
 def rmsnorm(x: list[float], eps: float = 1e-5) -> list[float]:

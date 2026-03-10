@@ -3,18 +3,29 @@ from __future__ import annotations
 import math
 
 
+def sample_mean_and_std(samples: list[float]) -> tuple[float, float]:
+    if len(samples) < 2:
+        raise ValueError("samples must contain at least two values")
+    mean = sum(samples) / len(samples)
+    variance = sum((sample - mean) ** 2 for sample in samples) / (len(samples) - 1)
+    return mean, math.sqrt(variance)
+
+
+def standard_error(samples: list[float]) -> float:
+    mean, std = sample_mean_and_std(samples)
+    del mean
+    return std / math.sqrt(len(samples))
+
+
 def mean_confidence_interval(
     samples: list[float],
     z: float = 1.96,
 ) -> tuple[float, float]:
-    if len(samples) < 2:
-        raise ValueError("samples must contain at least two values")
     if z <= 0.0:
         raise ValueError("z must be positive")
 
-    mean = sum(samples) / len(samples)
-    variance = sum((sample - mean) ** 2 for sample in samples) / (len(samples) - 1)
-    margin = z * math.sqrt(variance) / math.sqrt(len(samples))
+    mean, _ = sample_mean_and_std(samples)
+    margin = z * standard_error(samples)
     return mean - margin, mean + margin
 
 

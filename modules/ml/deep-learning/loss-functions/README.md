@@ -33,10 +33,28 @@ $$
 \mathrm{MSE} = \frac{1}{n}\sum_i (y_i-\hat y_i)^2
 $$
 
+Huber loss:
+
+$$
+L_\delta(r) =
+\begin{cases}
+\frac{1}{2}r^2 & |r| \le \delta \\
+\delta(|r| - \frac{1}{2}\delta) & |r| > \delta
+\end{cases}
+$$
+
+## From Math To Code
+
+- Convert logits to probabilities before cross-entropy.
+- Compute residuals before regression losses.
+- Use Huber when you want a quadratic loss near zero and a linear loss in the tails.
+
 ## Minimal Code Mental Model
 
 ```python
+probs = softmax_probs(logits)
 ce = cross_entropy(logits, target)
+err = residuals(y_true, y_pred)
 reg = mse(y_true, y_pred)
 robust = huber(y_true_scalar, y_pred_scalar, delta=1.0)
 ```
@@ -44,10 +62,12 @@ robust = huber(y_true_scalar, y_pred_scalar, delta=1.0)
 ## Function
 
 ```python
+def softmax_probs(logits: list[float]) -> list[float]:
 def cross_entropy(logits: list[float], target: int) -> float:
 def focal_loss(p: float, gamma: float = 2.0) -> float:
 def hinge_loss(score: float, label: int) -> float:
 def huber(y: float, y_hat: float, delta: float = 1.0) -> float:
+def residuals(y: list[float], y_hat: list[float]) -> list[float]:
 def mae(y: list[float], y_hat: list[float]) -> float:
 def mse(y: list[float], y_hat: list[float]) -> float:
 def rmse(y: list[float], y_hat: list[float]) -> float:

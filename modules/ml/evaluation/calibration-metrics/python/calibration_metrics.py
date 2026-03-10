@@ -1,18 +1,18 @@
 from __future__ import annotations
 
 
-def expected_calibration_error(
+def calibration_bins(
     confidences: list[float],
     predictions: list[int],
     labels: list[int],
     num_bins: int = 10,
-) -> float:
+) -> list[dict[str, float]]:
     if len(confidences) != len(predictions) or len(predictions) != len(labels):
         raise ValueError("confidences, predictions, and labels must have the same length")
     if num_bins <= 0:
         raise ValueError("num_bins must be positive")
     if not confidences:
-        return 0.0
+        return []
 
     bins: list[list[tuple[float, int]]] = [[] for _ in range(num_bins)]
     for confidence, prediction, label in zip(confidences, predictions, labels):
@@ -21,14 +21,34 @@ def expected_calibration_error(
         index = min(num_bins - 1, int(confidence * num_bins))
         bins[index].append((confidence, int(prediction == label)))
 
-    total = len(confidences)
-    error = 0.0
-    for bucket in bins:
+    summary: list[dict[str, float]] = []
+    for index, bucket in enumerate(bins):
         if not bucket:
             continue
         avg_confidence = sum(confidence for confidence, _ in bucket) / len(bucket)
         avg_accuracy = sum(correct for _, correct in bucket) / len(bucket)
-        error += (len(bucket) / total) * abs(avg_accuracy - avg_confidence)
+        summary.append(
+            {
+                "bin": float(index),
+                "count": float(len(bucket)),
+                "avg_confidence": avg_confidence,
+                "avg_accuracy": avg_accuracy,
+            }
+        )
+    return summary
+
+
+def expected_calibration_error(
+    confidences: list[float],
+    predictions: list[int],
+    labels: list[int],
+    num_bins: int = 10,
+) -> float:
+    summaries = calibration_bins(confidences, predictions, labels, num_bins=num_bins)
+    total = len(confidences)
+    error = 0.0
+    for bucket in summaries:
+        error += (bucket["count"] / total) * abs(bucket["avg_accuracy"] - bucket["avg_confidence"])
     return error
 
 

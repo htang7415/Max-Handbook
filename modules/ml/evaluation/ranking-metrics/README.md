@@ -33,9 +33,16 @@ Use this module to compare ranking metrics by the question they answer:
   \mathrm{Lift@}k = \frac{\mathrm{Precision@}k}{\mathrm{BaseRate}}
   $$
 
+## From Math To Code
+
+- Compute discounted gain first.
+- Normalize by the ideal ranking only if you want NDCG.
+- Use MRR or Lift when the business question is narrower than full graded ranking quality.
+
 ## Minimal Code Mental Model
 
 ```python
+dcg = dcg_at_k(relevance, k=10)
 mrr = mean_reciprocal_rank(relevance_lists)
 score = ndcg_at_k(relevance, k=10)
 lift = lift_at_k(labels, k=100)
@@ -44,6 +51,7 @@ lift = lift_at_k(labels, k=100)
 ## Function
 
 ```python
+def dcg_at_k(relevance: list[float], k: int) -> float:
 def mean_reciprocal_rank(relevance_lists: list[list[int]]) -> float:
 def ndcg_at_k(relevance: list[float], k: int) -> float:
 def coverage_error(relevance_rankings: list[list[int]]) -> float:

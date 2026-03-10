@@ -1,8 +1,18 @@
 from __future__ import annotations
 
 import math
+import pytest
 
-from alignment_methods import anchored_loss, dpo_loss, kl_penalty, preference_loss, reward_model_loss, sft_loss
+from alignment_methods import (
+    anchored_loss,
+    dpo_logit,
+    dpo_loss,
+    kl_penalty,
+    preference_loss,
+    preference_margin,
+    reward_model_loss,
+    sft_loss,
+)
 
 
 def test_sft_loss_respects_mask() -> None:
@@ -17,9 +27,17 @@ def test_preference_loss_matches_pairwise_logistic_form() -> None:
     assert math.isclose(loss, expected, rel_tol=1e-6)
 
 
+def test_preference_margin_is_chosen_minus_rejected() -> None:
+    assert preference_margin(2.0, 0.5) == 1.5
+
+
 def test_dpo_loss_is_small_when_policy_margin_beats_reference() -> None:
     loss = dpo_loss(1.0, 0.2, beta=0.5)
     assert loss < 0.6
+
+
+def test_dpo_logit_matches_beta_scaled_margin_gap() -> None:
+    assert dpo_logit(1.0, 0.2, beta=0.5) == pytest.approx(0.4)
 
 
 def test_reward_model_loss_prefers_higher_chosen_score() -> None:

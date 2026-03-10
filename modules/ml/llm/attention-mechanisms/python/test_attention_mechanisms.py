@@ -3,7 +3,16 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from attention_mechanisms import causal_mask, causal_self_attention, multi_head_attention, self_attention, softmax, window_mask
+from attention_mechanisms import (
+    attention_weights,
+    causal_mask,
+    causal_self_attention,
+    multi_head_attention,
+    scaled_dot_product_scores,
+    self_attention,
+    softmax,
+    window_mask,
+)
 
 
 def test_self_attention_shape() -> None:
@@ -20,6 +29,17 @@ def test_self_attention_uniform_scores_average_values() -> None:
     expected = [[0.5, 1.0], [0.5, 1.0]]
     for out_row, exp_row in zip(out, expected):
         assert out_row == pytest.approx(exp_row, abs=1e-6)
+
+
+def test_attention_weights_are_row_normalized() -> None:
+    weights = attention_weights([[1.0, 0.0], [0.0, 1.0]], [[1.0, 0.0], [0.0, 1.0]])
+    assert sum(weights[0]) == pytest.approx(1.0)
+    assert sum(weights[1]) == pytest.approx(1.0)
+
+
+def test_scaled_dot_product_scores_are_symmetric_when_q_equals_k() -> None:
+    scores = scaled_dot_product_scores([[1.0, 0.0], [0.0, 1.0]], [[1.0, 0.0], [0.0, 1.0]])
+    assert scores[0][1] == pytest.approx(scores[1][0])
 
 
 def test_multi_head_attention_requires_divisible_dimension() -> None:

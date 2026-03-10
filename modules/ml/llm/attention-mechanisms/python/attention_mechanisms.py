@@ -34,19 +34,28 @@ def _transpose(a: list[list[float]]) -> list[list[float]]:
     return [list(col) for col in zip(*a)]
 
 
-def self_attention(q: list[list[float]], k: list[list[float]], v: list[list[float]]) -> list[list[float]]:
+def scaled_dot_product_scores(q: list[list[float]], k: list[list[float]]) -> list[list[float]]:
     _validate_matrix(q, "q")
     _validate_matrix(k, "k")
-    _validate_matrix(v, "v")
-    if len(q) != len(k) or len(k) != len(v):
-        raise ValueError("q, k, and v must have the same sequence length")
+    if len(q) != len(k):
+        raise ValueError("q and k must have the same sequence length")
     if len(q[0]) != len(k[0]):
         raise ValueError("q and k must have the same feature dimension")
 
     dk = len(k[0])
     scores = _matmul(q, _transpose(k))
-    scaled = [[value / math.sqrt(dk) for value in row] for row in scores]
-    weights = [_softmax_row(row) for row in scaled]
+    return [[value / math.sqrt(dk) for value in row] for row in scores]
+
+
+def attention_weights(q: list[list[float]], k: list[list[float]]) -> list[list[float]]:
+    return [_softmax_row(row) for row in scaled_dot_product_scores(q, k)]
+
+
+def self_attention(q: list[list[float]], k: list[list[float]], v: list[list[float]]) -> list[list[float]]:
+    _validate_matrix(v, "v")
+    if len(q) != len(v) or len(k) != len(v):
+        raise ValueError("q, k, and v must have the same sequence length")
+    weights = attention_weights(q, k)
     return _matmul(weights, v)
 
 

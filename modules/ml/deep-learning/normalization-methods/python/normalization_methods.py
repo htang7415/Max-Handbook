@@ -14,16 +14,25 @@ def _mean_variance(x: list[float]) -> tuple[float, float]:
     return mean, variance
 
 
-def batchnorm(x: list[float], eps: float = 1e-5) -> list[float]:
+def mean_variance(x: list[float]) -> tuple[float, float]:
     _validate_vector(x)
-    mean, variance = _mean_variance(x)
+    return _mean_variance(x)
+
+
+def normalize_with_stats(x: list[float], mean: float, variance: float, eps: float = 1e-5) -> list[float]:
+    if eps <= 0.0:
+        raise ValueError("eps must be positive")
     return [(value - mean) / math.sqrt(variance + eps) for value in x]
+
+
+def batchnorm(x: list[float], eps: float = 1e-5) -> list[float]:
+    mean, variance = mean_variance(x)
+    return normalize_with_stats(x, mean, variance, eps=eps)
 
 
 def layernorm(x: list[float], eps: float = 1e-5) -> list[float]:
-    _validate_vector(x)
-    mean, variance = _mean_variance(x)
-    return [(value - mean) / math.sqrt(variance + eps) for value in x]
+    mean, variance = mean_variance(x)
+    return normalize_with_stats(x, mean, variance, eps=eps)
 
 
 def rmsnorm(x: list[float], eps: float = 1e-5) -> list[float]:
@@ -43,15 +52,14 @@ def groupnorm(x: list[float], groups: int, eps: float = 1e-5) -> list[float]:
     out: list[float] = []
     for group_index in range(groups):
         chunk = x[group_index * group_size : (group_index + 1) * group_size]
-        mean, variance = _mean_variance(chunk)
-        out.extend([(value - mean) / math.sqrt(variance + eps) for value in chunk])
+        mean, variance = mean_variance(chunk)
+        out.extend(normalize_with_stats(chunk, mean, variance, eps=eps))
     return out
 
 
 def instancenorm(x: list[float], eps: float = 1e-5) -> list[float]:
-    _validate_vector(x)
-    mean, variance = _mean_variance(x)
-    return [(value - mean) / math.sqrt(variance + eps) for value in x]
+    mean, variance = mean_variance(x)
+    return normalize_with_stats(x, mean, variance, eps=eps)
 
 
 def batch_stats(matrix: list[list[float]]) -> tuple[float, float]:

@@ -22,13 +22,20 @@ def sft_loss(logits: list[list[float]], targets: list[int], mask: list[int]) -> 
     return total / max(count, 1)
 
 
+def preference_margin(score_chosen: float, score_rejected: float) -> float:
+    return score_chosen - score_rejected
+
+
 def preference_loss(score_chosen: float, score_rejected: float) -> float:
-    diff = score_chosen - score_rejected
-    return math.log1p(math.exp(-diff))
+    return math.log1p(math.exp(-preference_margin(score_chosen, score_rejected)))
+
+
+def dpo_logit(delta_logp: float, delta_logp_ref: float, beta: float = 0.1) -> float:
+    return beta * (delta_logp - delta_logp_ref)
 
 
 def dpo_loss(delta_logp: float, delta_logp_ref: float, beta: float = 0.1) -> float:
-    diff = beta * (delta_logp - delta_logp_ref)
+    diff = dpo_logit(delta_logp, delta_logp_ref, beta=beta)
     return -math.log(1 / (1 + math.exp(-diff)))
 
 

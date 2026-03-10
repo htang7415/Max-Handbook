@@ -3,6 +3,8 @@ import pytest
 from uncertainty_intervals import (
     bootstrap_percentile_interval,
     mean_confidence_interval,
+    sample_mean_and_std,
+    standard_error,
     wilson_interval,
 )
 
@@ -16,6 +18,13 @@ def test_bootstrap_percentile_interval_returns_requested_percentiles() -> None:
     lower, upper = bootstrap_percentile_interval([1.0, 2.0, 3.0, 4.0], alpha=0.5)
     assert lower == pytest.approx(1.75)
     assert upper == pytest.approx(3.25)
+
+
+def test_sample_mean_and_standard_error_match_basic_statistics() -> None:
+    mean, std = sample_mean_and_std([1.0, 2.0, 3.0, 4.0])
+    assert mean == pytest.approx(2.5)
+    assert std == pytest.approx(1.2909944487)
+    assert standard_error([1.0, 2.0, 3.0, 4.0]) == pytest.approx(std / 2.0)
 
 
 def test_wilson_interval_stays_inside_unit_interval() -> None:

@@ -35,6 +35,19 @@ $$
 \mathrm{PE}[pos,2i+1] = \cos\left(\frac{pos}{10000^{2i/d}}\right)
 $$
 
+Combined representation:
+
+$$
+x_t = E[\mathrm{token}_t] + \mathrm{PE}_t
+$$
+
+## From Math To Code
+
+- Map raw text to token ids.
+- Look up token embeddings from the table.
+- Build a position encoding vector.
+- Add the token embedding and position encoding to get the actual model input vector.
+
 ## Minimal Code Mental Model
 
 ```python
@@ -42,6 +55,7 @@ vocab = build_vocab(["hello world"])
 ids = tokenize("hello world", vocab)
 vectors = embed(ids, embedding_table)
 position = sinusoidal_position(pos=3, d_model=8)
+combined = add_position_embedding(vectors[0], position)
 ```
 
 ## Function
@@ -52,6 +66,7 @@ def tokenize(text: str, vocab: dict[str, int]) -> list[int]:
 def compare_token_counts(text: str, subword_vocab: set[str]) -> tuple[int, int]:
 def embed(tokens: list[int], embeddings: list[list[float]]) -> list[list[float]]:
 def sinusoidal_position(pos: int, d_model: int) -> list[float]:
+def add_position_embedding(token_embedding: list[float], position_encoding: list[float]) -> list[float]:
 ```
 
 ## When To Use What

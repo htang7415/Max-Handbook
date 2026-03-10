@@ -10,16 +10,20 @@ def gaussian_pdf_1d(x: float, mean: float, variance: float) -> float:
     return math.exp(exponent) / scale
 
 
-def em_step_1d(
+def responsibilities_1d(
     data: list[float],
     weights: list[float],
     means: list[float],
     variances: list[float],
-) -> tuple[list[float], list[float], list[float]]:
+) -> list[list[float]]:
     if not data:
         raise ValueError("data must be non-empty")
     if len(weights) != len(means) or len(means) != len(variances):
         raise ValueError("weights, means, and variances must have the same length")
+    if any(weight < 0.0 for weight in weights):
+        raise ValueError("weights must be non-negative")
+    if any(variance <= 0.0 for variance in variances):
+        raise ValueError("variances must be positive")
 
     k = len(weights)
     responsibilities: list[list[float]] = []
@@ -28,7 +32,20 @@ def em_step_1d(
             weights[j] * gaussian_pdf_1d(x, means[j], variances[j]) for j in range(k)
         ]
         total = sum(unnormalized)
+        if total == 0.0:
+            raise ValueError("component probabilities must sum to a positive value")
         responsibilities.append([value / total for value in unnormalized])
+    return responsibilities
+
+
+def em_step_1d(
+    data: list[float],
+    weights: list[float],
+    means: list[float],
+    variances: list[float],
+) -> tuple[list[float], list[float], list[float]]:
+    responsibilities = responsibilities_1d(data, weights, means, variances)
+    k = len(weights)
 
     n = len(data)
     new_weights: list[float] = []

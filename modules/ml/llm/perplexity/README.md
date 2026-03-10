@@ -16,22 +16,35 @@ intrinsic evaluation number.
 
 ## Core Math
 
+Mean negative log-likelihood:
+
 $$
-\mathrm{PPL} = \exp \left( - \frac{1}{n} \sum_{i=1}^{n} \log p_i \right)
+\mathrm{NLL} = - \frac{1}{n} \sum_{i=1}^{n} \log p_i
+$$
+
+$$
+\mathrm{PPL} = \exp(\mathrm{NLL})
 $$
 
 - $n$ -- number of tokens
 - $p_i$ -- probability assigned to the correct token at position $i$
 
+## From Math To Code
+
+- Average the token-level negative log probabilities first.
+- Exponentiate that average to get perplexity.
+
 ## Minimal Code Mental Model
 
 ```python
+nll = mean_negative_log_likelihood(token_probs)
 score = perplexity(token_probs)
 ```
 
 ## Function
 
 ```python
+def mean_negative_log_likelihood(token_probs: list[float]) -> float:
 def perplexity(token_probs: list[float]) -> float:
 ```
 

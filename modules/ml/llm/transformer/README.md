@@ -25,18 +25,26 @@ $$y = x + A(x),\quad z = y + \mathrm{FFN}(y)$$
 - $y$ -- residual output after attention
 - $z$ -- residual output after the feed-forward network
 
-## Key Points
+## From Math To Code
 
-- Attention lets each token build a weighted combination of other token vectors.
-- Residual connections preserve the original signal while adding learned
-  updates.
-- Real transformer blocks add more structure than this toy version; treat this
-  module as a skeleton, not a full production block.
+- Compute attention weights first.
+- Multiply those weights by the value matrix to get the attention output.
+- Add residuals around attention and the feed-forward network.
 
 ## Function
 
 ```python
+def attention_weights(x: list[list[float]]) -> list[list[float]]:
+def self_attention_output(x: list[list[float]]) -> list[list[float]]:
 def transformer_block(x: list[list[float]], w1: list[list[float]], w2: list[list[float]]) -> list[list[float]]:
+```
+
+## Minimal Code Mental Model
+
+```python
+weights = attention_weights(tokens)
+attended = self_attention_output(tokens)
+updated = transformer_block(tokens, w1, w2)
 ```
 
 ## Run tests

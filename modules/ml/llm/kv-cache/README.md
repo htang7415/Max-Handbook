@@ -28,10 +28,22 @@ $$
 - $2$ -- one tensor for keys and one for values
 - $s$ -- bytes per stored element
 
+## From Math To Code
+
+- Multiply the per-token cache size by tokens, layers, and batch size.
+- Convert bytes to GiB when you need a deployment estimate instead of a raw count.
+
 ## Minimal Code Mental Model
 
 ```python
 cache_bytes = kv_cache_bytes(
+    num_layers,
+    num_tokens,
+    num_kv_heads,
+    head_dim,
+    bytes_per_element,
+)
+cache_gib = kv_cache_gib(
     num_layers,
     num_tokens,
     num_kv_heads,
@@ -51,6 +63,14 @@ def kv_cache_bytes(
     bytes_per_element: int,
     batch_size: int = 1,
 ) -> int:
+def kv_cache_gib(
+    num_layers: int,
+    num_tokens: int,
+    num_kv_heads: int,
+    head_dim: int,
+    bytes_per_element: int,
+    batch_size: int = 1,
+) -> float:
 ```
 
 ## When To Use What

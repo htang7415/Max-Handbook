@@ -1,6 +1,14 @@
 from __future__ import annotations
 
-from gradient_computation_methods import Value, grad_check, linear_backprop
+import pytest
+
+from gradient_computation_methods import Value, grad_check, linear_backprop, linear_forward, squared_error
+
+
+def test_linear_forward_and_squared_error() -> None:
+    prediction = linear_forward(3.0, 2.0, b=1.0)
+    assert prediction == 7.0
+    assert squared_error(prediction, target=5.0) == 2.0
 
 
 def test_linear_backprop() -> None:
@@ -33,3 +41,8 @@ def test_value_zero_grad_single_node() -> None:
 def test_grad_check_square() -> None:
     approx = grad_check(lambda x: x * x, 3.0)
     assert abs(approx - 6.0) < 1e-3
+
+
+def test_grad_check_requires_positive_eps() -> None:
+    with pytest.raises(ValueError, match="positive"):
+        grad_check(lambda x: x * x, 3.0, eps=0.0)

@@ -53,26 +53,30 @@ $$
 
 ## From Math To Code
 
-- Trees score a candidate split with impurity or loss reduction.
+- Trees score a candidate split from class probabilities and impurity.
 - Bagging resamples indices.
 - Boosting changes either example weights or stage-wise residual predictions.
 
 ## Minimal Code Mental Model
 
 ```python
+probs = class_probabilities(labels)
 impurity = gini_impurity(labels)
 bagged = bootstrap_indices(n=100, seed=0)
 weights = update_weights(weights, errors, alpha=0.7)
 updated, residuals = gradient_boosting_step(targets, predictions, weak_learner_output, learning_rate=0.1)
+residuals = boosting_residuals(targets, updated)
 gain = split_gain(left_grad, left_hess, right_grad, right_hess, lambda_reg=1.0, gamma=0.0)
 ```
 
 ## Functions
 
 ```python
+def class_probabilities(labels: list[int]) -> list[float]:
 def gini_impurity(labels: list[int]) -> float:
 def bootstrap_indices(n: int, seed: int = 0) -> list[int]:
 def update_weights(weights: list[float], errors: list[int], alpha: float) -> list[float]:
+def boosting_residuals(targets: list[float], predictions: list[float]) -> list[float]:
 def gradient_boosting_step(
     targets: list[float],
     predictions: list[float],

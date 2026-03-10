@@ -23,9 +23,17 @@ $$
 W \sim \mathcal{N}\left(0, \frac{2}{fan_{in}}\right)
 $$
 
+## From Math To Code
+
+- Compute the allowed scale first.
+- Sample weights from that scale.
+- Match Xavier to more symmetric activations and He to ReLU-style activations.
+
 ## Minimal Code Mental Model
 
 ```python
+limit = xavier_limit(fan_in=128, fan_out=64)
+std = he_std(fan_in=128)
 xavier = xavier_uniform(fan_in=128, fan_out=64, seed=1)
 he = he_normal(fan_in=128, fan_out=64, seed=1)
 ```
@@ -33,7 +41,9 @@ he = he_normal(fan_in=128, fan_out=64, seed=1)
 ## Function
 
 ```python
+def xavier_limit(fan_in: int, fan_out: int) -> float:
 def xavier_uniform(fan_in: int, fan_out: int, seed: int = 0) -> list[float]:
+def he_std(fan_in: int) -> float:
 def he_normal(fan_in: int, fan_out: int, seed: int = 0) -> list[float]:
 ```
 

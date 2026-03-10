@@ -1,6 +1,15 @@
 from __future__ import annotations
 
-from token_representation_methods import build_vocab, compare_token_counts, embed, sinusoidal_position, tokenize
+import pytest
+
+from token_representation_methods import (
+    add_position_embedding,
+    build_vocab,
+    compare_token_counts,
+    embed,
+    sinusoidal_position,
+    tokenize,
+)
 
 
 def test_tokenize_basic() -> None:
@@ -28,3 +37,13 @@ def test_positional_encoding_shape() -> None:
     vec = sinusoidal_position(3, 6)
     assert len(vec) == 6
     assert vec[0] != vec[1]
+
+
+def test_add_position_embedding_combines_token_and_position_vectors() -> None:
+    out = add_position_embedding([1.0, 2.0], [0.1, -0.2])
+    assert out == [1.1, 1.8]
+
+
+def test_add_position_embedding_requires_same_length() -> None:
+    with pytest.raises(ValueError, match="same length"):
+        add_position_embedding([1.0], [0.1, 0.2])

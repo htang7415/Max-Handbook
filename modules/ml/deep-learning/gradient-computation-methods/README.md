@@ -33,9 +33,17 @@ $$
 \frac{df}{dx} \approx \frac{f(x+\epsilon) - f(x-\epsilon)}{2\epsilon}
 $$
 
+## From Math To Code
+
+- Compute the forward scalar first.
+- Define a small scalar loss from that forward value.
+- Differentiate it either analytically, through autodiff, or with finite differences.
+
 ## Minimal Code Mental Model
 
 ```python
+pred = linear_forward(x=3.0, w=2.0, b=1.0)
+loss = squared_error(prediction=pred, target=5.0)
 grad_w = linear_backprop(x=3.0, w=2.0, grad_out=0.5)
 approx = grad_check(lambda v: v * v, x=3.0)
 value = Value(2.0) * Value(-3.0)
@@ -44,6 +52,8 @@ value = Value(2.0) * Value(-3.0)
 ## Functions
 
 ```python
+def linear_forward(x: float, w: float, b: float = 0.0) -> float:
+def squared_error(prediction: float, target: float) -> float:
 def linear_backprop(x: float, w: float, grad_out: float) -> float:
 class Value:
 def grad_check(f, x: float, eps: float = 1e-5) -> float:

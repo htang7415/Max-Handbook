@@ -3,8 +3,14 @@ from __future__ import annotations
 import math
 
 
+def xavier_limit(fan_in: int, fan_out: int) -> float:
+    if fan_in <= 0 or fan_out <= 0:
+        raise ValueError("fan_in and fan_out must be positive")
+    return math.sqrt(6 / (fan_in + fan_out))
+
+
 def xavier_uniform(fan_in: int, fan_out: int, seed: int = 0) -> list[float]:
-    limit = math.sqrt(6 / (fan_in + fan_out))
+    limit = xavier_limit(fan_in, fan_out)
     values: list[float] = []
     state = seed
     for _ in range(fan_in * fan_out):
@@ -13,8 +19,16 @@ def xavier_uniform(fan_in: int, fan_out: int, seed: int = 0) -> list[float]:
     return values
 
 
+def he_std(fan_in: int) -> float:
+    if fan_in <= 0:
+        raise ValueError("fan_in must be positive")
+    return math.sqrt(2 / fan_in)
+
+
 def he_normal(fan_in: int, fan_out: int, seed: int = 0) -> list[float]:
-    std = math.sqrt(2 / fan_in)
+    if fan_out <= 0:
+        raise ValueError("fan_out must be positive")
+    std = he_std(fan_in)
     values: list[float] = []
     state = seed
     for _ in range(fan_in * fan_out // 2 + 1):

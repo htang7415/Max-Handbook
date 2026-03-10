@@ -1,6 +1,14 @@
 from __future__ import annotations
 
 
+def linear_forward(x: float, w: float, b: float = 0.0) -> float:
+    return w * x + b
+
+
+def squared_error(prediction: float, target: float) -> float:
+    return 0.5 * (prediction - target) ** 2
+
+
 def linear_backprop(x: float, w: float, grad_out: float) -> float:
     return grad_out * x
 
@@ -78,4 +86,6 @@ class Value:
 
 
 def grad_check(f, x: float, eps: float = 1e-5) -> float:
+    if eps <= 0.0:
+        raise ValueError("eps must be positive")
     return (f(x + eps) - f(x - eps)) / (2 * eps)

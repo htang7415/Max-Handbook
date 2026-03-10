@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from transformer import transformer_block
+from transformer import attention_weights, transformer_block
 
 
 def test_transformer_block_shape():
@@ -12,6 +12,12 @@ def test_transformer_block_shape():
     out = transformer_block(x, w1, w2)
     assert len(out) == 2
     assert len(out[0]) == 2
+
+
+def test_attention_weights_are_row_normalized() -> None:
+    weights = attention_weights([[1.0, 0.0], [0.0, 1.0]])
+    assert sum(weights[0]) == pytest.approx(1.0)
+    assert sum(weights[1]) == pytest.approx(1.0)
 
 
 def test_transformer_block_zero_ffn_keeps_attention_residual():

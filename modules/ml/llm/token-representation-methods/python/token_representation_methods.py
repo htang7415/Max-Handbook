@@ -52,3 +52,9 @@ def sinusoidal_position(pos: int, d_model: int) -> list[float]:
         else:
             values.append(math.cos(angle))
     return values
+
+
+def add_position_embedding(token_embedding: list[float], position_encoding: list[float]) -> list[float]:
+    if len(token_embedding) != len(position_encoding):
+        raise ValueError("token_embedding and position_encoding must have the same length")
+    return [token_value + position_value for token_value, position_value in zip(token_embedding, position_encoding)]

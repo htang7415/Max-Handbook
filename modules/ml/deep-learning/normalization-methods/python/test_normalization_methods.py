@@ -8,6 +8,8 @@ from normalization_methods import (
     groupnorm,
     instancenorm,
     layernorm,
+    mean_variance,
+    normalize_with_stats,
     rmsnorm,
 )
 
@@ -41,9 +43,20 @@ def test_batch_stats_aggregates_rectangular_matrix() -> None:
     assert variance == pytest.approx(1.25)
 
 
+def test_mean_variance_and_normalize_with_stats_match_manual_values() -> None:
+    mean, variance = mean_variance([1.0, 2.0, 3.0])
+    assert mean == pytest.approx(2.0)
+    assert variance == pytest.approx(2.0 / 3.0)
+    out = normalize_with_stats([1.0, 2.0, 3.0], mean, variance)
+    assert sum(out) == pytest.approx(0.0, abs=1e-6)
+
+
 def test_invalid_groupnorm_and_batch_stats_inputs_raise() -> None:
     with pytest.raises(ValueError, match="divisible"):
         groupnorm([1.0, 2.0, 3.0], groups=2)
 
     with pytest.raises(ValueError, match="rectangular"):
         batch_stats([[1.0], [2.0, 3.0]])
+
+    with pytest.raises(ValueError, match="positive"):
+        normalize_with_stats([1.0, 2.0], mean=1.5, variance=0.25, eps=0.0)

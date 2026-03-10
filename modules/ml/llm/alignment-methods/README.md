@@ -42,11 +42,20 @@ $$
 \mathcal{L} = (1-\alpha)\mathcal{L}_{\text{align}} + \alpha \mathcal{L}_{\text{ptx}}
 $$
 
+## From Math To Code
+
+- SFT averages token-level negative log-likelihood over kept tokens.
+- Preference learning starts from a chosen-minus-rejected margin.
+- DPO turns the policy-vs-reference margin gap into one scalar logit before the logistic loss.
+- Anchoring mixes the alignment loss with a stabilizing KL or PTX-style term.
+
 ## Minimal Code Mental Model
 
 ```python
 sft = sft_loss(logits, targets, mask)
+margin = preference_margin(score_chosen, score_rejected)
 pref = preference_loss(score_chosen, score_rejected)
+dpo_term = dpo_logit(delta_logp, delta_logp_ref, beta=0.1)
 dpo = dpo_loss(delta_logp, delta_logp_ref, beta=0.1)
 total = anchored_loss(align_loss=dpo, ptx_loss=sft, alpha=0.1)
 ```
@@ -55,7 +64,9 @@ total = anchored_loss(align_loss=dpo, ptx_loss=sft, alpha=0.1)
 
 ```python
 def sft_loss(logits: list[list[float]], targets: list[int], mask: list[int]) -> float:
+def preference_margin(score_chosen: float, score_rejected: float) -> float:
 def preference_loss(score_chosen: float, score_rejected: float) -> float:
+def dpo_logit(delta_logp: float, delta_logp_ref: float, beta: float = 0.1) -> float:
 def dpo_loss(delta_logp: float, delta_logp_ref: float, beta: float = 0.1) -> float:
 def reward_model_loss(chosen: float, rejected: float) -> float:
 def kl_penalty(p: list[float], q: list[float], beta: float) -> float:

@@ -29,9 +29,17 @@ sequence.
   s(y_{1:t})=s(y_{1:t-1})+\log p(y_t\mid y_{<t})
   $$
 
+## From Math To Code
+
+- Scale logits by temperature first.
+- Turn scaled logits into probabilities.
+- Filter candidates with top-k or top-p only after that probability step.
+- Use beam search only when you want sequence-level score accumulation instead of sampling.
+
 ## Minimal Code Mental Model
 
 ```python
+scaled = temperature_scaled_logits(logits, temperature=0.8)
 probs = temperature_probabilities(logits, temperature=0.8)
 candidates = top_p_filter(probs, p=0.9)
 ```
@@ -40,6 +48,7 @@ candidates = top_p_filter(probs, p=0.9)
 
 ```python
 def greedy_choice(scores: list[float]) -> int:
+def temperature_scaled_logits(logits: list[float], temperature: float) -> list[float]:
 def temperature_probabilities(logits: list[float], temperature: float) -> list[float]:
 def top_k_filter(probabilities: list[float], k: int) -> list[int]:
 def top_p_filter(probabilities: list[float], p: float) -> list[int]:

@@ -4,12 +4,18 @@ import math
 from collections import Counter
 
 
+def class_probabilities(labels: list[int]) -> list[float]:
+    if not labels:
+        return []
+    counts = Counter(labels)
+    n = len(labels)
+    return [count / n for count in counts.values()]
+
+
 def gini_impurity(labels: list[int]) -> float:
     if not labels:
         return 0.0
-    counts = Counter(labels)
-    n = len(labels)
-    return 1 - sum((count / n) ** 2 for count in counts.values())
+    return 1 - sum(probability**2 for probability in class_probabilities(labels))
 
 
 def bootstrap_indices(n: int, seed: int = 0) -> list[int]:
@@ -50,8 +56,14 @@ def gradient_boosting_step(
         prediction + learning_rate * stage
         for prediction, stage in zip(predictions, weak_learner_output)
     ]
-    residuals = [target - prediction for target, prediction in zip(targets, updated)]
+    residuals = boosting_residuals(targets, updated)
     return updated, residuals
+
+
+def boosting_residuals(targets: list[float], predictions: list[float]) -> list[float]:
+    if len(targets) != len(predictions):
+        raise ValueError("targets and predictions must have the same length")
+    return [target - prediction for target, prediction in zip(targets, predictions)]
 
 
 def split_gain(

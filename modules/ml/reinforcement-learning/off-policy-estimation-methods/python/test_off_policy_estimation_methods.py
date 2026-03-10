@@ -4,6 +4,7 @@ import pytest
 
 from off_policy_estimation_methods import (
     importance_sampling_estimate,
+    importance_weights,
     off_policy_estimates,
     weighted_importance_sampling_estimate,
 )
@@ -27,6 +28,11 @@ def test_weighted_importance_sampling_normalizes_weights() -> None:
     )
 
     assert estimate == pytest.approx(0.8)
+
+
+def test_importance_weights_match_target_over_behavior_ratio() -> None:
+    weights = importance_weights([0.6, 0.2], [0.3, 0.4])
+    assert weights == pytest.approx([2.0, 0.5])
 
 
 def test_off_policy_estimates_return_both_versions() -> None:

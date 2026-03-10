@@ -32,11 +32,16 @@ def _transpose(a: list[list[float]]) -> list[list[float]]:
     return [list(col) for col in zip(*a)]
 
 
-def _self_attention(x: list[list[float]]) -> list[list[float]]:
+def attention_weights(x: list[list[float]]) -> list[list[float]]:
+    _validate_matrix(x, "x")
     dk = len(x[0])
     scores = _matmul(x, _transpose(x))
     scaled = [[val / math.sqrt(dk) for val in row] for row in scores]
-    weights = [_softmax(row) for row in scaled]
+    return [_softmax(row) for row in scaled]
+
+
+def self_attention_output(x: list[list[float]]) -> list[list[float]]:
+    weights = attention_weights(x)
     return _matmul(weights, x)
 
 
@@ -64,7 +69,7 @@ def transformer_block(x: list[list[float]], w1: list[list[float]], w2: list[list
     if len(w2[0]) != d_model:
         raise ValueError("w2 output dimension must match the model dimension")
 
-    attn = _self_attention(x)
+    attn = self_attention_output(x)
     res1 = [[x[i][j] + attn[i][j] for j in range(len(x[0]))] for i in range(len(x))]
     ffn_hidden = _matmul(res1, w1)
     ffn_hidden = [_relu_row(row) for row in ffn_hidden]
