@@ -1,26 +1,8 @@
+---
+aliasOf: loss-functions
+---
+
 # Root Mean Squared Error
 
-> Track: `ml` | Topic: `deep-learning`
-
-## Concept
-
-RMSE is the square root of MSE.
-
-## Math
-
-$$\mathrm{RMSE} = \sqrt{\mathrm{MSE}}$$
-
-- $\mathrm{RMSE}$ -- root mean squared error
-- $\mathrm{MSE}$ -- mean squared error
-
-## Function
-
-```python
-def rmse(y: list[float], y_hat: list[float]) -> float:
-```
-
-## Run tests
-
-```bash
-pytest modules/ml/deep-learning/rmse-loss/python -q
-```
+Alias entry preserved for old anchors.
+Use `modules/ml/deep-learning/loss-functions` as the canonical module.

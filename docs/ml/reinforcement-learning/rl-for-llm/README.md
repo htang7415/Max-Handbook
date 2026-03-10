@@ -35,9 +35,9 @@ policy = update_policy(policy, samples, scores, kl_penalty)
 
 ## Canonical Modules
 
-- Main alignment routes: `rlhf`, `dpo-vs-ppo`, `group-based-optimization`
-- Reward behavior: `reward-clipping`, `reward-scale`
-- Anchoring: `kl-regularization`
+- Main alignment routes: `alignment-methods`, `dpo-vs-ppo`, `group-based-optimization`
+- Reward behavior: `policy-optimization-utilities`
+- Anchoring: `alignment-methods`
 
 ## Supporting Modules
 
@@ -48,4 +48,4 @@ policy = update_policy(policy, samples, scores, kl_penalty)
 - Start with the LLM alignment guide before RL-for-LLM specifics.
 - Use `dpo-vs-ppo` when choosing the main optimization family.
 - Use `group-based-optimization` when sequence-group objectives are the main modern path.
-- Use KL and reward-scale controls when the model starts drifting or overoptimizing the reward.
+- Use KL controls and the policy-optimization utilities family when the model starts drifting or overoptimizing the reward.

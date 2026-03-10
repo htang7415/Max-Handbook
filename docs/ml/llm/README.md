@@ -42,13 +42,13 @@ next_token = decode(hidden[-1], strategy="top_p")
 ## Canonical Modules
 
 - Tokenization and representations: `tokenization`, `tokenizer-comparison`, `embeddings`, `positional-encoding`
-- Transformer core: `self-attention`, `multi-head-attention`, `attention-causal`, `transformer`
-- Training stages: `pretraining`, `supervised-fine-tuning`, `preference-learning`
+- Transformer core: `attention-mechanisms`, `transformer`
+- Training stages: `pretraining`, `alignment-methods`
 - Evaluation: `docs/ml/llm/evaluation`
 - Decoding: `decoding-methods`
-- Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion`, `reciprocal-rank-fusion`
-- Alignment and optimization: `rlhf`, `dpo`, `kl-regularization`, `ptx-anchoring`
-- Efficiency and systems: `lora`, `qlora`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `qk-clip`
+- Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion-methods`
+- Alignment and optimization: `alignment-methods`
+- Efficiency and systems: `parameter-efficient-fine-tuning`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `qk-clip`
 
 ## Supporting Guides
 

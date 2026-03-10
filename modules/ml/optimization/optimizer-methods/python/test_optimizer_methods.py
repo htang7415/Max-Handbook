@@ -1,0 +1,35 @@
+from __future__ import annotations
+
+import pytest
+
+from optimizer_methods import (
+    adagrad_step,
+    adam_step,
+    adamw_step,
+    momentum_step,
+    nesterov_step,
+    rmsprop_step,
+    sgd_step,
+)
+
+
+def test_sgd_step_moves_against_gradient() -> None:
+    assert sgd_step(1.0, 0.5, 0.1) == pytest.approx(0.95)
+
+
+def test_momentum_and_nesterov_return_updated_weight_and_velocity() -> None:
+    w_m, v_m = momentum_step(1.0, 1.0, 0.0, 0.1, 0.9)
+    w_n, v_n = nesterov_step(1.0, 1.0, 0.0, 0.1, 0.9)
+    assert w_m < 1.0 and w_n < 1.0
+    assert v_m == pytest.approx(1.0)
+    assert v_n == pytest.approx(1.0)
+
+
+def test_adaptive_optimizers_accumulate_state() -> None:
+    _, g2 = adagrad_step(1.0, 1.0, 0.0, 0.1, 1e-8)
+    _, v_r = rmsprop_step(1.0, 1.0, 0.0, 0.1, 0.9, 1e-8)
+    _, m_a, v_a = adam_step(1.0, 1.0, 0.0, 0.0, 0.1, 0.9, 0.999, 1e-8)
+    _, m_w, v_w = adamw_step(1.0, 1.0, 0.0, 0.0, 0.1, 0.1, 0.9, 0.999, 1e-8)
+    assert g2 > 0.0 and v_r > 0.0
+    assert m_a > 0.0 and v_a > 0.0
+    assert m_w > 0.0 and v_w > 0.0

@@ -1,36 +1,50 @@
 # Optimization and Training Dynamics
 
-How gradients become stable updates.
-Each bullet maps to a module under `modules/ml/optimization/`.
+Optimization is about turning gradients into stable parameter updates.
 
-Leaf guides:
+## Purpose
 
-- Schedule map (`docs/ml/optimization/schedules`)
+Use this page to keep optimization in three layers:
+- choose an update rule
+- choose a learning-rate schedule
+- add stability tools only when training becomes numerically fragile
 
-## Optimizers
+## First Principles
 
-- SGD (`modules/ml/optimization/sgd`)
-- SGD with Momentum (`modules/ml/optimization/sgd-momentum`)
-- Nesterov Accelerated Gradient (`modules/ml/optimization/nesterov`)
-- Adam (`modules/ml/optimization/adam`)
-- AdamW (decoupled weight decay) (`modules/ml/optimization/adamw`)
-- RMSProp (`modules/ml/optimization/rmsprop`)
-- Adagrad (`modules/ml/optimization/adagrad`)
-- Muon (high-level intuition) (`modules/ml/optimization/muon-optimizer`)
+- The optimizer decides the update direction and how much gradient history to remember.
+- The schedule decides how step size changes over time.
+- Stability tools are not substitutes for a bad optimizer or bad data; they are safeguards.
 
-## Learning Rate Strategies
+## Core Math
 
-- Constant LR (`modules/ml/optimization/lr-constant`)
-- Step decay (`modules/ml/optimization/lr-step-decay`)
-- Exponential decay (`modules/ml/optimization/lr-exponential-decay`)
-- Warmup (`modules/ml/optimization/lr-warmup`)
-- Cosine decay (`modules/ml/optimization/lr-cosine-decay`)
-- Warmup plus cosine decay (`modules/ml/optimization/warmup-cosine-decay`)
-- One-cycle schedule (`modules/ml/optimization/one-cycle-schedule`)
-- Cosine restarts (`modules/ml/optimization/cosine-restarts`)
+Most optimization questions reduce to:
+$$
+w_{t+1} = w_t - \eta_t \cdot \text{update}_t
+$$
 
-## Training Stability
+- `update_t` comes from the optimizer.
+- `\eta_t` comes from the schedule.
 
-- Gradient clipping (global norm) (`modules/ml/optimization/gradient-clipping`)
-- Loss scaling (mixed precision) (`modules/ml/optimization/loss-scaling`)
-- Detecting NaNs / divergence (`modules/ml/optimization/detect-nans`)
+## Minimal Code Mental Model
+
+```python
+lr = warmup_cosine_lr(base_lr, step, warmup_steps, total_steps)
+w, m, v = adamw_step(w, grad, m, v, lr, wd, beta1, beta2, eps)
+```
+
+## Canonical Modules
+
+- Optimizers: `optimizer-methods`
+- Learning-rate schedules: `learning-rate-schedules`
+- Schedule guide: `docs/ml/optimization/schedules`
+
+## Supporting Modules
+
+- Stability tools: `gradient-clipping`, `loss-scaling`, `detect-nans`
+- Specialized optimizer intuition: `muon-optimizer`
+
+## When To Use What
+
+- Start with the optimizer family before comparing single update rules one by one.
+- Start with the schedule family before memorizing individual decay variants.
+- Add clipping, loss scaling, or NaN detection only when the training loop is unstable.

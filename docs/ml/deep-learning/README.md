@@ -45,9 +45,9 @@ loss = criterion(logits, labels)
 - Network basics: `neuron-weights-bias-activation`, `feedforward-neural-network`
 - Gradient mechanics: `backpropagation`, `automatic-differentiation`, `gradient-flow`
 - Activations: `activation-functions`, `activation-failure-modes`
-- Initialization and normalization: `xavier-initialization`, `he-initialization`, `normalization-methods`
-- Losses and training signals: `cross-entropy`, `mse-loss`, `focal-loss`, `label-smoothing`, `knowledge-distillation-loss`
-- Regularization: `dropout`, `weight-decay`, `early-stopping`
+- Initialization and normalization: `initialization-methods`, `normalization-methods`
+- Losses and training signals: `loss-functions`, `label-smoothing`, `knowledge-distillation-loss`
+- Regularization: `regularization-methods`
 
 ## Supporting Guides
 
@@ -57,7 +57,7 @@ loss = criterion(logits, labels)
 
 - Start with feedforward, activations, and backprop before optimization tricks.
 - Use `activation-functions` and `normalization-methods` as the default entry points, not the old narrow variants.
-- Use `cross-entropy` for most classification setups and `mse-loss` for basic regression.
+- Use `loss-functions` before memorizing individual loss names.
 - Use `label-smoothing` or `knowledge-distillation-loss` when the problem is modern training behavior, not basic function approximation.
 - Use `qk-clip` from the LLM track only when attention-logit stability is the actual issue.
 - Use this page as the map; use the canonical modules when you want the real formulas and code.

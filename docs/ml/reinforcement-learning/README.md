@@ -49,12 +49,13 @@ update_value_or_policy(replay.sample())
 
 ## Canonical Modules
 
-- Foundations: `mdp`, `return-discount`, `exploration-exploitation`
-- Bandits and exploration: `bandits`, `bandit-epsilon-greedy`, `ucb`
-- Value-based RL: `q-learning`, `double-q-learning`, `expected-sarsa`, `target-network-update`, `q-target`
-- Policy-based RL: `reinforce`, `ppo`, `policy-entropy`, `entropy-bonus`, `generalized-advantage-estimation`
-- Prediction and planning: `first-visit-monte-carlo-prediction`, `n-step-td-prediction`, `td-lambda`, `monte-carlo-tree-search`
-- Off-policy ideas: `importance-sampling`, `off-policy-correction`, `off-policy-evaluation`
+- Foundations: `mdp`, `exploration-exploitation`
+- Bandits and exploration: `bandit-exploration-methods`
+- Return estimation: `return-estimation-methods`
+- Value-based RL: `td-control-methods`
+- Policy-based RL: `policy-gradient-methods`, `policy-optimization-utilities`
+- Planning: `monte-carlo-tree-search`
+- Off-policy ideas: `off-policy-estimation-methods`
 
 ## Supporting Guides
 

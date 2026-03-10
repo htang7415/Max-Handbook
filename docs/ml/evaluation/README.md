@@ -36,6 +36,8 @@ score = evaluate(metric, predictions, labels)
 ## Canonical Modules
 
 - Classification: `classification-metrics-core`, `agreement-metrics`, `binary-rate-comparison-metrics`
+- Regression: `regression-metrics`
+- Clustering: `clustering-metrics`
 - Ranking: `ranking-metrics`
 - Calibration: `calibration-metrics`
 - Uncertainty: `uncertainty-intervals`
@@ -43,8 +45,7 @@ score = evaluate(metric, predictions, labels)
 
 ## Supporting Modules
 
-- Regression: `mae-vs-mse`, `r2-score`
-- Clustering: `silhouette-score`, `davies-bouldin`, `calinski-harabasz`
+- Rare-event log summaries: `log-rate-metrics`
 - Uncertainty guide (`docs/ml/evaluation/uncertainty`)
 - Calibration guide (`docs/ml/evaluation/calibration`)
 

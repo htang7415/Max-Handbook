@@ -35,10 +35,7 @@ model = optimize_preferences(model, chosen, rejected, kl_penalty)
 
 ## Canonical Modules
 
-- First alignment stage: `supervised-fine-tuning`
-- Preference objectives: `preference-learning`, `dpo`
-- RL-style alignment: `rlhf`
-- Stability and retention: `kl-regularization`, `ptx-anchoring`
+- Main stack: `alignment-methods`
 
 ## Supporting Modules
 
@@ -48,6 +45,7 @@ model = optimize_preferences(model, chosen, rejected, kl_penalty)
 ## When To Use What
 
 - Start with SFT before any preference optimization.
-- Use `dpo` or `preference-learning` when pairwise data is strong and you want a simpler path than RLHF.
-- Use `rlhf` when online policy improvement and reward modeling are central.
-- Use KL or PTX anchoring when the aligned model starts losing useful base-model behavior.
+- Start with SFT inside `alignment-methods`, then move to preference objectives.
+- Use DPO inside `alignment-methods` when pairwise data is strong and you want a simpler path than RLHF.
+- Use RLHF inside `alignment-methods` when reward modeling and online policy improvement are central.
+- Use KL or PTX anchoring inside `alignment-methods` when the aligned model starts losing useful base-model behavior.

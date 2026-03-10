@@ -1,22 +1,8 @@
+---
+aliasOf: cnn-architectures
+---
+
 # VGGNet
 
-> Track: `ml` | Topic: `computer-vision`
-
-## Concept
-
-VGGNet stacks many small 3×3 convolutions with max-pooling for depth and simplicity.
-
-## Math
-Two 3×3 convolutions approximate a single 5×5 receptive field.
-
-## Function
-
-```python
-def layers() -> list[str]:
-```
-
-## Run tests
-
-```bash
-pytest modules/ml/computer-vision/vggnet/python -q
-```
+Alias entry preserved for old anchors.
+Use `modules/ml/computer-vision/cnn-architectures` as the canonical module.

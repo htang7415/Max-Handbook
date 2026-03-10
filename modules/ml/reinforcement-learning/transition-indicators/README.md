@@ -41,10 +41,14 @@ done_rate = done_fraction(done_flags)
 ```python
 def terminal_mask(done_flags: list[bool]) -> list[float]:
 def continuation_mask(done_flags: list[bool]) -> list[float]:
+def end_of_episode_mask(done_flags: list[bool]) -> list[float]:
 def done_fraction(done_flags: list[bool]) -> float:
+def episode_end_rate(done_flags: list[bool]) -> float:
 def terminal_indicator(done: bool) -> float:
 def nonterminal_indicator(done: bool) -> float:
 def continuing_transition_batch(done_flags: list[bool]) -> list[float]:
+def persistent_transition_batch(done_flags: list[bool]) -> list[float]:
+def resilient_transition_batch(done_flags: list[bool]) -> list[float]:
 ```
 
 ## When To Use What

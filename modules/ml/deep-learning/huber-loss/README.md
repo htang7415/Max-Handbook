@@ -1,31 +1,8 @@
+---
+aliasOf: loss-functions
+---
+
 # Huber Loss
 
-> Track: `ml` | Topic: `deep-learning`
-
-## Concept
-
-Huber loss is quadratic near zero and linear for large errors.
-
-## Math
-
-$$
-L =
-\begin{cases}
-\frac{1}{2} e^2, & |e| \le \delta \\
-\delta\left(|e| - \frac{1}{2}\delta\right), & \text{otherwise}
-\end{cases}
-$$
-
-- $L$ -- loss value
-
-## Function
-
-```python
-def huber(y: float, y_hat: float, delta: float = 1.0) -> float:
-```
-
-## Run tests
-
-```bash
-pytest modules/ml/deep-learning/huber-loss/python -q
-```
+Alias entry preserved for old anchors.
+Use `modules/ml/deep-learning/loss-functions` as the canonical module.

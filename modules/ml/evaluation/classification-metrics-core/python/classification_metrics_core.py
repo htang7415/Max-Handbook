@@ -3,6 +3,69 @@ from __future__ import annotations
 import math
 
 
+def accuracy(y_true: list[int], y_pred: list[int]) -> float:
+    if len(y_true) != len(y_pred):
+        raise ValueError("y_true and y_pred must have the same length")
+    if not y_true:
+        return 0.0
+    correct = sum(1 for truth, pred in zip(y_true, y_pred) if truth == pred)
+    return correct / len(y_true)
+
+
+def confusion_matrix(y_true: list[int], y_pred: list[int]) -> list[list[int]]:
+    if len(y_true) != len(y_pred):
+        raise ValueError("y_true and y_pred must have the same length")
+    if any(label not in {0, 1} for label in y_true + y_pred):
+        raise ValueError("confusion_matrix currently expects binary labels")
+
+    tn = sum(1 for truth, pred in zip(y_true, y_pred) if truth == 0 and pred == 0)
+    fp = sum(1 for truth, pred in zip(y_true, y_pred) if truth == 0 and pred == 1)
+    fn = sum(1 for truth, pred in zip(y_true, y_pred) if truth == 1 and pred == 0)
+    tp = sum(1 for truth, pred in zip(y_true, y_pred) if truth == 1 and pred == 1)
+    return [[tn, fp], [fn, tp]]
+
+
+def precision_recall(y_true: list[int], y_pred: list[int]) -> tuple[float, float]:
+    matrix = confusion_matrix(y_true, y_pred)
+    tn, fp = matrix[0]
+    fn, tp = matrix[1]
+    del tn
+    precision = tp / (tp + fp) if tp + fp > 0 else 0.0
+    recall = tp / (tp + fn) if tp + fn > 0 else 0.0
+    return precision, recall
+
+
+def f1_score(precision: float, recall: float) -> float:
+    if precision < 0.0 or recall < 0.0:
+        raise ValueError("precision and recall must be non-negative")
+    if precision + recall == 0.0:
+        return 0.0
+    return 2.0 * precision * recall / (precision + recall)
+
+
+def roc_auc(fpr: list[float], tpr: list[float]) -> float:
+    if len(fpr) != len(tpr):
+        raise ValueError("fpr and tpr must have the same length")
+    if len(fpr) < 2:
+        return 0.0
+    if any(value < 0.0 or value > 1.0 for value in fpr + tpr):
+        raise ValueError("fpr and tpr must stay in [0, 1]")
+
+    area = 0.0
+    for i in range(1, len(fpr)):
+        area += (fpr[i] - fpr[i - 1]) * (tpr[i] + tpr[i - 1]) / 2.0
+    return area
+
+
+def matthews_correlation(tp: int, tn: int, fp: int, fn: int) -> float:
+    if any(value < 0 for value in [tp, tn, fp, fn]):
+        raise ValueError("confusion counts must be non-negative")
+    denominator = math.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
+    if denominator == 0.0:
+        return 0.0
+    return (tp * tn - fp * fn) / denominator
+
+
 def top_k_accuracy(predicted_rankings: list[list[int]], labels: list[int], k: int) -> float:
     if len(predicted_rankings) != len(labels):
         raise ValueError("predicted_rankings and labels must have the same length")

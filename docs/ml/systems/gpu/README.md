@@ -5,8 +5,7 @@ GPU reasoning should connect model math to memory traffic and achievable through
 ## Current Anchors
 
 - Mixed precision training (`modules/ml/systems/mixed-precision`)
-- FP16 / BF16 / FP8 trade-offs (`modules/ml/llm/fp16-bf16-fp8`)
-- INT8 / INT4 quantization (`modules/ml/llm/int8-int4-quantization`)
+- Numeric formats and quantization (`modules/ml/llm/precision-and-quantization`)
 - Roofline analysis (`modules/ml/systems/roofline-analysis`)
 
 ## Concepts to Cover Well

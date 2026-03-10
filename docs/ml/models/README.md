@@ -42,10 +42,10 @@ score = evaluate(pred, y_val)
 
 ## Canonical Modules
 
-- Linear models: `linear-regression`, `logistic-regression`, `softmax-regression`, `elastic-net`
+- Linear models: `linear-models`
 - Trees and ensembles: `decision-trees`, `random-forest`, `gradient-boosting`, `xgboost-objective`, `adaboost`
 - Clustering and neighbors: `knn`, `k-means`, `dbscan`, `gaussian-mixture-model-em`
-- Probabilistic baselines: `gaussian-naive-bayes`, `bernoulli-naive-bayes`, `gaussian-process-regression`
+- Probabilistic baselines: `naive-bayes-models`, `gaussian-process-regression`
 - Dimensionality reduction: `kernel-pca`, `lle`, `tsne-gradient`, `bic-aic`
 
 ## Supporting Guides

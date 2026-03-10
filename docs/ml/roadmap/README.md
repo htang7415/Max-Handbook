@@ -5,8 +5,8 @@ Scope is driven by `artifacts/deepml/problem_titles.md`, with additions outside 
 
 ## Current Status
 
-- Visible ML modules: `307`
-- Hidden ML aliases: `194`
+- Visible ML modules: `212`
+- Hidden ML aliases: `311`
 - Strategy: show canonical learning units first, keep old slugs only for compatibility
 
 ## Authoring Rules
@@ -33,31 +33,38 @@ Scope is driven by `artifacts/deepml/problem_titles.md`, with additions outside 
 ### Classical Models
 
 - Guides: `docs/ml/models/linear`, `docs/ml/models/trees`
+- Canonical families: `linear-models`, `naive-bayes-models`
 - Core modules: `gaussian-mixture-model-em`, `gradient-boosting`, `kernel-pca`, `isolation-forest`, `xgboost-objective`
 
 ### Deep Learning
 
 - Guides: `docs/ml/deep-learning/training-techniques`
-- Canonical families: `activation-functions`, `normalization-methods`
+- Canonical families: `activation-functions`, `normalization-methods`, `loss-functions`, `regularization-methods`, `initialization-methods`
 - Core standalone modules: `backpropagation`, `automatic-differentiation`, `cross-entropy`, `label-smoothing`, `knowledge-distillation-loss`
 
 ### Evaluation
 
 - Guides: `docs/ml/evaluation/calibration`, `docs/ml/evaluation/uncertainty`
-- Canonical families: `classification-metrics-core`, `ranking-metrics`, `calibration-metrics`, `uncertainty-intervals`, `agreement-metrics`, `binary-rate-comparison-metrics`
+- Canonical families: `classification-metrics-core`, `ranking-metrics`, `calibration-metrics`, `uncertainty-intervals`, `agreement-metrics`, `binary-rate-comparison-metrics`, `regression-metrics`, `clustering-metrics`
 - Core standalone modules: `permutation-test`, `ab-test-analysis`, `delong-test`
 
 ### LLM
 
 - Guides: `docs/ml/llm/tokenization`, `docs/ml/llm/alignment`, `docs/ml/llm/evaluation`, `docs/ml/llm/inference-serving`, `docs/ml/llm/vote-metrics`
-- Canonical families: `decoding-methods`, `retrieval-metrics`, `vote-metrics`
-- Core standalone modules: `perplexity`, `exact-match`, `answer-verification`, `pass-at-k`, `mmlu-evaluation`, `bm25-ranking`, `kv-cache`, `speculative-decoding`, `qk-clip`
+- Canonical families: `attention-mechanisms`, `alignment-methods`, `decoding-methods`, `retrieval-metrics`, `retrieval-fusion-methods`, `vote-metrics`, `parameter-efficient-fine-tuning`, `precision-and-quantization`
+- Core standalone modules: `tokenization`, `tokenizer-comparison`, `embeddings`, `positional-encoding`, `transformer`, `pretraining`, `perplexity`, `exact-match`, `answer-verification`, `pass-at-k`, `mmlu-evaluation`, `bm25-ranking`, `kv-cache`, `speculative-decoding`, `qk-clip`
 
 ### Reinforcement Learning
 
 - Guides: `docs/ml/reinforcement-learning/rl-for-llm`, `docs/ml/reinforcement-learning/transition-indicators`
-- Canonical families: `transition-indicators`
-- Core standalone modules: `bandits`, `q-learning`, `double-q-learning`, `expected-sarsa`, `ppo`, `generalized-advantage-estimation`, `importance-sampling`, `off-policy-evaluation`
+- Canonical families: `bandit-exploration-methods`, `return-estimation-methods`, `td-control-methods`, `off-policy-estimation-methods`, `policy-gradient-methods`, `policy-optimization-utilities`, `transition-indicators`
+- Core standalone modules: none
+
+### Optimization
+
+- Guides: `docs/ml/optimization/schedules`
+- Canonical families: `optimizer-methods`, `learning-rate-schedules`
+- Core standalone modules: `gradient-clipping`, `loss-scaling`, `detect-nans`, `muon-optimizer`
 
 ### Systems and MLOps
 
@@ -67,7 +74,8 @@ Scope is driven by `artifacts/deepml/problem_titles.md`, with additions outside 
 
 ### Generative and Representation
 
-- Guides: `docs/ml/generative/diffusion`, `docs/ml/representation/embeddings`, `docs/ml/representation/metric-learning`
+- Guides: `docs/ml/generative/diffusion`, `docs/ml/representation/embeddings`, `docs/ml/representation/metric-learning`, `docs/ml/computer-vision/architectures`
+- Canonical families: `cnn-architectures`
 - Core generative modules: `diffusion-models`, `ddpm-sampling`, `ddim-sampling`, `diffusion-guidance-tradeoffs`, `ema-diffusion-weights`, `model-selection`
 - Core representation modules: `embeddings`, `contrastive-loss`, `triplet-loss`, `pairwise-ranking-loss`
 
@@ -76,8 +84,9 @@ Scope is driven by `artifacts/deepml/problem_titles.md`, with additions outside 
 Supporting content should stay visible when it teaches a distinct mental model, but it should not replace the canonical entry point.
 
 - Specialized evaluation tasks: `bradley-terry-ranking`, `judge-calibration`, `judge-pairwise`, `judge-agreement-matrix`
-- Specialized LLM systems topics: `prefix-cache`, `prefix-cache-metrics`, `retrieval-fusion`, `reciprocal-rank-fusion`
-- Specialized RL topics: `td-lambda`, `n-step-td-prediction`, `first-visit-monte-carlo-prediction`, `monte-carlo-tree-search`
+- Rare-event log summaries: `log-rate-metrics`
+- Specialized LLM systems topics: `prefix-cache`, `prefix-cache-metrics`
+- Specialized RL topics: `monte-carlo-tree-search`
 - Specialized generative comparisons: `gan-mode-collapse`, `vae-posterior-collapse`
 
 ## Legacy / Hidden

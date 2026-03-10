@@ -21,4 +21,4 @@ Transition indicators turn episode termination state into tensors that control b
 - Start with the canonical module `transition-indicators`
 - Use `terminal_mask` for TD target logic
 - Use `done_fraction` for replay-buffer diagnostics
-- Use `bootstrap-target` plus `terminal_mask` as the core teaching pair
+- Use `td-control-methods` plus `terminal_mask` as the core teaching pair

@@ -1,25 +1,8 @@
+---
+aliasOf: classification-metrics-core
+---
+
 # Matthews Correlation Coefficient
 
-> Track: `ml` | Topic: `evaluation`
-
-## Concept
-
-MCC balances all confusion matrix terms.
-
-## Math
-
-$$\mathrm{MCC} = \frac{TP \cdot TN - FP \cdot FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}$$
-
-- $\mathrm{MCC}$ -- Matthews correlation coefficient
-
-## Function
-
-```python
-def mcc(tp: int, tn: int, fp: int, fn: int) -> float:
-```
-
-## Run tests
-
-```bash
-pytest modules/ml/evaluation/matthews-correlation/python -q
-```
+Alias entry preserved for old anchors.
+Use `modules/ml/evaluation/classification-metrics-core` as the canonical module.

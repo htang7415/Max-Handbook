@@ -36,7 +36,7 @@ x = relu(x + residual)
 
 ## Canonical Modules
 
-- Historical progression: `lenet-5`, `alexnet`, `vggnet`, `resnet`
+- Historical progression: `cnn-architectures`
 - Downsampling and heads: `pooling`, `global-average-pooling`
 
 ## When To Use What
