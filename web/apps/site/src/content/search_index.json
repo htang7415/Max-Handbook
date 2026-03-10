@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-10T20:37:56.148Z",
+  "generated_at": "2026-03-10T20:45:18.418Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -3482,6 +3482,30 @@
       "topicName": "LLM"
     },
     {
+      "id": "doc:ml/llm/long-context",
+      "type": "doc",
+      "title": "LLM Long Context",
+      "summary": "Long-context systems are about fitting more information into the prompt without making inference too slow or too expensive.",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "long-context",
+      "href": "/track/ml/llm#long-context",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "doc:ml/llm/reasoning",
+      "type": "doc",
+      "title": "LLM Reasoning",
+      "summary": "Reasoning models spend more inference compute to improve performance on harder tasks.",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "reasoning",
+      "href": "/track/ml/llm#reasoning",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
       "id": "doc:ml/llm/tokenization",
       "type": "doc",
       "title": "LLM Tokenization",
@@ -3766,6 +3790,18 @@
       "topic": "llm",
       "slug": "multimodal-llms",
       "href": "/track/ml/llm#multimodal-llms",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "doc:ml/llm/multimodal",
+      "type": "doc",
+      "title": "Multimodal LLMs",
+      "summary": "Modern LLMs often consume more than text, but the core systems question is still how those inputs fit into one sequence budget.",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "multimodal",
+      "href": "/track/ml/llm#multimodal",
       "trackName": "Machine Learning",
       "topicName": "LLM"
     },

@@ -58,6 +58,9 @@ next_token = decode(hidden[-1], strategy="top_p")
 ## Supporting Guides
 
 - Tokenization guide (`docs/ml/llm/tokenization`)
+- Reasoning guide (`docs/ml/llm/reasoning`)
+- Long-context guide (`docs/ml/llm/long-context`)
+- Multimodal guide (`docs/ml/llm/multimodal`)
 - Alignment guide (`docs/ml/llm/alignment`)
 - LLM evaluation guide (`docs/ml/llm/evaluation`)
 - Inference serving guide (`docs/ml/llm/inference-serving`)
