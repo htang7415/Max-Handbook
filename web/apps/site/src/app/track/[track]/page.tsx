@@ -4,6 +4,52 @@ import contentData from "@/content/content_index.json";
 import { sortTopicsForTrack } from "@/lib/roadmap";
 import { notFound } from "next/navigation";
 
+const ML_STUDY_PATHS: Record<string, { label: string; note: string }> = {
+  "path-beginner": {
+    label: "Beginner Path",
+    note: "Practical foundation across data, models, evaluation, and deep learning.",
+  },
+  "path-interview": {
+    label: "Interview Path",
+    note: "Fast recall on core ML trade-offs, metrics, and modern model intuition.",
+  },
+  "path-llm-systems": {
+    label: "LLM Systems Path",
+    note: "Inference, retrieval, serving, and evaluation for modern LLM applications.",
+  },
+  "path-math-first": {
+    label: "Math-First Path",
+    note: "Equations, likelihood, and optimization before broader model coverage.",
+  },
+};
+
+function TopicLink({
+  href,
+  accentVar,
+  name,
+  meta,
+  note,
+}: {
+  href: string;
+  accentVar: string;
+  name: string;
+  meta?: string;
+  note?: string;
+}) {
+  return (
+    <Link href={href} className="topic-list-item" data-parallax="4">
+      <span className="topic-list-dot" style={{ background: `var(${accentVar})` }} />
+      <span className="min-w-0 flex-1">
+        <span className="topic-list-name">{name}</span>
+        {note ? (
+          <span className="mt-0.5 block text-[0.76rem] text-[var(--text-muted)]">{note}</span>
+        ) : null}
+      </span>
+      {meta ? <span className="topic-list-meta">{meta}</span> : null}
+    </Link>
+  );
+}
+
 export function generateStaticParams() {
   const content = contentData as ContentIndex;
   return content.tracks.map((track) => ({ track: track.id }));
@@ -19,6 +65,14 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
     content.topics.filter((topic) => topic.track === track.id),
     track.id
   );
+  const isMlTrack = track.id === "ml";
+  const studyPaths = isMlTrack
+    ? topics.filter((topic) => topic.topic in ML_STUDY_PATHS)
+    : [];
+  const roadmapTopic = isMlTrack ? topics.find((topic) => topic.topic === "roadmap") : undefined;
+  const sectionTopics = isMlTrack
+    ? topics.filter((topic) => !(topic.topic in ML_STUDY_PATHS) && topic.topic !== "roadmap")
+    : topics;
 
   return (
     <div>
@@ -39,30 +93,85 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
         {topics.length} topics
       </p>
 
-      <div className="mt-6 space-y-0.5">
-        {topics.map((topic) => {
-          const entryCount = topic.docCount + topic.moduleCount;
-          return (
-            <Link
-              key={topic.topic}
-              href={`/track/${track.id}/${topic.topic}`}
-              className="topic-list-item"
-              data-parallax="4"
-            >
-              <span
-                className="topic-list-dot"
-                style={{ background: `var(${track.accentVar})` }}
+      {isMlTrack ? (
+        <div className="mt-6">
+          <section>
+            <h2 className="text-[0.72rem] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+              Study Paths
+            </h2>
+            <div className="mt-2 space-y-0.5">
+              {studyPaths.map((topic) => (
+                <TopicLink
+                  key={topic.topic}
+                  href={`/track/${track.id}/${topic.topic}`}
+                  accentVar={track.accentVar}
+                  name={ML_STUDY_PATHS[topic.topic]?.label ?? topic.name}
+                  note={ML_STUDY_PATHS[topic.topic]?.note}
+                />
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-7">
+            <h2 className="text-[0.72rem] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+              Sections
+            </h2>
+            <div className="mt-2 space-y-0.5">
+              {sectionTopics.map((topic) => {
+                const entryCount = topic.docCount + topic.moduleCount;
+                return (
+                  <TopicLink
+                    key={topic.topic}
+                    href={`/track/${track.id}/${topic.topic}`}
+                    accentVar={track.accentVar}
+                    name={topic.name}
+                    meta={
+                      entryCount > 0
+                        ? `${entryCount} ${entryCount === 1 ? "entry" : "entries"}`
+                        : undefined
+                    }
+                  />
+                );
+              })}
+            </div>
+          </section>
+
+          {roadmapTopic ? (
+            <section className="mt-7">
+              <h2 className="text-[0.72rem] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+                Utility
+              </h2>
+              <div className="mt-2 space-y-0.5">
+                <TopicLink
+                  href={`/track/${track.id}/${roadmapTopic.topic}`}
+                  accentVar={track.accentVar}
+                  name="Roadmap"
+                  note="Coverage, pruning, and canonical-vs-legacy audit."
+                />
+              </div>
+            </section>
+          ) : null}
+        </div>
+      ) : (
+        <div className="mt-6 space-y-0.5">
+          {topics.map((topic) => {
+            const entryCount = topic.docCount + topic.moduleCount;
+            return (
+              <TopicLink
+                key={topic.topic}
+                href={`/track/${track.id}/${topic.topic}`}
+                accentVar={track.accentVar}
+                name={topic.name}
+                meta={
+                  entryCount > 0
+                    ? `${entryCount} ${entryCount === 1 ? "entry" : "entries"}`
+                    : undefined
+                }
               />
-              <span className="topic-list-name">{topic.name}</span>
-              {entryCount > 0 && (
-                <span className="topic-list-meta">
-                  {entryCount} {entryCount === 1 ? "entry" : "entries"}
-                </span>
-              )}
-            </Link>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

@@ -22,30 +22,22 @@ Use this page to keep deep learning in the right order:
 
 ## Core Math
 
-- Neuron:
+- Most deep-learning mechanics reduce to three shapes:
   $$
-  y = \phi(Wx + b)
+  y = \phi(Wx + b),
+  \quad
+  \text{chain rule},
+  \quad
+  \text{loss}
   $$
-- Chain rule:
-  $$
-  \frac{\partial L}{\partial x}
-  =
-  \frac{\partial L}{\partial y}
-  \frac{\partial y}{\partial x}
-  $$
-- Cross-entropy for classification:
-  $$
-  L = -\sum_i y_i \log p_i
-  $$
+- The family modules below hold the actual comparison details.
 
 ## Minimal Code Mental Model
 
 ```python
 hidden = activation(x @ w1 + b1)
 logits = hidden @ w2 + b2
-loss = cross_entropy(logits, labels)
-loss.backward()
-optimizer.step()
+loss = criterion(logits, labels)
 ```
 
 ## Canonical Modules
@@ -68,3 +60,4 @@ optimizer.step()
 - Use `cross-entropy` for most classification setups and `mse-loss` for basic regression.
 - Use `label-smoothing` or `knowledge-distillation-loss` when the problem is modern training behavior, not basic function approximation.
 - Use `qk-clip` from the LLM track only when attention-logit stability is the actual issue.
+- Use this page as the map; use the canonical modules when you want the real formulas and code.

@@ -1,6 +1,14 @@
 # Beginner Path
 
-Start here if you want a practical ML foundation without trying to learn the full track at once.
+Use this path if you want a practical ML foundation without trying to learn the whole track at once.
+
+## Goal
+
+Build a clean baseline in:
+- data splitting and preprocessing
+- core model families
+- evaluation
+- basic deep learning intuition
 
 ## Order
 
@@ -12,21 +20,23 @@ Start here if you want a practical ML foundation without trying to learn the ful
 
 ## Canonical Modules
 
-- `modules/ml/deep-learning/activation-functions`
-- `modules/ml/deep-learning/normalization-methods`
-- `modules/ml/evaluation/calibration-metrics`
-- `modules/ml/evaluation/ranking-metrics`
+- `activation-functions`
+- `normalization-methods`
+- `classification-metrics-core`
+- `calibration-metrics`
+- `ranking-metrics`
+- `scaling-methods`
 
-## Skip At First
+## Deprioritize At First
 
 - `docs/ml/systems`
 - `docs/ml/mlops`
 - `docs/ml/reinforcement-learning`
-- most long-tail evaluation diagnostics
+- narrow operational metrics
 
 ## Done Means
 
-- you can explain train/validation/test
-- you can choose basic metrics for classification and regression
-- you understand linear models, trees, and simple neural nets
-- you can read common ML interview questions without getting lost in notation
+- you can explain train/validation/test and leakage
+- you can choose a reasonable metric for a common task
+- you understand trees, boosting, and a simple neural network
+- you can read typical ML interview or project discussions without getting lost

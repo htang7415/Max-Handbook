@@ -20,35 +20,17 @@ Use this page to choose the right evaluation frame:
 
 ## Core Math
 
-- Precision, recall, and F1:
+- Most evaluation math is one of four shapes:
   $$
-  P = \frac{TP}{TP + FP}, \quad R = \frac{TP}{TP + FN}, \quad F1 = \frac{2PR}{P + R}
+  \text{count ratio}, \quad \text{proper loss}, \quad \text{rank score}, \quad \text{interval around an estimate}
   $$
-- Log loss:
-  $$
-  -\frac{1}{N}\sum_{i=1}^{N} y_i \log p_i + (1-y_i)\log(1-p_i)
-  $$
-- Brier score:
-  $$
-  \frac{1}{N}\sum_{i=1}^{N}(p_i - y_i)^2
-  $$
-- Reciprocal rank:
-  $$
-  \mathrm{RR} = \frac{1}{\mathrm{rank\ of\ first\ relevant\ item}}
-  $$
-- Confidence interval shape:
-  $$
-  \mathrm{estimate} \pm z \cdot \mathrm{SE}
-  $$
+- The exact definitions live in the canonical modules below.
 
 ## Minimal Code Mental Model
 
 ```python
-classification = f1_score(y_true, y_pred)
-ranking = mean_reciprocal_rank(relevance_lists)
-calibration = brier_score(probabilities, labels)
-interval = bootstrap_interval(metric_values)
-experiment = ab_test_analysis(control, treatment)
+metric = choose_metric(task, label_shape, probability_need)
+score = evaluate(metric, predictions, labels)
 ```
 
 ## Canonical Modules
@@ -68,8 +50,6 @@ experiment = ab_test_analysis(control, treatment)
 
 ## When To Use What
 
-- Use classification metrics when decisions are discrete.
-- Use ranking metrics when order matters more than the raw score.
-- Use calibration metrics when probabilities drive thresholds, routing, or review.
-- Use uncertainty intervals when the estimate itself has sampling noise.
-- Use statistical tests when comparing systems, experiments, or models.
+- Start with the task shape: classification, ranking, probability quality, or experiment comparison.
+- Go to the canonical family module for the actual definition and code.
+- Use this page mainly as the routing map, not the final metric reference.

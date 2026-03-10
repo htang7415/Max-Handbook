@@ -1,6 +1,15 @@
 # LLM Systems Path
 
-Use this path if your target is modern inference, serving, and evaluation for LLM applications.
+Use this path if your goal is modern inference, retrieval, evaluation, and serving for LLM applications.
+
+## Goal
+
+Build working intuition for:
+- decoding and evaluation
+- retrieval quality
+- memory and cache behavior
+- batching and throughput
+- serving and rollout reliability
 
 ## Order
 
@@ -12,13 +21,13 @@ Use this path if your target is modern inference, serving, and evaluation for LL
 
 ## Canonical Modules
 
-- `modules/ml/llm/decoding-methods`
-- `modules/ml/llm/retrieval-metrics`
-- `modules/ml/llm/kv-cache`
-- `modules/ml/llm/prefix-cache`
-- `modules/ml/llm/speculative-decoding`
-- `modules/ml/systems/continuous-batching`
-- `modules/ml/systems/roofline-analysis`
+- `decoding-methods`
+- `retrieval-metrics`
+- `vote-metrics`
+- `kv-cache`
+- `continuous-batching`
+- `roofline-analysis`
+- `capacity-stress-metrics`
 
 ## Focus
 
@@ -31,5 +40,5 @@ Use this path if your target is modern inference, serving, and evaluation for LL
 ## Deprioritize
 
 - classical dimensionality reduction
-- older vision-specific normalization details
-- narrow statistics drills that do not change serving decisions
+- older CNN architecture history
+- low-value standalone statistics drills

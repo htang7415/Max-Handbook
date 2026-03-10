@@ -1,6 +1,15 @@
 # Interview Path
 
-Use this path if your main goal is ML interview readiness rather than full research or production depth.
+Use this path if your main goal is ML interview readiness rather than full production depth.
+
+## Goal
+
+Build fast recall on:
+- fundamentals and common math
+- model selection trade-offs
+- evaluation choices
+- deep-learning basics
+- modern LLM intuition
 
 ## Order
 
@@ -13,23 +22,24 @@ Use this path if your main goal is ML interview readiness rather than full resea
 
 ## Canonical Modules
 
-- `modules/ml/evaluation/calibration-metrics`
-- `modules/ml/evaluation/ranking-metrics`
-- `modules/ml/deep-learning/activation-functions`
-- `modules/ml/deep-learning/normalization-methods`
-- `modules/ml/llm/decoding-methods`
-- `modules/ml/llm/retrieval-metrics`
+- `classification-metrics-core`
+- `calibration-metrics`
+- `ranking-metrics`
+- `activation-functions`
+- `normalization-methods`
+- `decoding-methods`
+- `retrieval-metrics`
 
 ## Focus
 
-- bias/variance trade-offs
-- regularization and validation
-- metrics selection and pitfalls
-- backprop, optimization, normalization
+- bias/variance and regularization
+- validation and leakage
+- metric selection
+- backprop, optimization, and normalization
 - transformer basics and decoding trade-offs
 
 ## Deprioritize
 
 - deep systems internals
 - long-tail monitoring ratios
-- very specialized RL diagnostics
+- specialized RL operational details

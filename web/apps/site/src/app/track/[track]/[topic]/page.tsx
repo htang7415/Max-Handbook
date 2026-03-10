@@ -8,7 +8,7 @@ import GradientDescentViz from "@/components/GradientDescentViz";
 import VectorsMatricesViz from "@/components/VectorsMatricesViz";
 import { buildNavItems, getAdjacentPages } from "@/lib/navigation";
 import type { ContentIndex } from "@/lib/content";
-import { extractModuleOrder } from "@/lib/roadmap";
+import { extractModuleOrder, extractTopicEntryGroups } from "@/lib/roadmap";
 import contentData from "@/content/content_index.json";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
@@ -789,6 +789,15 @@ export default async function TopicPage({
   );
 
   const moduleOrder = extractModuleOrder(docs[0]?.content, trackId, topicId);
+  const topicEntryGroups =
+    trackId === "ml"
+      ? extractTopicEntryGroups(docs[0]?.content, trackId, topicId)
+      : { canonical: [], supporting: [] };
+  const canonicalEntrySet = new Set(topicEntryGroups.canonical);
+  const supportingEntrySet = new Set(topicEntryGroups.supporting);
+  const hasMlLearningGroups =
+    trackId === "ml" &&
+    (canonicalEntrySet.size > 0 || supportingEntrySet.size > 0);
   const slugOrder = new Map<string, number>();
   let orderIndex = 0;
 
@@ -837,6 +846,12 @@ export default async function TopicPage({
         slug,
         title,
         summary,
+        group:
+          trackId === "ml" && canonicalEntrySet.has(slug)
+            ? "canonical"
+            : trackId === "ml" && supportingEntrySet.has(slug)
+              ? "supporting"
+              : "additional",
         rawContent,
         parsed: { ...parsed, sections: normalizedSections },
         hasTheory,
@@ -846,8 +861,24 @@ export default async function TopicPage({
       };
     })
     .sort(
-      (a, b) =>
-        (slugOrder.get(a.slug) ?? 0) - (slugOrder.get(b.slug) ?? 0)
+      (a, b) => {
+        if (hasMlLearningGroups) {
+          const groupRank =
+            a.group === "canonical"
+              ? 0
+              : a.group === "supporting"
+                ? 1
+                : 2;
+          const otherGroupRank =
+            b.group === "canonical"
+              ? 0
+              : b.group === "supporting"
+                ? 1
+                : 2;
+          if (groupRank !== otherGroupRank) return groupRank - otherGroupRank;
+        }
+        return (slugOrder.get(a.slug) ?? 0) - (slugOrder.get(b.slug) ?? 0);
+      }
     );
 
   // Build TOC headings
@@ -897,6 +928,15 @@ export default async function TopicPage({
         ) : (
           <div className="mt-8">
             {entries.map((entry, idx) => {
+              const previousGroup = idx > 0 ? entries[idx - 1]?.group : undefined;
+              const showGroupHeader =
+                hasMlLearningGroups && entry.group !== previousGroup;
+              const groupLabel =
+                entry.group === "canonical"
+                  ? "Canonical Modules"
+                  : entry.group === "supporting"
+                    ? "Supporting Content"
+                    : "Additional Modules";
               const { conceptParts, pitfalls, practice } = splitSections(
                 entry.parsed.sections
               );
@@ -961,6 +1001,19 @@ export default async function TopicPage({
 
               return (
                 <Fragment key={entry.slug}>
+                {showGroupHeader && (
+                  <div className={idx === 0 ? "mb-5" : "mt-10 mb-5"}>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ background: `var(${track.accentVar})` }}
+                      />
+                      <span className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                        {groupLabel}
+                      </span>
+                    </div>
+                  </div>
+                )}
                 {(aliasesByCanonical.get(entry.slug) ?? []).map((aliasSlug) => (
                   <span key={aliasSlug} id={aliasSlug} />
                 ))}

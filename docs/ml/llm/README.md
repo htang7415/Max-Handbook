@@ -21,22 +21,22 @@ Use this page to keep the LLM stack in the right order:
 
 ## Core Math
 
-- Self-attention weight:
+- The whole LLM stack mostly rests on three equations:
   $$
-  \mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+  \mathrm{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V,
+  \quad
+  -\sum_t \log p(x_t \mid x_{<t}),
+  \quad
+  \text{preference objective}
   $$
-- Next-token pretraining objective:
-  $$
-  -\sum_t \log p(x_t \mid x_{<t})
-  $$
-- Preference-style alignment learns to score preferred outputs above rejected ones.
+- The details live in the section guides and canonical modules below.
 
 ## Minimal Code Mental Model
 
 ```python
 tokens = tokenizer(text)
 hidden = transformer(tokens)
-next_token = decode(hidden[-1], strategy=\"top_p\")
+next_token = decode(hidden[-1], strategy="top_p")
 ```
 
 ## Canonical Modules
@@ -63,3 +63,4 @@ next_token = decode(hidden[-1], strategy=\"top_p\")
 - Use the evaluation guide before choosing metrics module by module.
 - Use decoding methods when generation behavior is the issue.
 - Use serving and systems topics when latency, memory, or throughput becomes the bottleneck.
+- Treat this page as the stack overview; use the leaf guides for the real detail.

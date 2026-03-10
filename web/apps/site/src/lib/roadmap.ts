@@ -129,10 +129,23 @@ export function extractModuleOrder(
   trackId: string,
   topicId: string
 ): string[] {
-  if (!docContent) return [];
-  const pattern = new RegExp(`modules/${trackId}/${topicId}/([a-z0-9-]+)`, "g");
   const order: string[] = [];
   const seen = new Set<string>();
+  if (!docContent) return order;
+
+  const { canonical, supporting } = extractTopicEntryGroups(
+    docContent,
+    trackId,
+    topicId
+  );
+  for (const slug of [...canonical, ...supporting]) {
+    if (!seen.has(slug)) {
+      seen.add(slug);
+      order.push(slug);
+    }
+  }
+
+  const pattern = new RegExp(`modules/${trackId}/${topicId}/([a-z0-9-]+)`, "g");
   let match: RegExpExecArray | null;
   while ((match = pattern.exec(docContent)) !== null) {
     const slug = match[1];
@@ -142,4 +155,103 @@ export function extractModuleOrder(
     }
   }
   return order;
+}
+
+function extractSectionBodies(
+  docContent: string | undefined,
+  headingNames: string[]
+): string[] {
+  if (!docContent) return [];
+  const headingSet = new Set(headingNames.map((heading) => heading.toLowerCase()));
+  const lines = docContent.split(/\r?\n/);
+  const bodies: string[] = [];
+  let active = false;
+  let currentLines: string[] = [];
+
+  function flush() {
+    if (active && currentLines.length > 0) {
+      bodies.push(currentLines.join("\n").trim());
+    }
+    currentLines = [];
+  }
+
+  for (const line of lines) {
+    const heading = line.match(/^##\s+(.+)$/);
+    if (heading) {
+      flush();
+      active = headingSet.has(heading[1].trim().toLowerCase());
+      continue;
+    }
+    if (active) currentLines.push(line);
+  }
+  flush();
+
+  return bodies.filter(Boolean);
+}
+
+function extractReferencedSlugs(
+  content: string,
+  trackId: string,
+  topicId: string
+): string[] {
+  const slugs: string[] = [];
+  const seen = new Set<string>();
+  const pathPattern = new RegExp(
+    `(?:docs|modules)/${trackId}/${topicId}/([a-z0-9-]+)`,
+    "g"
+  );
+  const inlinePattern = /`([^`]+)`/g;
+
+  function push(raw: string) {
+    const trimmed = raw.trim();
+    let slug: string | undefined;
+    const pathMatch = trimmed.match(
+      new RegExp(`^(?:docs|modules)/${trackId}/${topicId}/([a-z0-9-]+)$`)
+    );
+    if (pathMatch) {
+      slug = pathMatch[1];
+    } else if (/^[a-z0-9-]+$/.test(trimmed)) {
+      slug = trimmed;
+    }
+    if (slug && !seen.has(slug)) {
+      seen.add(slug);
+      slugs.push(slug);
+    }
+  }
+
+  let match: RegExpExecArray | null;
+  while ((match = inlinePattern.exec(content)) !== null) {
+    push(match[1]);
+  }
+  while ((match = pathPattern.exec(content)) !== null) {
+    push(match[1]);
+  }
+
+  return slugs;
+}
+
+export function extractTopicEntryGroups(
+  docContent: string | undefined,
+  trackId: string,
+  topicId: string
+): { canonical: string[]; supporting: string[] } {
+  const canonicalBodies = extractSectionBodies(docContent, [
+    "canonical modules",
+    "canonical families",
+    "canonical learning units",
+  ]);
+  const supportingBodies = extractSectionBodies(docContent, [
+    "supporting modules",
+    "supporting guides",
+    "supporting content",
+  ]);
+
+  return {
+    canonical: canonicalBodies.flatMap((body) =>
+      extractReferencedSlugs(body, trackId, topicId)
+    ),
+    supporting: supportingBodies.flatMap((body) =>
+      extractReferencedSlugs(body, trackId, topicId)
+    ),
+  };
 }

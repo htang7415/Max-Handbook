@@ -1,6 +1,14 @@
 # Math-First Path
 
-Use this path if you want to understand ML from the equations upward before optimizing for breadth.
+Use this path if you want to understand ML from equations upward before optimizing for breadth.
+
+## Goal
+
+Build a strong base in:
+- linear algebra and probability
+- loss and likelihood
+- evaluation definitions
+- gradient-based deep learning intuition
 
 ## Order
 
@@ -13,21 +21,22 @@ Use this path if you want to understand ML from the equations upward before opti
 
 ## Canonical Modules
 
-- `modules/ml/models/gaussian-mixture-model-em`
-- `modules/ml/evaluation/calibration-metrics`
-- `modules/ml/evaluation/ranking-metrics`
-- `modules/ml/deep-learning/activation-functions`
-- `modules/ml/deep-learning/normalization-methods`
+- `gaussian-mixture-model-em`
+- `gradient-boosting`
+- `calibration-metrics`
+- `ranking-metrics`
+- `activation-functions`
+- `normalization-methods`
 
 ## Focus
 
 - linear algebra and probability intuition
 - likelihood, loss, and optimization
 - metric definitions before model comparison
-- why normalization and activation choices help gradient flow
+- why activations and normalization help gradient flow
 
 ## Deprioritize
 
 - deployment-first topics
-- product and monitoring metrics
-- large families of operational dashboards
+- product monitoring dashboards
+- large operational metric families

@@ -19,12 +19,11 @@ Use this page to organize the data side of ML into four parts:
 
 ## Core Math
 
-- Train/validation/test split:
+- Data prep mostly reduces to three questions:
   $$
-  \mathcal{D} = \mathcal{D}_{train} \cup \mathcal{D}_{val} \cup \mathcal{D}_{test}
+  \text{how to split}, \quad \text{how to transform}, \quad \text{how to stay within budget}
   $$
-- Stratified sampling keeps class proportions approximately stable across splits.
-- Overflow rate:
+- A simple overflow summary is:
   $$
   \frac{\#\{\text{examples over budget}\}}{N}
   $$
@@ -34,8 +33,7 @@ Use this page to organize the data side of ML into four parts:
 ```python
 train, val, test = stratified_split(dataset, labels)
 preprocessor.fit(train)
-x_train = preprocessor.transform(train)
-x_val = preprocessor.transform(val)
+x_ready = preprocessor.transform(train)
 ```
 
 ## Canonical Modules
@@ -60,3 +58,4 @@ x_val = preprocessor.transform(val)
 - Use the preprocessing guide before choosing specific encoders or feature transforms.
 - Use sparse lexical features before heavier text pipelines when a simple baseline is enough.
 - Use overflow metrics only when the system has a real token or length budget.
+- Use this page as the routing map; the family modules hold the concrete math and code.
