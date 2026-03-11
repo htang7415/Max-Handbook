@@ -34,6 +34,17 @@ $$
 \mathrm{Gain} = \mathrm{Acc}_{vote} - \mathrm{Acc}_{single}
 $$
 
+Budgeted success:
+
+$$
+\mathrm{BudgetAcc}(B) = \frac{\sum_i y_i \mathbf{1}[c_i \le B]}{\sum_i \mathbf{1}[c_i \le B]}
+$$
+
+- $n$ -- number of evaluated examples
+- $y_i$ -- binary correctness flag for example $i$
+- $c_i$ -- token cost for example $i$
+- $B$ -- maximum allowed token budget per example
+
 ## From Math To Code
 
 - Start with per-example correctness flags.

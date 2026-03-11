@@ -27,3 +27,5 @@ def test_context_budgeting_validation_rejects_invalid_inputs() -> None:
         tokens_to_drop(10, 0)
     with pytest.raises(ValueError):
         head_tail_keep(10, 5, -1)
+    with pytest.raises(ValueError):
+        head_tail_keep(10, 5, 11)

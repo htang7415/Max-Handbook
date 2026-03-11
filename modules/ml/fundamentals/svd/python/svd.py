@@ -87,6 +87,8 @@ def svd_2x2_singular_values(A: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor
 
 
 def svd_2x2(a: list[list[float]]) -> tuple[list[list[float]], list[float], list[list[float]]]:
+    if len(a) != 2 or any(len(row) != 2 for row in a):
+        raise ValueError("a must be a 2x2 matrix")
     a00, a01 = a[0]
     a10, a11 = a[1]
 

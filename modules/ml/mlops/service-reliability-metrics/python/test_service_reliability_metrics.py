@@ -50,6 +50,11 @@ def test_queue_delay_returns_per_item_delays_and_mean() -> None:
     assert queue_delay_values([1.0, 4.0], [3.0, 5.0]) == [2.0, 1.0]
 
 
+def test_queue_delay_rejects_negative_timestamps() -> None:
+    with pytest.raises(ValueError, match="non-negative"):
+        queue_delay_values([-1.0], [1.0])
+
+
 def test_queue_utilization_returns_fraction_and_flag() -> None:
     utilization, saturated = queue_utilization(queue_depth=12, queue_capacity=10)
     assert utilization == 1.2

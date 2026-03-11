@@ -11,6 +11,12 @@ Accepted draft tokens are kept until the first mismatch.
 
 $$k = \max \{ t : d_1 = p_1, \ldots, d_t = p_t \}$$
 
+Returned verified continuation:
+
+$$
+[p_1,\dots,p_k,p_{k+1}]
+$$
+
 - $d_t$ -- draft token at position $t$
 - $p_t$ -- target-model token at position $t$
 - $k$ -- accepted prefix length
@@ -20,6 +26,7 @@ $$k = \max \{ t : d_1 = p_1, \ldots, d_t = p_t \}$$
 - Verification accepts a matching prefix and falls back at the first mismatch.
 - Speedup comes from accepting several cheap draft tokens at once.
 - Quality is preserved because the target model still decides the final output.
+- The returned step is the accepted draft prefix plus the next target-decided token, when that token exists.
 
 ## Function
 

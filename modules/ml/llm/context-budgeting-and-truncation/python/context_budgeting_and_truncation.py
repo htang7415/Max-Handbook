@@ -34,6 +34,8 @@ def head_tail_keep(total_prompt_tokens: int, prompt_budget: int, head_tokens: in
         raise ValueError("prompt_budget must be positive")
     if head_tokens < 0:
         raise ValueError("head_tokens must be non-negative")
+    if head_tokens > total_prompt_tokens:
+        raise ValueError("head_tokens must not exceed total_prompt_tokens")
 
     kept_total = min(total_prompt_tokens, prompt_budget)
     kept_head = min(head_tokens, kept_total)

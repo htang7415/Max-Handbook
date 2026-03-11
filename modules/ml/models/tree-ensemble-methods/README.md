@@ -51,6 +51,15 @@ $$
 \right) - \gamma
 $$
 
+- $p_c$ -- class probability for class $c$
+- $\alpha$ -- AdaBoost stage weight
+- $\mathbb{I}[y_i \ne \hat{y}_i]$ -- indicator that example $i$ was misclassified
+- $\eta$ -- learning rate for the boosting step
+- $G_L, G_R$ -- summed gradients for left and right child nodes
+- $H_L, H_R$ -- summed Hessians for left and right child nodes
+- $\lambda$ -- leaf-weight regularization
+- $\gamma$ -- split penalty
+
 ## From Math To Code
 
 - Trees score a candidate split from class probabilities and impurity.

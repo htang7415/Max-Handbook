@@ -32,6 +32,10 @@ $$
 
 where `R` is the set of required modalities and `P` is the set of provided modalities.
 
+- $m$ -- number of matching references
+- $R$ -- required modalities
+- $P$ -- provided modalities
+
 ## From Math To Code
 
 - Start with the task score first, such as exact correctness or VQA-style consensus.

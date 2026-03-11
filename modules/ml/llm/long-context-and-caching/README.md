@@ -40,10 +40,17 @@ $$
 \mathrm{HitRate} = \frac{C}{T}
 $$
 
+Context utilization:
+
+$$
+\mathrm{Utilization} = \frac{T}{W}
+$$
+
 - $L$ -- active sequence length
 - $T$ -- total prompt tokens
 - $C$ -- cached prefix tokens, with $0 \le C \le T$
 - $r$ -- number of repeated requests sharing the same prefix
+- $W$ -- context window
 
 ## From Math To Code
 

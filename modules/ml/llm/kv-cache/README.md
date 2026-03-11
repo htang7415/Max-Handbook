@@ -20,6 +20,10 @@ $$
 \mathrm{bytes} = B \cdot L \cdot T \cdot H_{kv} \cdot D \cdot 2 \cdot s
 $$
 
+$$
+\mathrm{GiB} = \frac{\mathrm{bytes}}{1024^3}
+$$
+
 - $B$ -- batch size
 - $L$ -- number of layers
 - $T$ -- cached tokens
@@ -27,6 +31,7 @@ $$
 - $D$ -- head dimension
 - $2$ -- one tensor for keys and one for values
 - $s$ -- bytes per stored element
+- $\mathrm{GiB}$ -- binary gibibytes, not decimal gigabytes
 
 ## From Math To Code
 

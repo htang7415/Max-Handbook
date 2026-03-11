@@ -17,6 +17,7 @@ plain SGD, momentum variants, and adaptive optimizers.
 - Momentum methods smooth updates across steps.
 - Adaptive methods rescale updates using gradient history.
 - AdamW matters because decoupled weight decay changes training behavior in modern deep nets.
+- The code here uses the minimal Adam/AdamW recurrences without bias correction so the state updates stay easy to inspect.
 
 ## Core Math
 
@@ -31,6 +32,12 @@ $$
 $$
 \text{Adaptive: } w_{t+1} = w_t - \eta \frac{m_t}{\sqrt{v_t} + \epsilon}
 $$
+
+- $\eta$ -- learning rate
+- $g_t$ -- gradient at step $t$
+- $v_t$ -- momentum or second-moment state, depending on the optimizer
+- $\mu$ -- momentum coefficient
+- $\epsilon$ -- numerical stabilizer
 
 ## From Math To Code
 

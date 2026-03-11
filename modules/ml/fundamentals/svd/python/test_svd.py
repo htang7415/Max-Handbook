@@ -31,3 +31,10 @@ def test_svd_reconstruction():
     us = matmul_2x2(u, diag_2x2(svals))
     a_hat = matmul_2x2(us, vt)
     assert_mat_close(a_hat, a, tol=1e-8)
+
+
+def test_svd_requires_2x2_input():
+    import pytest
+
+    with pytest.raises(ValueError, match="2x2"):
+        svd_2x2([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])

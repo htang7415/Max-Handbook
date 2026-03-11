@@ -58,6 +58,8 @@ def queue_delay_values(enqueued_at: list[float], started_at: list[float]) -> lis
         raise ValueError("enqueued_at and started_at must have the same length")
     delays: list[float] = []
     for arrival_time, service_time in zip(enqueued_at, started_at):
+        if arrival_time < 0.0 or service_time < 0.0:
+            raise ValueError("timestamps must be non-negative")
         if service_time < arrival_time:
             raise ValueError("started_at times must be at or after enqueued_at times")
         delays.append(service_time - arrival_time)

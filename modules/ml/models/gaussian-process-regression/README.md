@@ -18,7 +18,9 @@ predictive mean and an uncertainty estimate.
 
 $$k(x,x') = \exp\left(-\frac{\lVert x-x' \rVert^2}{2\ell^2}\right)$$
 
-$$\mu_* = K_*^{\top}(K + \sigma_n^2 I)^{-1} y,\quad \Sigma_* = K_{**} - K_*^{\top}(K + \sigma_n^2 I)^{-1} K_*$$
+$$\mu_* = K_*^{\top}(K + \sigma_n^2 I)^{-1} y$$
+
+$$\Sigma_* = K_{**} - K_*^{\top}(K + \sigma_n^2 I)^{-1} K_*$$
 
 $$
 \alpha = (K + \sigma_n^2 I)^{-1} y
@@ -33,6 +35,7 @@ $$
 - $y$ -- observed training targets
 - $\mu_*$ -- predictive mean
 - $\Sigma_*$ -- predictive covariance
+- $\operatorname{diag}(\Sigma_*)$ -- predictive marginal variances returned by the implementation
 
 ## From Math To Code
 
@@ -71,7 +74,7 @@ def gp_posterior_predict(
 ## When To Use What
 
 - Use `gp_posterior_weights` when you want to see the actual linear solve behind GPR.
-- Use `gp_posterior_predict` when you want both predictive means and variances.
+- Use `gp_posterior_predict` when you want predictive means and the diagonal variances.
 
 ## Run tests
 

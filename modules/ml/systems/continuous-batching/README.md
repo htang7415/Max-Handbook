@@ -10,8 +10,14 @@ Continuous batching keeps a decode batch full by removing finished requests and 
 
 $$a_t' = \{ r - 1 \mid r \in a_t, \; r > 1 \}$$
 
+$$
+a_{t+1} = a_t' \cup \mathrm{admit}(q_t, C - |a_t'|)
+$$
+
 - $a_t$ -- active requests represented by remaining decode steps
 - $a_t'$ -- active requests after one decode step and removal of completed requests
+- $q_t$ -- queued requests waiting for admission
+- $C$ -- batch capacity
 
 ## Key Points
 

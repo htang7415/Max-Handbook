@@ -34,6 +34,13 @@ $$
 \mathrm{SaturationRate} = \frac{\sum_{i=1}^{N} \mathbf{1}[u_i \ge \tau]}{N}
 $$
 
+- $t_i$ -- latency of request $i$
+- $\tau$ -- SLA or saturation threshold
+- $N$ -- number of requests or measurement steps
+- $a_i$ -- enqueue time of request $i$
+- $s_i$ -- service-start time of request $i$
+- $u_i$ -- utilization at step $i$
+
 ## From Math To Code
 
 - Turn each request into a binary SLA violation indicator first.

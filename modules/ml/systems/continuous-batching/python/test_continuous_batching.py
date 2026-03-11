@@ -1,4 +1,5 @@
 from continuous_batching import continuous_batch_step
+import pytest
 
 
 def test_continuous_batch_step_removes_finished_and_admits_queue():
@@ -19,3 +20,10 @@ def test_continuous_batch_step_keeps_running_requests_when_queue_empty():
     )
     assert active == [1, 1]
     assert queue == []
+
+
+def test_continuous_batch_step_validates_inputs():
+    with pytest.raises(ValueError, match="positive"):
+        continuous_batch_step([1], [1], capacity=0)
+    with pytest.raises(ValueError, match="request lengths"):
+        continuous_batch_step([1], [0], capacity=2)

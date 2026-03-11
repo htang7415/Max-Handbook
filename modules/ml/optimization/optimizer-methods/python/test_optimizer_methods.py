@@ -37,3 +37,18 @@ def test_adaptive_optimizers_accumulate_state() -> None:
     assert m_a > 0.0 and v_a > 0.0
     assert m_w > 0.0 and v_w > 0.0
     assert weight_decay_term(1.0, 0.1, 0.1) == pytest.approx(0.01)
+
+
+def test_optimizer_methods_validate_hyperparameters() -> None:
+    with pytest.raises(ValueError, match="0 <= mu <= 1"):
+        momentum_velocity(1.0, 0.0, 1.5)
+    with pytest.raises(ValueError, match="non-negative"):
+        sgd_step(1.0, 1.0, -0.1)
+    with pytest.raises(ValueError, match="positive"):
+        adagrad_step(1.0, 1.0, 0.0, 0.1, 0.0)
+    with pytest.raises(ValueError, match="0 <= beta <= 1"):
+        rmsprop_step(1.0, 1.0, 0.0, 0.1, 1.2, 1e-8)
+    with pytest.raises(ValueError, match="beta1 and beta2"):
+        adam_step(1.0, 1.0, 0.0, 0.0, 0.1, -0.1, 0.999, 1e-8)
+    with pytest.raises(ValueError, match="non-negative"):
+        adamw_step(1.0, 1.0, 0.0, 0.0, 0.1, -0.1, 0.9, 0.999, 1e-8)

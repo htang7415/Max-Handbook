@@ -34,6 +34,8 @@ def update_weights(weights: list[float], errors: list[int], alpha: float) -> lis
         raise ValueError("weights and errors must have the same length")
     if any(weight < 0.0 for weight in weights):
         raise ValueError("weights must be non-negative")
+    if any(error not in (0, 1) for error in errors):
+        raise ValueError("errors must contain only 0 or 1")
     updated = [weight * math.exp(alpha * error) for weight, error in zip(weights, errors)]
     total = sum(updated)
     if total == 0.0:
@@ -74,8 +76,8 @@ def split_gain(
     lambda_reg: float,
     gamma: float,
 ) -> float:
-    if left_hess < 0.0 or right_hess < 0.0 or lambda_reg < 0.0:
-        raise ValueError("hessians and lambda_reg must be non-negative")
+    if left_hess < 0.0 or right_hess < 0.0 or lambda_reg < 0.0 or gamma < 0.0:
+        raise ValueError("hessians, lambda_reg, and gamma must be non-negative")
 
     parent_grad = left_grad + right_grad
     parent_hess = left_hess + right_hess

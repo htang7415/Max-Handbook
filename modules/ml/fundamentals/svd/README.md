@@ -16,8 +16,9 @@ $B = A^{\top}A$ with one Jacobi rotation, then set $U = A V \Sigma^{-1}$.
 - $U$ -- left singular vectors (orthonormal)
 - $\Sigma$ -- diagonal singular values (non-negative, sorted)
 - $V$ -- right singular vectors (orthonormal)
+- $V^\top$ -- transpose of the right singular-vector matrix returned by the implementation
 - $B$ -- $A^{\top}A$ (symmetric)
-- $A$ -- input matrix
+- $A$ -- input $2 \times 2$ matrix
 
 ## Function
 

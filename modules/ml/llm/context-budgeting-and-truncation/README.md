@@ -28,7 +28,10 @@ $$
 \mathrm{drop} = \max(0, T - B_{\text{prompt}})
 $$
 
-where `W` is the context window, `R` is reserved output tokens, and `T` is total prompt tokens.
+- $W$ -- context window
+- $R$ -- reserved output tokens
+- $T$ -- total prompt tokens before truncation
+- $B_{\text{prompt}}$ -- available prompt budget after reserving output space
 
 ## From Math To Code
 

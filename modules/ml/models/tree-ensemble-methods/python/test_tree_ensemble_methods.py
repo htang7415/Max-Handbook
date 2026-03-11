@@ -35,6 +35,8 @@ def test_update_weights_validates_inputs() -> None:
         update_weights([0.5], [1, 0], 0.7)
     with pytest.raises(ValueError, match="non-negative"):
         update_weights([-0.5, 1.5], [1, 0], 0.7)
+    with pytest.raises(ValueError, match="0 or 1"):
+        update_weights([0.5, 0.5], [2, 0], 0.7)
 
 
 def test_gradient_boosting_step_updates_predictions_and_residuals() -> None:
@@ -59,3 +61,8 @@ def test_split_gain_matches_formula() -> None:
         gamma=0.1,
     )
     assert value == pytest.approx(0.9833333333)
+
+
+def test_split_gain_validates_gamma() -> None:
+    with pytest.raises(ValueError, match="non-negative"):
+        split_gain(1.0, 1.0, 1.0, 1.0, lambda_reg=1.0, gamma=-0.1)
