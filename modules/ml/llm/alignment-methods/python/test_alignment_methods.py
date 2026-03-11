@@ -53,3 +53,16 @@ def test_kl_penalty_is_positive_for_mismatched_distributions() -> None:
 def test_anchored_loss_mixes_alignment_and_ptx_terms() -> None:
     loss = anchored_loss(1.0, 0.5, 0.2)
     assert abs(loss - 0.9) < 1.0e-6
+
+
+def test_alignment_validation_rejects_invalid_inputs() -> None:
+    with pytest.raises(ValueError, match="same length"):
+        sft_loss([[1.0, 0.0]], [0], [1, 0])
+    with pytest.raises(ValueError, match="within the logit row"):
+        sft_loss([[1.0, 0.0]], [2], [1])
+    with pytest.raises(ValueError, match="non-negative"):
+        dpo_logit(1.0, 0.0, beta=-0.1)
+    with pytest.raises(ValueError, match="same length"):
+        kl_penalty([0.5], [0.5, 0.5], beta=0.1)
+    with pytest.raises(ValueError, match="0 <= alpha <= 1"):
+        anchored_loss(1.0, 0.5, 1.5)

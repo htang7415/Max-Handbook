@@ -28,7 +28,15 @@ $$
 \mathrm{MHA}(Q,K,V) = \mathrm{Concat}(\mathrm{head}_1,\dots,\mathrm{head}_h)
 $$
 
+$$
+\mathrm{head}_i = \mathrm{Attention}(Q_i, K_i, V_i)
+$$
+
 Causal masking sets future attention scores to $-\infty$ before softmax.
+
+- $Q, K, V$ -- query, key, and value matrices
+- $d_k$ -- key dimension used for scaling
+- $h$ -- number of attention heads
 
 ## From Math To Code
 

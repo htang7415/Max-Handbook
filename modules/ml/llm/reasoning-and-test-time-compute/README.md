@@ -41,6 +41,14 @@ $$
 \sum_{k=\lfloor n/2 \rfloor + 1}^{n} \binom{n}{k} q^k (1-q)^{n-k}
 $$
 
+- $P$ -- prompt tokens
+- $R$ -- reasoning tokens
+- $A$ -- answer tokens
+- $n$ -- number of sampled traces
+- $q$ -- single-trace success probability
+
+These success formulas assume independent samples with the same success rate.
+
 ## From Math To Code
 
 - Count prompt, reasoning, and answer tokens for one trace first.

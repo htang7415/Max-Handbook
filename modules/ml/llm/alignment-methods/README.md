@@ -42,6 +42,11 @@ $$
 \mathcal{L} = (1-\alpha)\mathcal{L}_{\text{align}} + \alpha \mathcal{L}_{\text{ptx}}
 $$
 
+- $m_i$ -- binary mask saying whether token $i$ contributes to SFT loss
+- $s_{\text{chosen}}, s_{\text{rejected}}$ -- scalar scores for preferred and rejected outputs
+- $\beta$ -- DPO temperature / sharpness parameter
+- $\alpha$ -- mixing weight for the PTX anchor
+
 ## From Math To Code
 
 - SFT averages token-level negative log-likelihood over kept tokens.

@@ -94,18 +94,30 @@ def multi_head_attention(q: list[list[float]], k: list[list[float]], v: list[lis
 
 
 def softmax(x: np.ndarray, axis: int = -1) -> np.ndarray:
+    if x.size == 0:
+        raise ValueError("x must be non-empty")
     x_max = np.max(x, axis=axis, keepdims=True)
     exps = np.exp(x - x_max)
     return exps / np.sum(exps, axis=axis, keepdims=True)
 
 
 def causal_mask(seq_len: int) -> np.ndarray:
+    if seq_len <= 0:
+        raise ValueError("seq_len must be positive")
     mask = np.zeros((seq_len, seq_len))
     mask[np.triu_indices(seq_len, k=1)] = -np.inf
     return mask
 
 
 def causal_self_attention(Q: np.ndarray, K: np.ndarray, V: np.ndarray) -> np.ndarray:
+    if Q.ndim != 2 or K.ndim != 2 or V.ndim != 2:
+        raise ValueError("Q, K, and V must be rank-2 matrices")
+    if Q.shape != K.shape:
+        raise ValueError("Q and K must have the same shape")
+    if Q.shape[0] != V.shape[0]:
+        raise ValueError("Q, K, and V must have the same sequence length")
+    if Q.shape[1] == 0 or V.shape[1] == 0:
+        raise ValueError("Q, K, and V must have non-zero feature dimension")
     seq_len, d_k = Q.shape
     scores = Q @ K.T / np.sqrt(d_k)
     scores = scores + causal_mask(seq_len)
@@ -114,6 +126,10 @@ def causal_self_attention(Q: np.ndarray, K: np.ndarray, V: np.ndarray) -> np.nda
 
 
 def window_mask(seq_len: int, window: int) -> list[list[int]]:
+    if seq_len <= 0:
+        raise ValueError("seq_len must be positive")
+    if window < 0:
+        raise ValueError("window must be non-negative")
     mask = [[0 for _ in range(seq_len)] for _ in range(seq_len)]
     for i in range(seq_len):
         for j in range(seq_len):

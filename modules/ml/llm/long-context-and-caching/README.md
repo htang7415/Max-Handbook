@@ -40,6 +40,11 @@ $$
 \mathrm{HitRate} = \frac{C}{T}
 $$
 
+- $L$ -- active sequence length
+- $T$ -- total prompt tokens
+- $C$ -- cached prefix tokens, with $0 \le C \le T$
+- $r$ -- number of repeated requests sharing the same prefix
+
 ## From Math To Code
 
 - Start by estimating how sequence length changes attention work.

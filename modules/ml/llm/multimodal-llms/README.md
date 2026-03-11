@@ -34,6 +34,10 @@ $$
 X = [X_{\text{text}}; X_{\text{image}}; X_{\text{audio}}; X_{\text{video}}]
 $$
 
+- $T_{\text{text}}, T_{\text{image}}, T_{\text{audio}}, T_{\text{video}}$ -- token counts contributed by each modality
+- $W$ -- context window
+- $X$ -- fused embedding sequence after modality-specific encoders
+
 ## From Math To Code
 
 - Count each modality's token contribution first.

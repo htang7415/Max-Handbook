@@ -72,3 +72,12 @@ def test_causal_attention_no_future_leakage() -> None:
 
 def test_window_mask_marks_local_neighbors() -> None:
     assert window_mask(4, 1)[0] == [1, 1, 0, 0]
+
+
+def test_attention_validation_rejects_invalid_shapes() -> None:
+    with pytest.raises(ValueError, match="positive"):
+        causal_mask(0)
+    with pytest.raises(ValueError, match="same shape"):
+        causal_self_attention(np.ones((2, 2)), np.ones((3, 2)), np.ones((2, 2)))
+    with pytest.raises(ValueError, match="non-negative"):
+        window_mask(4, -1)
