@@ -25,6 +25,14 @@ Track transaction stages directly. `buy[t]` is the best balance after the `t`th 
 - `buy[t]` is the best balance after completing `t - 1` sells and then buying once more.
 - `sell[t]` is the best profit after completing exactly `t` sells.
 
+## Why This Works
+
+- The problem is a small state machine repeated `k` times: buy, sell, buy, sell.
+- `buy[t]` depends on `sell[t - 1]` because you can only start the `t`th transaction after finishing the previous one.
+- `sell[t]` depends on `buy[t]` because selling closes the position opened by that buy.
+- When `k >= n // 2`, the transaction limit can no longer bind: you could take every profitable upward move, so the problem reduces to the unlimited-transactions case.
+- That is why `O(k)` states are enough instead of a large 2D table over days and transaction counts.
+
 ## Walkthrough
 
 For `k = 2` and `[3, 2, 6, 5, 0, 3]`:

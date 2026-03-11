@@ -25,6 +25,13 @@ If a string is built from a repeating unit, then its longest proper prefix that 
 - `lps[i]` stores the longest proper prefix of `s[:i+1]` that is also a suffix.
 - If `lps[-1] = k`, then the candidate repeating block length is `n - k`.
 
+## Why This Works
+
+- If `s` is made by repeating some block of length `p`, then the whole string has a prefix-suffix overlap of length `n - p`.
+- So the final `lps` value exposes how much of the string matches itself after a shift.
+- If `k = lps[-1]`, then `n - k` is the shortest candidate period consistent with that overlap.
+- The extra divisibility check matters because overlap alone is not enough. The block must tile the full string exactly, so `n % (n - k) == 0`.
+
 ## Walkthrough
 
 For `"abab"`:

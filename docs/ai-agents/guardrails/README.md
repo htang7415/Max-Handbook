@@ -31,7 +31,9 @@ escalate = should_escalate(model_confidence=0.42, threshold=0.6, blocked=blocked
 
 - Prompt-injection handling for retrieved or tool-produced text: `prompt-injection-defense`
 - Human approval before risky side effects: `approval-gated-actions`
+- Expected-cost comparisons between allow / review / block: `decision-cost-matrices`
 - Narrow scopes and isolated execution: `least-privilege-and-sandboxing`
+- Explicit rule tables for allow / review / block behavior: `policy-decision-tables`
 - Policy decisions and escalation paths: `policy-and-escalation`
 - Weighted risk aggregation plus allow / review / block thresholds: `risk-scoring-and-thresholds`
 - Review queue packets and human handoff: `review-queue-handoff`
@@ -41,7 +43,9 @@ escalate = should_escalate(model_confidence=0.42, threshold=0.6, blocked=blocked
 - Start with `input-output-guardrails` when the main need is lightweight safety and validation.
 - Use `prompt-injection-defense` when the agent consumes retrieved pages, tool output, emails, or UI text that should be treated as untrusted data.
 - Use `approval-gated-actions` when the agent is about to send, buy, delete, publish, or otherwise cause an external side effect.
+- Use `decision-cost-matrices` when false allows, unnecessary reviews, and false blocks have different costs and the guardrail should choose the minimum-cost action.
 - Use `least-privilege-and-sandboxing` when the agent needs tools, files, or network access and you must keep permissions as narrow as possible.
+- Use `policy-decision-tables` when policy routing should come from explicit condition combinations rather than free-form checks scattered across prompts or code.
 - Use `policy-and-escalation` when the system needs a clear allow / review / block decision.
 - Use `risk-scoring-and-thresholds` when several risk signals should combine into one explicit score before the system decides allow, review, or block.
 - Use `review-queue-handoff` when risky requests need a structured packet for human review instead of a direct answer.

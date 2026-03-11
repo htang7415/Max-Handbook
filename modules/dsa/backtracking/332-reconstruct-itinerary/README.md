@@ -25,6 +25,13 @@ Sort destinations in reverse lexicographic order and build the route with Hierho
 - `graph[src]` stores the unused outgoing destinations from `src`.
 - `visit(airport)` consumes all outgoing edges from that airport before appending it to the route.
 
+## Why This Works
+
+- This is an Eulerian-path problem: each ticket is an edge, and every edge must be used exactly once.
+- Hierholzer's algorithm works by following edges until you get stuck, then adding that airport to the route on the way back out.
+- That postorder append is why the route is built in reverse: an airport belongs in the final answer only after all tickets leaving it have already been consumed.
+- Sorting destinations in reverse lets `pop()` take the lexicographically smallest remaining choice, so among all valid Eulerian routes, the reversed final route is the smallest lexicographic one.
+
 ## Walkthrough
 
 For tickets `JFK -> MUC -> LHR -> SFO -> SJC`:

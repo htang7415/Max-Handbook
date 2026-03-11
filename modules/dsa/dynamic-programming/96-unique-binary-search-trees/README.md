@@ -24,6 +24,14 @@ Let `dp[i]` be the number of unique BSTs using `i` nodes. For each possible root
 
 - `dp[i]` stores the number of BST structures possible with exactly `i` nodes.
 
+## Why This Works
+
+- Once you choose a root, all smaller values must go to the left subtree and all larger values must go to the right subtree.
+- So for a root position that leaves `left` nodes on one side and `right` nodes on the other, the number of valid trees is `dp[left] * dp[right]`.
+- The multiplication appears because every left-subtree shape can pair with every right-subtree shape independently.
+- Summing over all root choices gives the full count for `dp[i]`.
+- The empty-tree base case `dp[0] = 1` means “there is one way to have no subtree here,” which is exactly what lets edge roots contribute correctly.
+
 ## Walkthrough
 
 For `n = 3`:

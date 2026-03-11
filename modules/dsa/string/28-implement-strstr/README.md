@@ -25,6 +25,13 @@ KMP preprocesses `needle` so a mismatch can jump to the longest reusable prefix 
 - `lps[i]` stores the length of the longest proper prefix of `needle[:i+1]` that is also a suffix.
 - `needle_index` is how many characters of `needle` currently match the suffix of the scanned `haystack` prefix.
 
+## Why This Works
+
+- When a mismatch happens after matching some prefix of `needle`, you do not need to restart from zero if part of that matched block is also a suffix.
+- `lps[i]` tells you the longest prefix you can keep after failing at position `i`.
+- So KMP never throws away reusable prefix information. It shifts the pattern to the largest position that is still consistent with what was already matched.
+- That is why characters in `haystack` are not re-scanned from scratch, giving linear-time matching.
+
 ## Walkthrough
 
 For `haystack = "hello"` and `needle = "ll"`:

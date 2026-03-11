@@ -37,6 +37,7 @@ retry = should_retry(attempt=1, max_attempts=3, retryable=True)
 - Multimodal execution routing over text, image, audio, or video inputs: `multimodal-agent-loops`
 - Sequential stage-to-stage prompting with explicit outputs: `prompt-chaining`
 - Weighted route selection from explicit signals: `routing-scorecards`
+- Runtime route choice with entropy and ambiguity checks: `uncertainty-aware-routing`
 - Low-latency turn routing for voice and streaming sessions: `voice-and-realtime-agent-loops`
 - Explicit state transitions for multi-step runs: `state-machine-basics`
 - Parallel branches and join points in a workflow: `workflow-concurrency-basics`
@@ -51,6 +52,7 @@ retry = should_retry(attempt=1, max_attempts=3, retryable=True)
 - Use `multimodal-agent-loops` when the workflow must check required modalities, possibly call tools over them, and only then answer or escalate.
 - Use `prompt-chaining` when one stage should transform output for the next stage instead of handing the whole task to one prompt.
 - Use `routing-scorecards` when route choice should come from weighted task, tool, and latency signals instead of loose keyword heuristics.
+- Use `uncertainty-aware-routing` when a top route exists but the system still needs a quantitative check for ambiguity or low confidence before acting.
 - Use `voice-and-realtime-agent-loops` when the workflow must handle streaming input, interruptions, or realtime response budgets.
 - Use `state-machine-basics` when the workflow has a small fixed set of stages and transitions.
 - Use `workflow-concurrency-basics` when independent steps can run in parallel and later join.

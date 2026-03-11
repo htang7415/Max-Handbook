@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T06:51:02.622Z",
+  "generated_at": "2026-03-11T07:11:13.392Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -2150,6 +2150,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:ai-agents/evaluation/bucketed-calibration-diagnostics",
+      "type": "module",
+      "title": "Bucketed Calibration Diagnostics",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "bucketed-calibration-diagnostics",
+      "href": "/track/ai-agents/evaluation#bucketed-calibration-diagnostics",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "doc:ml/evaluation/calibration",
       "type": "doc",
       "title": "Calibration",
@@ -2328,6 +2340,18 @@
       "href": "/track/ml/computer-vision#computer-vision",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:ai-agents/evaluation/confidence-calibration",
+      "type": "module",
+      "title": "Confidence Calibration",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "confidence-calibration",
+      "href": "/track/ai-agents/evaluation#confidence-calibration",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ai-agents/tool-use/connectors-and-auth-scopes",
@@ -2604,6 +2628,18 @@
       "href": "/track/ml/systems#debug-overfit-underfit",
       "trackName": "Machine Learning",
       "topicName": "Systems"
+    },
+    {
+      "id": "module:ai-agents/guardrails/decision-cost-matrices",
+      "type": "module",
+      "title": "Decision Cost Matrices",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "decision-cost-matrices",
+      "href": "/track/ai-agents/guardrails#decision-cost-matrices",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
     },
     {
       "id": "module:ml/llm/decoding-methods",
@@ -4442,6 +4478,18 @@
       "topicName": "Data"
     },
     {
+      "id": "module:ai-agents/evaluation/paired-run-significance",
+      "type": "module",
+      "title": "Paired Run Significance",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "paired-run-significance",
+      "href": "/track/ai-agents/evaluation#paired-run-significance",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/representation/pairwise-ranking-loss",
       "type": "module",
       "title": "Pairwise Ranking Loss",
@@ -4558,6 +4606,18 @@
       "topic": "guardrails",
       "slug": "policy-and-escalation",
       "href": "/track/ai-agents/guardrails#policy-and-escalation",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
+    },
+    {
+      "id": "module:ai-agents/guardrails/policy-decision-tables",
+      "type": "module",
+      "title": "Policy Decision Tables",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "policy-decision-tables",
+      "href": "/track/ai-agents/guardrails#policy-decision-tables",
       "trackName": "AI Agents",
       "topicName": "Guardrails"
     },
@@ -5688,6 +5748,18 @@
       "href": "/track/ml/evaluation#uncertainty-intervals",
       "trackName": "Machine Learning",
       "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ai-agents/workflows/uncertainty-aware-routing",
+      "type": "module",
+      "title": "Uncertainty-Aware Routing",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "uncertainty-aware-routing",
+      "href": "/track/ai-agents/workflows#uncertainty-aware-routing",
+      "trackName": "AI Agents",
+      "topicName": "Workflows"
     },
     {
       "id": "module:dsa/binary-tree/unified-iterative-method-for-binary-trees",
