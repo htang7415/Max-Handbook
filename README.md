@@ -1,12 +1,12 @@
-# Code Lab Web
+# Max Handbook
 
-This repository powers the Code Lab website. The `web/` app renders the notes
+This repository powers the Max Handbook website. The `web/` app renders the notes
 in `docs/` and the labs in `modules/` into a browseable site.
 
 ## Website overview
 
 ```
-code-lab/
+max-handbook/
   docs/          # Concept notes (website-ready)
   modules/       # Concept labs — one idea + minimal code + tiny test
   web/           # Next.js website (TypeScript, Vercel-deployable)
@@ -39,7 +39,7 @@ From the repo root:
 ```bash
 cd web
 pnpm install
-pnpm --filter @codelab/site dev
+pnpm --filter @max-handbook/site dev
 ```
 
 For deployment details, see `web/README.md`.
@@ -50,8 +50,9 @@ The website picks up changes from `docs/` and `modules/`. If you add a new
 module, keep the folder naming and layout consistent so the content indexer can
 find it. See `CONTRIBUTING.md` for naming rules and conventions.
 
-## web
-https://code-lab-henna.vercel.app/
+## Site
+
+The site is deployed from the `web/` workspace on Vercel.
 
 ## License
 

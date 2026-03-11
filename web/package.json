@@ -1,9 +1,9 @@
 {
-  "name": "code-lab-web",
+  "name": "max-handbook-web",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter @codelab/site dev",
-    "build": "pnpm --filter @codelab/site build",
-    "index": "pnpm --filter @codelab/content-indexer index"
+    "dev": "pnpm --filter @max-handbook/site dev",
+    "build": "pnpm --filter @max-handbook/site build",
+    "index": "pnpm --filter @max-handbook/content-indexer index"
   }
 }

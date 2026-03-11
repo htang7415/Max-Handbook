@@ -1,10 +1,10 @@
 {
-  "name": "@codelab/site",
+  "name": "@max-handbook/site",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm --filter @codelab/content-indexer index && next build",
+    "build": "pnpm --filter @max-handbook/content-indexer index && next build",
     "start": "next start",
     "lint": "next lint"
   },

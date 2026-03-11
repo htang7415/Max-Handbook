@@ -1,6 +1,6 @@
-# Code Lab — Web
+# Max Handbook — Web
 
-A Next.js TypeScript website for browsing Code Lab modules and docs.
+A Next.js TypeScript website for browsing Max Handbook modules and docs.
 
 ## Structure
 
@@ -24,7 +24,7 @@ pnpm dev      # start Next.js dev server
 | Setting | Value |
 |---------|-------|
 | Root directory | `web` |
-| Build command | `pnpm --filter @codelab/site build` |
+| Build command | `pnpm --filter @max-handbook/site build` |
 | Install command | `pnpm install --frozen-lockfile` |
 | Output directory | `apps/site/.next` |
 

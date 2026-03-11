@@ -33,12 +33,12 @@ def test_orchestrator_workers_build_assignments_and_packets() -> None:
     assert worker_task_packet(
         "researcher",
         "scan repo for risky files",
-        {"repo": "code-lab"},
+        {"repo": "max-handbook"},
         max_steps=2,
     ) == {
         "worker": "researcher",
         "subtask": "scan repo for risky files",
-        "shared_context": {"repo": "code-lab"},
+        "shared_context": {"repo": "max-handbook"},
         "max_steps": 2,
     }
 

@@ -8,7 +8,7 @@ import type { ContentIndex } from "@/lib/content";
 import contentData from "@/content/content_index.json";
 
 export const metadata: Metadata = {
-  title: "Code Lab",
+  title: "Max Handbook",
   description:
     "A handbook-style learning platform for fundamentals and demos.",
 };
@@ -29,8 +29,8 @@ export default function RootLayout({
           <div className="site-header-inner">
             <div className="header-left">
               <Link href="/" className="header-logo">
-                <span className="header-logo-icon">CL</span>
-                <span>Code Lab</span>
+                <span className="header-logo-icon">MH</span>
+                <span>Max Handbook</span>
               </Link>
               <span className="header-tagline">
                 Knowledge &middot; Visuals &middot; Code

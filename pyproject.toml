@@ -1,5 +1,5 @@
 [project]
-name = "code-lab"
+name = "max-handbook"
 version = "0.1.0"
 description = "Coding review and practice for ML, DSA, AI agents, databases, and software engineering"
 requires-python = ">=3.10"

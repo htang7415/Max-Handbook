@@ -1,5 +1,5 @@
 {
-  "name": "@codelab/content-indexer",
+  "name": "@max-handbook/content-indexer",
   "version": "0.1.0",
   "private": true,
   "scripts": {

@@ -19,7 +19,7 @@ assignments = orchestrator_assignments(
     "audit repo and draft summary",
     {"researcher": "scan repo for risky files", "writer": "draft summary"},
 )
-packet = worker_task_packet("researcher", "scan repo for risky files", {"repo": "code-lab"})
+packet = worker_task_packet("researcher", "scan repo for risky files", {"repo": "max-handbook"})
 summary = orchestrator_summary([{"worker": "researcher", "status": "done", "result": "2 risky files"}])
 ```
 

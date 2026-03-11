@@ -1,7 +1,7 @@
-# Code Lab — AGENTS.md
+# Max Handbook — AGENTS.md
 
 ## What this repo is
-Code Lab is a learning-first repo with:
+Max Handbook is a learning-first repo with:
 - `docs/`  : concise concept notes (website-ready)
 - `modules/`: compact learning modules with code and focused tests
 - `web/`   : TypeScript Next.js site that renders repo content (Vercel deploy)
@@ -44,7 +44,7 @@ cargo test --manifest-path modules/<...>/rust/Cargo.toml
 ```bash
 cd web
 pnpm install
-pnpm --filter @codelab/site dev
+pnpm --filter @max-handbook/site dev
 ```
 
 ## Adding new content
