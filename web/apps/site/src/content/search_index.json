@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T07:14:53.918Z",
+  "generated_at": "2026-03-11T07:28:08.458Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -2006,6 +2006,18 @@
       "topicName": "Reinforcement Learning"
     },
     {
+      "id": "module:ai-agents/tool-use/bandit-style-exploration-exploitation",
+      "type": "module",
+      "title": "Bandit-Style Exploration Exploitation",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "bandit-style-exploration-exploitation",
+      "href": "/track/ai-agents/tool-use#bandit-style-exploration-exploitation",
+      "trackName": "AI Agents",
+      "topicName": "Tool Use"
+    },
+    {
       "id": "module:ml/mlops/batch-fill-rate",
       "type": "module",
       "title": "Batch Fill Rate",
@@ -2028,6 +2040,18 @@
       "href": "/track/ml/data#batch-iterator",
       "trackName": "Machine Learning",
       "topicName": "Data"
+    },
+    {
+      "id": "module:ai-agents/evaluation/bayesian-benchmark-updating",
+      "type": "module",
+      "title": "Bayesian Benchmark Updating",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "bayesian-benchmark-updating",
+      "href": "/track/ai-agents/evaluation#bayesian-benchmark-updating",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/fundamentals/beta-binomial",
@@ -2160,6 +2184,18 @@
       "href": "/track/ai-agents/evaluation#bucketed-calibration-diagnostics",
       "trackName": "AI Agents",
       "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ai-agents/planning/budgeted-multi-step-planning",
+      "type": "module",
+      "title": "Budgeted Multi-Step Planning",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "budgeted-multi-step-planning",
+      "href": "/track/ai-agents/planning#budgeted-multi-step-planning",
+      "trackName": "AI Agents",
+      "topicName": "Planning"
     },
     {
       "id": "doc:ml/evaluation/calibration",
@@ -2364,6 +2400,18 @@
       "href": "/track/ai-agents/tool-use#connectors-and-auth-scopes",
       "trackName": "AI Agents",
       "topicName": "Tool Use"
+    },
+    {
+      "id": "module:ai-agents/planning/constrained-optimization-for-budgeted-agent-policies",
+      "type": "module",
+      "title": "Constrained Optimization for Budgeted Agent Policies",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "constrained-optimization-for-budgeted-agent-policies",
+      "href": "/track/ai-agents/planning#constrained-optimization-for-budgeted-agent-policies",
+      "trackName": "AI Agents",
+      "topicName": "Planning"
     },
     {
       "id": "module:ml/llm/context-budgeting-and-truncation",
@@ -3002,6 +3050,18 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:ai-agents/tool-use/expected-value-tool-selection",
+      "type": "module",
+      "title": "Expected-Value Tool Selection",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "expected-value-tool-selection",
+      "href": "/track/ai-agents/tool-use#expected-value-tool-selection",
+      "trackName": "AI Agents",
+      "topicName": "Tool Use"
+    },
+    {
       "id": "module:ai-agents/evaluation/experiment-comparison",
       "type": "module",
       "title": "Experiment Comparison",
@@ -3336,6 +3396,18 @@
       "href": "/track/ml/fundamentals#hessian",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "module:ai-agents/evaluation/hierarchical-benchmark-aggregation",
+      "type": "module",
+      "title": "Hierarchical Benchmark Aggregation",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "hierarchical-benchmark-aggregation",
+      "href": "/track/ai-agents/evaluation#hierarchical-benchmark-aggregation",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/computer-vision/image-preprocessing",
@@ -4514,6 +4586,18 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:ai-agents/evaluation/pareto-front-benchmark-comparisons",
+      "type": "module",
+      "title": "Pareto-Front Benchmark Comparisons",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "pareto-front-benchmark-comparisons",
+      "href": "/track/ai-agents/evaluation#pareto-front-benchmark-comparisons",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/llm/pass-at-k",
       "type": "module",
       "title": "Pass@k",
@@ -4668,6 +4752,18 @@
       "href": "/track/ml/computer-vision#pooling",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:ai-agents/workflows/posterior-routing",
+      "type": "module",
+      "title": "Posterior Routing",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "posterior-routing",
+      "href": "/track/ai-agents/workflows#posterior-routing",
+      "trackName": "AI Agents",
+      "topicName": "Workflows"
     },
     {
       "id": "module:ml/evaluation/pr-auc",
@@ -5220,6 +5316,18 @@
       "href": "/track/ai-agents/prompting#self-check-patterns",
       "trackName": "AI Agents",
       "topicName": "Prompting"
+    },
+    {
+      "id": "module:ai-agents/evaluation/sequential-test-stopping",
+      "type": "module",
+      "title": "Sequential Test Stopping",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "sequential-test-stopping",
+      "href": "/track/ai-agents/evaluation#sequential-test-stopping",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/mlops/sequential-testing",

@@ -49,7 +49,16 @@
   --toc-width: 180px;
   --header-height: 52px;
   --content-max: 680px;
-  --shell-max: calc(var(--sidebar-width) + var(--content-max) + var(--toc-width) + 8rem);
+  --handbook-content-gap: 2.2rem;
+  --handbook-main-pad-inline: 2.4rem;
+  --handbook-main-pad-inline-total: 4.8rem;
+  --shell-max: calc(
+    var(--sidebar-width) +
+    var(--content-max) +
+    var(--toc-width) +
+    var(--handbook-content-gap) +
+    var(--handbook-main-pad-inline-total)
+  );
 }
 
 * {
@@ -360,8 +369,13 @@ code,
 .handbook-main {
   flex: 1;
   min-width: 0;
-  padding: 2.1rem 2.4rem 4rem;
-  max-width: calc(var(--content-max) + var(--toc-width) + 5rem);
+  padding: 2.1rem var(--handbook-main-pad-inline) 4rem;
+  max-width: calc(
+    var(--content-max) +
+    var(--toc-width) +
+    var(--handbook-content-gap) +
+    var(--handbook-main-pad-inline-total)
+  );
   animation: pageFade 520ms ease both;
   position: relative;
 }
@@ -370,7 +384,7 @@ code,
 .handbook-content-wrapper {
   display: grid;
   grid-template-columns: minmax(0, var(--content-max)) var(--toc-width);
-  gap: 2.2rem;
+  gap: var(--handbook-content-gap);
   position: relative;
 }
 
@@ -2460,11 +2474,13 @@ code,
   :root {
     --content-max: 640px;
     --toc-width: 210px;
+    --handbook-main-pad-inline: 3rem;
+    --handbook-main-pad-inline-total: 6rem;
   }
 
   .handbook-main {
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: var(--handbook-main-pad-inline);
+    padding-right: var(--handbook-main-pad-inline);
   }
 
   .handbook-content-wrapper::before {

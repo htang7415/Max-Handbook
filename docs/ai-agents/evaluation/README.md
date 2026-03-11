@@ -31,10 +31,14 @@ breakdown = failure_breakdown(["tool", "model", "tool"])
 ## Supporting Modules
 
 - Frozen suites, bucket counts, and baseline gates: `benchmark-harness-basics`
+- Running benchmark beliefs updated from prior plus new evidence: `bayesian-benchmark-updating`
+- Rollup from bucket scores to group and overall benchmark scores: `hierarchical-benchmark-aggregation`
 - Bucket-wise calibration tables and expected calibration error: `bucketed-calibration-diagnostics`
 - Confidence-vs-accuracy alignment across runs: `confidence-calibration`
 - Final-answer judge scores plus trace-aware grading: `judge-and-trace-grading`
+- Multi-metric frontier detection across variants: `pareto-front-benchmark-comparisons`
 - Paired-case significance checks for variant comparisons: `paired-run-significance`
+- Sequential likelihood-ratio stopping rules: `sequential-test-stopping`
 - Approximate sample sizing and detectable effect estimates: `sample-size-and-power`
 - Success scores penalized by risky failures: `risk-adjusted-benchmark-summaries`
 - Security-focused attack suites and release gates: `security-and-red-team-evals`
@@ -48,10 +52,14 @@ breakdown = failure_breakdown(["tool", "model", "tool"])
 
 - Start with `agent-evaluation-basics` before adding judge-based or benchmark-heavy evaluation.
 - Use `benchmark-harness-basics` when you need a fixed task suite with bucket labels and a frozen baseline before comparing variants.
+- Use `bayesian-benchmark-updating` when benchmark evidence arrives in batches and you want an explicit posterior belief instead of only raw running averages.
+- Use `hierarchical-benchmark-aggregation` when benchmark results are naturally grouped and you need explicit bucket, group, and overall rollups.
 - Use `bucketed-calibration-diagnostics` when a single global calibration gap is too coarse and you need to see where confidence is misaligned by band.
 - Use `confidence-calibration` when the agent emits confidence scores and you need to know whether those scores match observed correctness.
 - Use `judge-and-trace-grading` when references are weak and you need final-answer judging plus step-trace evidence before accepting a run.
+- Use `pareto-front-benchmark-comparisons` when multiple variants trade off success, cost, latency, or safety and you need the non-dominated shortlist.
 - Use `paired-run-significance` when two variants were run on the same cases and you want to separate real disagreement from noise.
+- Use `sequential-test-stopping` when benchmark evidence arrives incrementally and you want a principled early-stop rule instead of a fixed sample only.
 - Use `sample-size-and-power` when you need to estimate how many eval cases are required before a target effect is realistically detectable.
 - Use `risk-adjusted-benchmark-summaries` when raw success rates hide too much safety or high-risk failure cost.
 - Use `security-and-red-team-evals` when the main benchmark question is whether prompt injection, exfiltration, privilege escalation, or unsafe-action cases are blocked reliably enough to ship.

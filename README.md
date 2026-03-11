@@ -50,6 +50,9 @@ The website picks up changes from `docs/` and `modules/`. If you add a new
 module, keep the folder naming and layout consistent so the content indexer can
 find it. See `CONTRIBUTING.md` for naming rules and conventions.
 
+## web
+https://code-lab-henna.vercel.app/
+
 ## License
 
 [MIT](LICENSE)

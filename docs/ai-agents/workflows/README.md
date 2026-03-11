@@ -36,6 +36,7 @@ retry = should_retry(attempt=1, max_attempts=3, retryable=True)
 - Explicit latency budgets across multi-step runs: `latency-budget-accounting`
 - Multimodal execution routing over text, image, audio, or video inputs: `multimodal-agent-loops`
 - Sequential stage-to-stage prompting with explicit outputs: `prompt-chaining`
+- Bayesian route ranking from observed success/failure evidence: `posterior-routing`
 - Weighted route selection from explicit signals: `routing-scorecards`
 - Runtime route choice with entropy and ambiguity checks: `uncertainty-aware-routing`
 - Low-latency turn routing for voice and streaming sessions: `voice-and-realtime-agent-loops`
@@ -51,6 +52,7 @@ retry = should_retry(attempt=1, max_attempts=3, retryable=True)
 - Use `latency-budget-accounting` when response time needs an explicit total budget, per-step split, and overrun route.
 - Use `multimodal-agent-loops` when the workflow must check required modalities, possibly call tools over them, and only then answer or escalate.
 - Use `prompt-chaining` when one stage should transform output for the next stage instead of handing the whole task to one prompt.
+- Use `posterior-routing` when repeated route outcomes should update route choice from observed evidence rather than fixed priors alone.
 - Use `routing-scorecards` when route choice should come from weighted task, tool, and latency signals instead of loose keyword heuristics.
 - Use `uncertainty-aware-routing` when a top route exists but the system still needs a quantitative check for ambiguity or low confidence before acting.
 - Use `voice-and-realtime-agent-loops` when the workflow must handle streaming input, interruptions, or realtime response budgets.
