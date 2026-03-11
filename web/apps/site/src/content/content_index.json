@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T16:23:14.692Z",
+  "generated_at": "2026-03-11T16:38:12.699Z",
   "tracks": [
     {
       "id": "dsa",
@@ -35,7 +35,7 @@
       "accent": "#17becf",
       "accentVar": "--track-databases",
       "topicCount": 10,
-      "moduleCount": 41
+      "moduleCount": 51
     },
     {
       "id": "software-engineering",
@@ -44,7 +44,7 @@
       "accent": "#d62728",
       "accentVar": "--track-se",
       "topicCount": 14,
-      "moduleCount": 10
+      "moduleCount": 35
     }
   ],
   "topics": [
@@ -55,7 +55,7 @@
       "path": "/track/software-engineering/apis",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 4
+      "moduleCount": 6
     },
     {
       "track": "dsa",
@@ -91,7 +91,7 @@
       "path": "/track/databases/caching",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 4
     },
     {
       "track": "ml",
@@ -109,7 +109,7 @@
       "path": "/track/software-engineering/concurrency",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 6
     },
     {
       "track": "ml",
@@ -235,7 +235,7 @@
       "path": "/track/databases/indexing",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 4
+      "moduleCount": 6
     },
     {
       "track": "dsa",
@@ -316,7 +316,7 @@
       "path": "/track/software-engineering/observability",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 3
     },
     {
       "track": "ai-agents",
@@ -388,7 +388,7 @@
       "path": "/track/software-engineering/performance",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 1
     },
     {
       "track": "ai-agents",
@@ -460,7 +460,7 @@
       "path": "/track/databases/relational",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 4
     },
     {
       "track": "software-engineering",
@@ -469,7 +469,7 @@
       "path": "/track/software-engineering/reliability",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 2
     },
     {
       "track": "ml",
@@ -505,7 +505,7 @@
       "path": "/track/databases/schema-design",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 6
+      "moduleCount": 7
     },
     {
       "track": "software-engineering",
@@ -514,7 +514,7 @@
       "path": "/track/software-engineering/security-basics",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 5
     },
     {
       "track": "databases",
@@ -541,7 +541,7 @@
       "path": "/track/databases/streaming",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 5
+      "moduleCount": 7
     },
     {
       "track": "dsa",
@@ -559,7 +559,7 @@
       "path": "/track/software-engineering/system-design",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 1
     },
     {
       "track": "ml",
@@ -577,7 +577,7 @@
       "path": "/track/software-engineering/testing",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 6
     },
     {
       "track": "ai-agents",
@@ -595,7 +595,7 @@
       "path": "/track/software-engineering/tooling",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 5
     },
     {
       "track": "databases",
@@ -604,7 +604,7 @@
       "path": "/track/databases/transactions",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 4
+      "moduleCount": 5
     },
     {
       "track": "software-engineering",
@@ -622,7 +622,7 @@
       "path": "/track/databases/vector-db",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 4
+      "moduleCount": 6
     },
     {
       "track": "ai-agents",
@@ -1998,6 +1998,22 @@
     {
       "track": "databases",
       "topic": "caching",
+      "slug": "hot-key-and-rate-limit-protection",
+      "title": "Hot-Key And Rate-Limit Protection",
+      "path": "modules/databases/caching/hot-key-and-rate-limit-protection",
+      "summary": "> Track: `databases` | Topic: `caching`",
+      "readme": "# Hot-Key And Rate-Limit Protection\n\n> Track: `databases` | Topic: `caching`\n\n## Concept\n\nHot keys create thundering herds. Once many clients pile onto the same key, a small rate limiter or guardrail can stop that key from overwhelming the origin.\n\n## Key Points\n\n- A hot key is a cache key that attracts far more requests than its neighbors.\n- Detecting hot keys is just counting, but protecting the origin requires a rolling-window policy.\n- Rate limits are usually scoped by caller and key so one noisy client cannot stampede the backend.\n- Protection should reset as the window moves forward instead of permanently blocking the key.\n\n## Minimal Code Mental Model\n\n```python\nrequests = [\"workspace:7:doc:42\", \"workspace:7:doc:42\", \"workspace:7:doc:42\"]\nstate = {}\nis_hot = hot_keys(requests, threshold=3)\nallowed = allow_request(\n    state,\n    actor_id=\"user-1\",\n    key=\"workspace:7:doc:42\",\n    now=10,\n    max_requests=2,\n    window_seconds=30,\n)\n```\n\n## Function\n\n```python\ndef hot_keys(requests: list[str], threshold: int) -> list[str]:\ndef allow_request(\n    state: dict[tuple[str, str], list[int]],\n    actor_id: str,\n    key: str,\n    now: int,\n    max_requests: int,\n    window_seconds: int,\n) -> bool:\ndef protected_origin_requests(\n    requests: list[dict[str, object]],\n    hot_threshold: int,\n    max_requests: int,\n    window_seconds: int,\n) -> list[bool]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/caching/hot-key-and-rate-limit-protection/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/caching/hot-key-and-rate-limit-protection/python/hot_key_and_rate_limit_protection.py",
+          "language": "python",
+          "content": "\"\"\"hot_key_and_rate_limit_protection - detect hot keys and throttle origin load.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef hot_keys(requests: list[str], threshold: int) -> list[str]:\n    counts: dict[str, int] = {}\n    for key in requests:\n        counts[key] = counts.get(key, 0) + 1\n    return sorted(key for key, count in counts.items() if count >= threshold)\n\n\ndef allow_request(\n    state: dict[tuple[str, str], list[int]],\n    actor_id: str,\n    key: str,\n    now: int,\n    max_requests: int,\n    window_seconds: int,\n) -> bool:\n    bucket = (actor_id, key)\n    recent = [timestamp for timestamp in state.get(bucket, []) if now - timestamp < window_seconds]\n    if len(recent) >= max_requests:\n        state[bucket] = recent\n        return False\n    recent.append(now)\n    state[bucket] = recent\n    return True\n\n\ndef protected_origin_requests(\n    requests: list[dict[str, object]],\n    hot_threshold: int,\n    max_requests: int,\n    window_seconds: int,\n) -> list[bool]:\n    counts: dict[str, int] = {}\n    state: dict[tuple[str, str], list[int]] = {}\n    allowed: list[bool] = []\n\n    for request in requests:\n        actor_id = str(request[\"actor_id\"])\n        key = str(request[\"key\"])\n        now = int(request[\"now\"])\n        counts[key] = counts.get(key, 0) + 1\n\n        if counts[key] < hot_threshold:\n            allowed.append(True)\n            continue\n\n        allowed.append(\n            allow_request(\n                state,\n                actor_id=actor_id,\n                key=key,\n                now=now,\n                max_requests=max_requests,\n                window_seconds=window_seconds,\n            )\n        )\n    return allowed\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "caching",
       "slug": "semantic-caching-basics",
       "title": "Semantic Caching Basics",
       "path": "modules/databases/caching/semantic-caching-basics",
@@ -2062,6 +2078,22 @@
     {
       "track": "databases",
       "topic": "indexing",
+      "slug": "covering-index-concepts",
+      "title": "Covering Index Concepts",
+      "path": "modules/databases/indexing/covering-index-concepts",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "readme": "# Covering Index Concepts\n\n> Track: `databases` | Topic: `indexing`\n\n## Concept\n\nA covering index contains every column the query needs, so the database can answer the query from the index alone without looking up the base table rows.\n\n## Key Points\n\n- A non-covering index can still help filtering and ordering, but it may need extra table lookups to fetch selected columns.\n- Adding projected columns to the index can make the same query index-only.\n- Covering indexes trade more storage for less read work on hot paths.\n- `EXPLAIN QUERY PLAN` often exposes this with `USING COVERING INDEX`.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_documents_table(conn)\nseed_documents(conn, rows)\nadd_non_covering_index(conn)\nnoncover = plan_summary(query_plan(conn, workspace_id=7))\nadd_covering_index(conn)\ncover = plan_summary(query_plan(conn, workspace_id=7))\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_documents_table(conn: sqlite3.Connection) -> None:\ndef seed_documents(\n    conn: sqlite3.Connection,\n    rows: list[tuple[int, str, str]],\n) -> None:\ndef add_non_covering_index(conn: sqlite3.Connection) -> None:\ndef add_covering_index(conn: sqlite3.Connection) -> None:\ndef query_plan(conn: sqlite3.Connection, workspace_id: int) -> list[str]:\ndef plan_summary(plan_details: list[str]) -> dict[str, bool]:\ndef query_rows(conn: sqlite3.Connection, workspace_id: int) -> list[tuple[str, str]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/indexing/covering-index-concepts/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/indexing/covering-index-concepts/python/covering_index_concepts.py",
+          "language": "python",
+          "content": "\"\"\"covering_index_concepts - compare index-assisted and index-only reads.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_documents_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE documents (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            title TEXT NOT NULL,\n            created_at TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef seed_documents(\n    conn: sqlite3.Connection,\n    rows: list[tuple[int, str, str]],\n) -> None:\n    conn.executemany(\n        \"\"\"\n        INSERT INTO documents (workspace_id, title, created_at)\n        VALUES (?, ?, ?)\n        \"\"\",\n        rows,\n    )\n\n\ndef add_non_covering_index(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE INDEX idx_documents_workspace_created\n        ON documents (workspace_id, created_at DESC)\n        \"\"\"\n    )\n\n\ndef add_covering_index(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE INDEX idx_documents_workspace_created_title\n        ON documents (workspace_id, created_at DESC, title)\n        \"\"\"\n    )\n\n\ndef query_plan(conn: sqlite3.Connection, workspace_id: int) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        EXPLAIN QUERY PLAN\n        SELECT title, created_at\n        FROM documents\n        WHERE workspace_id = ?\n        ORDER BY created_at DESC\n        \"\"\",\n        (workspace_id,),\n    ).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef plan_summary(plan_details: list[str]) -> dict[str, bool]:\n    joined = \" | \".join(plan_details)\n    return {\n        \"uses_index\": \"USING INDEX\" in joined or \"USING COVERING INDEX\" in joined,\n        \"uses_covering_index\": \"USING COVERING INDEX\" in joined,\n        \"temp_sort\": \"USE TEMP B-TREE FOR ORDER BY\" in joined,\n    }\n\n\ndef query_rows(conn: sqlite3.Connection, workspace_id: int) -> list[tuple[str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT title, created_at\n        FROM documents\n        WHERE workspace_id = ?\n        ORDER BY created_at DESC\n        \"\"\",\n        (workspace_id,),\n    ).fetchall()\n    return [(title, created_at) for title, created_at in rows]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "indexing",
       "slug": "jsonb-and-gin-indexing",
       "title": "JSONB And GIN Indexing",
       "path": "modules/databases/indexing/jsonb-and-gin-indexing",
@@ -2088,6 +2120,22 @@
           "path": "modules/databases/indexing/partial-indexes/python/partial_indexes.py",
           "language": "python",
           "content": "\"\"\"partial_indexes - narrow indexes for hot subsets of a table.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_eval_runs_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE eval_runs (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            status TEXT NOT NULL,\n            created_at TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef seed_eval_runs(conn: sqlite3.Connection, rows: list[tuple[int, str, str]]) -> None:\n    conn.executemany(\n        \"\"\"\n        INSERT INTO eval_runs (workspace_id, status, created_at)\n        VALUES (?, ?, ?)\n        \"\"\",\n        rows,\n    )\n\n\ndef add_failed_runs_partial_index(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE INDEX idx_eval_runs_failed_recent\n        ON eval_runs (workspace_id, created_at DESC)\n        WHERE status = 'failed'\n        \"\"\"\n    )\n\n\ndef plan_for_recent_failed_runs(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    limit: int = 2,\n) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        EXPLAIN QUERY PLAN\n        SELECT id, created_at\n        FROM eval_runs\n        WHERE workspace_id = ?\n          AND status = 'failed'\n        ORDER BY created_at DESC\n        LIMIT ?\n        \"\"\",\n        (workspace_id, limit),\n    ).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef plan_for_recent_completed_runs(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    limit: int = 2,\n) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        EXPLAIN QUERY PLAN\n        SELECT id, created_at\n        FROM eval_runs\n        WHERE workspace_id = ?\n          AND status = 'completed'\n        ORDER BY created_at DESC\n        LIMIT ?\n        \"\"\",\n        (workspace_id, limit),\n    ).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef plan_flags(plan_details: list[str]) -> dict[str, bool]:\n    joined = \" | \".join(plan_details)\n    return {\n        \"full_scan\": \"SCAN eval_runs\" in joined,\n        \"uses_partial_index\": \"idx_eval_runs_failed_recent\" in joined,\n        \"temp_sort\": \"USE TEMP B-TREE FOR ORDER BY\" in joined,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "partition-pruning-basics",
+      "title": "Partition Pruning Basics",
+      "path": "modules/databases/indexing/partition-pruning-basics",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "readme": "# Partition Pruning Basics\n\n> Track: `databases` | Topic: `indexing`\n\n## Concept\n\nPartition pruning skips entire physical partitions when the query predicate proves they cannot contain matching rows.\n\n## Key Points\n\n- Partitioning only helps when queries include the partition key or a range that can be mapped onto partitions.\n- A monthly date partition is useful when most reads ask for recent windows.\n- Pruning reduces the number of partitions touched before row-level filters run.\n- Bad partition choices still leave the engine scanning many irrelevant partitions.\n\n## Minimal Code Mental Model\n\n```python\npartitions = build_monthly_partitions(\n    [\n        {\"id\": \"e1\", \"workspace_id\": 7, \"event_date\": \"2026-01-28\"},\n        {\"id\": \"e2\", \"workspace_id\": 7, \"event_date\": \"2026-03-04\"},\n    ]\n)\nscanned, matches = query_partitioned_rows(\n    partitions,\n    workspace_id=7,\n    start_date=\"2026-03-01\",\n    end_date=\"2026-03-31\",\n)\n```\n\n## Function\n\n```python\ndef month_key(date_text: str) -> str:\ndef build_monthly_partitions(\n    rows: list[dict[str, object]],\n) -> dict[str, list[dict[str, object]]]:\ndef pruned_partition_keys(\n    partitions: dict[str, list[dict[str, object]]],\n    start_date: str,\n    end_date: str,\n) -> list[str]:\ndef query_partitioned_rows(\n    partitions: dict[str, list[dict[str, object]]],\n    workspace_id: int,\n    start_date: str,\n    end_date: str,\n) -> tuple[list[str], list[str]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/indexing/partition-pruning-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/indexing/partition-pruning-basics/python/partition_pruning_basics.py",
+          "language": "python",
+          "content": "\"\"\"partition_pruning_basics - monthly partitions plus simple pruning logic.\"\"\"\n\nfrom __future__ import annotations\n\nfrom datetime import date\n\n\ndef month_key(date_text: str) -> str:\n    value = date.fromisoformat(date_text)\n    return f\"{value.year:04d}-{value.month:02d}\"\n\n\ndef build_monthly_partitions(\n    rows: list[dict[str, object]],\n) -> dict[str, list[dict[str, object]]]:\n    partitions: dict[str, list[dict[str, object]]] = {}\n    for row in rows:\n        key = month_key(str(row[\"event_date\"]))\n        partitions.setdefault(key, []).append(row)\n    return partitions\n\n\ndef pruned_partition_keys(\n    partitions: dict[str, list[dict[str, object]]],\n    start_date: str,\n    end_date: str,\n) -> list[str]:\n    raw_start = date.fromisoformat(start_date)\n    raw_end = date.fromisoformat(end_date)\n    if raw_end < raw_start:\n        raise ValueError(\"end_date must be on or after start_date\")\n    start = raw_start.replace(day=1)\n    end = raw_end.replace(day=1)\n\n    keys: list[str] = []\n    current = start\n    while current <= end:\n        key = f\"{current.year:04d}-{current.month:02d}\"\n        if key in partitions:\n            keys.append(key)\n        if current.month == 12:\n            current = date(current.year + 1, 1, 1)\n        else:\n            current = date(current.year, current.month + 1, 1)\n    return keys\n\n\ndef query_partitioned_rows(\n    partitions: dict[str, list[dict[str, object]]],\n    workspace_id: int,\n    start_date: str,\n    end_date: str,\n) -> tuple[list[str], list[str]]:\n    start = date.fromisoformat(start_date)\n    end = date.fromisoformat(end_date)\n    scanned = pruned_partition_keys(partitions, start_date, end_date)\n    matches: list[str] = []\n    for key in scanned:\n        for row in partitions[key]:\n            row_date = date.fromisoformat(str(row[\"event_date\"]))\n            if int(row[\"workspace_id\"]) != workspace_id:\n                continue\n            if start <= row_date <= end:\n                matches.append(str(row[\"id\"]))\n    return scanned, matches\n"
         }
       ]
     },
@@ -2254,6 +2302,22 @@
     {
       "track": "databases",
       "topic": "relational",
+      "slug": "jsonb-inside-relational-systems",
+      "title": "JSONB Inside Relational Systems",
+      "path": "modules/databases/relational/jsonb-inside-relational-systems",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "readme": "# JSONB Inside Relational Systems\n\n> Track: `databases` | Topic: `relational`\n\n## Concept\n\nKeep source-of-truth columns relational, then attach flexible JSON-like metadata for the fields that change faster than the main schema.\n\n## Key Points\n\n- Stable identity, tenancy, and status columns should stay as normal relational fields.\n- Flexible metadata is useful, but filtering should usually go through extracted index terms instead of raw JSON blobs.\n- A mixed design keeps joins, constraints, and audits simple while still allowing product-specific attributes.\n- Metadata updates need to refresh the extracted terms or indexed queries drift out of sync.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_ticket_schema(conn)\nticket_id = insert_ticket(\n    conn,\n    workspace_id=7,\n    status=\"open\",\n    title=\"Broken retrieval\",\n    metadata={\"priority\": \"high\", \"tags\": [\"rag\", \"prod\"]},\n)\nmatches = filter_ticket_ids(\n    conn,\n    workspace_id=7,\n    status=\"open\",\n    required_terms=[\"priority=high\", \"tag=rag\"],\n)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_ticket_schema(conn: sqlite3.Connection) -> None:\ndef insert_ticket(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    status: str,\n    title: str,\n    metadata: dict[str, object],\n) -> int:\ndef update_ticket_metadata(\n    conn: sqlite3.Connection,\n    ticket_id: int,\n    metadata: dict[str, object],\n) -> None:\ndef filter_ticket_ids(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    status: str | None = None,\n    required_terms: list[str] | None = None,\n) -> list[int]:\ndef ticket_metadata(conn: sqlite3.Connection, ticket_id: int) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/relational/jsonb-inside-relational-systems/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/relational/jsonb-inside-relational-systems/python/jsonb_inside_relational_systems.py",
+          "language": "python",
+          "content": "\"\"\"jsonb_inside_relational_systems - relational rows with indexed JSON-like metadata.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_ticket_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE tickets (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            status TEXT NOT NULL,\n            title TEXT NOT NULL,\n            metadata_json TEXT NOT NULL\n        );\n\n        CREATE TABLE ticket_metadata_terms (\n            ticket_id INTEGER NOT NULL,\n            term TEXT NOT NULL,\n            PRIMARY KEY (ticket_id, term),\n            FOREIGN KEY (ticket_id) REFERENCES tickets (id) ON DELETE CASCADE\n        );\n\n        CREATE INDEX idx_ticket_metadata_terms_term\n        ON ticket_metadata_terms (term);\n        \"\"\"\n    )\n\n\ndef metadata_terms(metadata: dict[str, object]) -> set[str]:\n    terms: set[str] = set()\n    for key, value in metadata.items():\n        if isinstance(value, list):\n            singular = key[:-1] if key.endswith(\"s\") else key\n            for item in value:\n                terms.add(f\"{singular}={item}\")\n        else:\n            terms.add(f\"{key}={value}\")\n    return terms\n\n\ndef insert_ticket(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    status: str,\n    title: str,\n    metadata: dict[str, object],\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO tickets (workspace_id, status, title, metadata_json)\n        VALUES (?, ?, ?, ?)\n        \"\"\",\n        (workspace_id, status, title, json.dumps(metadata, sort_keys=True)),\n    )\n    ticket_id = int(cursor.lastrowid)\n    _replace_metadata_terms(conn, ticket_id, metadata)\n    return ticket_id\n\n\ndef update_ticket_metadata(\n    conn: sqlite3.Connection,\n    ticket_id: int,\n    metadata: dict[str, object],\n) -> None:\n    conn.execute(\n        \"\"\"\n        UPDATE tickets\n        SET metadata_json = ?\n        WHERE id = ?\n        \"\"\",\n        (json.dumps(metadata, sort_keys=True), ticket_id),\n    )\n    _replace_metadata_terms(conn, ticket_id, metadata)\n\n\ndef filter_ticket_ids(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    status: str | None = None,\n    required_terms: list[str] | None = None,\n) -> list[int]:\n    terms = required_terms or []\n    if not terms:\n        if status is None:\n            rows = conn.execute(\n                \"\"\"\n                SELECT id\n                FROM tickets\n                WHERE workspace_id = ?\n                ORDER BY id\n                \"\"\",\n                (workspace_id,),\n            ).fetchall()\n        else:\n            rows = conn.execute(\n                \"\"\"\n                SELECT id\n                FROM tickets\n                WHERE workspace_id = ? AND status = ?\n                ORDER BY id\n                \"\"\",\n                (workspace_id, status),\n            ).fetchall()\n        return [int(ticket_id) for (ticket_id,) in rows]\n\n    placeholders = \", \".join(\"?\" for _ in terms)\n    params: list[object] = [workspace_id]\n    query = [\n        \"\"\"\n        SELECT t.id\n        FROM tickets AS t\n        JOIN ticket_metadata_terms AS m\n          ON m.ticket_id = t.id\n        WHERE t.workspace_id = ?\n        \"\"\".strip()\n    ]\n    if status is not None:\n        query.append(\"AND t.status = ?\")\n        params.append(status)\n    query.append(f\"AND m.term IN ({placeholders})\")\n    params.extend(terms)\n    query.append(\"GROUP BY t.id\")\n    query.append(\"HAVING COUNT(DISTINCT m.term) = ?\")\n    query.append(\"ORDER BY t.id\")\n    params.append(len(set(terms)))\n    rows = conn.execute(\"\\n\".join(query), params).fetchall()\n    return [int(ticket_id) for (ticket_id,) in rows]\n\n\ndef ticket_metadata(conn: sqlite3.Connection, ticket_id: int) -> dict[str, object]:\n    row = conn.execute(\n        \"\"\"\n        SELECT metadata_json\n        FROM tickets\n        WHERE id = ?\n        \"\"\",\n        (ticket_id,),\n    ).fetchone()\n    if row is None:\n        raise KeyError(ticket_id)\n    return json.loads(str(row[0]))\n\n\ndef _replace_metadata_terms(\n    conn: sqlite3.Connection,\n    ticket_id: int,\n    metadata: dict[str, object],\n) -> None:\n    conn.execute(\n        \"\"\"\n        DELETE FROM ticket_metadata_terms\n        WHERE ticket_id = ?\n        \"\"\",\n        (ticket_id,),\n    )\n    conn.executemany(\n        \"\"\"\n        INSERT INTO ticket_metadata_terms (ticket_id, term)\n        VALUES (?, ?)\n        \"\"\",\n        [(ticket_id, term) for term in sorted(metadata_terms(metadata))],\n    )\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "relational",
       "slug": "tables-and-keys",
       "title": "Tables And Keys",
       "path": "modules/databases/relational/tables-and-keys",
@@ -2350,6 +2414,22 @@
     {
       "track": "databases",
       "topic": "schema-design",
+      "slug": "normalization-vs-denormalization",
+      "title": "Normalization Vs Denormalization",
+      "path": "modules/databases/schema-design/normalization-vs-denormalization",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "readme": "# Normalization Vs Denormalization\n\n> Track: `databases` | Topic: `schema-design`\n\n## Concept\n\nNormalization keeps shared facts in one place, while denormalization duplicates some of those facts to speed up specific read paths.\n\n## Key Points\n\n- A normalized design reduces duplicate data and update fanout.\n- A denormalized design can answer hot reads without joins.\n- Denormalization shifts complexity from reads to writes because copied fields must stay in sync.\n- Good systems often normalize the source of truth first, then add targeted denormalized read models later.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_normalization_demo_schema(conn)\ncustomer_id = insert_customer(conn, \"Acme\")\ninsert_order_rows(conn, customer_id, [\"A-1\", \"A-2\"])\nrename_customer(conn, customer_id, \"Acme Labs\")\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_normalization_demo_schema(conn: sqlite3.Connection) -> None:\ndef insert_customer(conn: sqlite3.Connection, name: str) -> int:\ndef insert_order_rows(\n    conn: sqlite3.Connection,\n    customer_id: int,\n    order_codes: list[str],\n) -> None:\ndef normalized_order_feed(conn: sqlite3.Connection) -> list[tuple[str, str]]:\ndef denormalized_order_feed(conn: sqlite3.Connection) -> list[tuple[str, str]]:\ndef rename_customer(conn: sqlite3.Connection, customer_id: int, new_name: str) -> tuple[int, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/schema-design/normalization-vs-denormalization/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/schema-design/normalization-vs-denormalization/python/normalization_vs_denormalization.py",
+          "language": "python",
+          "content": "\"\"\"normalization_vs_denormalization - compare source-of-truth joins to copied read rows.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.execute(\"PRAGMA foreign_keys = ON\")\n    return conn\n\n\ndef create_normalization_demo_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE customers (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            name TEXT NOT NULL\n        );\n\n        CREATE TABLE orders_normalized (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            customer_id INTEGER NOT NULL,\n            order_code TEXT NOT NULL UNIQUE,\n            FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE\n        );\n\n        CREATE TABLE orders_denormalized (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            customer_id INTEGER NOT NULL,\n            customer_name TEXT NOT NULL,\n            order_code TEXT NOT NULL UNIQUE\n        );\n        \"\"\"\n    )\n\n\ndef insert_customer(conn: sqlite3.Connection, name: str) -> int:\n    cursor = conn.execute(\"INSERT INTO customers (name) VALUES (?)\", (name,))\n    return int(cursor.lastrowid)\n\n\ndef insert_order_rows(\n    conn: sqlite3.Connection,\n    customer_id: int,\n    order_codes: list[str],\n) -> None:\n    row = conn.execute(\n        \"SELECT name FROM customers WHERE id = ?\",\n        (customer_id,),\n    ).fetchone()\n    if row is None:\n        raise ValueError(f\"missing customer {customer_id}\")\n    customer_name = row[0]\n    conn.executemany(\n        \"INSERT INTO orders_normalized (customer_id, order_code) VALUES (?, ?)\",\n        [(customer_id, code) for code in order_codes],\n    )\n    conn.executemany(\n        \"\"\"\n        INSERT INTO orders_denormalized (customer_id, customer_name, order_code)\n        VALUES (?, ?, ?)\n        \"\"\",\n        [(customer_id, customer_name, code) for code in order_codes],\n    )\n\n\ndef normalized_order_feed(conn: sqlite3.Connection) -> list[tuple[str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT c.name, o.order_code\n        FROM orders_normalized AS o\n        JOIN customers AS c ON c.id = o.customer_id\n        ORDER BY o.id\n        \"\"\"\n    ).fetchall()\n    return [(customer_name, order_code) for customer_name, order_code in rows]\n\n\ndef denormalized_order_feed(conn: sqlite3.Connection) -> list[tuple[str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT customer_name, order_code\n        FROM orders_denormalized\n        ORDER BY id\n        \"\"\"\n    ).fetchall()\n    return [(customer_name, order_code) for customer_name, order_code in rows]\n\n\ndef rename_customer(conn: sqlite3.Connection, customer_id: int, new_name: str) -> tuple[int, int]:\n    normalized_updates = conn.execute(\n        \"UPDATE customers SET name = ? WHERE id = ?\",\n        (new_name, customer_id),\n    ).rowcount\n    denormalized_updates = conn.execute(\n        \"\"\"\n        UPDATE orders_denormalized\n        SET customer_name = ?\n        WHERE customer_id = ?\n        \"\"\",\n        (new_name, customer_id),\n    ).rowcount\n    return normalized_updates, denormalized_updates\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "schema-design",
       "slug": "one-to-many-and-many-to-many",
       "title": "One To Many And Many To Many",
       "path": "modules/databases/schema-design/one-to-many-and-many-to-many",
@@ -2424,6 +2504,22 @@
           "path": "modules/databases/sql-patterns/window-functions-basics/python/window_functions_basics.py",
           "language": "python",
           "content": "\"\"\"window_functions_basics - ranking and deltas with SQL window functions.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_eval_results_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE eval_results (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            model_name TEXT NOT NULL,\n            dataset_name TEXT NOT NULL,\n            score REAL NOT NULL,\n            recorded_at TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef record_eval_result(\n    conn: sqlite3.Connection,\n    model_name: str,\n    dataset_name: str,\n    score: float,\n    recorded_at: str,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO eval_results (model_name, dataset_name, score, recorded_at)\n        VALUES (?, ?, ?, ?)\n        \"\"\",\n        (model_name, dataset_name, score, recorded_at),\n    )\n    return int(cursor.lastrowid)\n\n\ndef rank_runs_within_model(conn: sqlite3.Connection) -> list[dict[str, object]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT\n            model_name,\n            dataset_name,\n            score,\n            recorded_at,\n            ROW_NUMBER() OVER (\n                PARTITION BY model_name\n                ORDER BY score DESC, recorded_at DESC, id DESC\n            ) AS rank_in_model\n        FROM eval_results\n        ORDER BY model_name, rank_in_model\n        \"\"\"\n    ).fetchall()\n    return [\n        {\n            \"model_name\": model_name,\n            \"dataset_name\": dataset_name,\n            \"score\": score,\n            \"recorded_at\": recorded_at,\n            \"rank_in_model\": rank_in_model,\n        }\n        for model_name, dataset_name, score, recorded_at, rank_in_model in rows\n    ]\n\n\ndef best_run_per_model(conn: sqlite3.Connection) -> list[dict[str, object]]:\n    rows = conn.execute(\n        \"\"\"\n        WITH ranked AS (\n            SELECT\n                id,\n                model_name,\n                dataset_name,\n                score,\n                recorded_at,\n                ROW_NUMBER() OVER (\n                    PARTITION BY model_name\n                    ORDER BY score DESC, recorded_at DESC, id DESC\n                ) AS rank_in_model\n            FROM eval_results\n        )\n        SELECT model_name, dataset_name, score, recorded_at\n        FROM ranked\n        WHERE rank_in_model = 1\n        ORDER BY model_name\n        \"\"\"\n    ).fetchall()\n    return [\n        {\n            \"model_name\": model_name,\n            \"dataset_name\": dataset_name,\n            \"score\": score,\n            \"recorded_at\": recorded_at,\n        }\n        for model_name, dataset_name, score, recorded_at in rows\n    ]\n\n\ndef score_deltas_by_model(conn: sqlite3.Connection) -> list[dict[str, object]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT\n            model_name,\n            dataset_name,\n            score,\n            recorded_at,\n            score - LAG(score) OVER (\n                PARTITION BY model_name\n                ORDER BY recorded_at, id\n            ) AS delta_from_previous\n        FROM eval_results\n        ORDER BY model_name, recorded_at, id\n        \"\"\"\n    ).fetchall()\n    return [\n        {\n            \"model_name\": model_name,\n            \"dataset_name\": dataset_name,\n            \"score\": score,\n            \"recorded_at\": recorded_at,\n            \"delta_from_previous\": delta,\n        }\n        for model_name, dataset_name, score, recorded_at, delta in rows\n    ]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "cdc-vs-application-events",
+      "title": "CDC Vs Application Events",
+      "path": "modules/databases/streaming/cdc-vs-application-events",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "readme": "# CDC Vs Application Events\n\n> Track: `databases` | Topic: `streaming`\n\n## Concept\n\nCDC events describe row-level data changes after commit, while application events describe business meaning the application chose to publish.\n\n## Key Points\n\n- CDC is good for replication and downstream state sync.\n- Application events are good for workflows like notifications or billing triggers.\n- CDC can reconstruct table state, but it may miss business intent.\n- Application events can express intent, but they may not contain enough data to rebuild every table exactly.\n\n## Minimal Code Mental Model\n\n```python\nevents = [\n    cdc_event(\"orders\", \"insert\", \"o1\", {\"status\": \"placed\"}),\n    application_event(\"order.created\", \"o1\", {\"customer_id\": \"c1\"}),\n]\nrow = latest_row_from_cdc(events, \"orders\", \"o1\")\nnames = application_event_names(events)\n```\n\n## Function\n\n```python\ndef cdc_event(table: str, op: str, row_id: str, after: dict[str, object] | None) -> dict[str, object]:\ndef application_event(name: str, aggregate_id: str, payload: dict[str, object]) -> dict[str, object]:\ndef latest_row_from_cdc(\n    events: list[dict[str, object]],\n    table: str,\n    row_id: str,\n) -> dict[str, object] | None:\ndef application_event_names(events: list[dict[str, object]]) -> list[str]:\ndef event_kinds(events: list[dict[str, object]]) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/streaming/cdc-vs-application-events/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/streaming/cdc-vs-application-events/python/cdc_vs_application_events.py",
+          "language": "python",
+          "content": "\"\"\"cdc_vs_application_events - compare row-change capture with business-intent events.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef cdc_event(table: str, op: str, row_id: str, after: dict[str, object] | None) -> dict[str, object]:\n    return {\n        \"kind\": \"cdc\",\n        \"table\": table,\n        \"op\": op,\n        \"row_id\": row_id,\n        \"after\": after,\n    }\n\n\ndef application_event(name: str, aggregate_id: str, payload: dict[str, object]) -> dict[str, object]:\n    return {\n        \"kind\": \"application\",\n        \"name\": name,\n        \"aggregate_id\": aggregate_id,\n        \"payload\": payload,\n    }\n\n\ndef latest_row_from_cdc(\n    events: list[dict[str, object]],\n    table: str,\n    row_id: str,\n) -> dict[str, object] | None:\n    state: dict[str, object] | None = None\n    for event in events:\n        if event.get(\"kind\") != \"cdc\":\n            continue\n        if event.get(\"table\") != table or event.get(\"row_id\") != row_id:\n            continue\n        op = event.get(\"op\")\n        if op == \"delete\":\n            state = None\n        else:\n            state = dict(event.get(\"after\") or {})\n    return state\n\n\ndef application_event_names(events: list[dict[str, object]]) -> list[str]:\n    return [\n        str(event[\"name\"])\n        for event in events\n        if event.get(\"kind\") == \"application\"\n    ]\n\n\ndef event_kinds(events: list[dict[str, object]]) -> list[str]:\n    return [str(event[\"kind\"]) for event in events]\n"
         }
       ]
     },
@@ -2509,6 +2605,22 @@
     },
     {
       "track": "databases",
+      "topic": "streaming",
+      "slug": "outbox-and-materialized-view-patterns",
+      "title": "Outbox And Materialized View Patterns",
+      "path": "modules/databases/streaming/outbox-and-materialized-view-patterns",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "readme": "# Outbox And Materialized View Patterns\n\n> Track: `databases` | Topic: `streaming`\n\n## Concept\n\nThe outbox pattern makes writes publishable, and a materialized view makes those published events cheap to read. Together they form a common operational-to-read-model pipeline.\n\n## Key Points\n\n- Transactional state and outbound events should be written together so downstream projectors cannot miss changes.\n- A projector turns ordered events into a query-friendly read model.\n- When the same entity changes status, the read model must subtract the old state before adding the new one.\n- A full rebuild from the event log should match the incrementally maintained view.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_pipeline_tables(conn)\nwrite_order_status(conn, order_id=\"o1\", workspace_id=7, status=\"placed\")\nwrite_order_status(conn, order_id=\"o1\", workspace_id=7, status=\"completed\")\nwhile project_next_event(conn) is not None:\n    pass\ncounts = workspace_status_totals(conn, 7)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_pipeline_tables(conn: sqlite3.Connection) -> None:\ndef write_order_status(\n    conn: sqlite3.Connection,\n    order_id: str,\n    workspace_id: int,\n    status: str,\n    fail_before_outbox: bool = False,\n) -> None:\ndef order_rows(conn: sqlite3.Connection) -> list[tuple[str, int, str]]:\ndef outbox_event_rows(\n    conn: sqlite3.Connection,\n) -> list[tuple[int, str, int, str, str | None]]:\ndef next_unprojected_event(\n    conn: sqlite3.Connection,\n) -> tuple[int, str, int, str] | None:\ndef project_next_event(conn: sqlite3.Connection) -> int | None:\ndef workspace_status_totals(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n) -> dict[str, int]:\ndef rebuild_workspace_status_view(\n    events: list[tuple[str, int, str]],\n) -> dict[int, dict[str, int]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/streaming/outbox-and-materialized-view-patterns/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/streaming/outbox-and-materialized-view-patterns/python/outbox_and_materialized_view_patterns.py",
+          "language": "python",
+          "content": "\"\"\"outbox_and_materialized_view_patterns - transactional events plus incremental views.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.isolation_level = None\n    return conn\n\n\ndef create_pipeline_tables(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE orders (\n            order_id TEXT PRIMARY KEY,\n            workspace_id INTEGER NOT NULL,\n            status TEXT NOT NULL\n        );\n\n        CREATE TABLE outbox (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            order_id TEXT NOT NULL,\n            workspace_id INTEGER NOT NULL,\n            status TEXT NOT NULL,\n            projected_at TEXT\n        );\n\n        CREATE TABLE projected_orders (\n            order_id TEXT PRIMARY KEY,\n            workspace_id INTEGER NOT NULL,\n            status TEXT NOT NULL\n        );\n\n        CREATE TABLE workspace_status_view (\n            workspace_id INTEGER NOT NULL,\n            status TEXT NOT NULL,\n            total INTEGER NOT NULL,\n            PRIMARY KEY (workspace_id, status)\n        );\n        \"\"\"\n    )\n\n\ndef write_order_status(\n    conn: sqlite3.Connection,\n    order_id: str,\n    workspace_id: int,\n    status: str,\n    fail_before_outbox: bool = False,\n) -> None:\n    conn.execute(\"BEGIN\")\n    try:\n        conn.execute(\n            \"\"\"\n            INSERT INTO orders (order_id, workspace_id, status)\n            VALUES (?, ?, ?)\n            ON CONFLICT(order_id) DO UPDATE SET\n                workspace_id = excluded.workspace_id,\n                status = excluded.status\n            \"\"\",\n            (order_id, workspace_id, status),\n        )\n        if fail_before_outbox:\n            raise RuntimeError(\"simulated failure before writing outbox\")\n        conn.execute(\n            \"\"\"\n            INSERT INTO outbox (order_id, workspace_id, status, projected_at)\n            VALUES (?, ?, ?, NULL)\n            \"\"\",\n            (order_id, workspace_id, status),\n        )\n        conn.execute(\"COMMIT\")\n    except Exception:\n        conn.execute(\"ROLLBACK\")\n        raise\n\n\ndef order_rows(conn: sqlite3.Connection) -> list[tuple[str, int, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT order_id, workspace_id, status\n        FROM orders\n        ORDER BY order_id\n        \"\"\"\n    ).fetchall()\n    return [(str(order_id), int(workspace_id), str(status)) for order_id, workspace_id, status in rows]\n\n\ndef outbox_event_rows(\n    conn: sqlite3.Connection,\n) -> list[tuple[int, str, int, str, str | None]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT id, order_id, workspace_id, status, projected_at\n        FROM outbox\n        ORDER BY id\n        \"\"\"\n    ).fetchall()\n    return [\n        (int(event_id), str(order_id), int(workspace_id), str(status), None if projected_at is None else str(projected_at))\n        for event_id, order_id, workspace_id, status, projected_at in rows\n    ]\n\n\ndef next_unprojected_event(\n    conn: sqlite3.Connection,\n) -> tuple[int, str, int, str] | None:\n    row = conn.execute(\n        \"\"\"\n        SELECT id, order_id, workspace_id, status\n        FROM outbox\n        WHERE projected_at IS NULL\n        ORDER BY id\n        LIMIT 1\n        \"\"\"\n    ).fetchone()\n    if row is None:\n        return None\n    event_id, order_id, workspace_id, status = row\n    return int(event_id), str(order_id), int(workspace_id), str(status)\n\n\ndef project_next_event(conn: sqlite3.Connection) -> int | None:\n    event = next_unprojected_event(conn)\n    if event is None:\n        return None\n\n    event_id, order_id, workspace_id, status = event\n    conn.execute(\"BEGIN\")\n    try:\n        previous = conn.execute(\n            \"\"\"\n            SELECT workspace_id, status\n            FROM projected_orders\n            WHERE order_id = ?\n            \"\"\",\n            (order_id,),\n        ).fetchone()\n        if previous is not None:\n            old_workspace_id, old_status = previous\n            _adjust_count(conn, int(old_workspace_id), str(old_status), -1)\n\n        conn.execute(\n            \"\"\"\n            INSERT INTO projected_orders (order_id, workspace_id, status)\n            VALUES (?, ?, ?)\n            ON CONFLICT(order_id) DO UPDATE SET\n                workspace_id = excluded.workspace_id,\n                status = excluded.status\n            \"\"\",\n            (order_id, workspace_id, status),\n        )\n        _adjust_count(conn, workspace_id, status, 1)\n        conn.execute(\n            \"\"\"\n            UPDATE outbox\n            SET projected_at = 'projected'\n            WHERE id = ?\n            \"\"\",\n            (event_id,),\n        )\n        conn.execute(\"COMMIT\")\n        return event_id\n    except Exception:\n        conn.execute(\"ROLLBACK\")\n        raise\n\n\ndef workspace_status_totals(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n) -> dict[str, int]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT status, total\n        FROM workspace_status_view\n        WHERE workspace_id = ?\n        ORDER BY status\n        \"\"\",\n        (workspace_id,),\n    ).fetchall()\n    return {str(status): int(total) for status, total in rows if int(total) > 0}\n\n\ndef rebuild_workspace_status_view(\n    events: list[tuple[str, int, str]],\n) -> dict[int, dict[str, int]]:\n    latest_by_order: dict[str, tuple[int, str]] = {}\n    counts_by_workspace: dict[int, dict[str, int]] = {}\n\n    for order_id, workspace_id, status in events:\n        previous = latest_by_order.get(order_id)\n        if previous is not None:\n            old_workspace_id, old_status = previous\n            old_counts = counts_by_workspace.setdefault(old_workspace_id, {})\n            old_counts[old_status] = max(old_counts.get(old_status, 0) - 1, 0)\n\n        workspace_counts = counts_by_workspace.setdefault(workspace_id, {})\n        workspace_counts[status] = workspace_counts.get(status, 0) + 1\n        latest_by_order[order_id] = (workspace_id, status)\n\n    return {\n        workspace_id: {status: total for status, total in counts.items() if total > 0}\n        for workspace_id, counts in counts_by_workspace.items()\n    }\n\n\ndef _adjust_count(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    status: str,\n    delta: int,\n) -> None:\n    row = conn.execute(\n        \"\"\"\n        SELECT total\n        FROM workspace_status_view\n        WHERE workspace_id = ? AND status = ?\n        \"\"\",\n        (workspace_id, status),\n    ).fetchone()\n    current = 0 if row is None else int(row[0])\n    updated = current + delta\n    if updated <= 0:\n        conn.execute(\n            \"\"\"\n            DELETE FROM workspace_status_view\n            WHERE workspace_id = ? AND status = ?\n            \"\"\",\n            (workspace_id, status),\n        )\n        return\n    conn.execute(\n        \"\"\"\n        INSERT INTO workspace_status_view (workspace_id, status, total)\n        VALUES (?, ?, ?)\n        ON CONFLICT(workspace_id, status) DO UPDATE SET total = excluded.total\n        \"\"\",\n        (workspace_id, status, updated),\n    )\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
       "topic": "transactions",
       "slug": "deadlocks-and-lock-ordering",
       "title": "Deadlocks And Lock Ordering",
@@ -2520,6 +2632,22 @@
           "path": "modules/databases/transactions/deadlocks-and-lock-ordering/python/deadlocks_and_lock_ordering.py",
           "language": "python",
           "content": "\"\"\"deadlocks_and_lock_ordering - detect lock order inversions and canonicalize them.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef inversion_pairs(order_a: list[str], order_b: list[str]) -> list[tuple[str, str]]:\n    pos_a = {resource: index for index, resource in enumerate(order_a)}\n    pos_b = {resource: index for index, resource in enumerate(order_b)}\n    shared = [resource for resource in order_a if resource in pos_b]\n    inversions: list[tuple[str, str]] = []\n\n    for left_index, left in enumerate(shared):\n        for right in shared[left_index + 1 :]:\n            if pos_a[left] < pos_a[right] and pos_b[left] > pos_b[right]:\n                inversions.append((left, right))\n\n    return inversions\n\n\ndef has_deadlock_risk(order_a: list[str], order_b: list[str]) -> bool:\n    return len(inversion_pairs(order_a, order_b)) > 0\n\n\ndef canonical_lock_order(resources: list[str]) -> list[str]:\n    return sorted(dict.fromkeys(resources))\n\n\ndef apply_canonical_order(\n    transaction_requests: dict[str, list[str]],\n) -> dict[str, list[str]]:\n    return {\n        txn_id: canonical_lock_order(resources)\n        for txn_id, resources in transaction_requests.items()\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "idempotent-writes-and-retries",
+      "title": "Idempotent Writes And Retries",
+      "path": "modules/databases/transactions/idempotent-writes-and-retries",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "readme": "# Idempotent Writes And Retries\n\n> Track: `databases` | Topic: `transactions`\n\n## Concept\n\nIdempotent writes let a client retry after uncertain failures without accidentally creating duplicate side effects.\n\n## Key Points\n\n- A stable request key turns repeated attempts into “same write” instead of “new write”.\n- Retries are normal around timeouts and transient failures.\n- The database needs a uniqueness rule or ledger keyed by the request identity.\n- The return path should tell the caller whether a write was newly created or reused from an earlier attempt.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_idempotent_payment_schema(conn)\npayment_id, created = process_payment(conn, \"req-1\", \"user-7\", 5000)\nsame_id, created_again = process_payment(conn, \"req-1\", \"user-7\", 5000)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_idempotent_payment_schema(conn: sqlite3.Connection) -> None:\ndef process_payment(\n    conn: sqlite3.Connection,\n    request_key: str,\n    user_id: str,\n    amount_cents: int,\n    fail_before_commit: bool = False,\n) -> tuple[int, bool]:\ndef payment_rows(conn: sqlite3.Connection) -> list[tuple[int, str, str, int]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/transactions/idempotent-writes-and-retries/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/transactions/idempotent-writes-and-retries/python/idempotent_writes_and_retries.py",
+          "language": "python",
+          "content": "\"\"\"idempotent_writes_and_retries - safe retryable writes keyed by request identity.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.isolation_level = None\n    return conn\n\n\ndef create_idempotent_payment_schema(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE payments (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            request_key TEXT NOT NULL UNIQUE,\n            user_id TEXT NOT NULL,\n            amount_cents INTEGER NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef process_payment(\n    conn: sqlite3.Connection,\n    request_key: str,\n    user_id: str,\n    amount_cents: int,\n    fail_before_commit: bool = False,\n) -> tuple[int, bool]:\n    existing = conn.execute(\n        \"\"\"\n        SELECT id\n        FROM payments\n        WHERE request_key = ?\n        \"\"\",\n        (request_key,),\n    ).fetchone()\n    if existing is not None:\n        return int(existing[0]), False\n\n    conn.execute(\"BEGIN\")\n    try:\n        cursor = conn.execute(\n            \"\"\"\n            INSERT INTO payments (request_key, user_id, amount_cents)\n            VALUES (?, ?, ?)\n            \"\"\",\n            (request_key, user_id, amount_cents),\n        )\n        payment_id = int(cursor.lastrowid)\n        if fail_before_commit:\n            raise RuntimeError(\"simulated timeout before commit\")\n        conn.execute(\"COMMIT\")\n        return payment_id, True\n    except Exception:\n        conn.execute(\"ROLLBACK\")\n        raise\n\n\ndef payment_rows(conn: sqlite3.Connection) -> list[tuple[int, str, str, int]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT id, request_key, user_id, amount_cents\n        FROM payments\n        ORDER BY id\n        \"\"\"\n    ).fetchall()\n    return [(payment_id, request_key, user_id, amount_cents) for payment_id, request_key, user_id, amount_cents in rows]\n"
         }
       ]
     },
@@ -2568,6 +2696,38 @@
           "path": "modules/databases/transactions/transaction-basics/python/transaction_basics.py",
           "language": "python",
           "content": "\"\"\"transaction_basics - atomic multi-step updates with rollback.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.isolation_level = None\n    return conn\n\n\ndef create_accounts_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE accounts (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            owner TEXT NOT NULL UNIQUE,\n            balance INTEGER NOT NULL CHECK (balance >= 0)\n        )\n        \"\"\"\n    )\n\n\ndef create_account(conn: sqlite3.Connection, owner: str, balance: int) -> int:\n    cursor = conn.execute(\n        \"INSERT INTO accounts (owner, balance) VALUES (?, ?)\",\n        (owner, balance),\n    )\n    return int(cursor.lastrowid)\n\n\ndef account_balances(conn: sqlite3.Connection) -> dict[str, int]:\n    rows = conn.execute(\n        \"SELECT owner, balance FROM accounts ORDER BY owner\"\n    ).fetchall()\n    return {owner: balance for owner, balance in rows}\n\n\ndef transfer_funds(\n    conn: sqlite3.Connection,\n    from_account_id: int,\n    to_account_id: int,\n    amount: int,\n    fail_after_debit: bool = False,\n) -> None:\n    if amount <= 0:\n        raise ValueError(\"amount must be positive\")\n\n    conn.execute(\"BEGIN\")\n    try:\n        debit = conn.execute(\n            \"\"\"\n            UPDATE accounts\n            SET balance = balance - ?\n            WHERE id = ? AND balance >= ?\n            \"\"\",\n            (amount, from_account_id, amount),\n        )\n        if debit.rowcount != 1:\n            raise ValueError(\"insufficient funds or missing source account\")\n\n        if fail_after_debit:\n            raise RuntimeError(\"simulated failure after debit\")\n\n        credit = conn.execute(\n            \"\"\"\n            UPDATE accounts\n            SET balance = balance + ?\n            WHERE id = ?\n            \"\"\",\n            (amount, to_account_id),\n        )\n        if credit.rowcount != 1:\n            raise ValueError(\"missing destination account\")\n\n        conn.execute(\"COMMIT\")\n    except Exception:\n        conn.execute(\"ROLLBACK\")\n        raise\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "vector-db",
+      "slug": "agent-memory-retrieval",
+      "title": "Agent Memory Retrieval",
+      "path": "modules/databases/vector-db/agent-memory-retrieval",
+      "summary": "> Track: `databases` | Topic: `vector-db`",
+      "readme": "# Agent Memory Retrieval\n\n> Track: `databases` | Topic: `vector-db`\n\n## Concept\n\nAgent memory retrieval should combine relevance, scope, and recency so the agent sees useful memories without leaking another tenant's context.\n\n## Key Points\n\n- Memory retrieval should filter by workspace before ranking anything.\n- Shared memories can be visible to many agents, but private memories should stay scoped to one agent.\n- Pure similarity is not enough for memory systems; recent interactions often deserve a boost.\n- Retrieval needs a minimum score or the agent fills context with weak, noisy memories.\n\n## Minimal Code Mental Model\n\n```python\nmemories = [\n    {\"id\": \"m1\", \"workspace_id\": 7, \"agent_id\": None, \"text\": \"Escalate prod errors fast\", \"created_at\": 100},\n    {\"id\": \"m2\", \"workspace_id\": 7, \"agent_id\": \"agent-1\", \"text\": \"Use hybrid search for support docs\", \"created_at\": 190},\n]\ntop = retrieve_agent_memories(\n    \"support docs hybrid retrieval\",\n    memories,\n    workspace_id=7,\n    agent_id=\"agent-1\",\n    now=200,\n    top_k=2,\n)\n```\n\n## Function\n\n```python\ndef token_overlap_score(query: str, text: str) -> float:\ndef matches_scope(memory: dict[str, object], workspace_id: int, agent_id: str) -> bool:\ndef memory_retrieval_score(\n    query: str,\n    memory: dict[str, object],\n    now: int,\n    recency_window: int = 3600,\n) -> float:\ndef retrieve_agent_memories(\n    query: str,\n    memories: list[dict[str, object]],\n    workspace_id: int,\n    agent_id: str,\n    now: int,\n    top_k: int,\n    min_score: float = 0.2,\n) -> list[tuple[str, float]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/vector-db/agent-memory-retrieval/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/vector-db/agent-memory-retrieval/python/agent_memory_retrieval.py",
+          "language": "python",
+          "content": "\"\"\"agent_memory_retrieval - scoped memory ranking for agent systems.\"\"\"\n\nfrom __future__ import annotations\n\nimport re\n\n\ndef token_overlap_score(query: str, text: str) -> float:\n    query_tokens = set(re.findall(r\"[a-z0-9]+\", query.lower()))\n    text_tokens = set(re.findall(r\"[a-z0-9]+\", text.lower()))\n    if not query_tokens:\n        return 0.0\n    return len(query_tokens & text_tokens) / len(query_tokens)\n\n\ndef matches_scope(memory: dict[str, object], workspace_id: int, agent_id: str) -> bool:\n    if int(memory[\"workspace_id\"]) != workspace_id:\n        return False\n    owner = memory.get(\"agent_id\")\n    return owner in (None, agent_id)\n\n\ndef memory_retrieval_score(\n    query: str,\n    memory: dict[str, object],\n    now: int,\n    recency_window: int = 3600,\n) -> float:\n    overlap = token_overlap_score(query, str(memory[\"text\"]))\n    if overlap == 0.0:\n        return 0.0\n    age = max(now - int(memory[\"created_at\"]), 0)\n    recency = max(0.0, 1.0 - (age / recency_window))\n    importance = float(memory.get(\"importance\", 0.5))\n    return (0.6 * overlap) + (0.25 * recency) + (0.15 * importance)\n\n\ndef retrieve_agent_memories(\n    query: str,\n    memories: list[dict[str, object]],\n    workspace_id: int,\n    agent_id: str,\n    now: int,\n    top_k: int,\n    min_score: float = 0.2,\n) -> list[tuple[str, float]]:\n    scored: list[tuple[str, float]] = []\n    for memory in memories:\n        if not matches_scope(memory, workspace_id, agent_id):\n            continue\n        score = memory_retrieval_score(query, memory, now)\n        if score < min_score:\n            continue\n        scored.append((str(memory[\"id\"]), score))\n    return sorted(scored, key=lambda item: (-item[1], item[0]))[:top_k]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "vector-db",
+      "slug": "embedding-table-design",
+      "title": "Embedding Table Design",
+      "path": "modules/databases/vector-db/embedding-table-design",
+      "summary": "> Track: `databases` | Topic: `vector-db`",
+      "readme": "# Embedding Table Design\n\n> Track: `databases` | Topic: `vector-db`\n\n## Concept\n\nAn embedding table should make chunk identity, model identity, and embedding freshness explicit so the system can tell what is missing, duplicated, or stale.\n\n## Key Points\n\n- Chunks and embeddings should be separate tables linked by a foreign key.\n- One chunk can have many embeddings across different models or refresh jobs.\n- A uniqueness rule should block duplicate embeddings for the same chunk and model snapshot.\n- Good table design makes “which chunks still need embeddings?” an easy query.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_embedding_schema(conn)\nchunk_id = insert_chunk(conn, 7, \"spec\", \"hello\")\ninsert_embedding(conn, chunk_id, \"text-embedding-3-small\", \"job-1\", [0.1, 0.2, 0.3])\nmissing = chunks_missing_model(conn, \"text-embedding-3-large\")\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_embedding_schema(conn: sqlite3.Connection) -> None:\ndef insert_chunk(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    doc_type: str,\n    text: str,\n) -> int:\ndef insert_embedding(\n    conn: sqlite3.Connection,\n    chunk_id: int,\n    model_name: str,\n    job_id: str,\n    vector: list[float],\n) -> int:\ndef embedding_rows(conn: sqlite3.Connection) -> list[tuple[int, str, str]]:\ndef chunks_missing_model(conn: sqlite3.Connection, model_name: str) -> list[int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/vector-db/embedding-table-design/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/vector-db/embedding-table-design/python/embedding_table_design.py",
+          "language": "python",
+          "content": "\"\"\"embedding_table_design - explicit chunk/model embedding rows with freshness metadata.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.execute(\"PRAGMA foreign_keys = ON\")\n    return conn\n\n\ndef create_embedding_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE chunks (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            doc_type TEXT NOT NULL,\n            text TEXT NOT NULL\n        );\n\n        CREATE TABLE chunk_embeddings (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            chunk_id INTEGER NOT NULL,\n            model_name TEXT NOT NULL,\n            job_id TEXT NOT NULL,\n            vector_json TEXT NOT NULL,\n            FOREIGN KEY (chunk_id) REFERENCES chunks(id) ON DELETE CASCADE,\n            UNIQUE (chunk_id, model_name, job_id)\n        );\n        \"\"\"\n    )\n\n\ndef insert_chunk(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    doc_type: str,\n    text: str,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO chunks (workspace_id, doc_type, text)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (workspace_id, doc_type, text),\n    )\n    return int(cursor.lastrowid)\n\n\ndef insert_embedding(\n    conn: sqlite3.Connection,\n    chunk_id: int,\n    model_name: str,\n    job_id: str,\n    vector: list[float],\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO chunk_embeddings (chunk_id, model_name, job_id, vector_json)\n        VALUES (?, ?, ?, ?)\n        \"\"\",\n        (chunk_id, model_name, job_id, json.dumps(vector)),\n    )\n    return int(cursor.lastrowid)\n\n\ndef embedding_rows(conn: sqlite3.Connection) -> list[tuple[int, str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT chunk_id, model_name, job_id\n        FROM chunk_embeddings\n        ORDER BY chunk_id, model_name, job_id\n        \"\"\"\n    ).fetchall()\n    return [(chunk_id, model_name, job_id) for chunk_id, model_name, job_id in rows]\n\n\ndef chunks_missing_model(conn: sqlite3.Connection, model_name: str) -> list[int]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT c.id\n        FROM chunks AS c\n        LEFT JOIN chunk_embeddings AS ce\n          ON ce.chunk_id = c.id\n         AND ce.model_name = ?\n        WHERE ce.id IS NULL\n        ORDER BY c.id\n        \"\"\",\n        (model_name,),\n    ).fetchall()\n    return [chunk_id for (chunk_id,) in rows]\n"
         }
       ]
     },
@@ -8624,6 +8784,22 @@
     {
       "track": "software-engineering",
       "topic": "apis",
+      "slug": "pagination-patterns",
+      "title": "Pagination Patterns",
+      "path": "modules/software-engineering/apis/pagination-patterns",
+      "summary": "> Track: `software-engineering` | Topic: `apis`",
+      "readme": "# Pagination Patterns\n\n> Track: `software-engineering` | Topic: `apis`\n\n## Concept\n\nPagination controls how large result sets are split into stable pages, usually with either offset-based access or cursor-based continuation.\n\n## Key Points\n\n- Offset pagination is simple but can drift when rows are inserted or deleted between requests.\n- Cursor pagination is better for append-heavy feeds because it resumes from a stable item boundary.\n- Random page access and high-churn feeds usually want different strategies.\n\n## Minimal Code Mental Model\n\n```python\npage = offset_page(items, offset=2, limit=2)\ncursor_items, next_cursor = cursor_page(items, cursor=None, limit=2)\nstrategy = pagination_strategy(high_churn=True, needs_random_access=False)\n```\n\n## Function\n\n```python\ndef offset_page(items: list[dict[str, object]], offset: int, limit: int) -> list[dict[str, object]]:\ndef cursor_page(\n    items: list[dict[str, object]],\n    cursor: str | None,\n    limit: int,\n    sort_key: str = \"id\",\n) -> tuple[list[dict[str, object]], str | None]:\ndef pagination_strategy(high_churn: bool, needs_random_access: bool) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/apis/pagination-patterns/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/apis/pagination-patterns/python/pagination_patterns.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef offset_page(items: list[dict[str, object]], offset: int, limit: int) -> list[dict[str, object]]:\n    if offset < 0 or limit <= 0:\n        raise ValueError(\"offset must be non-negative and limit must be positive\")\n    return items[offset : offset + limit]\n\n\ndef cursor_page(\n    items: list[dict[str, object]],\n    cursor: str | None,\n    limit: int,\n    sort_key: str = \"id\",\n) -> tuple[list[dict[str, object]], str | None]:\n    if limit <= 0:\n        raise ValueError(\"limit must be positive\")\n    if not sort_key.strip():\n        raise ValueError(\"sort_key must be non-empty\")\n\n    ordered_items = sorted(items, key=lambda item: str(item[sort_key]))\n    start_index = 0\n    if cursor is not None:\n        matches = [index for index, item in enumerate(ordered_items) if str(item[sort_key]) == cursor]\n        if not matches:\n            raise ValueError(\"cursor not found\")\n        start_index = matches[0] + 1\n\n    page = ordered_items[start_index : start_index + limit]\n    if not page or start_index + limit >= len(ordered_items):\n        return page, None\n    return page, str(page[-1][sort_key])\n\n\ndef pagination_strategy(high_churn: bool, needs_random_access: bool) -> str:\n    if needs_random_access:\n        return \"offset\"\n    if high_churn:\n        return \"cursor\"\n    return \"offset\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "apis",
       "slug": "retries-timeouts-and-backoff",
       "title": "Retries, Timeouts, And Backoff",
       "path": "modules/software-engineering/apis/retries-timeouts-and-backoff",
@@ -8655,6 +8831,310 @@
     },
     {
       "track": "software-engineering",
+      "topic": "apis",
+      "slug": "webhooks-and-signature-validation",
+      "title": "Webhooks And Signature Validation",
+      "path": "modules/software-engineering/apis/webhooks-and-signature-validation",
+      "summary": "> Track: `software-engineering` | Topic: `apis`",
+      "readme": "# Webhooks And Signature Validation\n\n> Track: `software-engineering` | Topic: `apis`\n\n## Concept\n\nWebhook receivers should verify sender authenticity before trusting the payload, usually with a signed timestamp and an HMAC over the request body.\n\n## Key Points\n\n- Signature validation should use constant-time comparison.\n- Freshness checks reduce replay risk.\n- Invalid signatures should fail closed before event routing logic runs.\n\n## Minimal Code Mental Model\n\n```python\nsignature = webhook_signature(\"secret\", timestamp=1_700_000_000, body='{\"event\":\"paid\"}')\nvalid = webhook_request_valid(\n    \"secret\",\n    timestamp=1_700_000_000,\n    body='{\"event\":\"paid\"}',\n    provided_signature=signature,\n    now_timestamp=1_700_000_120,\n)\ndecision = webhook_decision(valid, \"payment.paid\")\n```\n\n## Function\n\n```python\ndef webhook_signature(secret: str, timestamp: int, body: str) -> str:\ndef webhook_request_valid(\n    secret: str,\n    timestamp: int,\n    body: str,\n    provided_signature: str,\n    now_timestamp: int,\n    max_age_seconds: int = 300,\n) -> bool:\ndef webhook_decision(valid_request: bool, event_type: str) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/apis/webhooks-and-signature-validation/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/apis/webhooks-and-signature-validation/python/webhooks_and_signature_validation.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\nimport hashlib\nimport hmac\n\n\ndef webhook_signature(secret: str, timestamp: int, body: str) -> str:\n    cleaned_secret = secret.strip()\n    if not cleaned_secret:\n        raise ValueError(\"secret must be non-empty\")\n    if timestamp < 0:\n        raise ValueError(\"timestamp must be non-negative\")\n    payload = f\"{timestamp}.{body}\".encode(\"utf-8\")\n    return hmac.new(cleaned_secret.encode(\"utf-8\"), payload, hashlib.sha256).hexdigest()\n\n\ndef webhook_request_valid(\n    secret: str,\n    timestamp: int,\n    body: str,\n    provided_signature: str,\n    now_timestamp: int,\n    max_age_seconds: int = 300,\n) -> bool:\n    if now_timestamp < timestamp:\n        raise ValueError(\"now_timestamp must be at least timestamp\")\n    if max_age_seconds <= 0:\n        raise ValueError(\"max_age_seconds must be positive\")\n\n    if now_timestamp - timestamp > max_age_seconds:\n        return False\n    expected = webhook_signature(secret, timestamp, body)\n    return hmac.compare_digest(expected, provided_signature.strip())\n\n\ndef webhook_decision(valid_request: bool, event_type: str) -> str:\n    cleaned_event_type = event_type.strip()\n    if not cleaned_event_type:\n        raise ValueError(\"event_type must be non-empty\")\n    if not valid_request:\n        return \"reject\"\n    return f\"process:{cleaned_event_type}\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "cancellation-deadlines-and-timeouts",
+      "title": "Cancellation, Deadlines, And Timeouts",
+      "path": "modules/software-engineering/concurrency/cancellation-deadlines-and-timeouts",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "readme": "# Cancellation, Deadlines, And Timeouts\n\n> Track: `software-engineering` | Topic: `concurrency`\n\n## Concept\n\nConcurrent work should stop when cancellation is requested or when the remaining deadline budget is too small to finish safely.\n\n## Key Points\n\n- Deadlines are easier to compose than independent timeout guesses.\n- New work should not start when the remaining budget is already gone.\n- Cancellation should be explicit and observable, not hidden as a generic failure.\n\n## Minimal Code Mental Model\n\n```python\nremaining = remaining_budget_ms(total_deadline_ms=1200, elapsed_ms=300)\nstart = can_start_step(remaining_budget_ms=900, step_timeout_ms=400, cleanup_reserve_ms=100)\nstate = execution_state(cancel_requested=False, remaining_budget_ms=900)\n```\n\n## Function\n\n```python\ndef remaining_budget_ms(total_deadline_ms: int, elapsed_ms: int) -> int:\ndef can_start_step(remaining_budget_ms: int, step_timeout_ms: int, cleanup_reserve_ms: int = 0) -> bool:\ndef execution_state(cancel_requested: bool, remaining_budget_ms: int) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/concurrency/cancellation-deadlines-and-timeouts/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/concurrency/cancellation-deadlines-and-timeouts/python/cancellation_deadlines_and_timeouts.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef remaining_budget_ms(total_deadline_ms: int, elapsed_ms: int) -> int:\n    if total_deadline_ms < 0 or elapsed_ms < 0:\n        raise ValueError(\"time values must be non-negative\")\n    return max(0, total_deadline_ms - elapsed_ms)\n\n\ndef can_start_step(remaining_budget_ms: int, step_timeout_ms: int, cleanup_reserve_ms: int = 0) -> bool:\n    if remaining_budget_ms < 0 or step_timeout_ms < 0 or cleanup_reserve_ms < 0:\n        raise ValueError(\"time values must be non-negative\")\n    return remaining_budget_ms >= step_timeout_ms + cleanup_reserve_ms\n\n\ndef execution_state(cancel_requested: bool, remaining_budget_ms: int) -> str:\n    if remaining_budget_ms < 0:\n        raise ValueError(\"remaining_budget_ms must be non-negative\")\n    if cancel_requested:\n        return \"cancelled\"\n    if remaining_budget_ms == 0:\n        return \"timed_out\"\n    return \"running\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "idempotent-consumers",
+      "title": "Idempotent Consumers",
+      "path": "modules/software-engineering/concurrency/idempotent-consumers",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "readme": "# Idempotent Consumers\n\n> Track: `software-engineering` | Topic: `concurrency`\n\n## Concept\n\nAn idempotent consumer can receive the same message more than once without applying the side effect more than once.\n\n## Key Points\n\n- Duplicate delivery is normal in queue-backed systems.\n- Deduplication keys should bind the consumer identity to the message identity.\n- Processing decisions should happen before the side effect runs.\n\n## Minimal Code Mental Model\n\n```python\nkey = dedupe_key(\"msg_1\", \"invoice-writer\")\nallowed = should_process_message(\"msg_1\", seen_keys=set(), consumer_name=\"invoice-writer\")\nseen = mark_processed(\"msg_1\", seen_keys=set(), consumer_name=\"invoice-writer\")\n```\n\n## Function\n\n```python\ndef dedupe_key(message_id: str, consumer_name: str) -> str:\ndef should_process_message(message_id: str, seen_keys: set[str], consumer_name: str) -> bool:\ndef mark_processed(message_id: str, seen_keys: set[str], consumer_name: str) -> set[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/concurrency/idempotent-consumers/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/concurrency/idempotent-consumers/python/idempotent_consumers.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef dedupe_key(message_id: str, consumer_name: str) -> str:\n    cleaned_message_id = message_id.strip()\n    cleaned_consumer_name = consumer_name.strip()\n    if not cleaned_message_id or not cleaned_consumer_name:\n        raise ValueError(\"message_id and consumer_name must be non-empty\")\n    return f\"{cleaned_consumer_name}:{cleaned_message_id}\"\n\n\ndef should_process_message(message_id: str, seen_keys: set[str], consumer_name: str) -> bool:\n    return dedupe_key(message_id, consumer_name) not in seen_keys\n\n\ndef mark_processed(message_id: str, seen_keys: set[str], consumer_name: str) -> set[str]:\n    updated = set(seen_keys)\n    updated.add(dedupe_key(message_id, consumer_name))\n    return updated\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "queues-vs-locks",
+      "title": "Queues Vs Locks",
+      "path": "modules/software-engineering/concurrency/queues-vs-locks",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "readme": "# Queues Vs Locks\n\n> Track: `software-engineering` | Topic: `concurrency`\n\n## Concept\n\nLocks coordinate immediate access to shared state, while queues turn contested work into ordered units that can be processed later.\n\n## Key Points\n\n- Locks are useful when the caller must finish the critical section now.\n- Queues are useful when work can be delayed and serialized.\n- High contention and long critical sections make lock-based designs more fragile.\n\n## Minimal Code Mental Model\n\n```python\npattern = coordination_pattern(shared_resource=True, can_delay_work=True, needs_single_owner=False)\nrisk = lock_contention_risk(concurrent_workers=6, critical_section_ms=80)\nwarning = queue_backlog_warning(queue_depth=200, workers=10)\n```\n\n## Function\n\n```python\ndef coordination_pattern(shared_resource: bool, can_delay_work: bool, needs_single_owner: bool) -> str:\ndef lock_contention_risk(concurrent_workers: int, critical_section_ms: int) -> str:\ndef queue_backlog_warning(queue_depth: int, workers: int) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/concurrency/queues-vs-locks/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/concurrency/queues-vs-locks/python/queues_vs_locks.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef coordination_pattern(shared_resource: bool, can_delay_work: bool, needs_single_owner: bool) -> str:\n    if can_delay_work:\n        return \"queue\"\n    if shared_resource or needs_single_owner:\n        return \"lock\"\n    return \"none\"\n\n\ndef lock_contention_risk(concurrent_workers: int, critical_section_ms: int) -> str:\n    if concurrent_workers < 0 or critical_section_ms < 0:\n        raise ValueError(\"inputs must be non-negative\")\n    if concurrent_workers <= 1 or critical_section_ms <= 10:\n        return \"low\"\n    if concurrent_workers <= 4 and critical_section_ms <= 50:\n        return \"medium\"\n    return \"high\"\n\n\ndef queue_backlog_warning(queue_depth: int, workers: int) -> bool:\n    if queue_depth < 0 or workers <= 0:\n        raise ValueError(\"queue_depth must be non-negative and workers must be positive\")\n    return queue_depth > workers * 10\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "race-conditions-and-shared-state",
+      "title": "Race Conditions And Shared State",
+      "path": "modules/software-engineering/concurrency/race-conditions-and-shared-state",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "readme": "# Race Conditions And Shared State\n\n> Track: `software-engineering` | Topic: `concurrency`\n\n## Concept\n\nA race condition happens when concurrent work observes or writes shared state in an order the code did not intend.\n\n## Key Points\n\n- Shared mutable state is the main source of concurrency bugs.\n- Version checks are a simple way to prevent lost updates.\n- More writers without coordination usually means higher risk.\n\n## Minimal Code Mental Model\n\n```python\nallowed = optimistic_write_allowed(current_version=4, expected_version=4)\nvalue, version = apply_versioned_update(10, delta=5, current_version=4, expected_version=4)\nrisk = shared_state_risk(concurrent_writers=3, uses_coordination=False)\n```\n\n## Function\n\n```python\ndef optimistic_write_allowed(current_version: int, expected_version: int) -> bool:\ndef apply_versioned_update(\n    current_value: int,\n    delta: int,\n    current_version: int,\n    expected_version: int,\n) -> tuple[int, int]:\ndef shared_state_risk(concurrent_writers: int, uses_coordination: bool) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/concurrency/race-conditions-and-shared-state/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/concurrency/race-conditions-and-shared-state/python/race_conditions_and_shared_state.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef optimistic_write_allowed(current_version: int, expected_version: int) -> bool:\n    if current_version < 0 or expected_version < 0:\n        raise ValueError(\"versions must be non-negative\")\n    return current_version == expected_version\n\n\ndef apply_versioned_update(\n    current_value: int,\n    delta: int,\n    current_version: int,\n    expected_version: int,\n) -> tuple[int, int]:\n    if not optimistic_write_allowed(current_version, expected_version):\n        raise ValueError(\"stale write detected\")\n    return current_value + delta, current_version + 1\n\n\ndef shared_state_risk(concurrent_writers: int, uses_coordination: bool) -> str:\n    if concurrent_writers < 0:\n        raise ValueError(\"concurrent_writers must be non-negative\")\n    if concurrent_writers <= 1:\n        return \"low\"\n    if uses_coordination:\n        return \"medium\"\n    return \"high\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "state-machine-thinking",
+      "title": "State-Machine Thinking",
+      "path": "modules/software-engineering/concurrency/state-machine-thinking",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "readme": "# State-Machine Thinking\n\n> Track: `software-engineering` | Topic: `concurrency`\n\n## Concept\n\nState-machine thinking turns workflow correctness into explicit states and allowed transitions instead of hidden condition chains.\n\n## Key Points\n\n- Long-running concurrent workflows are easier to reason about as states plus events.\n- Invalid transitions should fail early.\n- Terminal states should be explicit so retries and cleanup know when to stop.\n\n## Minimal Code Mental Model\n\n```python\nallowed = valid_transition(\"pending\", \"start\", transitions)\nnext_state = apply_transition(\"pending\", \"start\", transitions)\nterminal = is_terminal_state(\"completed\", {\"completed\", \"failed\"})\n```\n\n## Function\n\n```python\ndef valid_transition(\n    current_state: str,\n    event: str,\n    transition_map: dict[tuple[str, str], str],\n) -> bool:\ndef apply_transition(\n    current_state: str,\n    event: str,\n    transition_map: dict[tuple[str, str], str],\n) -> str:\ndef is_terminal_state(state: str, terminal_states: set[str]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/concurrency/state-machine-thinking/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/concurrency/state-machine-thinking/python/state_machine_thinking.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef valid_transition(\n    current_state: str,\n    event: str,\n    transition_map: dict[tuple[str, str], str],\n) -> bool:\n    key = (current_state.strip(), event.strip())\n    if not key[0] or not key[1]:\n        raise ValueError(\"current_state and event must be non-empty\")\n    return key in transition_map\n\n\ndef apply_transition(\n    current_state: str,\n    event: str,\n    transition_map: dict[tuple[str, str], str],\n) -> str:\n    if not valid_transition(current_state, event, transition_map):\n        raise ValueError(\"invalid transition\")\n    return transition_map[(current_state.strip(), event.strip())]\n\n\ndef is_terminal_state(state: str, terminal_states: set[str]) -> bool:\n    cleaned_state = state.strip()\n    if not cleaned_state:\n        raise ValueError(\"state must be non-empty\")\n    return cleaned_state in terminal_states\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "worker-retry-semantics",
+      "title": "Worker Retry Semantics",
+      "path": "modules/software-engineering/concurrency/worker-retry-semantics",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "readme": "# Worker Retry Semantics\n\n> Track: `software-engineering` | Topic: `concurrency`\n\n## Concept\n\nWorker retry semantics decide whether a failed job should retry, move to a dead-letter queue, or stop immediately.\n\n## Key Points\n\n- Retry only transient failures.\n- Max attempts should be explicit and small enough to audit.\n- Terminal failures should stop consuming queue capacity quickly.\n\n## Minimal Code Mental Model\n\n```python\naction = worker_retry_action(\"timeout\", attempt=1, max_attempts=3)\ndelay = next_retry_delay_ms(base_delay_ms=200, attempt=2, max_delay_ms=1000)\nack = worker_ack_state(action)\n```\n\n## Function\n\n```python\ndef worker_retry_action(error_type: str, attempt: int, max_attempts: int) -> str:\ndef next_retry_delay_ms(base_delay_ms: int, attempt: int, max_delay_ms: int) -> int:\ndef worker_ack_state(action: str) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/concurrency/worker-retry-semantics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/concurrency/worker-retry-semantics/python/worker_retry_semantics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\nTRANSIENT_ERRORS = {\"timeout\", \"rate_limit\", \"temporary_unavailable\"}\n\n\ndef worker_retry_action(error_type: str, attempt: int, max_attempts: int) -> str:\n    if attempt < 0 or max_attempts <= 0:\n        raise ValueError(\"attempt must be non-negative and max_attempts positive\")\n\n    normalized_error = error_type.strip().lower()\n    if normalized_error in TRANSIENT_ERRORS and attempt < max_attempts:\n        return \"retry\"\n    if normalized_error in TRANSIENT_ERRORS:\n        return \"dead-letter\"\n    return \"fail-fast\"\n\n\ndef next_retry_delay_ms(base_delay_ms: int, attempt: int, max_delay_ms: int) -> int:\n    if base_delay_ms <= 0 or attempt < 0 or max_delay_ms < base_delay_ms:\n        raise ValueError(\"invalid retry delay inputs\")\n    return min(max_delay_ms, base_delay_ms * (2 ** attempt))\n\n\ndef worker_ack_state(action: str) -> str:\n    normalized_action = action.strip().lower()\n    if normalized_action == \"retry\":\n        return \"nack-retry\"\n    if normalized_action == \"dead-letter\":\n        return \"ack-dead-letter\"\n    if normalized_action == \"fail-fast\":\n        return \"ack-failure\"\n    raise ValueError(\"action must be retry, dead-letter, or fail-fast\")\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "observability",
+      "slug": "logs-metrics-and-traces",
+      "title": "Logs, Metrics, And Traces",
+      "path": "modules/software-engineering/observability/logs-metrics-and-traces",
+      "summary": "> Track: `software-engineering` | Topic: `observability`",
+      "readme": "# Logs, Metrics, And Traces\n\n> Track: `software-engineering` | Topic: `observability`\n\n## Concept\n\nLogs describe discrete events, metrics summarize changing quantities, and traces explain where work spent time across a request path.\n\n## Key Points\n\n- Structured logs are more useful than free-form strings when incidents happen.\n- Metrics are good for trends and alert thresholds.\n- Traces are good for dependency paths, latency attribution, and failure localization.\n\n## Minimal Code Mental Model\n\n```python\nlog = structured_log(\"payments\", \"info\", \"payment created\", {\"request_id\": \"req_1\"})\nmetric = metric_summary(\"latency_ms\", [120.0, 180.0, 90.0])\ntrace = trace_summary(\n    [\n        {\"name\": \"api\", \"latency_ms\": 20.0, \"status\": \"ok\"},\n        {\"name\": \"db\", \"latency_ms\": 80.0, \"status\": \"error\"},\n    ]\n)\n```\n\n## Function\n\n```python\ndef structured_log(\n    service: str,\n    level: str,\n    message: str,\n    context: dict[str, object] | None = None,\n) -> dict[str, object]:\ndef metric_summary(name: str, values: list[float]) -> dict[str, float]:\ndef trace_summary(spans: list[dict[str, object]]) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/observability/logs-metrics-and-traces/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/observability/logs-metrics-and-traces/python/logs_metrics_and_traces.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef structured_log(\n    service: str,\n    level: str,\n    message: str,\n    context: dict[str, object] | None = None,\n) -> dict[str, object]:\n    cleaned_service = service.strip()\n    cleaned_level = level.strip().lower()\n    cleaned_message = message.strip()\n    if not cleaned_service:\n        raise ValueError(\"service must be non-empty\")\n    if cleaned_level not in {\"debug\", \"info\", \"warn\", \"error\"}:\n        raise ValueError(\"level must be one of debug, info, warn, error\")\n    if not cleaned_message:\n        raise ValueError(\"message must be non-empty\")\n    return {\n        \"service\": cleaned_service,\n        \"level\": cleaned_level,\n        \"message\": cleaned_message,\n        \"context\": dict(context or {}),\n    }\n\n\ndef metric_summary(name: str, values: list[float]) -> dict[str, float]:\n    cleaned_name = name.strip()\n    if not cleaned_name:\n        raise ValueError(\"name must be non-empty\")\n    if not values:\n        raise ValueError(\"values must be non-empty\")\n    total = sum(values)\n    return {\n        \"count\": float(len(values)),\n        \"min\": min(values),\n        \"max\": max(values),\n        \"avg\": total / len(values),\n    }\n\n\ndef trace_summary(spans: list[dict[str, object]]) -> dict[str, object]:\n    total_latency = 0.0\n    failed_spans = 0\n    for span in spans:\n        latency_ms = float(span.get(\"latency_ms\", 0.0))\n        if latency_ms < 0:\n            raise ValueError(\"span latency must be non-negative\")\n        total_latency += latency_ms\n        if str(span.get(\"status\", \"\")).lower() != \"ok\":\n            failed_spans += 1\n    return {\n        \"span_count\": len(spans),\n        \"failed_spans\": failed_spans,\n        \"total_latency_ms\": total_latency,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "observability",
+      "slug": "slis-slos-and-alerting",
+      "title": "SLIs, SLOs, And Alerting",
+      "path": "modules/software-engineering/observability/slis-slos-and-alerting",
+      "summary": "> Track: `software-engineering` | Topic: `observability`",
+      "readme": "# SLIs, SLOs, And Alerting\n\n> Track: `software-engineering` | Topic: `observability`\n\n## Concept\n\nSLIs measure service behavior, SLOs set the target, and alerting decides when the remaining error budget is low enough that humans need to act.\n\n## Key Points\n\n- A service level indicator should reflect user-visible quality, not just machine counters.\n- Error budget is the gap between the allowed failure rate and the current failure rate.\n- Alerts should page for meaningful budget burn, not for every small dip.\n\n## Minimal Code Mental Model\n\n```python\nsli = sli_rate(good_events=995, total_events=1000)\nbudget = error_budget_remaining(actual_sli=sli, target_slo=0.99)\nstate = alert_state(actual_sli=sli, target_slo=0.99, page_when_remaining_below=0.25)\n```\n\n## Function\n\n```python\ndef sli_rate(good_events: int, total_events: int) -> float:\ndef error_budget_remaining(actual_sli: float, target_slo: float) -> float:\ndef alert_state(actual_sli: float, target_slo: float, page_when_remaining_below: float = 0.25) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/observability/slis-slos-and-alerting/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/observability/slis-slos-and-alerting/python/slis_slos_and_alerting.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef sli_rate(good_events: int, total_events: int) -> float:\n    if total_events <= 0:\n        raise ValueError(\"total_events must be positive\")\n    if good_events < 0 or good_events > total_events:\n        raise ValueError(\"good_events must be between 0 and total_events\")\n    return good_events / total_events\n\n\ndef error_budget_remaining(actual_sli: float, target_slo: float) -> float:\n    if not 0 <= actual_sli <= 1:\n        raise ValueError(\"actual_sli must be between 0 and 1\")\n    if not 0 < target_slo < 1:\n        raise ValueError(\"target_slo must be between 0 and 1\")\n\n    allowed_failure_rate = 1 - target_slo\n    actual_failure_rate = 1 - actual_sli\n    remaining = (allowed_failure_rate - actual_failure_rate) / allowed_failure_rate\n    return max(0.0, min(1.0, remaining))\n\n\ndef alert_state(actual_sli: float, target_slo: float, page_when_remaining_below: float = 0.25) -> str:\n    if not 0 <= page_when_remaining_below <= 1:\n        raise ValueError(\"page_when_remaining_below must be between 0 and 1\")\n\n    remaining = error_budget_remaining(actual_sli, target_slo)\n    if actual_sli < target_slo:\n        return \"page\"\n    if remaining <= page_when_remaining_below:\n        return \"ticket\"\n    return \"ok\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "observability",
+      "slug": "structured-logging",
+      "title": "Structured Logging",
+      "path": "modules/software-engineering/observability/structured-logging",
+      "summary": "> Track: `software-engineering` | Topic: `observability`",
+      "readme": "# Structured Logging\n\n> Track: `software-engineering` | Topic: `observability`\n\n## Concept\n\nStructured logging stores events as fields that machines and humans can query reliably, instead of hiding meaning inside one free-form message string.\n\n## Key Points\n\n- Logs should carry stable keys like request IDs and service names.\n- Sensitive fields should be redacted before emission.\n- Required log fields make production debugging more reliable.\n\n## Minimal Code Mental Model\n\n```python\nevent = make_log_event(\"payments\", \"info\", \"payment created\", {\"request_id\": \"req_1\", \"token\": \"secret\"})\nmissing = missing_required_log_fields(event, [\"service\", \"level\", \"message\", \"request_id\"])\nredacted = redact_context({\"token\": \"secret\", \"request_id\": \"req_1\"})\n```\n\n## Function\n\n```python\ndef redact_context(context: dict[str, object], secret_keys: list[str] | None = None) -> dict[str, object]:\ndef make_log_event(\n    service: str,\n    level: str,\n    message: str,\n    context: dict[str, object] | None = None,\n) -> dict[str, object]:\ndef missing_required_log_fields(log_event: dict[str, object], required_fields: list[str]) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/observability/structured-logging/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/observability/structured-logging/python/structured_logging.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef redact_context(context: dict[str, object], secret_keys: list[str] | None = None) -> dict[str, object]:\n    keys_to_redact = {key.strip().lower() for key in (secret_keys or [\"token\", \"password\", \"secret\"]) if key.strip()}\n    redacted: dict[str, object] = {}\n    for key, value in context.items():\n        if key.strip().lower() in keys_to_redact:\n            redacted[key] = \"[REDACTED]\"\n        else:\n            redacted[key] = value\n    return redacted\n\n\ndef make_log_event(\n    service: str,\n    level: str,\n    message: str,\n    context: dict[str, object] | None = None,\n) -> dict[str, object]:\n    cleaned_service = service.strip()\n    cleaned_level = level.strip().lower()\n    cleaned_message = message.strip()\n    if not cleaned_service or not cleaned_message:\n        raise ValueError(\"service and message must be non-empty\")\n    if cleaned_level not in {\"debug\", \"info\", \"warn\", \"error\"}:\n        raise ValueError(\"level must be one of debug, info, warn, error\")\n    safe_context = redact_context(dict(context or {}))\n    return {\n        \"service\": cleaned_service,\n        \"level\": cleaned_level,\n        \"message\": cleaned_message,\n        \"context\": safe_context,\n    }\n\n\ndef missing_required_log_fields(log_event: dict[str, object], required_fields: list[str]) -> list[str]:\n    missing: list[str] = []\n    context = dict(log_event.get(\"context\", {}))\n    for field in required_fields:\n        cleaned_field = field.strip()\n        if not cleaned_field:\n            continue\n        if cleaned_field in log_event:\n            if log_event[cleaned_field] in {\"\", None}:\n                missing.append(cleaned_field)\n            continue\n        if cleaned_field not in context or context[cleaned_field] in {\"\", None}:\n            missing.append(cleaned_field)\n    return missing\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "performance",
+      "slug": "latency-budgeting",
+      "title": "Latency Budgeting",
+      "path": "modules/software-engineering/performance/latency-budgeting",
+      "summary": "> Track: `software-engineering` | Topic: `performance`",
+      "readme": "# Latency Budgeting\n\n> Track: `software-engineering` | Topic: `performance`\n\n## Concept\n\nA latency budget assigns a total response-time target and then forces each step in the request path to earn its share of that target.\n\n## Key Points\n\n- Total latency is the sum of boundary costs, not just one slow line of code.\n- Remaining budget helps decide which step can still fit inside the target.\n- The largest contributor is usually the first thing to investigate.\n\n## Minimal Code Mental Model\n\n```python\nremaining = remaining_latency_budget_ms(total_budget_ms=300, observed_steps_ms=[40, 80, 60])\nexceeded = latency_budget_exceeded(total_budget_ms=300, observed_steps_ms=[40, 80, 60, 150])\nbottleneck = largest_latency_contributor({\"api\": 40, \"db\": 120, \"cache\": 20})\n```\n\n## Function\n\n```python\ndef remaining_latency_budget_ms(total_budget_ms: int, observed_steps_ms: list[int]) -> int:\ndef latency_budget_exceeded(total_budget_ms: int, observed_steps_ms: list[int]) -> bool:\ndef largest_latency_contributor(step_latencies_ms: dict[str, int]) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/performance/latency-budgeting/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/performance/latency-budgeting/python/latency_budgeting.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef remaining_latency_budget_ms(total_budget_ms: int, observed_steps_ms: list[int]) -> int:\n    if total_budget_ms < 0 or any(step < 0 for step in observed_steps_ms):\n        raise ValueError(\"latencies must be non-negative\")\n    return max(0, total_budget_ms - sum(observed_steps_ms))\n\n\ndef latency_budget_exceeded(total_budget_ms: int, observed_steps_ms: list[int]) -> bool:\n    return remaining_latency_budget_ms(total_budget_ms, observed_steps_ms) == 0 and sum(\n        observed_steps_ms\n    ) > total_budget_ms\n\n\ndef largest_latency_contributor(step_latencies_ms: dict[str, int]) -> str:\n    if not step_latencies_ms:\n        raise ValueError(\"step_latencies_ms must be non-empty\")\n    if any(latency < 0 for latency in step_latencies_ms.values()):\n        raise ValueError(\"latencies must be non-negative\")\n    return max(step_latencies_ms, key=step_latencies_ms.get)\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "reliability",
+      "slug": "canary-rollout-and-rollback",
+      "title": "Canary Rollout And Rollback",
+      "path": "modules/software-engineering/reliability/canary-rollout-and-rollback",
+      "summary": "> Track: `software-engineering` | Topic: `reliability`",
+      "readme": "# Canary Rollout And Rollback\n\n> Track: `software-engineering` | Topic: `reliability`\n\n## Concept\n\nA canary rollout sends a small share of traffic to a new version, expands only when health stays acceptable, and rolls back quickly when it does not.\n\n## Key Points\n\n- Canary health should be compared against a baseline, not judged in isolation.\n- Traffic steps should be explicit and easy to audit.\n- A bad canary should go to zero fast instead of waiting for more evidence while users are hurt.\n\n## Minimal Code Mental Model\n\n```python\nhealthy = canary_healthy(baseline_error_rate=0.01, canary_error_rate=0.015, max_increase=0.01)\nnext_pct = next_canary_percentage(current_percentage=10, healthy=healthy)\ndecision = rollout_decision(current_percentage=10, healthy=healthy)\n```\n\n## Function\n\n```python\ndef canary_healthy(baseline_error_rate: float, canary_error_rate: float, max_increase: float) -> bool:\ndef next_canary_percentage(current_percentage: int, healthy: bool) -> int:\ndef rollout_decision(current_percentage: int, healthy: bool) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/reliability/canary-rollout-and-rollback/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/reliability/canary-rollout-and-rollback/python/canary_rollout_and_rollback.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\nCANARY_STEPS = [1, 5, 10, 25, 50, 100]\n\n\ndef canary_healthy(baseline_error_rate: float, canary_error_rate: float, max_increase: float) -> bool:\n    if baseline_error_rate < 0 or canary_error_rate < 0 or max_increase < 0:\n        raise ValueError(\"rates must be non-negative\")\n    return canary_error_rate <= baseline_error_rate + max_increase\n\n\ndef next_canary_percentage(current_percentage: int, healthy: bool) -> int:\n    if current_percentage not in CANARY_STEPS:\n        raise ValueError(\"current_percentage must be one of the canary steps\")\n    if not healthy:\n        return 0\n    current_index = CANARY_STEPS.index(current_percentage)\n    return CANARY_STEPS[min(current_index + 1, len(CANARY_STEPS) - 1)]\n\n\ndef rollout_decision(current_percentage: int, healthy: bool) -> str:\n    next_percentage = next_canary_percentage(current_percentage, healthy)\n    if next_percentage == 0:\n        return \"rollback\"\n    if next_percentage == 100 and healthy:\n        return \"complete\"\n    return \"expand\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "reliability",
+      "slug": "graceful-degradation-and-overload",
+      "title": "Graceful Degradation And Overload",
+      "path": "modules/software-engineering/reliability/graceful-degradation-and-overload",
+      "summary": "> Track: `software-engineering` | Topic: `reliability`",
+      "readme": "# Graceful Degradation And Overload\n\n> Track: `software-engineering` | Topic: `reliability`\n\n## Concept\n\nGraceful degradation keeps core behavior alive when load is too high by shedding optional work before the whole service collapses.\n\n## Key Points\n\n- Overload is a normal operating condition, not just a rare incident.\n- Capacity needs both a safe zone and a hard limit.\n- Optional features should be disabled before core requests are dropped.\n\n## Minimal Code Mental Model\n\n```python\nstate = capacity_state(current_rps=850, safe_rps=700, hard_rps=900)\nshed = requests_to_shed(current_rps=950, hard_rps=900)\nactions = degradation_actions(\"overloaded\", [\"personalization\", \"analytics\"])\n```\n\n## Function\n\n```python\ndef capacity_state(current_rps: int, safe_rps: int, hard_rps: int) -> str:\ndef requests_to_shed(current_rps: int, hard_rps: int) -> int:\ndef degradation_actions(state: str, optional_features: list[str]) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/reliability/graceful-degradation-and-overload/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/reliability/graceful-degradation-and-overload/python/graceful_degradation_and_overload.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef capacity_state(current_rps: int, safe_rps: int, hard_rps: int) -> str:\n    if current_rps < 0 or safe_rps <= 0 or hard_rps < safe_rps:\n        raise ValueError(\"capacity inputs must be non-negative and ordered\")\n    if current_rps <= safe_rps:\n        return \"healthy\"\n    if current_rps <= hard_rps:\n        return \"degraded\"\n    return \"overloaded\"\n\n\ndef requests_to_shed(current_rps: int, hard_rps: int) -> int:\n    if current_rps < 0 or hard_rps <= 0:\n        raise ValueError(\"rps values must be positive\")\n    return max(0, current_rps - hard_rps)\n\n\ndef degradation_actions(state: str, optional_features: list[str]) -> list[str]:\n    normalized_state = state.strip().lower()\n    if normalized_state == \"healthy\":\n        return []\n    if normalized_state == \"degraded\":\n        return [f\"disable:{feature}\" for feature in optional_features if feature.strip()]\n    if normalized_state == \"overloaded\":\n        actions = [f\"disable:{feature}\" for feature in optional_features if feature.strip()]\n        actions.append(\"rate-limit\")\n        return actions\n    raise ValueError(\"state must be healthy, degraded, or overloaded\")\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "authn-vs-authz",
+      "title": "Authn vs Authz",
+      "path": "modules/software-engineering/security-basics/authn-vs-authz",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "readme": "# Authn vs Authz\n\n> Track: `software-engineering` | Topic: `security-basics`\n\n## Concept\n\nAuthentication answers who the caller is. Authorization answers what that caller is allowed to do.\n\n## Key Points\n\n- A valid identity does not imply permission.\n- Authorization should check an explicit scope or capability, not just role names in comments.\n- Mixing authn and authz makes access bugs harder to reason about and test.\n\n## Minimal Code Mental Model\n\n```python\nprincipal = authenticate_credential(\"token_admin\", {\"token_admin\": \"alice\"})\nallowed = authorize_action([\"docs:read\", \"docs:write\"], \"docs:write\")\ndecision = access_decision(\n    \"token_admin\",\n    {\"token_admin\": \"alice\"},\n    {\"alice\": [\"docs:read\", \"docs:write\"]},\n    \"docs:write\",\n)\n```\n\n## Function\n\n```python\ndef authenticate_credential(credential: str, token_directory: dict[str, str]) -> str | None:\ndef authorize_action(scopes: list[str], required_scope: str) -> bool:\ndef access_decision(\n    credential: str,\n    token_directory: dict[str, str],\n    scope_directory: dict[str, list[str]],\n    required_scope: str,\n) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/security-basics/authn-vs-authz/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/security-basics/authn-vs-authz/python/authn_vs_authz.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef authenticate_credential(credential: str, token_directory: dict[str, str]) -> str | None:\n    cleaned_credential = credential.strip()\n    if not cleaned_credential:\n        raise ValueError(\"credential must be non-empty\")\n    principal = token_directory.get(cleaned_credential)\n    if principal is None:\n        return None\n    cleaned_principal = principal.strip()\n    if not cleaned_principal:\n        raise ValueError(\"principal must be non-empty\")\n    return cleaned_principal\n\n\ndef authorize_action(scopes: list[str], required_scope: str) -> bool:\n    cleaned_scope = required_scope.strip()\n    if not cleaned_scope:\n        raise ValueError(\"required_scope must be non-empty\")\n    return cleaned_scope in {scope.strip() for scope in scopes if scope.strip()}\n\n\ndef access_decision(\n    credential: str,\n    token_directory: dict[str, str],\n    scope_directory: dict[str, list[str]],\n    required_scope: str,\n) -> str:\n    principal = authenticate_credential(credential, token_directory)\n    if principal is None:\n        return \"deny:unauthenticated\"\n    if not authorize_action(scope_directory.get(principal, []), required_scope):\n        return \"deny:unauthorized\"\n    return \"allow\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "dependency-and-supply-chain-risk",
+      "title": "Dependency And Supply-Chain Risk",
+      "path": "modules/software-engineering/security-basics/dependency-and-supply-chain-risk",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "readme": "# Dependency And Supply-Chain Risk\n\n> Track: `software-engineering` | Topic: `security-basics`\n\n## Concept\n\nDependency risk comes from what third-party code can do in your build and runtime, not just from whether the package is convenient to install.\n\n## Key Points\n\n- Known vulnerabilities are a direct risk signal.\n- Install-time scripts increase trust requirements because code runs before the app even starts.\n- Unpinned or weakly reviewed dependencies need stronger gates on production paths.\n\n## Minimal Code Mental Model\n\n```python\nrisk = dependency_risk(version_pinned=False, known_vulnerabilities=0, executes_install_script=True)\ngate = dependency_gate(risk, in_production_path=True)\nportfolio = portfolio_risk([\"low\", \"medium\", \"high\"])\n```\n\n## Function\n\n```python\ndef dependency_risk(version_pinned: bool, known_vulnerabilities: int, executes_install_script: bool) -> str:\ndef dependency_gate(risk: str, in_production_path: bool) -> str:\ndef portfolio_risk(risks: list[str]) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/security-basics/dependency-and-supply-chain-risk/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/security-basics/dependency-and-supply-chain-risk/python/dependency_and_supply_chain_risk.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\nRISK_ORDER = {\"low\": 0, \"medium\": 1, \"high\": 2}\n\n\ndef dependency_risk(version_pinned: bool, known_vulnerabilities: int, executes_install_script: bool) -> str:\n    if known_vulnerabilities < 0:\n        raise ValueError(\"known_vulnerabilities must be non-negative\")\n    if known_vulnerabilities > 0:\n        return \"high\"\n    if executes_install_script or not version_pinned:\n        return \"medium\"\n    return \"low\"\n\n\ndef dependency_gate(risk: str, in_production_path: bool) -> str:\n    normalized = risk.strip().lower()\n    if normalized not in RISK_ORDER:\n        raise ValueError(\"risk must be low, medium, or high\")\n    if normalized == \"high\":\n        return \"block\"\n    if normalized == \"medium\" and in_production_path:\n        return \"review\"\n    return \"allow\"\n\n\ndef portfolio_risk(risks: list[str]) -> str:\n    if not risks:\n        raise ValueError(\"risks must be non-empty\")\n    normalized = [risk.strip().lower() for risk in risks]\n    for risk in normalized:\n        if risk not in RISK_ORDER:\n            raise ValueError(\"risk must be low, medium, or high\")\n    return max(normalized, key=RISK_ORDER.get)\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "input-validation-and-output-encoding",
+      "title": "Input Validation And Output Encoding",
+      "path": "modules/software-engineering/security-basics/input-validation-and-output-encoding",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "readme": "# Input Validation And Output Encoding\n\n> Track: `software-engineering` | Topic: `security-basics`\n\n## Concept\n\nInput validation constrains what the system accepts, and output encoding ensures untrusted text is rendered safely in the target context.\n\n## Key Points\n\n- Validation should happen before business logic depends on the input.\n- Rendering user input without encoding creates injection risk.\n- Validation and encoding solve different problems and both are needed.\n\n## Minimal Code Mental Model\n\n```python\nusername = validate_username(\"alice_1\")\nsafe = html_escape('<script>alert(1)</script>')\nrendered = render_comment_html(\"alice_1\", \"<b>Hello</b>\")\n```\n\n## Function\n\n```python\ndef validate_username(username: str) -> str:\ndef html_escape(text: str) -> str:\ndef render_comment_html(author: str, comment: str) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/security-basics/input-validation-and-output-encoding/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/security-basics/input-validation-and-output-encoding/python/input_validation_and_output_encoding.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\nimport html\n\n\ndef validate_username(username: str) -> str:\n    cleaned = username.strip()\n    if not 3 <= len(cleaned) <= 20:\n        raise ValueError(\"username must be between 3 and 20 characters\")\n    allowed = set(\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-\")\n    if any(char not in allowed for char in cleaned):\n        raise ValueError(\"username contains invalid characters\")\n    return cleaned\n\n\ndef html_escape(text: str) -> str:\n    return html.escape(text, quote=True)\n\n\ndef render_comment_html(author: str, comment: str) -> str:\n    safe_author = validate_username(author)\n    safe_comment = html_escape(comment)\n    return f\"<p><strong>{safe_author}</strong>: {safe_comment}</p>\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "least-privilege-and-secrets-management",
+      "title": "Least Privilege And Secrets Management",
+      "path": "modules/software-engineering/security-basics/least-privilege-and-secrets-management",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "readme": "# Least Privilege And Secrets Management\n\n> Track: `software-engineering` | Topic: `security-basics`\n\n## Concept\n\nLeast privilege reduces granted access to the minimum needed, and secret management keeps credentials out of logs, source control, and long-lived plaintext storage.\n\n## Key Points\n\n- Access scopes should come from required actions, not from convenience.\n- Secrets should move through managed injection paths, not through logs or committed files.\n- Any privilege expansion touching secrets should be explicit and reviewable.\n\n## Minimal Code Mental Model\n\n```python\nscopes = least_privilege_scopes([\"read-docs\", \"write-docs\"], capability_scopes)\naction = secret_handling_action(\"OPENAI_API_KEY\", \"log\")\nreview = privilege_escalation_required([\"docs:read\"], [\"docs:read\", \"docs:write\"], secret_access=True)\n```\n\n## Function\n\n```python\ndef least_privilege_scopes(\n    requested_capabilities: list[str],\n    capability_scopes: dict[str, list[str]],\n) -> list[str]:\ndef secret_handling_action(secret_name: str, destination: str) -> str:\ndef privilege_escalation_required(\n    current_scopes: list[str],\n    requested_scopes: list[str],\n    secret_access: bool = False,\n) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/security-basics/least-privilege-and-secrets-management/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/security-basics/least-privilege-and-secrets-management/python/least_privilege_and_secrets_management.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef least_privilege_scopes(\n    requested_capabilities: list[str],\n    capability_scopes: dict[str, list[str]],\n) -> list[str]:\n    if not requested_capabilities:\n        raise ValueError(\"requested_capabilities must be non-empty\")\n\n    scopes: set[str] = set()\n    for capability in requested_capabilities:\n        cleaned_capability = capability.strip()\n        if not cleaned_capability:\n            raise ValueError(\"requested capabilities must be non-empty\")\n        if cleaned_capability not in capability_scopes:\n            raise ValueError(f\"unknown capability: {cleaned_capability}\")\n        scopes.update(scope.strip() for scope in capability_scopes[cleaned_capability] if scope.strip())\n    return sorted(scopes)\n\n\ndef secret_handling_action(secret_name: str, destination: str) -> str:\n    if not secret_name.strip():\n        raise ValueError(\"secret_name must be non-empty\")\n\n    normalized_destination = destination.strip().lower()\n    if normalized_destination in {\"log\", \"ticket\", \"source-control\"}:\n        return \"deny\"\n    if normalized_destination in {\"config-file\", \"terminal-output\"}:\n        return \"redact\"\n    if normalized_destination == \"process-env\":\n        return \"inject-ephemeral\"\n    if normalized_destination == \"secret-manager\":\n        return \"store-managed\"\n    raise ValueError(\"unknown destination\")\n\n\ndef privilege_escalation_required(\n    current_scopes: list[str],\n    requested_scopes: list[str],\n    secret_access: bool = False,\n) -> bool:\n    current = {scope.strip() for scope in current_scopes if scope.strip()}\n    requested = {scope.strip() for scope in requested_scopes if scope.strip()}\n    if not requested:\n        raise ValueError(\"requested_scopes must be non-empty\")\n    return secret_access or not requested.issubset(current)\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "secure-sdlc-basics",
+      "title": "Secure SDLC Basics",
+      "path": "modules/software-engineering/security-basics/secure-sdlc-basics",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "readme": "# Secure SDLC Basics\n\n> Track: `software-engineering` | Topic: `security-basics`\n\n## Concept\n\nA secure SDLC makes security checks part of normal design, implementation, review, and release rather than treating security as a final separate phase.\n\n## Key Points\n\n- Different change types need different security checks.\n- Release blockers should be explicit and auditable.\n- Secret scanning, dependency scanning, and auth review are cheap checks to require early.\n\n## Minimal Code Mental Model\n\n```python\nrequired = required_security_checks([\"api\", \"auth\", \"dependency-change\"])\nmissing = missing_security_checks([\"api\", \"auth\"], [\"secret-scan\", \"authz-review\"])\nready = release_allowed([\"api\", \"auth\"], [\"secret-scan\", \"authz-review\", \"dependency-scan\"])\n```\n\n## Function\n\n```python\ndef required_security_checks(change_tags: list[str]) -> list[str]:\ndef missing_security_checks(change_tags: list[str], completed_checks: list[str]) -> list[str]:\ndef release_allowed(change_tags: list[str], completed_checks: list[str]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/security-basics/secure-sdlc-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/security-basics/secure-sdlc-basics/python/secure_sdlc_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef required_security_checks(change_tags: list[str]) -> list[str]:\n    normalized_tags = {tag.strip().lower() for tag in change_tags if tag.strip()}\n    checks = [\"secret-scan\"]\n\n    if normalized_tags.intersection({\"auth\", \"permission\", \"api\"}):\n        checks.append(\"authz-review\")\n    if normalized_tags.intersection({\"dependency-change\", \"package-update\"}):\n        checks.append(\"dependency-scan\")\n    if normalized_tags.intersection({\"external-input\", \"rendering\"}):\n        checks.append(\"validation-review\")\n    return checks\n\n\ndef missing_security_checks(change_tags: list[str], completed_checks: list[str]) -> list[str]:\n    required = set(required_security_checks(change_tags))\n    completed = {check.strip().lower() for check in completed_checks if check.strip()}\n    return sorted(required - completed)\n\n\ndef release_allowed(change_tags: list[str], completed_checks: list[str]) -> bool:\n    return not missing_security_checks(change_tags, completed_checks)\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "system-design",
+      "slug": "service-boundaries-and-failure-domains",
+      "title": "Service Boundaries And Failure Domains",
+      "path": "modules/software-engineering/system-design/service-boundaries-and-failure-domains",
+      "summary": "> Track: `software-engineering` | Topic: `system-design`",
+      "readme": "# Service Boundaries And Failure Domains\n\n> Track: `software-engineering` | Topic: `system-design`\n\n## Concept\n\nA service boundary is justified when it improves ownership, scaling, or failure isolation without breaking a transaction boundary that must stay together.\n\n## Key Points\n\n- Splitting services too early adds coordination cost.\n- Strong transaction requirements are a reason to keep components together.\n- Failure-domain design is mostly about reducing blast radius.\n\n## Minimal Code Mental Model\n\n```python\nsplit = should_split_service(\n    independent_scaling=True,\n    separate_ownership=True,\n    requires_strong_transaction=False,\n)\nrisk = failure_domain_risk(shared_dependencies=3, critical_paths=2)\ndecision = boundary_decision(\n    independent_scaling=True,\n    separate_ownership=False,\n    requires_strong_transaction=True,\n)\n```\n\n## Function\n\n```python\ndef should_split_service(\n    independent_scaling: bool,\n    separate_ownership: bool,\n    requires_strong_transaction: bool,\n) -> bool:\ndef failure_domain_risk(shared_dependencies: int, critical_paths: int) -> str:\ndef boundary_decision(\n    independent_scaling: bool,\n    separate_ownership: bool,\n    requires_strong_transaction: bool,\n) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/system-design/service-boundaries-and-failure-domains/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/system-design/service-boundaries-and-failure-domains/python/service_boundaries_and_failure_domains.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef should_split_service(\n    independent_scaling: bool,\n    separate_ownership: bool,\n    requires_strong_transaction: bool,\n) -> bool:\n    if requires_strong_transaction:\n        return False\n    return independent_scaling or separate_ownership\n\n\ndef failure_domain_risk(shared_dependencies: int, critical_paths: int) -> str:\n    if shared_dependencies < 0 or critical_paths < 0:\n        raise ValueError(\"counts must be non-negative\")\n    if shared_dependencies == 0 or critical_paths == 0:\n        return \"low\"\n    if shared_dependencies <= 2 and critical_paths <= 1:\n        return \"medium\"\n    return \"high\"\n\n\ndef boundary_decision(\n    independent_scaling: bool,\n    separate_ownership: bool,\n    requires_strong_transaction: bool,\n) -> str:\n    if should_split_service(independent_scaling, separate_ownership, requires_strong_transaction):\n        return \"split\"\n    if requires_strong_transaction and (independent_scaling or separate_ownership):\n        return \"review-transaction-boundary\"\n    return \"keep-together\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
       "topic": "testing",
       "slug": "contract-tests",
       "title": "Contract Tests",
@@ -8666,6 +9146,54 @@
           "path": "modules/software-engineering/testing/contract-tests/python/contract_tests.py",
           "language": "python",
           "content": "from __future__ import annotations\n\n\ndef make_contract(\n    required_fields: dict[str, str],\n    optional_fields: dict[str, str] | None = None,\n) -> dict[str, dict[str, str]]:\n    return {\n        \"required\": {name: field_type.strip() for name, field_type in required_fields.items()},\n        \"optional\": {\n            name: field_type.strip()\n            for name, field_type in (optional_fields or {}).items()\n        },\n    }\n\n\ndef _matches_type(value: object, expected_type: str) -> bool:\n    if expected_type == \"string\":\n        return isinstance(value, str)\n    if expected_type == \"integer\":\n        return isinstance(value, int) and not isinstance(value, bool)\n    if expected_type == \"boolean\":\n        return isinstance(value, bool)\n    if expected_type == \"object\":\n        return isinstance(value, dict)\n    if expected_type == \"array\":\n        return isinstance(value, list)\n    raise ValueError(f\"unsupported contract type: {expected_type}\")\n\n\ndef contract_violations(contract: dict[str, dict[str, str]], payload: dict[str, object]) -> list[str]:\n    violations: list[str] = []\n\n    for field_name, field_type in contract[\"required\"].items():\n        if field_name not in payload:\n            violations.append(f\"missing required field: {field_name}\")\n            continue\n        if not _matches_type(payload[field_name], field_type):\n            violations.append(f\"wrong type for field: {field_name}\")\n\n    for field_name, field_type in contract[\"optional\"].items():\n        if field_name in payload and not _matches_type(payload[field_name], field_type):\n            violations.append(f\"wrong type for field: {field_name}\")\n\n    return violations\n\n\ndef contract_report(\n    contract_name: str,\n    contract: dict[str, dict[str, str]],\n    payload: dict[str, object],\n) -> dict[str, object]:\n    cleaned_name = contract_name.strip()\n    if not cleaned_name:\n        raise ValueError(\"contract_name must be non-empty\")\n\n    violations = contract_violations(contract, payload)\n    return {\n        \"contract\": cleaned_name,\n        \"passed\": not violations,\n        \"violations\": violations,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "flaky-test-reduction",
+      "title": "Flaky Test Reduction",
+      "path": "modules/software-engineering/testing/flaky-test-reduction",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "readme": "# Flaky Test Reduction\n\n> Track: `software-engineering` | Topic: `testing`\n\n## Concept\n\nFlaky tests fail intermittently because they depend on unstable time, network, ordering, or shared state instead of a controlled test environment.\n\n## Key Points\n\n- Time, randomness, network access, and shared state are the main flake sources.\n- The best fix is usually to remove the unstable dependency, not to add retries.\n- Quarantining a flaky test can reduce noise, but it does not solve the underlying bug.\n\n## Minimal Code Mental Model\n\n```python\nrisk = flake_risk(uses_time=True, uses_network=False, shared_state=True)\nsteps = stabilization_steps(uses_time=True, uses_network=True, shared_state=False)\nquarantine = should_quarantine(failure_rate=0.2, critical_path=False)\n```\n\n## Function\n\n```python\ndef flake_risk(uses_time: bool, uses_network: bool, shared_state: bool) -> str:\ndef stabilization_steps(uses_time: bool, uses_network: bool, shared_state: bool) -> list[str]:\ndef should_quarantine(failure_rate: float, critical_path: bool) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/testing/flaky-test-reduction/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/testing/flaky-test-reduction/python/flaky_test_reduction.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef flake_risk(uses_time: bool, uses_network: bool, shared_state: bool) -> str:\n    risk_count = sum([uses_time, uses_network, shared_state])\n    if risk_count == 0:\n        return \"low\"\n    if risk_count == 1:\n        return \"medium\"\n    return \"high\"\n\n\ndef stabilization_steps(uses_time: bool, uses_network: bool, shared_state: bool) -> list[str]:\n    steps: list[str] = []\n    if uses_time:\n        steps.append(\"freeze time or inject clock\")\n    if uses_network:\n        steps.append(\"replace network with stub\")\n    if shared_state:\n        steps.append(\"isolate state per test\")\n    if not steps:\n        steps.append(\"keep test deterministic\")\n    return steps\n\n\ndef should_quarantine(failure_rate: float, critical_path: bool) -> bool:\n    if not 0 <= failure_rate <= 1:\n        raise ValueError(\"failure_rate must be between 0 and 1\")\n    return failure_rate >= 0.1 and not critical_path\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "golden-and-snapshot-test-tradeoffs",
+      "title": "Golden And Snapshot Test Tradeoffs",
+      "path": "modules/software-engineering/testing/golden-and-snapshot-test-tradeoffs",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "readme": "# Golden And Snapshot Test Tradeoffs\n\n> Track: `software-engineering` | Topic: `testing`\n\n## Concept\n\nGolden and snapshot tests are useful when output shape matters, but they become noisy when the output changes often or includes nondeterministic values.\n\n## Key Points\n\n- Snapshot tests are best for stable output formats, not highly volatile text.\n- Nondeterministic values like timestamps make snapshot diffs noisy.\n- Large snapshot changes should trigger review of whether the test is still the right tool.\n\n## Minimal Code Mental Model\n\n```python\nkind = recommended_output_test(stable_output=True, large_structured_output=True)\nrisk = snapshot_noise_risk(changed_lines=40, has_nondeterministic_values=False)\nok = snapshot_update_allowed(\n    changed_lines=8,\n    has_nondeterministic_values=False,\n    reviewer_signed_off=True,\n)\n```\n\n## Function\n\n```python\ndef recommended_output_test(stable_output: bool, large_structured_output: bool) -> str:\ndef snapshot_noise_risk(changed_lines: int, has_nondeterministic_values: bool) -> str:\ndef snapshot_update_allowed(\n    changed_lines: int,\n    has_nondeterministic_values: bool,\n    reviewer_signed_off: bool,\n) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/testing/golden-and-snapshot-test-tradeoffs/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/testing/golden-and-snapshot-test-tradeoffs/python/golden_and_snapshot_test_tradeoffs.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef recommended_output_test(stable_output: bool, large_structured_output: bool) -> str:\n    if stable_output and large_structured_output:\n        return \"snapshot\"\n    if stable_output:\n        return \"golden\"\n    return \"assert-specific-fields\"\n\n\ndef snapshot_noise_risk(changed_lines: int, has_nondeterministic_values: bool) -> str:\n    if changed_lines < 0:\n        raise ValueError(\"changed_lines must be non-negative\")\n    if has_nondeterministic_values:\n        return \"high\"\n    if changed_lines >= 25:\n        return \"medium\"\n    return \"low\"\n\n\ndef snapshot_update_allowed(\n    changed_lines: int,\n    has_nondeterministic_values: bool,\n    reviewer_signed_off: bool,\n) -> bool:\n    risk = snapshot_noise_risk(changed_lines, has_nondeterministic_values)\n    if risk == \"high\":\n        return False\n    if risk == \"medium\":\n        return reviewer_signed_off\n    return reviewer_signed_off\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "property-based-testing-basics",
+      "title": "Property-Based Testing Basics",
+      "path": "modules/software-engineering/testing/property-based-testing-basics",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "readme": "# Property-Based Testing Basics\n\n> Track: `software-engineering` | Topic: `testing`\n\n## Concept\n\nProperty-based testing checks broad invariants across many generated or enumerated inputs instead of relying only on a few hand-picked examples.\n\n## Key Points\n\n- A property describes what should always hold, not one exact output.\n- Small helper generators are enough to teach the idea without a heavy framework.\n- Counterexamples are more useful than “one more passing example.”\n\n## Minimal Code Mental Model\n\n```python\nfailing = failing_cases([\"abc\", \"\", \"racecar\"], reverse_twice_property)\nok = property_holds([(1, 2), (3, 5)], sum_commutative_property)\n```\n\n## Function\n\n```python\ndef failing_cases(cases: list[object], predicate: callable) -> list[object]:\ndef property_holds(cases: list[object], predicate: callable) -> bool:\ndef reverse_twice_property(text: str) -> bool:\ndef sum_commutative_property(pair: tuple[int, int]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/testing/property-based-testing-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/testing/property-based-testing-basics/python/property_based_testing_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\nfrom collections.abc import Callable\n\n\ndef failing_cases(cases: list[object], predicate: Callable[[object], bool]) -> list[object]:\n    return [case for case in cases if not predicate(case)]\n\n\ndef property_holds(cases: list[object], predicate: Callable[[object], bool]) -> bool:\n    return not failing_cases(cases, predicate)\n\n\ndef reverse_twice_property(text: str) -> bool:\n    return text[::-1][::-1] == text\n\n\ndef sum_commutative_property(pair: tuple[int, int]) -> bool:\n    left, right = pair\n    return left + right == right + left\n"
         }
       ]
     },
@@ -8714,6 +9242,22 @@
     {
       "track": "software-engineering",
       "topic": "tooling",
+      "slug": "ci-pipeline-basics",
+      "title": "CI Pipeline Basics",
+      "path": "modules/software-engineering/tooling/ci-pipeline-basics",
+      "summary": "> Track: `software-engineering` | Topic: `tooling`",
+      "readme": "# CI Pipeline Basics\n\n> Track: `software-engineering` | Topic: `tooling`\n\n## Concept\n\nA CI pipeline is a sequence of automated gates that should fail early on cheap checks and reserve heavier checks for boundary-risk changes.\n\n## Key Points\n\n- Not every change needs the same pipeline stages.\n- Required stages should be explicit instead of being inferred from habit.\n- A merge should be blocked when any required stage is missing or failing.\n\n## Minimal Code Mental Model\n\n```python\nstages = required_ci_stages([\"api\", \"bugfix\"])\nblockers = pipeline_blockers(\n    {\"lint\": \"passed\", \"unit\": \"passed\", \"contract\": \"failed\", \"regression\": \"passed\"},\n    stages,\n)\nready = mergeable(\n    {\"lint\": \"passed\", \"unit\": \"passed\", \"contract\": \"passed\", \"regression\": \"passed\"},\n    stages,\n)\n```\n\n## Function\n\n```python\ndef required_ci_stages(change_tags: list[str]) -> list[str]:\ndef pipeline_blockers(stage_statuses: dict[str, str], required_stages: list[str]) -> list[str]:\ndef mergeable(stage_statuses: dict[str, str], required_stages: list[str]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/tooling/ci-pipeline-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/tooling/ci-pipeline-basics/python/ci_pipeline_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef required_ci_stages(change_tags: list[str]) -> list[str]:\n    normalized_tags = {tag.strip().lower() for tag in change_tags if tag.strip()}\n    stages = [\"lint\", \"unit\"]\n\n    if normalized_tags.intersection({\"api\", \"schema\", \"serialization\"}):\n        stages.append(\"contract\")\n    if normalized_tags.intersection({\"database\", \"workflow\", \"integration\"}):\n        stages.append(\"integration\")\n    if normalized_tags.intersection({\"bugfix\", \"ai-generated\", \"security\"}):\n        stages.append(\"regression\")\n    if normalized_tags.intersection({\"release\", \"build\", \"deploy\"}):\n        stages.append(\"build\")\n    return stages\n\n\ndef pipeline_blockers(stage_statuses: dict[str, str], required_stages: list[str]) -> list[str]:\n    blockers: list[str] = []\n    for stage in required_stages:\n        status = stage_statuses.get(stage)\n        if status != \"passed\":\n            blockers.append(stage)\n    return blockers\n\n\ndef mergeable(stage_statuses: dict[str, str], required_stages: list[str]) -> bool:\n    return not pipeline_blockers(stage_statuses, required_stages)\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "tooling",
       "slug": "repo-layout-and-codegen-boundaries",
       "title": "Repo Layout And Codegen Boundaries",
       "path": "modules/software-engineering/tooling/repo-layout-and-codegen-boundaries",
@@ -8740,6 +9284,22 @@
           "path": "modules/software-engineering/tooling/reproducible-dev-environments/python/reproducible_dev_environments.py",
           "language": "python",
           "content": "from __future__ import annotations\n\n\ndef _is_pinned(spec: str) -> bool:\n    cleaned = spec.strip()\n    if not cleaned:\n        return False\n    floating_markers = (\"^\", \"~\", \"*\", \">\", \"<\", \",\")\n    if any(marker in cleaned for marker in floating_markers):\n        return False\n    if cleaned.startswith(\"==\"):\n        cleaned = cleaned[2:]\n    return bool(cleaned)\n\n\ndef find_unpinned_dependencies(dependencies: dict[str, str]) -> list[str]:\n    return sorted(name for name, spec in dependencies.items() if not _is_pinned(spec))\n\n\ndef environment_drift(required: dict[str, str], actual: dict[str, str]) -> dict[str, list[str]]:\n    missing = sorted(name for name in required if name not in actual)\n    mismatched = sorted(\n        name for name, version in required.items() if name in actual and actual[name] != version\n    )\n    unexpected = sorted(name for name in actual if name not in required)\n    return {\n        \"missing\": missing,\n        \"mismatched\": mismatched,\n        \"unexpected\": unexpected,\n    }\n\n\ndef missing_reproducibility_controls(\n    runtime_version: str | None,\n    lockfile_present: bool,\n    dependencies: dict[str, str],\n) -> list[str]:\n    missing_controls: list[str] = []\n    if not runtime_version or not runtime_version.strip():\n        missing_controls.append(\"pin runtime version\")\n    if not lockfile_present:\n        missing_controls.append(\"commit lockfile\")\n\n    unpinned = find_unpinned_dependencies(dependencies)\n    if unpinned:\n        joined = \", \".join(unpinned)\n        missing_controls.append(f\"pin dependency versions: {joined}\")\n    return missing_controls\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "tooling",
+      "slug": "review-and-merge-discipline",
+      "title": "Review And Merge Discipline",
+      "path": "modules/software-engineering/tooling/review-and-merge-discipline",
+      "summary": "> Track: `software-engineering` | Topic: `tooling`",
+      "readme": "# Review And Merge Discipline\n\n> Track: `software-engineering` | Topic: `tooling`\n\n## Concept\n\nReview and merge discipline keeps changes safe by tying approvals, unresolved threads, and change risk to a clear merge decision.\n\n## Key Points\n\n- Passing checks are necessary but not sufficient for merge.\n- Sensitive or wide changes should require stronger review than a small local edit.\n- Open review threads should block merge until the disagreement is resolved or explicitly waived.\n\n## Minimal Code Mental Model\n\n```python\nrequirement = review_requirement(changed_paths=[\"services/auth/policy.py\"], lines_changed=40)\nready = ready_for_merge(open_threads=0, checks_passed=True, approvals=2, required_approvals=1)\ndecision = merge_decision(\n    changed_paths=[\"services/auth/policy.py\"],\n    lines_changed=40,\n    checks_passed=True,\n    open_threads=0,\n    approvals=2,\n)\n```\n\n## Function\n\n```python\ndef review_requirement(changed_paths: list[str], lines_changed: int) -> str:\ndef ready_for_merge(\n    open_threads: int,\n    checks_passed: bool,\n    approvals: int,\n    required_approvals: int = 1,\n) -> bool:\ndef merge_decision(\n    changed_paths: list[str],\n    lines_changed: int,\n    checks_passed: bool,\n    open_threads: int,\n    approvals: int,\n) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/tooling/review-and-merge-discipline/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/tooling/review-and-merge-discipline/python/review_and_merge_discipline.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef review_requirement(changed_paths: list[str], lines_changed: int) -> str:\n    if lines_changed < 0:\n        raise ValueError(\"lines_changed must be non-negative\")\n\n    normalized_paths = [path.strip().lower() for path in changed_paths if path.strip()]\n    sensitive_markers = (\"auth\", \"permission\", \"billing\", \"payment\", \"security\", \"secret\")\n\n    if any(marker in path for path in normalized_paths for marker in sensitive_markers):\n        return \"security-review\"\n    if lines_changed >= 300 or len(normalized_paths) >= 8:\n        return \"senior-review\"\n    return \"standard-review\"\n\n\ndef ready_for_merge(\n    open_threads: int,\n    checks_passed: bool,\n    approvals: int,\n    required_approvals: int = 1,\n) -> bool:\n    if open_threads < 0 or approvals < 0 or required_approvals <= 0:\n        raise ValueError(\"review counts must be non-negative and required_approvals positive\")\n    return open_threads == 0 and checks_passed and approvals >= required_approvals\n\n\ndef merge_decision(\n    changed_paths: list[str],\n    lines_changed: int,\n    checks_passed: bool,\n    open_threads: int,\n    approvals: int,\n) -> str:\n    requirement = review_requirement(changed_paths, lines_changed)\n    required_approvals = 2 if requirement == \"security-review\" else 1\n\n    if not ready_for_merge(open_threads, checks_passed, approvals, required_approvals):\n        return \"block\"\n    return \"merge\"\n"
         }
       ]
     }

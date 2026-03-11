@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T16:23:14.692Z",
+  "generated_at": "2026-03-11T16:38:12.699Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -1826,6 +1826,18 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:databases/vector-db/agent-memory-retrieval",
+      "type": "module",
+      "title": "Agent Memory Retrieval",
+      "summary": "> Track: `databases` | Topic: `vector-db`",
+      "track": "databases",
+      "topic": "vector-db",
+      "slug": "agent-memory-retrieval",
+      "href": "/track/databases/vector-db#agent-memory-retrieval",
+      "trackName": "Databases",
+      "topicName": "Vector Db"
+    },
+    {
       "id": "module:ai-agents/observability/agent-tracing-basics",
       "type": "module",
       "title": "Agent Tracing Basics",
@@ -2028,6 +2040,18 @@
       "href": "/track/ml/llm#attention-mechanisms",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:software-engineering/security-basics/authn-vs-authz",
+      "type": "module",
+      "title": "Authn vs Authz",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "authn-vs-authz",
+      "href": "/track/software-engineering/security-basics#authn-vs-authz",
+      "trackName": "Software Engineering",
+      "topicName": "Security Basics"
     },
     {
       "id": "module:databases/indexing/btree-basics",
@@ -2318,6 +2342,30 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:software-engineering/reliability/canary-rollout-and-rollback",
+      "type": "module",
+      "title": "Canary Rollout And Rollback",
+      "summary": "> Track: `software-engineering` | Topic: `reliability`",
+      "track": "software-engineering",
+      "topic": "reliability",
+      "slug": "canary-rollout-and-rollback",
+      "href": "/track/software-engineering/reliability#canary-rollout-and-rollback",
+      "trackName": "Software Engineering",
+      "topicName": "Reliability"
+    },
+    {
+      "id": "module:software-engineering/concurrency/cancellation-deadlines-and-timeouts",
+      "type": "module",
+      "title": "Cancellation, Deadlines, And Timeouts",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "cancellation-deadlines-and-timeouts",
+      "href": "/track/software-engineering/concurrency#cancellation-deadlines-and-timeouts",
+      "trackName": "Software Engineering",
+      "topicName": "Concurrency"
+    },
+    {
       "id": "module:ml/mlops/capacity-headroom",
       "type": "module",
       "title": "Capacity Headroom",
@@ -2366,6 +2414,18 @@
       "topicName": "Data"
     },
     {
+      "id": "module:databases/streaming/cdc-vs-application-events",
+      "type": "module",
+      "title": "CDC Vs Application Events",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "cdc-vs-application-events",
+      "href": "/track/databases/streaming#cdc-vs-application-events",
+      "trackName": "Databases",
+      "topicName": "Streaming"
+    },
+    {
       "id": "module:ml/generative/model-selection",
       "type": "module",
       "title": "Choose GAN vs VAE vs Diffusion",
@@ -2388,6 +2448,18 @@
       "href": "/track/ml/systems#chunked-prefill",
       "trackName": "Machine Learning",
       "topicName": "Systems"
+    },
+    {
+      "id": "module:software-engineering/tooling/ci-pipeline-basics",
+      "type": "module",
+      "title": "CI Pipeline Basics",
+      "summary": "> Track: `software-engineering` | Topic: `tooling`",
+      "track": "software-engineering",
+      "topic": "tooling",
+      "slug": "ci-pipeline-basics",
+      "href": "/track/software-engineering/tooling#ci-pipeline-basics",
+      "trackName": "Software Engineering",
+      "topicName": "Tooling"
     },
     {
       "id": "module:ml/evaluation/classification-metrics-core",
@@ -2750,6 +2822,18 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:databases/indexing/covering-index-concepts",
+      "type": "module",
+      "title": "Covering Index Concepts",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "covering-index-concepts",
+      "href": "/track/databases/indexing#covering-index-concepts",
+      "trackName": "Databases",
+      "topicName": "Indexing"
+    },
+    {
       "id": "doc:ml/data/data",
       "type": "doc",
       "title": "Data and Splitting",
@@ -2976,6 +3060,18 @@
       "href": "/track/ml/evaluation#delong-test",
       "trackName": "Machine Learning",
       "topicName": "Evaluation"
+    },
+    {
+      "id": "module:software-engineering/security-basics/dependency-and-supply-chain-risk",
+      "type": "module",
+      "title": "Dependency And Supply-Chain Risk",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "dependency-and-supply-chain-risk",
+      "href": "/track/software-engineering/security-basics#dependency-and-supply-chain-risk",
+      "trackName": "Software Engineering",
+      "topicName": "Security Basics"
     },
     {
       "id": "module:ml/mlops/depth-spike-rate",
@@ -3230,6 +3326,18 @@
       "topicName": "Generative"
     },
     {
+      "id": "module:databases/vector-db/embedding-table-design",
+      "type": "module",
+      "title": "Embedding Table Design",
+      "summary": "> Track: `databases` | Topic: `vector-db`",
+      "track": "databases",
+      "topic": "vector-db",
+      "slug": "embedding-table-design",
+      "href": "/track/databases/vector-db#embedding-table-design",
+      "trackName": "Databases",
+      "topicName": "Vector Db"
+    },
+    {
       "id": "doc:ml/representation/embeddings",
       "type": "doc",
       "title": "Embeddings",
@@ -3470,6 +3578,18 @@
       "topicName": "Representation"
     },
     {
+      "id": "module:software-engineering/testing/flaky-test-reduction",
+      "type": "module",
+      "title": "Flaky Test Reduction",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "flaky-test-reduction",
+      "href": "/track/software-engineering/testing#flaky-test-reduction",
+      "trackName": "Software Engineering",
+      "topicName": "Testing"
+    },
+    {
       "id": "module:ml/data/frequency-capping",
       "type": "module",
       "title": "Frequency Capping",
@@ -3566,6 +3686,18 @@
       "topicName": "Computer Vision"
     },
     {
+      "id": "module:software-engineering/testing/golden-and-snapshot-test-tradeoffs",
+      "type": "module",
+      "title": "Golden And Snapshot Test Tradeoffs",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "golden-and-snapshot-test-tradeoffs",
+      "href": "/track/software-engineering/testing#golden-and-snapshot-test-tradeoffs",
+      "trackName": "Software Engineering",
+      "topicName": "Testing"
+    },
+    {
       "id": "doc:ml/systems/gpu",
       "type": "doc",
       "title": "GPU Performance",
@@ -3576,6 +3708,18 @@
       "href": "/track/ml/systems#gpu",
       "trackName": "Machine Learning",
       "topicName": "Systems"
+    },
+    {
+      "id": "module:software-engineering/reliability/graceful-degradation-and-overload",
+      "type": "module",
+      "title": "Graceful Degradation And Overload",
+      "summary": "> Track: `software-engineering` | Topic: `reliability`",
+      "track": "software-engineering",
+      "topic": "reliability",
+      "slug": "graceful-degradation-and-overload",
+      "href": "/track/software-engineering/reliability#graceful-degradation-and-overload",
+      "trackName": "Software Engineering",
+      "topicName": "Reliability"
     },
     {
       "id": "module:ml/optimization/gradient-clipping",
@@ -3746,6 +3890,18 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:databases/caching/hot-key-and-rate-limit-protection",
+      "type": "module",
+      "title": "Hot-Key And Rate-Limit Protection",
+      "summary": "> Track: `databases` | Topic: `caching`",
+      "track": "databases",
+      "topic": "caching",
+      "slug": "hot-key-and-rate-limit-protection",
+      "href": "/track/databases/caching#hot-key-and-rate-limit-protection",
+      "trackName": "Databases",
+      "topicName": "Caching"
+    },
+    {
       "id": "module:databases/vector-db/hybrid-search",
       "type": "module",
       "title": "Hybrid Search",
@@ -3780,6 +3936,30 @@
       "href": "/track/databases/streaming#idempotent-consumers",
       "trackName": "Databases",
       "topicName": "Streaming"
+    },
+    {
+      "id": "module:software-engineering/concurrency/idempotent-consumers",
+      "type": "module",
+      "title": "Idempotent Consumers",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "idempotent-consumers",
+      "href": "/track/software-engineering/concurrency#idempotent-consumers",
+      "trackName": "Software Engineering",
+      "topicName": "Concurrency"
+    },
+    {
+      "id": "module:databases/transactions/idempotent-writes-and-retries",
+      "type": "module",
+      "title": "Idempotent Writes And Retries",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "idempotent-writes-and-retries",
+      "href": "/track/databases/transactions#idempotent-writes-and-retries",
+      "trackName": "Databases",
+      "topicName": "Transactions"
     },
     {
       "id": "module:ml/computer-vision/image-preprocessing",
@@ -3828,6 +4008,18 @@
       "href": "/track/ml/deep-learning#initialization-methods",
       "trackName": "Machine Learning",
       "topicName": "Deep Learning"
+    },
+    {
+      "id": "module:software-engineering/security-basics/input-validation-and-output-encoding",
+      "type": "module",
+      "title": "Input Validation And Output Encoding",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "input-validation-and-output-encoding",
+      "href": "/track/software-engineering/security-basics#input-validation-and-output-encoding",
+      "trackName": "Software Engineering",
+      "topicName": "Security Basics"
     },
     {
       "id": "module:ai-agents/guardrails/input-output-guardrails",
@@ -4022,6 +4214,18 @@
       "topicName": "Indexing"
     },
     {
+      "id": "module:databases/relational/jsonb-inside-relational-systems",
+      "type": "module",
+      "title": "JSONB Inside Relational Systems",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "track": "databases",
+      "topic": "relational",
+      "slug": "jsonb-inside-relational-systems",
+      "href": "/track/databases/relational#jsonb-inside-relational-systems",
+      "trackName": "Databases",
+      "topicName": "Relational"
+    },
+    {
       "id": "module:ai-agents/evaluation/judge-and-trace-grading",
       "type": "module",
       "title": "Judge and Trace Grading",
@@ -4154,6 +4358,18 @@
       "topicName": "Workflows"
     },
     {
+      "id": "module:software-engineering/performance/latency-budgeting",
+      "type": "module",
+      "title": "Latency Budgeting",
+      "summary": "> Track: `software-engineering` | Topic: `performance`",
+      "track": "software-engineering",
+      "topic": "performance",
+      "slug": "latency-budgeting",
+      "href": "/track/software-engineering/performance#latency-budgeting",
+      "trackName": "Software Engineering",
+      "topicName": "Performance"
+    },
+    {
       "id": "module:ml/optimization/learning-rate-schedules",
       "type": "module",
       "title": "Learning Rate Schedules",
@@ -4188,6 +4404,18 @@
       "href": "/track/ai-agents/guardrails#least-privilege-and-sandboxing",
       "trackName": "AI Agents",
       "topicName": "Guardrails"
+    },
+    {
+      "id": "module:software-engineering/security-basics/least-privilege-and-secrets-management",
+      "type": "module",
+      "title": "Least Privilege And Secrets Management",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "least-privilege-and-secrets-management",
+      "href": "/track/software-engineering/security-basics#least-privilege-and-secrets-management",
+      "trackName": "Software Engineering",
+      "topicName": "Security Basics"
     },
     {
       "id": "module:ml/representation/autoencoder",
@@ -4356,6 +4584,18 @@
       "href": "/track/ml/evaluation#log-rate-metrics",
       "trackName": "Machine Learning",
       "topicName": "Evaluation"
+    },
+    {
+      "id": "module:software-engineering/observability/logs-metrics-and-traces",
+      "type": "module",
+      "title": "Logs, Metrics, And Traces",
+      "summary": "> Track: `software-engineering` | Topic: `observability`",
+      "track": "software-engineering",
+      "topic": "observability",
+      "slug": "logs-metrics-and-traces",
+      "href": "/track/software-engineering/observability#logs-metrics-and-traces",
+      "trackName": "Software Engineering",
+      "topicName": "Observability"
     },
     {
       "id": "module:ml/llm/long-context-and-caching",
@@ -4922,6 +5162,18 @@
       "topicName": "Deep Learning"
     },
     {
+      "id": "module:databases/schema-design/normalization-vs-denormalization",
+      "type": "module",
+      "title": "Normalization Vs Denormalization",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "normalization-vs-denormalization",
+      "href": "/track/databases/schema-design#normalization-vs-denormalization",
+      "trackName": "Databases",
+      "topicName": "Schema Design"
+    },
+    {
       "id": "module:ml/llm/exact-match",
       "type": "module",
       "title": "Normalized Exact Match",
@@ -5042,6 +5294,18 @@
       "topicName": "Multi Agent"
     },
     {
+      "id": "module:databases/streaming/outbox-and-materialized-view-patterns",
+      "type": "module",
+      "title": "Outbox And Materialized View Patterns",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "outbox-and-materialized-view-patterns",
+      "href": "/track/databases/streaming#outbox-and-materialized-view-patterns",
+      "trackName": "Databases",
+      "topicName": "Streaming"
+    },
+    {
       "id": "module:databases/transactions/outbox-pattern",
       "type": "module",
       "title": "Outbox Pattern",
@@ -5076,6 +5340,18 @@
       "href": "/track/ml/data#overflow-metrics",
       "trackName": "Machine Learning",
       "topicName": "Data"
+    },
+    {
+      "id": "module:software-engineering/apis/pagination-patterns",
+      "type": "module",
+      "title": "Pagination Patterns",
+      "summary": "> Track: `software-engineering` | Topic: `apis`",
+      "track": "software-engineering",
+      "topic": "apis",
+      "slug": "pagination-patterns",
+      "href": "/track/software-engineering/apis#pagination-patterns",
+      "trackName": "Software Engineering",
+      "topicName": "APIs"
     },
     {
       "id": "module:ai-agents/evaluation/paired-run-significance",
@@ -5134,6 +5410,18 @@
       "topic": "indexing",
       "slug": "partial-indexes",
       "href": "/track/databases/indexing#partial-indexes",
+      "trackName": "Databases",
+      "topicName": "Indexing"
+    },
+    {
+      "id": "module:databases/indexing/partition-pruning-basics",
+      "type": "module",
+      "title": "Partition Pruning Basics",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "partition-pruning-basics",
+      "href": "/track/databases/indexing#partition-pruning-basics",
       "trackName": "Databases",
       "topicName": "Indexing"
     },
@@ -5462,6 +5750,18 @@
       "topicName": "Prompting"
     },
     {
+      "id": "module:software-engineering/testing/property-based-testing-basics",
+      "type": "module",
+      "title": "Property-Based Testing Basics",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "property-based-testing-basics",
+      "href": "/track/software-engineering/testing#property-based-testing-basics",
+      "trackName": "Software Engineering",
+      "topicName": "Testing"
+    },
+    {
       "id": "doc:software-engineering/python/python",
       "type": "doc",
       "title": "Python",
@@ -5508,6 +5808,30 @@
       "href": "/track/dsa/greedy-algorithm#queue-reconstruction-by-height-vector-explanation",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Greedy Algorithm"
+    },
+    {
+      "id": "module:software-engineering/concurrency/queues-vs-locks",
+      "type": "module",
+      "title": "Queues Vs Locks",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "queues-vs-locks",
+      "href": "/track/software-engineering/concurrency#queues-vs-locks",
+      "trackName": "Software Engineering",
+      "topicName": "Concurrency"
+    },
+    {
+      "id": "module:software-engineering/concurrency/race-conditions-and-shared-state",
+      "type": "module",
+      "title": "Race Conditions And Shared State",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "race-conditions-and-shared-state",
+      "href": "/track/software-engineering/concurrency#race-conditions-and-shared-state",
+      "trackName": "Software Engineering",
+      "topicName": "Concurrency"
     },
     {
       "id": "doc:ai-agents/rag/rag",
@@ -5834,6 +6158,18 @@
       "topicName": "Reinforcement Learning"
     },
     {
+      "id": "module:software-engineering/tooling/review-and-merge-discipline",
+      "type": "module",
+      "title": "Review And Merge Discipline",
+      "summary": "> Track: `software-engineering` | Topic: `tooling`",
+      "track": "software-engineering",
+      "topic": "tooling",
+      "slug": "review-and-merge-discipline",
+      "href": "/track/software-engineering/tooling#review-and-merge-discipline",
+      "trackName": "Software Engineering",
+      "topicName": "Tooling"
+    },
+    {
       "id": "module:ai-agents/guardrails/review-queue-handoff",
       "type": "module",
       "title": "Review Queue Handoff",
@@ -6050,6 +6386,18 @@
       "topicName": "Nosql"
     },
     {
+      "id": "module:software-engineering/security-basics/secure-sdlc-basics",
+      "type": "module",
+      "title": "Secure SDLC Basics",
+      "summary": "> Track: `software-engineering` | Topic: `security-basics`",
+      "track": "software-engineering",
+      "topic": "security-basics",
+      "slug": "secure-sdlc-basics",
+      "href": "/track/software-engineering/security-basics#secure-sdlc-basics",
+      "trackName": "Software Engineering",
+      "topicName": "Security Basics"
+    },
+    {
       "id": "module:ai-agents/evaluation/security-and-red-team-evals",
       "type": "module",
       "title": "Security and Red-Team Evals",
@@ -6122,6 +6470,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:software-engineering/system-design/service-boundaries-and-failure-domains",
+      "type": "module",
+      "title": "Service Boundaries And Failure Domains",
+      "summary": "> Track: `software-engineering` | Topic: `system-design`",
+      "track": "software-engineering",
+      "topic": "system-design",
+      "slug": "service-boundaries-and-failure-domains",
+      "href": "/track/software-engineering/system-design#service-boundaries-and-failure-domains",
+      "trackName": "Software Engineering",
+      "topicName": "System Design"
+    },
+    {
       "id": "module:ml/mlops/service-reliability-metrics",
       "type": "module",
       "title": "Service Reliability Metrics",
@@ -6132,6 +6492,18 @@
       "href": "/track/ml/mlops#service-reliability-metrics",
       "trackName": "Machine Learning",
       "topicName": "MLOps"
+    },
+    {
+      "id": "module:software-engineering/observability/slis-slos-and-alerting",
+      "type": "module",
+      "title": "SLIs, SLOs, And Alerting",
+      "summary": "> Track: `software-engineering` | Topic: `observability`",
+      "track": "software-engineering",
+      "topic": "observability",
+      "slug": "slis-slos-and-alerting",
+      "href": "/track/software-engineering/observability#slis-slos-and-alerting",
+      "trackName": "Software Engineering",
+      "topicName": "Observability"
     },
     {
       "id": "module:ml/data/smote",
@@ -6278,6 +6650,18 @@
       "topicName": "Workflows"
     },
     {
+      "id": "module:software-engineering/concurrency/state-machine-thinking",
+      "type": "module",
+      "title": "State-Machine Thinking",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "state-machine-thinking",
+      "href": "/track/software-engineering/concurrency#state-machine-thinking",
+      "trackName": "Software Engineering",
+      "topicName": "Concurrency"
+    },
+    {
       "id": "doc:ml/fundamentals/stats",
       "type": "doc",
       "title": "Statistics for ML",
@@ -6372,6 +6756,18 @@
       "href": "/track/ml/data#structured-feature-methods",
       "trackName": "Machine Learning",
       "topicName": "Data"
+    },
+    {
+      "id": "module:software-engineering/observability/structured-logging",
+      "type": "module",
+      "title": "Structured Logging",
+      "summary": "> Track: `software-engineering` | Topic: `observability`",
+      "track": "software-engineering",
+      "topic": "observability",
+      "slug": "structured-logging",
+      "href": "/track/software-engineering/observability#structured-logging",
+      "trackName": "Software Engineering",
+      "topicName": "Observability"
     },
     {
       "id": "module:ml/fundamentals/svd",
@@ -6962,6 +7358,18 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:software-engineering/apis/webhooks-and-signature-validation",
+      "type": "module",
+      "title": "Webhooks And Signature Validation",
+      "summary": "> Track: `software-engineering` | Topic: `apis`",
+      "track": "software-engineering",
+      "topic": "apis",
+      "slug": "webhooks-and-signature-validation",
+      "href": "/track/software-engineering/apis#webhooks-and-signature-validation",
+      "trackName": "Software Engineering",
+      "topicName": "APIs"
+    },
+    {
       "id": "module:databases/nosql/wide-row-and-time-series-patterns",
       "type": "module",
       "title": "Wide Row And Time Series Patterns",
@@ -6996,6 +7404,18 @@
       "href": "/track/ai-agents/multi-agent#worker-coordination",
       "trackName": "AI Agents",
       "topicName": "Multi Agent"
+    },
+    {
+      "id": "module:software-engineering/concurrency/worker-retry-semantics",
+      "type": "module",
+      "title": "Worker Retry Semantics",
+      "summary": "> Track: `software-engineering` | Topic: `concurrency`",
+      "track": "software-engineering",
+      "topic": "concurrency",
+      "slug": "worker-retry-semantics",
+      "href": "/track/software-engineering/concurrency#worker-retry-semantics",
+      "trackName": "Software Engineering",
+      "topicName": "Concurrency"
     },
     {
       "id": "module:ai-agents/workflows/workflow-concurrency-basics",
