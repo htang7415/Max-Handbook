@@ -31,6 +31,11 @@ Use this page to organize tooling into:
 - `spec-first-ai-coding`
 - `generated-code-review-checklists`
 
+## Math And Code
+
+- Math here is lightweight and managerial: CI time budgets, review queue size, and risk-based gating rather than algorithm analysis.
+- Code should express workflow rules directly: required spec sections, merge blockers, generated-code boundaries, and reproducible setup checks.
+
 ## When To Use What
 
 - Start here before deeper system topics.

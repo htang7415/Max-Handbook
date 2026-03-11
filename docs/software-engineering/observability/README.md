@@ -25,6 +25,11 @@ Use this page to organize observability into:
 - `slis-slos-and-alerting`
 - `runbooks-and-dashboards`
 
+## Math And Code
+
+- Math matters here: ratios, percentiles, error budgets, burn rates, and alert thresholds are the whole point.
+- Code should emit structured signals and compute small derived metrics, not just print text and call it observability.
+
 ## When To Use What
 
 - Start with logs, metrics, and traces before building custom dashboards.

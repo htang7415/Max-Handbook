@@ -26,6 +26,11 @@ Use this page to organize performance into:
 - `memory-and-allocation-basics`
 - `cost-performance-tradeoffs`
 
+## Math And Code
+
+- Math matters here through latency decomposition, throughput, allocation counts, cache hit rates, and cost curves.
+- Code should stay measurement-first: small profiles, budget calculations, batching choices, and correctness-preserving optimizations.
+
 ## When To Use What
 
 - Start with latency budgets and profiling before trying micro-optimizations.

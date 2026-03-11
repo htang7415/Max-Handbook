@@ -25,6 +25,11 @@ Use this page to organize patterns into:
 - `state-machine-basics`
 - `composition-over-inheritance`
 
+## Math And Code
+
+- Math is usually minimal here; the important structure is behavioral shape, not formula depth.
+- Code should show the boundary clearly: who owns the interface, what varies, and what stays invariant under the pattern.
+
 ## When To Use What
 
 - Use adapters when integrating with an unstable or externally owned interface.

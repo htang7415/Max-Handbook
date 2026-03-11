@@ -26,6 +26,11 @@ Use this page to understand:
 - `background-jobs-and-workflows`
 - `consistency-tradeoffs`
 
+## Math And Code
+
+- Math matters here through capacity, fanout, tail latency, queue depth, storage cost, and consistency tradeoff reasoning.
+- Code should stay simulation-sized: small models of state placement, workflow coordination, storage choice, and boundary failure behavior.
+
 ## When To Use What
 
 - Start here after the API, testing, reliability, and observability foundations are clear.

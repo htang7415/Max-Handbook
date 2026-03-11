@@ -29,6 +29,11 @@ Use this page to organize reliability into:
 
 - `rollback-readiness`
 
+## Math And Code
+
+- Math here is about operational thresholds: success rates, budget burn, retry counts, concurrency limits, and rollout health.
+- Code should demonstrate containment and recovery logic directly: fallback choice, breaker state, degradation path, and rollback decision.
+
 ## When To Use What
 
 - Start with graceful degradation and rollout safety before advanced control patterns.

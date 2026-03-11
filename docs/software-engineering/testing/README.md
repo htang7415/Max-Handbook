@@ -30,6 +30,11 @@ Use this page to organize testing into:
 
 - `metamorphic-tests-for-generated-code`
 
+## Math And Code
+
+- Math appears here as properties, distributions, flake rates, and threshold reasoning rather than heavy symbolic derivations.
+- Code should make invariants executable: contract checks, regression cases, metamorphic relations, and focused failure reproduction.
+
 ## When To Use What
 
 - Start with a practical test portfolio before expanding test types.

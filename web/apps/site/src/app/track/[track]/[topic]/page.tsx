@@ -819,14 +819,15 @@ export default async function TopicPage({
   );
 
   const moduleOrder = extractModuleOrder(docs[0]?.content, trackId, topicId);
-  const topicEntryGroups =
-    trackId === "ml"
-      ? extractTopicEntryGroups(docs[0]?.content, trackId, topicId)
-      : { canonical: [], supporting: [] };
+  const supportsTopicGroups =
+    trackId === "ml" || trackId === "software-engineering";
+  const topicEntryGroups = supportsTopicGroups
+    ? extractTopicEntryGroups(docs[0]?.content, trackId, topicId)
+    : { canonical: [], supporting: [] };
   const canonicalEntrySet = new Set(topicEntryGroups.canonical);
   const supportingEntrySet = new Set(topicEntryGroups.supporting);
-  const hasMlLearningGroups =
-    trackId === "ml" &&
+  const hasStructuredGroups =
+    supportsTopicGroups &&
     (canonicalEntrySet.size > 0 || supportingEntrySet.size > 0);
   const slugOrder = new Map<string, number>();
   let orderIndex = 0;
@@ -877,9 +878,11 @@ export default async function TopicPage({
         title,
         summary,
         group:
-          trackId === "ml" && canonicalEntrySet.has(slug)
+          hasStructuredGroups && Boolean(doc) && slug === topicId
+            ? "overview"
+            : canonicalEntrySet.has(slug)
             ? "canonical"
-            : trackId === "ml" && supportingEntrySet.has(slug)
+            : supportingEntrySet.has(slug)
               ? "supporting"
               : "additional",
         rawContent,
@@ -892,24 +895,63 @@ export default async function TopicPage({
     })
     .sort(
       (a, b) => {
-        if (hasMlLearningGroups) {
+        if (hasStructuredGroups) {
           const groupRank =
-            a.group === "canonical"
+            a.group === "overview"
               ? 0
-              : a.group === "supporting"
+              : a.group === "canonical"
                 ? 1
-                : 2;
+                : a.group === "supporting"
+                  ? 2
+                  : 3;
           const otherGroupRank =
-            b.group === "canonical"
+            b.group === "overview"
               ? 0
-              : b.group === "supporting"
+              : b.group === "canonical"
                 ? 1
-                : 2;
+                : b.group === "supporting"
+                  ? 2
+                  : 3;
           if (groupRank !== otherGroupRank) return groupRank - otherGroupRank;
         }
         return (slugOrder.get(a.slug) ?? 0) - (slugOrder.get(b.slug) ?? 0);
       }
     );
+
+  const groupCounts = entries.reduce<Record<string, number>>((counts, entry) => {
+    counts[entry.group] = (counts[entry.group] ?? 0) + 1;
+    return counts;
+  }, {});
+
+  const groupMeta: Record<
+    string,
+    { label: string; eyebrow: string; description: string }
+  > = {
+    overview: {
+      label: "Topic Overview",
+      eyebrow: "Map",
+      description:
+        "Start here for the scope, learning order, and system map of this topic.",
+    },
+    canonical: {
+      label: "Canonical Modules",
+      eyebrow: "Core",
+      description:
+        "Learn these first. They define the main mental models and failure modes for the topic.",
+    },
+    supporting: {
+      label: "Supporting Content",
+      eyebrow: "Depth",
+      description:
+        "Use these to sharpen comparisons, operational judgment, and edge-case handling after the core is stable.",
+    },
+    additional: {
+      label: "Additional Modules",
+      eyebrow: "Extended",
+      description:
+        "These entries still belong to the topic but are outside the curated core sequence.",
+    },
+  };
 
   // Build TOC headings
   const allHeadings: TocHeading[] = [];
@@ -960,13 +1002,9 @@ export default async function TopicPage({
             {entries.map((entry, idx) => {
               const previousGroup = idx > 0 ? entries[idx - 1]?.group : undefined;
               const showGroupHeader =
-                hasMlLearningGroups && entry.group !== previousGroup;
-              const groupLabel =
-                entry.group === "canonical"
-                  ? "Canonical Modules"
-                  : entry.group === "supporting"
-                    ? "Supporting Content"
-                    : "Additional Modules";
+                hasStructuredGroups && entry.group !== previousGroup;
+              const currentGroupMeta = groupMeta[entry.group] ?? groupMeta.additional;
+              const currentGroupCount = groupCounts[entry.group] ?? 0;
               const { conceptParts, pitfalls, practice } = splitSections(
                 entry.parsed.sections
               );
@@ -1033,14 +1071,30 @@ export default async function TopicPage({
                 <Fragment key={entry.slug}>
                 {showGroupHeader && (
                   <div className={idx === 0 ? "mb-5" : "mt-10 mb-5"}>
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="h-1.5 w-1.5 rounded-full"
-                        style={{ background: `var(${track.accentVar})` }}
-                      />
-                      <span className="text-[0.7rem] font-semibold tracking-[0.18em] text-[var(--text-muted)]">
-                        {groupLabel}
-                      </span>
+                    <div
+                      className={`topic-group-header topic-group-header-${entry.group}`}
+                      data-parallax="6"
+                    >
+                      <div className="topic-group-header-top">
+                        <span className="topic-group-eyebrow">
+                          {currentGroupMeta.eyebrow}
+                        </span>
+                        <span className="topic-group-count">
+                          {currentGroupCount} {currentGroupCount === 1 ? "entry" : "entries"}
+                        </span>
+                      </div>
+                      <div className="topic-group-title-row">
+                        <span
+                          className="topic-group-marker"
+                          style={{ background: `var(${track.accentVar})` }}
+                        />
+                        <span className="topic-group-title">
+                          {currentGroupMeta.label}
+                        </span>
+                      </div>
+                      <p className="topic-group-description">
+                        {currentGroupMeta.description}
+                      </p>
                     </div>
                   </div>
                 )}

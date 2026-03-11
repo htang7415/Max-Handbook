@@ -22,14 +22,16 @@ Use this page to combine:
 
 - `contract-to-production-api-service`
 - `ai-assisted-feature-delivery`
-
-## Planned Next Capstones
-
 - `incident-recovery-drill`
+
+## Math And Code
+
+- Capstones should reuse only the math that drives decisions: success rates, latency thresholds, error budgets, blast radius, and rollback readiness.
+- Code should stitch together multiple responsibilities in one flow: validation, retries, observability, release gates, incident mitigation, and follow-up actions.
 
 ## When To Use What
 
 - Start capstones only after the core modules in tooling, APIs, testing, security, reliability, and observability feel comfortable.
 - Use the first capstone to practice safe API delivery from spec to canary decision.
 - Use the second capstone to practice AI-assisted change control from spec through review and rollout.
-- Use later capstones to stress workflow quality under production incidents.
+- Use the third capstone to practice SLO breach handling, mitigation choice, and postmortem follow-up under production pressure.

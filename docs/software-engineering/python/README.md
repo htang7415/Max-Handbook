@@ -25,6 +25,11 @@ Use this page to organize Python engineering into:
 - `testing-python-services`
 - `profiling-python`
 
+## Math And Code
+
+- Math is secondary here; use it only where service limits, latency, or profiling results need quantitative reasoning.
+- Code should emphasize explicit interfaces, async boundaries, typing discipline, and measurable performance behavior in real Python service shapes.
+
 ## When To Use What
 
 - Start with project layout and typing before advanced async patterns.

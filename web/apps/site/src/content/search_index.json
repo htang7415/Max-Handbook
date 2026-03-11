@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T18:15:49.242Z",
+  "generated_at": "2026-03-11T18:41:57.822Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -2066,6 +2066,18 @@
       "topicName": "SQL Patterns"
     },
     {
+      "id": "doc:software-engineering/assessments/assessments",
+      "type": "doc",
+      "title": "Assessments",
+      "summary": "Use this page to check whether the track is changing how you reason about software, not just increasing the number of modules you have read.",
+      "track": "software-engineering",
+      "topic": "assessments",
+      "slug": "assessments",
+      "href": "/track/software-engineering/assessments#assessments",
+      "trackName": "Software Engineering",
+      "topicName": "Assessments"
+    },
+    {
       "id": "module:databases/schema-design/asset-versioning",
       "type": "module",
       "title": "Asset Versioning",
@@ -2846,6 +2858,18 @@
       "topicName": "Design Patterns"
     },
     {
+      "id": "module:databases/nosql/compression-vs-latency-tradeoffs",
+      "type": "module",
+      "title": "Compression Vs Latency Tradeoffs",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "compression-vs-latency-tradeoffs",
+      "href": "/track/databases/nosql#compression-vs-latency-tradeoffs",
+      "trackName": "Databases",
+      "topicName": "Nosql"
+    },
+    {
       "id": "module:ai-agents/tool-use/computer-use",
       "type": "module",
       "title": "Computer Use",
@@ -3410,6 +3434,18 @@
       "topicName": "Multi Agent"
     },
     {
+      "id": "module:databases/streaming/delete-propagation-in-cdc",
+      "type": "module",
+      "title": "Delete Propagation In CDC",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "delete-propagation-in-cdc",
+      "href": "/track/databases/streaming#delete-propagation-in-cdc",
+      "trackName": "Databases",
+      "topicName": "Streaming"
+    },
+    {
       "id": "module:ml/evaluation/delong-test",
       "type": "module",
       "title": "DeLong Test",
@@ -3758,6 +3794,18 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:databases/relational/entity-resolution-keys",
+      "type": "module",
+      "title": "Entity Resolution Keys",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "track": "databases",
+      "topic": "relational",
+      "slug": "entity-resolution-keys",
+      "href": "/track/databases/relational#entity-resolution-keys",
+      "trackName": "Databases",
+      "topicName": "Relational"
+    },
+    {
       "id": "module:databases/schema-design/entity-vs-event-tables",
       "type": "module",
       "title": "Entity Vs Event Tables",
@@ -3852,6 +3900,18 @@
       "href": "/track/databases/vector-db#exact-vs-ann-search",
       "trackName": "Databases",
       "topicName": "Vector Db"
+    },
+    {
+      "id": "module:databases/streaming/exactly-once-claims-vs-reality",
+      "type": "module",
+      "title": "Exactly Once Claims Vs Reality",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "exactly-once-claims-vs-reality",
+      "href": "/track/databases/streaming#exactly-once-claims-vs-reality",
+      "trackName": "Databases",
+      "topicName": "Streaming"
     },
     {
       "id": "module:ai-agents/prompting/examples-and-delimiters",
@@ -4020,6 +4080,18 @@
       "href": "/track/software-engineering/typescript#frontend-backend-shared-types",
       "trackName": "Software Engineering",
       "topicName": "Typescript"
+    },
+    {
+      "id": "module:databases/sql-patterns/funnel-conversion-basics",
+      "type": "module",
+      "title": "Funnel Conversion Basics",
+      "summary": "> Track: `databases` | Topic: `sql-patterns`",
+      "track": "databases",
+      "topic": "sql-patterns",
+      "slug": "funnel-conversion-basics",
+      "href": "/track/databases/sql-patterns#funnel-conversion-basics",
+      "trackName": "Databases",
+      "topicName": "SQL Patterns"
     },
     {
       "id": "module:ml/generative/gan",
@@ -4442,6 +4514,18 @@
       "topicName": "Computer Vision"
     },
     {
+      "id": "module:software-engineering/capstones/incident-recovery-drill",
+      "type": "module",
+      "title": "Incident Recovery Drill",
+      "summary": "> Track: `software-engineering` | Topic: `capstones`",
+      "track": "software-engineering",
+      "topic": "capstones",
+      "slug": "incident-recovery-drill",
+      "href": "/track/software-engineering/capstones#incident-recovery-drill",
+      "trackName": "Software Engineering",
+      "topicName": "Capstones"
+    },
+    {
       "id": "module:software-engineering/reliability/incidents-and-postmortems",
       "type": "module",
       "title": "Incidents And Postmortems",
@@ -4718,6 +4802,18 @@
       "topicName": "Query Plans"
     },
     {
+      "id": "module:databases/query-plans/join-selectivity-mistakes",
+      "type": "module",
+      "title": "Join Selectivity Mistakes",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "track": "databases",
+      "topic": "query-plans",
+      "slug": "join-selectivity-mistakes",
+      "href": "/track/databases/query-plans#join-selectivity-mistakes",
+      "trackName": "Databases",
+      "topicName": "Query Plans"
+    },
+    {
       "id": "module:databases/relational/join-shapes",
       "type": "module",
       "title": "Join Shapes",
@@ -4932,6 +5028,18 @@
       "href": "/track/software-engineering/performance#latency-budgeting",
       "trackName": "Software Engineering",
       "topicName": "Performance"
+    },
+    {
+      "id": "doc:software-engineering/learning-paths/learning-paths",
+      "type": "doc",
+      "title": "Learning Paths",
+      "summary": "Use this page when you want a role-shaped route through software engineering instead of traversing the whole track in section order.",
+      "track": "software-engineering",
+      "topic": "learning-paths",
+      "slug": "learning-paths",
+      "href": "/track/software-engineering/learning-paths#learning-paths",
+      "trackName": "Software Engineering",
+      "topicName": "Learning Paths"
     },
     {
       "id": "module:ml/optimization/learning-rate-schedules",
@@ -6098,6 +6206,18 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:databases/transactions/partial-failure-and-sagas",
+      "type": "module",
+      "title": "Partial Failure And Sagas",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "partial-failure-and-sagas",
+      "href": "/track/databases/transactions#partial-failure-and-sagas",
+      "trackName": "Databases",
+      "topicName": "Transactions"
+    },
+    {
       "id": "module:databases/indexing/partial-indexes",
       "type": "module",
       "title": "Partial Indexes",
@@ -6192,6 +6312,18 @@
       "href": "/track/ml/llm#perplexity",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:databases/transactions/phantom-reads-basics",
+      "type": "module",
+      "title": "Phantom Reads Basics",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "phantom-reads-basics",
+      "href": "/track/databases/transactions#phantom-reads-basics",
+      "trackName": "Databases",
+      "topicName": "Transactions"
     },
     {
       "id": "module:databases/query-plans/plan-regression-debugging",
@@ -6372,6 +6504,18 @@
       "href": "/track/ml/llm#precision-and-quantization",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:databases/query-plans/predicate-correlation-and-stats",
+      "type": "module",
+      "title": "Predicate Correlation And Stats",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "track": "databases",
+      "topic": "query-plans",
+      "slug": "predicate-correlation-and-stats",
+      "href": "/track/databases/query-plans#predicate-correlation-and-stats",
+      "trackName": "Databases",
+      "topicName": "Query Plans"
     },
     {
       "id": "module:databases/sql-patterns/predicate-pushdown-basics",
@@ -7250,6 +7394,18 @@
       "topicName": "Workflows"
     },
     {
+      "id": "module:databases/relational/row-level-security-basics",
+      "type": "module",
+      "title": "Row Level Security Basics",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "track": "databases",
+      "topic": "relational",
+      "slug": "row-level-security-basics",
+      "href": "/track/databases/relational#row-level-security-basics",
+      "trackName": "Databases",
+      "topicName": "Relational"
+    },
+    {
       "id": "module:ai-agents/observability/run-analysis-metrics",
       "type": "module",
       "title": "Run Analysis Metrics",
@@ -7526,6 +7682,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:databases/transactions/serializable-retries",
+      "type": "module",
+      "title": "Serializable Retries",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "serializable-retries",
+      "href": "/track/databases/transactions#serializable-retries",
+      "trackName": "Databases",
+      "topicName": "Transactions"
+    },
+    {
       "id": "module:software-engineering/system-design/service-boundaries-and-failure-domains",
       "type": "module",
       "title": "Service Boundaries And Failure Domains",
@@ -7548,6 +7716,18 @@
       "href": "/track/ml/mlops#service-reliability-metrics",
       "trackName": "Machine Learning",
       "topicName": "MLOps"
+    },
+    {
+      "id": "module:databases/sql-patterns/sessionization-basics",
+      "type": "module",
+      "title": "Sessionization Basics",
+      "summary": "> Track: `databases` | Topic: `sql-patterns`",
+      "track": "databases",
+      "topic": "sql-patterns",
+      "slug": "sessionization-basics",
+      "href": "/track/databases/sql-patterns#sessionization-basics",
+      "trackName": "Databases",
+      "topicName": "SQL Patterns"
     },
     {
       "id": "module:software-engineering/observability/slis-slos-and-alerting",
@@ -7596,6 +7776,18 @@
       "href": "/track/ml/computer-vision#sobel-edge-detection",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:databases/relational/soft-delete-and-tombstone-patterns",
+      "type": "module",
+      "title": "Soft Delete And Tombstone Patterns",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "track": "databases",
+      "topic": "relational",
+      "slug": "soft-delete-and-tombstone-patterns",
+      "href": "/track/databases/relational#soft-delete-and-tombstone-patterns",
+      "trackName": "Databases",
+      "topicName": "Relational"
     },
     {
       "id": "doc:software-engineering/README.md/README",
@@ -8114,6 +8306,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:databases/sql-patterns/time-bucket-aggregations",
+      "type": "module",
+      "title": "Time Bucket Aggregations",
+      "summary": "> Track: `databases` | Topic: `sql-patterns`",
+      "track": "databases",
+      "topic": "sql-patterns",
+      "slug": "time-bucket-aggregations",
+      "href": "/track/databases/sql-patterns#time-bucket-aggregations",
+      "trackName": "Databases",
+      "topicName": "SQL Patterns"
+    },
+    {
       "id": "module:ml/llm/token-representation-methods",
       "type": "module",
       "title": "Token and Representation Methods",
@@ -8604,6 +8808,18 @@
       "href": "/track/ml/llm#vote-metrics",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:databases/streaming/watermark-lag-debugging",
+      "type": "module",
+      "title": "Watermark Lag Debugging",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "watermark-lag-debugging",
+      "href": "/track/databases/streaming#watermark-lag-debugging",
+      "trackName": "Databases",
+      "topicName": "Streaming"
     },
     {
       "id": "module:software-engineering/apis/webhooks-and-signature-validation",

@@ -26,6 +26,11 @@ Use this page to understand:
 - `worker-retry-semantics`
 - `state-machine-thinking`
 
+## Math And Code
+
+- Math here usually means counts and bounds: in-flight work, queue depth, retry attempts, deadlines, and ordering assumptions.
+- Code should make state transitions, duplicate handling, and cancellation behavior explicit rather than hiding them in timing-dependent control flow.
+
 ## When To Use What
 
 - Start with races and cancellation before distributed worker systems.

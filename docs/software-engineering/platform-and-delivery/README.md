@@ -30,6 +30,11 @@ Use this page to organize platform engineering into:
 
 - `change-budgets-and-blast-radius`
 
+## Math And Code
+
+- Math here is organizationally operational: lead time, deployment frequency, blast radius, open risk count, and change-budget capacity.
+- Code should model gates and policies, not a fake platform stack; release decisions, ownership boundaries, and rollout controls matter more than infrastructure ceremony.
+
 ## When To Use What
 
 - Start here once the technical foundations of change safety are in place.

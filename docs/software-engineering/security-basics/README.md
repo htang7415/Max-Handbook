@@ -26,6 +26,11 @@ Use this page to organize security into:
 - `dependency-and-supply-chain-risk`
 - `secure-sdlc-basics`
 
+## Math And Code
+
+- Math here is limited but real: scope counts, credential age, risk thresholds, and exposure surface all matter.
+- Code should default to deny-by-default boundaries, explicit validation, secret isolation, and reviewable privilege changes.
+
 ## When To Use What
 
 - Start with identity and trust boundaries before specialized controls.

@@ -26,6 +26,11 @@ Use this page to understand:
 - `retries-timeouts-and-backoff`
 - `webhooks-and-signature-validation`
 
+## Math And Code
+
+- Math here is lightweight and operational: timeout budgets, retry counts, page sizes, rate limits, and success/failure ratios.
+- Code should focus on schemas, request validation, compatibility checks, idempotency state, and retry behavior at the boundary.
+
 ## When To Use What
 
 - Start with contract basics and compatibility before advanced transport concerns.
