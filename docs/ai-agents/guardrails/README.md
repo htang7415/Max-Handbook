@@ -29,12 +29,18 @@ escalate = should_escalate(model_confidence=0.42, threshold=0.6, blocked=blocked
 
 ## Supporting Modules
 
+- Prompt-injection handling for retrieved or tool-produced text: `prompt-injection-defense`
+- Human approval before risky side effects: `approval-gated-actions`
+- Narrow scopes and isolated execution: `least-privilege-and-sandboxing`
 - Policy decisions and escalation paths: `policy-and-escalation`
 - Review queue packets and human handoff: `review-queue-handoff`
 
 ## When To Use What
 
 - Start with `input-output-guardrails` when the main need is lightweight safety and validation.
+- Use `prompt-injection-defense` when the agent consumes retrieved pages, tool output, emails, or UI text that should be treated as untrusted data.
+- Use `approval-gated-actions` when the agent is about to send, buy, delete, publish, or otherwise cause an external side effect.
+- Use `least-privilege-and-sandboxing` when the agent needs tools, files, or network access and you must keep permissions as narrow as possible.
 - Use `policy-and-escalation` when the system needs a clear allow / review / block decision.
 - Use `review-queue-handoff` when risky requests need a structured packet for human review instead of a direct answer.
 - Add stronger policy logic only after the simple checks are in place.

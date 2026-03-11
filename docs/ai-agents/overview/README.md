@@ -39,6 +39,10 @@ score = task_success_rate([True, False, True])
 - Evaluation: `docs/ai-agents/evaluation`
 - Guardrails: `docs/ai-agents/guardrails`
 
+## Supporting Docs
+
+- 2026 gap-closure roadmap: `roadmap-2026`
+
 ## When To Use What
 
 - Start with prompting and one simple tool loop before adding more workflow structure.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T04:54:22.486Z",
+  "generated_at": "2026-03-11T05:12:36.007Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -516,6 +516,18 @@
       "href": "/track/dsa/hash-tables#202-happy-number",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Hash Tables"
+    },
+    {
+      "id": "doc:ai-agents/overview/roadmap-2026",
+      "type": "doc",
+      "title": "2026 Gap-Closure Roadmap",
+      "summary": "This roadmap closes the largest gaps between the current `ai-agents` track and a production-grade 2026 agent curriculum.",
+      "track": "ai-agents",
+      "topic": "overview",
+      "slug": "roadmap-2026",
+      "href": "/track/ai-agents/overview#roadmap-2026",
+      "trackName": "AI Agents",
+      "topicName": "Overview"
     },
     {
       "id": "module:dsa/linked-list/203-remove-linked-list-elements",
@@ -1908,6 +1920,18 @@
       "href": "/track/ml/llm#answer-verification",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:ai-agents/guardrails/approval-gated-actions",
+      "type": "module",
+      "title": "Approval-Gated Actions",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "approval-gated-actions",
+      "href": "/track/ai-agents/guardrails#approval-gated-actions",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
     },
     {
       "id": "doc:dsa/array/array",
@@ -3566,6 +3590,18 @@
       "topicName": "Optimization"
     },
     {
+      "id": "module:ai-agents/guardrails/least-privilege-and-sandboxing",
+      "type": "module",
+      "title": "Least Privilege and Sandboxing",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "least-privilege-and-sandboxing",
+      "href": "/track/ai-agents/guardrails#least-privilege-and-sandboxing",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
+    },
+    {
       "id": "module:ml/representation/autoencoder",
       "type": "module",
       "title": "Linear Autoencoder",
@@ -4548,6 +4584,18 @@
       "href": "/track/ml/fundamentals#prob",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "module:ai-agents/guardrails/prompt-injection-defense",
+      "type": "module",
+      "title": "Prompt Injection Defense",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "prompt-injection-defense",
+      "href": "/track/ai-agents/guardrails#prompt-injection-defense",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
     },
     {
       "id": "module:ai-agents/prompting/prompt-structuring",
