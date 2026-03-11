@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T15:57:56.440Z",
+  "generated_at": "2026-03-11T16:23:14.692Z",
   "tracks": [
     {
       "id": "dsa",
@@ -35,7 +35,7 @@
       "accent": "#17becf",
       "accentVar": "--track-databases",
       "topicCount": 10,
-      "moduleCount": 26
+      "moduleCount": 41
     },
     {
       "id": "software-engineering",
@@ -44,7 +44,7 @@
       "accent": "#d62728",
       "accentVar": "--track-se",
       "topicCount": 14,
-      "moduleCount": 0
+      "moduleCount": 10
     }
   ],
   "topics": [
@@ -55,7 +55,7 @@
       "path": "/track/software-engineering/apis",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 4
     },
     {
       "track": "dsa",
@@ -91,7 +91,7 @@
       "path": "/track/databases/caching",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 2
+      "moduleCount": 3
     },
     {
       "track": "ml",
@@ -235,7 +235,7 @@
       "path": "/track/databases/indexing",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 4
     },
     {
       "track": "dsa",
@@ -307,7 +307,7 @@
       "path": "/track/databases/nosql",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 2
+      "moduleCount": 4
     },
     {
       "track": "software-engineering",
@@ -433,7 +433,7 @@
       "path": "/track/databases/query-plans",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 2
+      "moduleCount": 4
     },
     {
       "track": "ai-agents",
@@ -505,7 +505,7 @@
       "path": "/track/databases/schema-design",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 6
     },
     {
       "track": "software-engineering",
@@ -523,7 +523,7 @@
       "path": "/track/databases/sql-patterns",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 4
     },
     {
       "track": "dsa",
@@ -541,7 +541,7 @@
       "path": "/track/databases/streaming",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 2
+      "moduleCount": 5
     },
     {
       "track": "dsa",
@@ -577,7 +577,7 @@
       "path": "/track/software-engineering/testing",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 3
     },
     {
       "track": "ai-agents",
@@ -595,7 +595,7 @@
       "path": "/track/software-engineering/tooling",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 0
+      "moduleCount": 3
     },
     {
       "track": "databases",
@@ -604,7 +604,7 @@
       "path": "/track/databases/transactions",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 4
     },
     {
       "track": "software-engineering",
@@ -622,7 +622,7 @@
       "path": "/track/databases/vector-db",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 4
     },
     {
       "track": "ai-agents",
@@ -1998,6 +1998,22 @@
     {
       "track": "databases",
       "topic": "caching",
+      "slug": "semantic-caching-basics",
+      "title": "Semantic Caching Basics",
+      "path": "modules/databases/caching/semantic-caching-basics",
+      "summary": "> Track: `databases` | Topic: `caching`",
+      "readme": "# Semantic Caching Basics\n\n> Track: `databases` | Topic: `caching`\n\n## Concept\n\nSemantic caching reuses prior model answers when a new request is similar enough and still matches the same scope and freshness rules.\n\n## Key Points\n\n- Semantic similarity alone is not enough; scope guards like workspace and policy version matter too.\n- A semantic cache is a latency and cost optimization, not a correctness layer.\n- Cache hits should still respect freshness rules.\n- Similar query, same scope, and fresh answer is the minimum safe pattern.\n\n## Minimal Code Mental Model\n\n```python\nentries = []\nstore_semantic_entry(entries, \"find failed runs\", \"3 failed runs\", workspace_id=7, version=\"v1\", now=100)\nhit = lookup_semantic_cache(entries, \"show failed runs\", workspace_id=7, version=\"v1\", now=120)\n```\n\n## Function\n\n```python\ndef token_overlap_score(left: str, right: str) -> float:\ndef store_semantic_entry(\n    entries: list[dict[str, object]],\n    query: str,\n    response: str,\n    workspace_id: int,\n    version: str,\n    now: int,\n) -> None:\ndef lookup_semantic_cache(\n    entries: list[dict[str, object]],\n    query: str,\n    workspace_id: int,\n    version: str,\n    now: int,\n    similarity_threshold: float = 0.5,\n    max_age_seconds: int = 300,\n) -> str | None:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/caching/semantic-caching-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/caching/semantic-caching-basics/python/semantic_caching_basics.py",
+          "language": "python",
+          "content": "\"\"\"semantic_caching_basics - reuse responses for similar queries within a guarded scope.\"\"\"\n\nfrom __future__ import annotations\n\nimport re\n\n\ndef token_overlap_score(left: str, right: str) -> float:\n    left_tokens = set(re.findall(r\"[a-z0-9]+\", left.lower()))\n    right_tokens = set(re.findall(r\"[a-z0-9]+\", right.lower()))\n    if not left_tokens:\n        return 0.0\n    return len(left_tokens & right_tokens) / len(left_tokens)\n\n\ndef store_semantic_entry(\n    entries: list[dict[str, object]],\n    query: str,\n    response: str,\n    workspace_id: int,\n    version: str,\n    now: int,\n) -> None:\n    entries.append(\n        {\n            \"query\": query,\n            \"response\": response,\n            \"workspace_id\": workspace_id,\n            \"version\": version,\n            \"created_at\": now,\n        }\n    )\n\n\ndef lookup_semantic_cache(\n    entries: list[dict[str, object]],\n    query: str,\n    workspace_id: int,\n    version: str,\n    now: int,\n    similarity_threshold: float = 0.5,\n    max_age_seconds: int = 300,\n) -> str | None:\n    best_match: tuple[float, str] | None = None\n    for entry in entries:\n        if entry[\"workspace_id\"] != workspace_id or entry[\"version\"] != version:\n            continue\n        age = now - int(entry[\"created_at\"])\n        if age > max_age_seconds:\n            continue\n        score = token_overlap_score(query, str(entry[\"query\"]))\n        if score < similarity_threshold:\n            continue\n        response = str(entry[\"response\"])\n        if best_match is None or score > best_match[0]:\n            best_match = (score, response)\n    return None if best_match is None else best_match[1]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "caching",
       "slug": "ttl-and-invalidation",
       "title": "TTL And Invalidation",
       "path": "modules/databases/caching/ttl-and-invalidation",
@@ -2046,6 +2062,22 @@
     {
       "track": "databases",
       "topic": "indexing",
+      "slug": "jsonb-and-gin-indexing",
+      "title": "JSONB And GIN Indexing",
+      "path": "modules/databases/indexing/jsonb-and-gin-indexing",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "readme": "# JSONB And GIN Indexing\n\n> Track: `databases` | Topic: `indexing`\n\n## Concept\n\nGIN-style indexing is an inverted index mental model: instead of ordering rows by one key, it maps many JSONB or array terms back to the rows that contain them.\n\n## Key Points\n\n- JSONB fields can hold flexible metadata without breaking the relational model.\n- Inverted indexes are useful when queries search for terms inside nested or repeated metadata.\n- Multi-term filters become set intersections over postings lists.\n- Updating indexed JSON metadata means removing old terms and adding new ones.\n\n## Minimal Code Mental Model\n\n```python\ndocuments = [\n    {\"id\": \"doc-1\", \"metadata\": {\"language\": \"en\", \"tags\": [\"rag\", \"eval\"]}},\n]\ninverted = build_metadata_inverted_index(documents)\nmatches = filter_documents_with_index(inverted, [\"language=en\", \"tag=rag\"])\n```\n\n## Function\n\n```python\ndef metadata_terms(document: dict[str, object]) -> set[str]:\ndef build_metadata_inverted_index(\n    documents: list[dict[str, object]],\n) -> dict[str, set[str]]:\ndef filter_documents_with_index(\n    inverted_index: dict[str, set[str]],\n    required_terms: list[str],\n) -> list[str]:\ndef update_term_diff(\n    previous_document: dict[str, object],\n    new_document: dict[str, object],\n) -> tuple[set[str], set[str]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/indexing/jsonb-and-gin-indexing/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/indexing/jsonb-and-gin-indexing/python/jsonb_and_gin_indexing.py",
+          "language": "python",
+          "content": "\"\"\"jsonb_and_gin_indexing - a tiny inverted index for JSON-like metadata.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef metadata_terms(document: dict[str, object]) -> set[str]:\n    metadata = document.get(\"metadata\", {})\n    assert isinstance(metadata, dict)\n    terms: set[str] = set()\n    for key, value in metadata.items():\n        if isinstance(value, list):\n            for item in value:\n                terms.add(f\"{key[:-1] if key.endswith('s') else key}={item}\")\n        else:\n            terms.add(f\"{key}={value}\")\n    return terms\n\n\ndef build_metadata_inverted_index(\n    documents: list[dict[str, object]],\n) -> dict[str, set[str]]:\n    inverted: dict[str, set[str]] = {}\n    for document in documents:\n        doc_id = str(document[\"id\"])\n        for term in metadata_terms(document):\n            inverted.setdefault(term, set()).add(doc_id)\n    return inverted\n\n\ndef filter_documents_with_index(\n    inverted_index: dict[str, set[str]],\n    required_terms: list[str],\n) -> list[str]:\n    if not required_terms:\n        return []\n    postings = [inverted_index.get(term, set()) for term in required_terms]\n    if not postings:\n        return []\n    return sorted(set.intersection(*postings))\n\n\ndef update_term_diff(\n    previous_document: dict[str, object],\n    new_document: dict[str, object],\n) -> tuple[set[str], set[str]]:\n    previous_terms = metadata_terms(previous_document)\n    new_terms = metadata_terms(new_document)\n    removed = previous_terms - new_terms\n    added = new_terms - previous_terms\n    return removed, added\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "indexing",
       "slug": "partial-indexes",
       "title": "Partial Indexes",
       "path": "modules/databases/indexing/partial-indexes",
@@ -2056,6 +2088,22 @@
           "path": "modules/databases/indexing/partial-indexes/python/partial_indexes.py",
           "language": "python",
           "content": "\"\"\"partial_indexes - narrow indexes for hot subsets of a table.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_eval_runs_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE eval_runs (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            status TEXT NOT NULL,\n            created_at TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef seed_eval_runs(conn: sqlite3.Connection, rows: list[tuple[int, str, str]]) -> None:\n    conn.executemany(\n        \"\"\"\n        INSERT INTO eval_runs (workspace_id, status, created_at)\n        VALUES (?, ?, ?)\n        \"\"\",\n        rows,\n    )\n\n\ndef add_failed_runs_partial_index(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE INDEX idx_eval_runs_failed_recent\n        ON eval_runs (workspace_id, created_at DESC)\n        WHERE status = 'failed'\n        \"\"\"\n    )\n\n\ndef plan_for_recent_failed_runs(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    limit: int = 2,\n) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        EXPLAIN QUERY PLAN\n        SELECT id, created_at\n        FROM eval_runs\n        WHERE workspace_id = ?\n          AND status = 'failed'\n        ORDER BY created_at DESC\n        LIMIT ?\n        \"\"\",\n        (workspace_id, limit),\n    ).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef plan_for_recent_completed_runs(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    limit: int = 2,\n) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        EXPLAIN QUERY PLAN\n        SELECT id, created_at\n        FROM eval_runs\n        WHERE workspace_id = ?\n          AND status = 'completed'\n        ORDER BY created_at DESC\n        LIMIT ?\n        \"\"\",\n        (workspace_id, limit),\n    ).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef plan_flags(plan_details: list[str]) -> dict[str, bool]:\n    joined = \" | \".join(plan_details)\n    return {\n        \"full_scan\": \"SCAN eval_runs\" in joined,\n        \"uses_partial_index\": \"idx_eval_runs_failed_recent\" in joined,\n        \"temp_sort\": \"USE TEMP B-TREE FOR ORDER BY\" in joined,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "consistency-and-quorum-mental-model",
+      "title": "Consistency And Quorum Mental Model",
+      "path": "modules/databases/nosql/consistency-and-quorum-mental-model",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "readme": "# Consistency And Quorum Mental Model\n\n> Track: `databases` | Topic: `nosql`\n\n## Concept\n\nQuorum reads and writes rely on overlapping replica sets so a read is likely to intersect the latest successful write.\n\n## Key Points\n\n- Replication factor `N` is the number of replicas for a value.\n- Write quorum `W` is how many replicas must acknowledge a write.\n- Read quorum `R` is how many replicas a read consults.\n- The classic overlap rule is `R + W > N`.\n\n## Math\n\n$$\nR + W > N\n$$\n\n## Minimal Code Mental Model\n\n```python\nmajority = majority_quorum(3)\noverlap = quorums_overlap(read_quorum=2, write_quorum=2, replication_factor=3)\nsafe = read_your_write_possible(read_quorum=2, write_quorum=2, replication_factor=3)\n```\n\n## Function\n\n```python\ndef majority_quorum(replication_factor: int) -> int:\ndef quorums_overlap(\n    read_quorum: int,\n    write_quorum: int,\n    replication_factor: int,\n) -> bool:\ndef read_your_write_possible(\n    read_quorum: int,\n    write_quorum: int,\n    replication_factor: int,\n) -> bool:\ndef stale_read_risk(\n    read_quorum: int,\n    write_quorum: int,\n    replication_factor: int,\n) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/nosql/consistency-and-quorum-mental-model/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/nosql/consistency-and-quorum-mental-model/python/consistency_and_quorum_mental_model.py",
+          "language": "python",
+          "content": "\"\"\"consistency_and_quorum_mental_model - overlap rules for replicated reads and writes.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef majority_quorum(replication_factor: int) -> int:\n    if replication_factor <= 0:\n        raise ValueError(\"replication_factor must be positive\")\n    return replication_factor // 2 + 1\n\n\ndef quorums_overlap(\n    read_quorum: int,\n    write_quorum: int,\n    replication_factor: int,\n) -> bool:\n    return read_quorum + write_quorum > replication_factor\n\n\ndef read_your_write_possible(\n    read_quorum: int,\n    write_quorum: int,\n    replication_factor: int,\n) -> bool:\n    return quorums_overlap(read_quorum, write_quorum, replication_factor)\n\n\ndef stale_read_risk(\n    read_quorum: int,\n    write_quorum: int,\n    replication_factor: int,\n) -> bool:\n    return not quorums_overlap(read_quorum, write_quorum, replication_factor)\n"
         }
       ]
     },
@@ -2093,6 +2141,22 @@
     },
     {
       "track": "databases",
+      "topic": "nosql",
+      "slug": "wide-row-and-time-series-patterns",
+      "title": "Wide Row And Time Series Patterns",
+      "path": "modules/databases/nosql/wide-row-and-time-series-patterns",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "readme": "# Wide Row And Time Series Patterns\n\n> Track: `databases` | Topic: `nosql`\n\n## Concept\n\nWide-row and time-series models group many related events under one partition key so recent reads stay local to the entity and time bucket that matters.\n\n## Key Points\n\n- Partition keys usually combine entity identity with a time bucket like day or hour.\n- Appends are cheap when writes land in one ordered row family or partition.\n- Reads stay efficient when they target a narrow key range instead of scanning the whole dataset.\n- Time buckets prevent one entity from creating an unbounded hot partition.\n\n## Minimal Code Mental Model\n\n```python\nstore = {}\nwrite_point(store, \"sensor-1\", \"2026-03-11T10:00:00Z\", 18.2)\nwrite_point(store, \"sensor-1\", \"2026-03-11T10:05:00Z\", 18.7)\nday_points = points_for_day(store, \"sensor-1\", \"2026-03-11\")\nrecent = recent_points(store, \"sensor-1\", [\"2026-03-10\", \"2026-03-11\"], limit=2)\n```\n\n## Function\n\n```python\ndef partition_key(series_id: str, timestamp: str) -> tuple[str, str]:\ndef write_point(\n    store: dict[tuple[str, str], list[dict[str, object]]],\n    series_id: str,\n    timestamp: str,\n    value: float,\n) -> None:\ndef points_for_day(\n    store: dict[tuple[str, str], list[dict[str, object]]],\n    series_id: str,\n    day: str,\n) -> list[dict[str, object]]:\ndef recent_points(\n    store: dict[tuple[str, str], list[dict[str, object]]],\n    series_id: str,\n    day_buckets: list[str],\n    limit: int,\n) -> list[dict[str, object]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/nosql/wide-row-and-time-series-patterns/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/nosql/wide-row-and-time-series-patterns/python/wide_row_and_time_series_patterns.py",
+          "language": "python",
+          "content": "\"\"\"wide_row_and_time_series_patterns - partitioned appends for time-series reads.\"\"\"\n\nfrom __future__ import annotations\n\n\nStore = dict[tuple[str, str], list[dict[str, object]]]\n\n\ndef partition_key(series_id: str, timestamp: str) -> tuple[str, str]:\n    return series_id, timestamp[:10]\n\n\ndef write_point(\n    store: Store,\n    series_id: str,\n    timestamp: str,\n    value: float,\n) -> None:\n    key = partition_key(series_id, timestamp)\n    store.setdefault(key, []).append({\"timestamp\": timestamp, \"value\": value})\n    store[key].sort(key=lambda point: str(point[\"timestamp\"]))\n\n\ndef points_for_day(\n    store: Store,\n    series_id: str,\n    day: str,\n) -> list[dict[str, object]]:\n    return list(store.get((series_id, day), []))\n\n\ndef recent_points(\n    store: Store,\n    series_id: str,\n    day_buckets: list[str],\n    limit: int,\n) -> list[dict[str, object]]:\n    rows: list[dict[str, object]] = []\n    for day in day_buckets:\n        rows.extend(points_for_day(store, series_id, day))\n    rows.sort(key=lambda point: str(point[\"timestamp\"]), reverse=True)\n    return rows[:limit]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
       "topic": "query-plans",
       "slug": "cardinality-estimation",
       "title": "Cardinality Estimation",
@@ -2120,6 +2184,38 @@
           "path": "modules/databases/query-plans/explain-basics/python/explain_basics.py",
           "language": "python",
           "content": "\"\"\"explain_basics - inspect full scans, index use, and temp sorts.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_events_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE events (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            created_at TEXT NOT NULL,\n            kind TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef seed_events(\n    conn: sqlite3.Connection,\n    rows: list[tuple[int, str, str]],\n) -> None:\n    conn.executemany(\n        \"\"\"\n        INSERT INTO events (workspace_id, created_at, kind)\n        VALUES (?, ?, ?)\n        \"\"\",\n        rows,\n    )\n\n\ndef add_recent_events_index(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE INDEX idx_events_workspace_created\n        ON events (workspace_id, created_at DESC)\n        \"\"\"\n    )\n\n\ndef explain_recent_workspace_events(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    limit: int = 2,\n) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        EXPLAIN QUERY PLAN\n        SELECT id, created_at\n        FROM events\n        WHERE workspace_id = ?\n        ORDER BY created_at DESC\n        LIMIT ?\n        \"\"\",\n        (workspace_id, limit),\n    ).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef plan_flags(plan_details: list[str]) -> dict[str, bool]:\n    joined = \" | \".join(plan_details)\n    return {\n        \"full_scan\": \"SCAN events\" in joined,\n        \"uses_index\": \"idx_events_workspace_created\" in joined,\n        \"temp_sort\": \"USE TEMP B-TREE FOR ORDER BY\" in joined,\n    }\n\n\ndef recent_workspace_events(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    limit: int = 2,\n) -> list[tuple[int, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT id, created_at\n        FROM events\n        WHERE workspace_id = ?\n        ORDER BY created_at DESC\n        LIMIT ?\n        \"\"\",\n        (workspace_id, limit),\n    ).fetchall()\n    return [(event_id, created_at) for event_id, created_at in rows]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "query-plans",
+      "slug": "plan-regression-debugging",
+      "title": "Plan Regression Debugging",
+      "path": "modules/databases/query-plans/plan-regression-debugging",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "readme": "# Plan Regression Debugging\n\n> Track: `databases` | Topic: `query-plans`\n\n## Concept\n\nPlan regression debugging compares a known-good plan to a current plan and looks for new full scans, lost indexes, or new sorts.\n\n## Key Points\n\n- Query latency often regresses because the plan shape changed.\n- The first question is usually not “why is it slow?” but “what changed in the plan?”\n- Losing an index or gaining a temp sort is often enough to explain a major slowdown.\n- Plan summaries make regressions easier to compare than raw multiline plans.\n\n## Minimal Code Mental Model\n\n```python\nbaseline = summarize_plan([\"SEARCH runs USING INDEX idx_runs_workspace_created\"])\ncurrent = summarize_plan([\"SCAN runs\", \"USE TEMP B-TREE FOR ORDER BY\"])\nsignals = regression_signals(baseline, current)\n```\n\n## Function\n\n```python\ndef summarize_plan(plan_details: list[str]) -> dict[str, bool]:\ndef regression_signals(\n    baseline: dict[str, bool],\n    current: dict[str, bool],\n) -> list[str]:\ndef plan_regressed(\n    baseline: dict[str, bool],\n    current: dict[str, bool],\n) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/query-plans/plan-regression-debugging/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/query-plans/plan-regression-debugging/python/plan_regression_debugging.py",
+          "language": "python",
+          "content": "\"\"\"plan_regression_debugging - compare baseline and current plan summaries.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef summarize_plan(plan_details: list[str]) -> dict[str, bool]:\n    joined = \" | \".join(plan_details)\n    return {\n        \"full_scan\": \"SCAN \" in joined,\n        \"uses_index\": \"USING INDEX\" in joined or \"USING COVERING INDEX\" in joined,\n        \"temp_sort\": \"USE TEMP B-TREE FOR ORDER BY\" in joined,\n    }\n\n\ndef regression_signals(\n    baseline: dict[str, bool],\n    current: dict[str, bool],\n) -> list[str]:\n    signals: list[str] = []\n    if not baseline[\"full_scan\"] and current[\"full_scan\"]:\n        signals.append(\"new-full-scan\")\n    if baseline[\"uses_index\"] and not current[\"uses_index\"]:\n        signals.append(\"lost-index\")\n    if not baseline[\"temp_sort\"] and current[\"temp_sort\"]:\n        signals.append(\"new-temp-sort\")\n    return signals\n\n\ndef plan_regressed(\n    baseline: dict[str, bool],\n    current: dict[str, bool],\n) -> bool:\n    return len(regression_signals(baseline, current)) > 0\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "query-plans",
+      "slug": "sort-limit-and-group-by-costs",
+      "title": "Sort Limit And Group By Costs",
+      "path": "modules/databases/query-plans/sort-limit-and-group-by-costs",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "readme": "# Sort Limit And Group By Costs\n\n> Track: `databases` | Topic: `query-plans`\n\n## Concept\n\nSorts, limits, and group-by operations add work because the database has to organize rows, keep state, or both.\n\n## Key Points\n\n- A full sort usually costs more than a top-N sort for a small limit.\n- An index that already matches the order can avoid sort work entirely.\n- Group-by cost grows with both input rows and the number of groups that must be tracked.\n- Sort and aggregation operators often become the bottleneck after filtering is already selective.\n\n## Minimal Code Mental Model\n\n```python\nfull = full_sort_work_units(100000)\ntop_n = top_n_sort_work_units(100000, limit=20)\ngroup = hash_group_by_work_units(100000, distinct_groups=500)\nplan = choose_order_plan(100000, limit=20, has_covering_index=False)\n```\n\n## Function\n\n```python\ndef full_sort_work_units(row_count: int) -> float:\ndef top_n_sort_work_units(row_count: int, limit: int) -> float:\ndef hash_group_by_work_units(row_count: int, distinct_groups: int) -> int:\ndef choose_order_plan(row_count: int, limit: int, has_covering_index: bool) -> str:\ndef plan_cost_summary(\n    row_count: int,\n    limit: int,\n    distinct_groups: int,\n    has_covering_index: bool,\n) -> dict[str, float | int | str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/query-plans/sort-limit-and-group-by-costs/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/query-plans/sort-limit-and-group-by-costs/python/sort_limit_and_group_by_costs.py",
+          "language": "python",
+          "content": "\"\"\"sort_limit_and_group_by_costs - simple work models for sort and aggregation.\"\"\"\n\nfrom __future__ import annotations\n\nimport math\n\n\ndef full_sort_work_units(row_count: int) -> float:\n    if row_count <= 1:\n        return 0.0\n    return row_count * math.log2(row_count)\n\n\ndef top_n_sort_work_units(row_count: int, limit: int) -> float:\n    if row_count <= 0 or limit <= 0:\n        return 0.0\n    return row_count * math.log2(max(limit, 1))\n\n\ndef hash_group_by_work_units(row_count: int, distinct_groups: int) -> int:\n    return row_count + distinct_groups\n\n\ndef choose_order_plan(row_count: int, limit: int, has_covering_index: bool) -> str:\n    if has_covering_index:\n        return \"index-order-scan\"\n    if limit > 0 and limit < max(row_count // 10, 1):\n        return \"top-n-sort\"\n    return \"full-sort\"\n\n\ndef plan_cost_summary(\n    row_count: int,\n    limit: int,\n    distinct_groups: int,\n    has_covering_index: bool,\n) -> dict[str, float | int | str]:\n    plan = choose_order_plan(row_count, limit, has_covering_index)\n    sort_work = 0.0\n    if plan == \"full-sort\":\n        sort_work = full_sort_work_units(row_count)\n    elif plan == \"top-n-sort\":\n        sort_work = top_n_sort_work_units(row_count, limit)\n    return {\n        \"plan\": plan,\n        \"sort_work\": sort_work,\n        \"group_by_work\": hash_group_by_work_units(row_count, distinct_groups),\n    }\n"
         }
       ]
     },
@@ -2174,6 +2270,22 @@
     {
       "track": "databases",
       "topic": "schema-design",
+      "slug": "asset-versioning",
+      "title": "Asset Versioning",
+      "path": "modules/databases/schema-design/asset-versioning",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "readme": "# Asset Versioning\n\n> Track: `databases` | Topic: `schema-design`\n\n## Concept\n\nVersioned assets keep immutable historical snapshots while still letting the system ask for the current version.\n\n## Key Points\n\n- Immutable versions make rollback and reproducibility easier.\n- Version labels and content hashes usually need uniqueness per asset.\n- Current state can be derived from the latest version instead of overwriting old rows.\n- Asset versioning matters for datasets, prompts, configs, and model artifacts in AI systems.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_asset_versioning_schema(conn)\nasset_id = insert_asset(conn, 42, \"prompt-template\")\npublish_asset_version(conn, asset_id, \"v1\", \"hash-a\", \"2026-03-11T10:00:00Z\")\npublish_asset_version(conn, asset_id, \"v2\", \"hash-b\", \"2026-03-11T11:00:00Z\")\nlatest = latest_version(conn, asset_id)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_asset_versioning_schema(conn: sqlite3.Connection) -> None:\ndef insert_asset(conn: sqlite3.Connection, workspace_id: int, name: str) -> int:\ndef publish_asset_version(\n    conn: sqlite3.Connection,\n    asset_id: int,\n    version_label: str,\n    content_hash: str,\n    created_at: str,\n) -> int:\ndef version_history(\n    conn: sqlite3.Connection,\n    asset_id: int,\n) -> list[tuple[str, str, str]]:\ndef latest_version(\n    conn: sqlite3.Connection,\n    asset_id: int,\n) -> tuple[str, str, str] | None:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/schema-design/asset-versioning/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/schema-design/asset-versioning/python/asset_versioning.py",
+          "language": "python",
+          "content": "\"\"\"asset_versioning - immutable version rows for datasets, prompts, and configs.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.execute(\"PRAGMA foreign_keys = ON\")\n    return conn\n\n\ndef create_asset_versioning_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE assets (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            name TEXT NOT NULL,\n            UNIQUE (workspace_id, name)\n        );\n\n        CREATE TABLE asset_versions (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            asset_id INTEGER NOT NULL,\n            version_label TEXT NOT NULL,\n            content_hash TEXT NOT NULL,\n            created_at TEXT NOT NULL,\n            FOREIGN KEY (asset_id) REFERENCES assets(id) ON DELETE CASCADE,\n            UNIQUE (asset_id, version_label),\n            UNIQUE (asset_id, content_hash)\n        );\n        \"\"\"\n    )\n\n\ndef insert_asset(conn: sqlite3.Connection, workspace_id: int, name: str) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO assets (workspace_id, name)\n        VALUES (?, ?)\n        \"\"\",\n        (workspace_id, name),\n    )\n    return int(cursor.lastrowid)\n\n\ndef publish_asset_version(\n    conn: sqlite3.Connection,\n    asset_id: int,\n    version_label: str,\n    content_hash: str,\n    created_at: str,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO asset_versions (asset_id, version_label, content_hash, created_at)\n        VALUES (?, ?, ?, ?)\n        \"\"\",\n        (asset_id, version_label, content_hash, created_at),\n    )\n    return int(cursor.lastrowid)\n\n\ndef version_history(\n    conn: sqlite3.Connection,\n    asset_id: int,\n) -> list[tuple[str, str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT version_label, content_hash, created_at\n        FROM asset_versions\n        WHERE asset_id = ?\n        ORDER BY created_at, id\n        \"\"\",\n        (asset_id,),\n    ).fetchall()\n    return [(label, content_hash, created_at) for label, content_hash, created_at in rows]\n\n\ndef latest_version(\n    conn: sqlite3.Connection,\n    asset_id: int,\n) -> tuple[str, str, str] | None:\n    row = conn.execute(\n        \"\"\"\n        SELECT version_label, content_hash, created_at\n        FROM asset_versions\n        WHERE asset_id = ?\n        ORDER BY created_at DESC, id DESC\n        LIMIT 1\n        \"\"\",\n        (asset_id,),\n    ).fetchone()\n    if row is None:\n        return None\n    return row[0], row[1], row[2]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "schema-design",
       "slug": "document-chunk-embedding-schema",
       "title": "Document Chunk Embedding Schema",
       "path": "modules/databases/schema-design/document-chunk-embedding-schema",
@@ -2184,6 +2296,22 @@
           "path": "modules/databases/schema-design/document-chunk-embedding-schema/python/document_chunk_embedding_schema.py",
           "language": "python",
           "content": "\"\"\"document_chunk_embedding_schema - normalized retrieval schema with lineage.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.execute(\"PRAGMA foreign_keys = ON\")\n    return conn\n\n\ndef create_ai_retrieval_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE documents (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            title TEXT NOT NULL,\n            source_uri TEXT\n        );\n\n        CREATE TABLE chunks (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            document_id INTEGER NOT NULL,\n            chunk_index INTEGER NOT NULL,\n            text TEXT NOT NULL,\n            token_count INTEGER NOT NULL,\n            FOREIGN KEY (document_id) REFERENCES documents(id) ON DELETE CASCADE,\n            UNIQUE (document_id, chunk_index)\n        );\n\n        CREATE TABLE embedding_jobs (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            model_name TEXT NOT NULL,\n            dimensions INTEGER NOT NULL\n        );\n\n        CREATE TABLE chunk_embeddings (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            chunk_id INTEGER NOT NULL,\n            embedding_job_id INTEGER NOT NULL,\n            vector_json TEXT NOT NULL,\n            FOREIGN KEY (chunk_id) REFERENCES chunks(id) ON DELETE CASCADE,\n            FOREIGN KEY (embedding_job_id) REFERENCES embedding_jobs(id) ON DELETE CASCADE,\n            UNIQUE (chunk_id, embedding_job_id)\n        );\n        \"\"\"\n    )\n\n\ndef insert_document(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    title: str,\n    source_uri: str | None = None,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO documents (workspace_id, title, source_uri)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (workspace_id, title, source_uri),\n    )\n    return int(cursor.lastrowid)\n\n\ndef insert_chunk(\n    conn: sqlite3.Connection,\n    document_id: int,\n    chunk_index: int,\n    text: str,\n) -> int:\n    token_count = len(text.split())\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO chunks (document_id, chunk_index, text, token_count)\n        VALUES (?, ?, ?, ?)\n        \"\"\",\n        (document_id, chunk_index, text, token_count),\n    )\n    return int(cursor.lastrowid)\n\n\ndef insert_embedding_job(\n    conn: sqlite3.Connection,\n    model_name: str,\n    dimensions: int,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO embedding_jobs (model_name, dimensions)\n        VALUES (?, ?)\n        \"\"\",\n        (model_name, dimensions),\n    )\n    return int(cursor.lastrowid)\n\n\ndef attach_chunk_embedding(\n    conn: sqlite3.Connection,\n    chunk_id: int,\n    embedding_job_id: int,\n    vector: list[float],\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO chunk_embeddings (chunk_id, embedding_job_id, vector_json)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (chunk_id, embedding_job_id, json.dumps(vector)),\n    )\n    return int(cursor.lastrowid)\n\n\ndef list_document_embeddings(\n    conn: sqlite3.Connection,\n    document_id: int,\n) -> list[dict[str, object]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT\n            c.chunk_index,\n            c.text,\n            c.token_count,\n            ej.model_name,\n            ej.dimensions,\n            ce.vector_json\n        FROM chunks AS c\n        JOIN chunk_embeddings AS ce ON ce.chunk_id = c.id\n        JOIN embedding_jobs AS ej ON ej.id = ce.embedding_job_id\n        WHERE c.document_id = ?\n        ORDER BY c.chunk_index, ej.model_name\n        \"\"\",\n        (document_id,),\n    ).fetchall()\n    return [\n        {\n            \"chunk_index\": chunk_index,\n            \"chunk_text\": chunk_text,\n            \"token_count\": token_count,\n            \"model_name\": model_name,\n            \"dimensions\": dimensions,\n            \"vector\": json.loads(vector_json),\n        }\n        for chunk_index, chunk_text, token_count, model_name, dimensions, vector_json in rows\n    ]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "entity-vs-event-tables",
+      "title": "Entity Vs Event Tables",
+      "path": "modules/databases/schema-design/entity-vs-event-tables",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "readme": "# Entity Vs Event Tables\n\n> Track: `databases` | Topic: `schema-design`\n\n## Concept\n\nEntity tables store current state, while event tables store the history of changes that produced that state.\n\n## Key Points\n\n- Entity tables answer “what is true now?”\n- Event tables answer “what happened, and in what order?”\n- Some systems need both: a fast current-state table plus an append-only audit log.\n- Reconstructing current state from events is possible, but it is usually more expensive than reading an entity table directly.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_entity_event_schema(conn)\nupsert_job_state(conn, \"run-1\", \"running\")\nappend_job_event(conn, \"run-1\", \"running\", \"2026-03-11T10:00:00Z\")\ncurrent = current_state_from_entity_table(conn)\nrebuilt = current_state_from_event_table(conn)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_entity_event_schema(conn: sqlite3.Connection) -> None:\ndef upsert_job_state(conn: sqlite3.Connection, run_id: str, status: str) -> None:\ndef append_job_event(\n    conn: sqlite3.Connection,\n    run_id: str,\n    status: str,\n    occurred_at: str,\n) -> None:\ndef current_state_from_entity_table(conn: sqlite3.Connection) -> dict[str, str]:\ndef current_state_from_event_table(conn: sqlite3.Connection) -> dict[str, str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/schema-design/entity-vs-event-tables/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/schema-design/entity-vs-event-tables/python/entity_vs_event_tables.py",
+          "language": "python",
+          "content": "\"\"\"entity_vs_event_tables - current-state entities plus append-only events.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_entity_event_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE job_state (\n            run_id TEXT PRIMARY KEY,\n            status TEXT NOT NULL\n        );\n\n        CREATE TABLE job_events (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            run_id TEXT NOT NULL,\n            status TEXT NOT NULL,\n            occurred_at TEXT NOT NULL\n        );\n        \"\"\"\n    )\n\n\ndef upsert_job_state(conn: sqlite3.Connection, run_id: str, status: str) -> None:\n    conn.execute(\n        \"\"\"\n        INSERT INTO job_state (run_id, status)\n        VALUES (?, ?)\n        ON CONFLICT(run_id) DO UPDATE SET status = excluded.status\n        \"\"\",\n        (run_id, status),\n    )\n\n\ndef append_job_event(\n    conn: sqlite3.Connection,\n    run_id: str,\n    status: str,\n    occurred_at: str,\n) -> None:\n    conn.execute(\n        \"\"\"\n        INSERT INTO job_events (run_id, status, occurred_at)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (run_id, status, occurred_at),\n    )\n\n\ndef current_state_from_entity_table(conn: sqlite3.Connection) -> dict[str, str]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT run_id, status\n        FROM job_state\n        ORDER BY run_id\n        \"\"\"\n    ).fetchall()\n    return {run_id: status for run_id, status in rows}\n\n\ndef current_state_from_event_table(conn: sqlite3.Connection) -> dict[str, str]:\n    rows = conn.execute(\n        \"\"\"\n        WITH ranked AS (\n            SELECT\n                run_id,\n                status,\n                ROW_NUMBER() OVER (\n                    PARTITION BY run_id\n                    ORDER BY occurred_at DESC, id DESC\n                ) AS rn\n            FROM job_events\n        )\n        SELECT run_id, status\n        FROM ranked\n        WHERE rn = 1\n        ORDER BY run_id\n        \"\"\"\n    ).fetchall()\n    return {run_id: status for run_id, status in rows}\n"
         }
       ]
     },
@@ -2221,6 +2349,22 @@
     },
     {
       "track": "databases",
+      "topic": "schema-design",
+      "slug": "one-to-many-and-many-to-many",
+      "title": "One To Many And Many To Many",
+      "path": "modules/databases/schema-design/one-to-many-and-many-to-many",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "readme": "# One To Many And Many To Many\n\n> Track: `databases` | Topic: `schema-design`\n\n## Concept\n\nOne-to-many relationships put the foreign key on the child row, while many-to-many relationships use a join table to connect both sides explicitly.\n\n## Key Points\n\n- `documents -> chunks` is a classic one-to-many shape.\n- `documents <-> tags` is a many-to-many shape because each side can connect to many rows on the other side.\n- Join tables should usually have a composite uniqueness rule to block duplicate links.\n- Good schema design makes relationship shape visible in the tables instead of hiding it in serialized blobs.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_relationship_schema(conn)\ndocument_id = insert_document(conn, \"spec\")\ninsert_chunk(conn, document_id, 0, \"chunk a\")\ntag_id = insert_tag(conn, \"rag\")\nlink_document_tag(conn, document_id, tag_id)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_relationship_schema(conn: sqlite3.Connection) -> None:\ndef insert_document(conn: sqlite3.Connection, title: str) -> int:\ndef insert_chunk(\n    conn: sqlite3.Connection,\n    document_id: int,\n    chunk_index: int,\n    text: str,\n) -> int:\ndef insert_tag(conn: sqlite3.Connection, name: str) -> int:\ndef link_document_tag(conn: sqlite3.Connection, document_id: int, tag_id: int) -> None:\ndef document_chunk_counts(conn: sqlite3.Connection) -> list[tuple[str, int]]:\ndef document_tag_names(conn: sqlite3.Connection, title: str) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/schema-design/one-to-many-and-many-to-many/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/schema-design/one-to-many-and-many-to-many/python/one_to_many_and_many_to_many.py",
+          "language": "python",
+          "content": "\"\"\"one_to_many_and_many_to_many - basic relationship table patterns.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.execute(\"PRAGMA foreign_keys = ON\")\n    return conn\n\n\ndef create_relationship_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE documents (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            title TEXT NOT NULL UNIQUE\n        );\n\n        CREATE TABLE chunks (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            document_id INTEGER NOT NULL,\n            chunk_index INTEGER NOT NULL,\n            text TEXT NOT NULL,\n            FOREIGN KEY (document_id) REFERENCES documents(id) ON DELETE CASCADE,\n            UNIQUE (document_id, chunk_index)\n        );\n\n        CREATE TABLE tags (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            name TEXT NOT NULL UNIQUE\n        );\n\n        CREATE TABLE document_tags (\n            document_id INTEGER NOT NULL,\n            tag_id INTEGER NOT NULL,\n            FOREIGN KEY (document_id) REFERENCES documents(id) ON DELETE CASCADE,\n            FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE,\n            PRIMARY KEY (document_id, tag_id)\n        );\n        \"\"\"\n    )\n\n\ndef insert_document(conn: sqlite3.Connection, title: str) -> int:\n    cursor = conn.execute(\n        \"INSERT INTO documents (title) VALUES (?)\",\n        (title,),\n    )\n    return int(cursor.lastrowid)\n\n\ndef insert_chunk(\n    conn: sqlite3.Connection,\n    document_id: int,\n    chunk_index: int,\n    text: str,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO chunks (document_id, chunk_index, text)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (document_id, chunk_index, text),\n    )\n    return int(cursor.lastrowid)\n\n\ndef insert_tag(conn: sqlite3.Connection, name: str) -> int:\n    cursor = conn.execute(\n        \"INSERT INTO tags (name) VALUES (?)\",\n        (name,),\n    )\n    return int(cursor.lastrowid)\n\n\ndef link_document_tag(conn: sqlite3.Connection, document_id: int, tag_id: int) -> None:\n    conn.execute(\n        \"\"\"\n        INSERT INTO document_tags (document_id, tag_id)\n        VALUES (?, ?)\n        \"\"\",\n        (document_id, tag_id),\n    )\n\n\ndef document_chunk_counts(conn: sqlite3.Connection) -> list[tuple[str, int]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT d.title, COUNT(c.id) AS chunk_count\n        FROM documents AS d\n        LEFT JOIN chunks AS c ON c.document_id = d.id\n        GROUP BY d.id, d.title\n        ORDER BY d.id\n        \"\"\"\n    ).fetchall()\n    return [(title, chunk_count) for title, chunk_count in rows]\n\n\ndef document_tag_names(conn: sqlite3.Connection, title: str) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT t.name\n        FROM documents AS d\n        JOIN document_tags AS dt ON dt.document_id = d.id\n        JOIN tags AS t ON t.id = dt.tag_id\n        WHERE d.title = ?\n        ORDER BY t.name\n        \"\"\",\n        (title,),\n    ).fetchall()\n    return [name for (name,) in rows]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
       "topic": "sql-patterns",
       "slug": "dedup-and-latest-row",
       "title": "Dedup And Latest Row",
@@ -2232,6 +2376,22 @@
           "path": "modules/databases/sql-patterns/dedup-and-latest-row/python/dedup_and_latest_row.py",
           "language": "python",
           "content": "\"\"\"dedup_and_latest_row - keep the newest row per run with window functions.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_run_events_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE run_events (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            run_id TEXT NOT NULL,\n            status TEXT NOT NULL,\n            recorded_at TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef record_run_event(\n    conn: sqlite3.Connection,\n    run_id: str,\n    status: str,\n    recorded_at: str,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO run_events (run_id, status, recorded_at)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (run_id, status, recorded_at),\n    )\n    return int(cursor.lastrowid)\n\n\ndef latest_event_per_run(conn: sqlite3.Connection) -> list[dict[str, object]]:\n    rows = conn.execute(\n        \"\"\"\n        WITH ranked AS (\n            SELECT\n                run_id,\n                status,\n                recorded_at,\n                ROW_NUMBER() OVER (\n                    PARTITION BY run_id\n                    ORDER BY recorded_at DESC, id DESC\n                ) AS row_rank\n            FROM run_events\n        )\n        SELECT run_id, status, recorded_at\n        FROM ranked\n        WHERE row_rank = 1\n        ORDER BY run_id\n        \"\"\"\n    ).fetchall()\n    return [\n        {\"run_id\": run_id, \"status\": status, \"recorded_at\": recorded_at}\n        for run_id, status, recorded_at in rows\n    ]\n\n\ndef latest_status_summary(conn: sqlite3.Connection) -> dict[str, int]:\n    rows = conn.execute(\n        \"\"\"\n        WITH ranked AS (\n            SELECT\n                run_id,\n                status,\n                ROW_NUMBER() OVER (\n                    PARTITION BY run_id\n                    ORDER BY recorded_at DESC, id DESC\n                ) AS row_rank\n            FROM run_events\n        )\n        SELECT status, COUNT(*)\n        FROM ranked\n        WHERE row_rank = 1\n        GROUP BY status\n        ORDER BY status\n        \"\"\"\n    ).fetchall()\n    return {status: count for status, count in rows}\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "sql-patterns",
+      "slug": "duckdb-parquet-query-patterns",
+      "title": "DuckDB Parquet Query Patterns",
+      "path": "modules/databases/sql-patterns/duckdb-parquet-query-patterns",
+      "summary": "> Track: `databases` | Topic: `sql-patterns`",
+      "readme": "# DuckDB Parquet Query Patterns\n\n> Track: `databases` | Topic: `sql-patterns`\n\n## Concept\n\nDuckDB-style Parquet workflows are mostly about selecting the right files and columns before doing the actual scan.\n\n## Key Points\n\n- Partition pruning skips files that cannot satisfy the filter.\n- Column projection avoids reading fields the query does not need.\n- Local analytics queries often combine many Parquet fragments into one logical dataset.\n- Good Parquet query shape is about reading less, not just scanning faster.\n\n## Minimal Code Mental Model\n\n```python\nfiles = parquet_file_catalog()\nselected = prune_partitions(files, filters={\"day\": \"2026-03-11\"})\ncolumns = projected_columns([\"workspace_id\", \"score\"], [\"day\", \"score\"])\nplan = query_plan_summary(selected, columns)\n```\n\n## Function\n\n```python\ndef prune_partitions(\n    files: list[dict[str, object]],\n    filters: dict[str, object],\n) -> list[str]:\ndef projected_columns(select_columns: list[str], available_columns: list[str]) -> list[str]:\ndef query_plan_summary(\n    selected_files: list[str],\n    selected_columns: list[str],\n) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/sql-patterns/duckdb-parquet-query-patterns/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/sql-patterns/duckdb-parquet-query-patterns/python/duckdb_parquet_query_patterns.py",
+          "language": "python",
+          "content": "\"\"\"duckdb_parquet_query_patterns - partition pruning and column projection mental model.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef prune_partitions(\n    files: list[dict[str, object]],\n    filters: dict[str, object],\n) -> list[str]:\n    selected: list[str] = []\n    for file in files:\n        partitions = file.get(\"partitions\", {})\n        assert isinstance(partitions, dict)\n        if all(partitions.get(key) == value for key, value in filters.items()):\n            selected.append(str(file[\"path\"]))\n    return selected\n\n\ndef projected_columns(select_columns: list[str], available_columns: list[str]) -> list[str]:\n    available = set(available_columns)\n    return [column for column in select_columns if column in available]\n\n\ndef query_plan_summary(\n    selected_files: list[str],\n    selected_columns: list[str],\n) -> dict[str, object]:\n    return {\n        \"file_count\": len(selected_files),\n        \"columns\": list(selected_columns),\n        \"can_prune_files\": len(selected_files) > 0,\n        \"can_project_columns\": len(selected_columns) > 0,\n    }\n"
         }
       ]
     },
@@ -2270,6 +2430,38 @@
     {
       "track": "databases",
       "topic": "streaming",
+      "slug": "connectors-and-pipeline-shapes",
+      "title": "Connectors And Pipeline Shapes",
+      "path": "modules/databases/streaming/connectors-and-pipeline-shapes",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "readme": "# Connectors And Pipeline Shapes\n\n> Track: `databases` | Topic: `streaming`\n\n## Concept\n\nConnectors move data between systems, and the shape of the pipeline determines how sources, transforms, and sinks are allowed to connect.\n\n## Key Points\n\n- Sources should not have inbound edges.\n- Sinks should not have outbound edges.\n- A simple pipeline can be source-to-sink, source-transform-sink, fan-in, or fan-out.\n- Validating connector shape early prevents messy pipelines that are hard to operate.\n\n## Minimal Code Mental Model\n\n```python\nstages = {\"db\": \"source\", \"clean\": \"transform\", \"warehouse\": \"sink\"}\nedges = [(\"db\", \"clean\"), (\"clean\", \"warehouse\")]\nvalid = validate_pipeline(stages, edges)\nshape = classify_pipeline_shape(stages, edges)\n```\n\n## Function\n\n```python\ndef validate_pipeline(\n    stages: dict[str, str],\n    edges: list[tuple[str, str]],\n) -> bool:\ndef classify_pipeline_shape(\n    stages: dict[str, str],\n    edges: list[tuple[str, str]],\n) -> str:\ndef reachable_sinks(\n    stages: dict[str, str],\n    edges: list[tuple[str, str]],\n    source_name: str,\n) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/streaming/connectors-and-pipeline-shapes/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/streaming/connectors-and-pipeline-shapes/python/connectors_and_pipeline_shapes.py",
+          "language": "python",
+          "content": "\"\"\"connectors_and_pipeline_shapes - validate simple streaming pipeline topologies.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef validate_pipeline(\n    stages: dict[str, str],\n    edges: list[tuple[str, str]],\n) -> bool:\n    inbound = {name: 0 for name in stages}\n    outbound = {name: 0 for name in stages}\n\n    for left, right in edges:\n        if left not in stages or right not in stages:\n            return False\n        inbound[right] += 1\n        outbound[left] += 1\n\n    for name, kind in stages.items():\n        if kind == \"source\" and inbound[name] != 0:\n            return False\n        if kind == \"sink\" and outbound[name] != 0:\n            return False\n    return True\n\n\ndef classify_pipeline_shape(\n    stages: dict[str, str],\n    edges: list[tuple[str, str]],\n) -> str:\n    if not validate_pipeline(stages, edges):\n        return \"invalid\"\n\n    inbound = {name: 0 for name in stages}\n    outbound = {name: 0 for name in stages}\n    for left, right in edges:\n        outbound[left] += 1\n        inbound[right] += 1\n\n    if any(outbound[name] > 1 for name, kind in stages.items() if kind == \"source\"):\n        return \"fan-out\"\n    if any(inbound[name] > 1 for name, kind in stages.items() if kind == \"sink\"):\n        return \"fan-in\"\n    if any(kind == \"transform\" for kind in stages.values()):\n        return \"source-transform-sink\"\n    return \"source-to-sink\"\n\n\ndef reachable_sinks(\n    stages: dict[str, str],\n    edges: list[tuple[str, str]],\n    source_name: str,\n) -> list[str]:\n    graph: dict[str, list[str]] = {name: [] for name in stages}\n    for left, right in edges:\n        graph.setdefault(left, []).append(right)\n\n    seen = {source_name}\n    queue = [source_name]\n    sinks: set[str] = set()\n    while queue:\n        current = queue.pop(0)\n        if stages.get(current) == \"sink\":\n            sinks.add(current)\n        for nxt in graph.get(current, []):\n            if nxt not in seen:\n                seen.add(nxt)\n                queue.append(nxt)\n    return sorted(sinks)\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "consumer-groups-and-offsets",
+      "title": "Consumer Groups And Offsets",
+      "path": "modules/databases/streaming/consumer-groups-and-offsets",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "readme": "# Consumer Groups And Offsets\n\n> Track: `databases` | Topic: `streaming`\n\n## Concept\n\nConsumer groups split partitions across consumers, and committed offsets tell each consumer where to resume after a restart.\n\n## Key Points\n\n- Each partition is usually owned by one consumer at a time within a group.\n- Offsets represent position, not the payload itself.\n- Committing `last_processed + 1` makes restart behavior explicit.\n- Rebalancing changes which consumer owns which partitions, but the committed offsets stay with the group.\n\n## Minimal Code Mental Model\n\n```python\nassignments = assign_partitions([0, 1, 2], [\"c1\", \"c2\"])\nevents = poll_group(stream, assignments, committed_offsets, \"c1\")\ncommit_offsets(committed_offsets, events)\n```\n\n## Function\n\n```python\ndef assign_partitions(\n    partitions: list[int],\n    consumers: list[str],\n) -> dict[str, list[int]]:\ndef poll_group(\n    stream: dict[int, list[dict[str, object]]],\n    assignments: dict[str, list[int]],\n    committed_offsets: dict[int, int],\n    consumer_id: str,\n    max_events: int | None = None,\n) -> list[dict[str, object]]:\ndef commit_offsets(\n    committed_offsets: dict[int, int],\n    events: list[dict[str, object]],\n) -> None:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/streaming/consumer-groups-and-offsets/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/streaming/consumer-groups-and-offsets/python/consumer_groups_and_offsets.py",
+          "language": "python",
+          "content": "\"\"\"consumer_groups_and_offsets - partition assignment and offset commits.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef assign_partitions(\n    partitions: list[int],\n    consumers: list[str],\n) -> dict[str, list[int]]:\n    assignments = {consumer: [] for consumer in consumers}\n    for index, partition in enumerate(sorted(partitions)):\n        consumer = consumers[index % len(consumers)]\n        assignments[consumer].append(partition)\n    return assignments\n\n\ndef poll_group(\n    stream: dict[int, list[dict[str, object]]],\n    assignments: dict[str, list[int]],\n    committed_offsets: dict[int, int],\n    consumer_id: str,\n    max_events: int | None = None,\n) -> list[dict[str, object]]:\n    events: list[dict[str, object]] = []\n    for partition in assignments.get(consumer_id, []):\n        next_offset = committed_offsets.get(partition, 0)\n        for event in stream.get(partition, []):\n            if int(event[\"offset\"]) >= next_offset:\n                events.append(event)\n    events.sort(key=lambda event: (int(event[\"partition\"]), int(event[\"offset\"])))\n    return events if max_events is None else events[:max_events]\n\n\ndef commit_offsets(\n    committed_offsets: dict[int, int],\n    events: list[dict[str, object]],\n) -> None:\n    for event in events:\n        partition = int(event[\"partition\"])\n        offset = int(event[\"offset\"])\n        committed_offsets[partition] = max(committed_offsets.get(partition, 0), offset + 1)\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "streaming",
       "slug": "event-stream-basics",
       "title": "Event Stream Basics",
       "path": "modules/databases/streaming/event-stream-basics",
@@ -2296,6 +2488,22 @@
           "path": "modules/databases/streaming/idempotent-consumers/python/idempotent_consumers.py",
           "language": "python",
           "content": "\"\"\"idempotent_consumers - apply each event ID at most once.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef process_status_event(\n    event: dict[str, str],\n    processed_ids: set[str],\n    state: dict[str, str],\n) -> bool:\n    event_id = event[\"event_id\"]\n    if event_id in processed_ids:\n        return False\n\n    state[event[\"key\"]] = event[\"status\"]\n    processed_ids.add(event_id)\n    return True\n\n\ndef consume_batch(\n    events: list[dict[str, str]],\n    processed_ids: set[str],\n    state: dict[str, str],\n) -> int:\n    applied = 0\n    for event in events:\n        if process_status_event(event, processed_ids, state):\n            applied += 1\n    return applied\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "materialized-view-patterns",
+      "title": "Materialized View Patterns",
+      "path": "modules/databases/streaming/materialized-view-patterns",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "readme": "# Materialized View Patterns\n\n> Track: `databases` | Topic: `streaming`\n\n## Concept\n\nA materialized view is a precomputed read model that is incrementally updated from an event stream instead of recalculated from scratch on every query.\n\n## Key Points\n\n- The event log is the source of truth, but the view is optimized for reads.\n- When an entity changes status, the view usually removes the old aggregate contribution and adds the new one.\n- Incremental maintenance should match a full rebuild from the same event stream.\n- Materialized views are one of the main reasons streaming systems can serve low-latency dashboards.\n\n## Minimal Code Mental Model\n\n```python\nview = empty_view()\napply_order_status_event(view, {\"order_id\": \"o1\", \"workspace_id\": 7, \"status\": \"queued\"})\napply_order_status_event(view, {\"order_id\": \"o1\", \"workspace_id\": 7, \"status\": \"completed\"})\ncounts = workspace_status_counts(view, 7)\n```\n\n## Function\n\n```python\ndef empty_view() -> dict[str, object]:\ndef apply_order_status_event(\n    view: dict[str, object],\n    event: dict[str, object],\n) -> None:\ndef rebuild_view(events: list[dict[str, object]]) -> dict[str, object]:\ndef workspace_status_counts(\n    view: dict[str, object],\n    workspace_id: int,\n) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/streaming/materialized-view-patterns/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/streaming/materialized-view-patterns/python/materialized_view_patterns.py",
+          "language": "python",
+          "content": "\"\"\"materialized_view_patterns - incremental status aggregates from events.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef empty_view() -> dict[str, object]:\n    return {\n        \"latest_by_order\": {},\n        \"counts_by_workspace\": {},\n    }\n\n\ndef apply_order_status_event(\n    view: dict[str, object],\n    event: dict[str, object],\n) -> None:\n    latest_by_order = view[\"latest_by_order\"]\n    counts_by_workspace = view[\"counts_by_workspace\"]\n    assert isinstance(latest_by_order, dict)\n    assert isinstance(counts_by_workspace, dict)\n\n    order_id = str(event[\"order_id\"])\n    workspace_id = int(event[\"workspace_id\"])\n    new_status = str(event[\"status\"])\n    previous = latest_by_order.get(order_id)\n\n    workspace_counts = counts_by_workspace.setdefault(workspace_id, {})\n    assert isinstance(workspace_counts, dict)\n\n    if previous is not None:\n        old_workspace_id = int(previous[\"workspace_id\"])\n        old_status = str(previous[\"status\"])\n        old_counts = counts_by_workspace.setdefault(old_workspace_id, {})\n        assert isinstance(old_counts, dict)\n        old_counts[old_status] = max(int(old_counts.get(old_status, 0)) - 1, 0)\n\n    workspace_counts[new_status] = int(workspace_counts.get(new_status, 0)) + 1\n    latest_by_order[order_id] = {\n        \"workspace_id\": workspace_id,\n        \"status\": new_status,\n    }\n\n\ndef rebuild_view(events: list[dict[str, object]]) -> dict[str, object]:\n    view = empty_view()\n    for event in events:\n        apply_order_status_event(view, event)\n    return view\n\n\ndef workspace_status_counts(\n    view: dict[str, object],\n    workspace_id: int,\n) -> dict[str, int]:\n    counts_by_workspace = view[\"counts_by_workspace\"]\n    assert isinstance(counts_by_workspace, dict)\n    raw = counts_by_workspace.get(workspace_id, {})\n    assert isinstance(raw, dict)\n    return {status: count for status, count in raw.items() if int(count) > 0}\n"
         }
       ]
     },
@@ -2328,6 +2536,22 @@
           "path": "modules/databases/transactions/mvcc-mental-model/python/mvcc_mental_model.py",
           "language": "python",
           "content": "\"\"\"mvcc_mental_model - a tiny snapshot-visibility model.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\n\n\n@dataclass\nclass RowVersion:\n    value: object\n    created_xid: int\n    deleted_xid: int | None = None\n\n\nVersionedStore = dict[str, list[RowVersion]]\n\n\ndef append_version(\n    store: VersionedStore,\n    key: str,\n    value: object,\n    created_xid: int,\n) -> None:\n    store.setdefault(key, []).append(\n        RowVersion(value=value, created_xid=created_xid)\n    )\n\n\ndef replace_visible_value(\n    store: VersionedStore,\n    key: str,\n    new_value: object,\n    writer_xid: int,\n) -> None:\n    versions = store.setdefault(key, [])\n    current = next(\n        (version for version in reversed(versions) if version.deleted_xid is None),\n        None,\n    )\n    if current is not None:\n        current.deleted_xid = writer_xid\n    versions.append(RowVersion(value=new_value, created_xid=writer_xid))\n\n\ndef delete_visible_value(\n    store: VersionedStore,\n    key: str,\n    writer_xid: int,\n) -> None:\n    versions = store.get(key, [])\n    current = next(\n        (version for version in reversed(versions) if version.deleted_xid is None),\n        None,\n    )\n    if current is not None:\n        current.deleted_xid = writer_xid\n\n\ndef visible_value(\n    store: VersionedStore,\n    key: str,\n    snapshot_xid: int,\n) -> object | None:\n    versions = store.get(key, [])\n    visible_versions = [\n        version\n        for version in versions\n        if version.created_xid <= snapshot_xid\n        and (version.deleted_xid is None or version.deleted_xid > snapshot_xid)\n    ]\n    if not visible_versions:\n        return None\n    return visible_versions[-1].value\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "outbox-pattern",
+      "title": "Outbox Pattern",
+      "path": "modules/databases/transactions/outbox-pattern",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "readme": "# Outbox Pattern\n\n> Track: `databases` | Topic: `transactions`\n\n## Concept\n\nThe outbox pattern writes domain state and the event to publish in the same transaction so they cannot drift apart.\n\n## Key Points\n\n- A domain write without its event can silently break downstream systems.\n- An event without the domain write can publish a lie.\n- The outbox table is a durable handoff between transactional writes and asynchronous delivery.\n- Publishing usually becomes a second step that reads pending outbox rows and marks them sent.\n\n## Minimal Code Mental Model\n\n```python\nconn = create_connection()\ncreate_order_outbox_tables(conn)\norder_id = create_order_with_outbox(conn, customer_id=\"cust-1\", status=\"placed\")\nevents = pending_outbox_events(conn)\nmark_event_published(conn, events[0][0], \"2026-03-11T10:05:00Z\")\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_order_outbox_tables(conn: sqlite3.Connection) -> None:\ndef create_order_with_outbox(\n    conn: sqlite3.Connection,\n    customer_id: str,\n    status: str,\n    fail_after_order: bool = False,\n) -> int:\ndef pending_outbox_events(\n    conn: sqlite3.Connection,\n) -> list[tuple[int, str, int, str]]:\ndef order_rows(conn: sqlite3.Connection) -> list[tuple[int, str, str]]:\ndef mark_event_published(\n    conn: sqlite3.Connection,\n    event_id: int,\n    published_at: str,\n) -> None:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/transactions/outbox-pattern/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/transactions/outbox-pattern/python/outbox_pattern.py",
+          "language": "python",
+          "content": "\"\"\"outbox_pattern - atomic domain writes plus durable outbound events.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.isolation_level = None\n    return conn\n\n\ndef create_order_outbox_tables(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE orders (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            customer_id TEXT NOT NULL,\n            status TEXT NOT NULL\n        );\n\n        CREATE TABLE outbox (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            aggregate_type TEXT NOT NULL,\n            aggregate_id INTEGER NOT NULL,\n            event_name TEXT NOT NULL,\n            payload_json TEXT NOT NULL,\n            published_at TEXT\n        );\n        \"\"\"\n    )\n\n\ndef create_order_with_outbox(\n    conn: sqlite3.Connection,\n    customer_id: str,\n    status: str,\n    fail_after_order: bool = False,\n) -> int:\n    conn.execute(\"BEGIN\")\n    try:\n        order_cursor = conn.execute(\n            \"\"\"\n            INSERT INTO orders (customer_id, status)\n            VALUES (?, ?)\n            \"\"\",\n            (customer_id, status),\n        )\n        order_id = int(order_cursor.lastrowid)\n\n        if fail_after_order:\n            raise RuntimeError(\"simulated failure before writing outbox\")\n\n        payload = json.dumps({\"customer_id\": customer_id, \"status\": status})\n        conn.execute(\n            \"\"\"\n            INSERT INTO outbox (aggregate_type, aggregate_id, event_name, payload_json)\n            VALUES ('order', ?, 'order.created', ?)\n            \"\"\",\n            (order_id, payload),\n        )\n        conn.execute(\"COMMIT\")\n        return order_id\n    except Exception:\n        conn.execute(\"ROLLBACK\")\n        raise\n\n\ndef pending_outbox_events(\n    conn: sqlite3.Connection,\n) -> list[tuple[int, str, int, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT id, aggregate_type, aggregate_id, event_name\n        FROM outbox\n        WHERE published_at IS NULL\n        ORDER BY id\n        \"\"\"\n    ).fetchall()\n    return [(event_id, aggregate_type, aggregate_id, event_name) for event_id, aggregate_type, aggregate_id, event_name in rows]\n\n\ndef order_rows(conn: sqlite3.Connection) -> list[tuple[int, str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT id, customer_id, status\n        FROM orders\n        ORDER BY id\n        \"\"\"\n    ).fetchall()\n    return [(order_id, customer_id, status) for order_id, customer_id, status in rows]\n\n\ndef mark_event_published(\n    conn: sqlite3.Connection,\n    event_id: int,\n    published_at: str,\n) -> None:\n    conn.execute(\n        \"\"\"\n        UPDATE outbox\n        SET published_at = ?\n        WHERE id = ?\n        \"\"\",\n        (published_at, event_id),\n    )\n"
         }
       ]
     },
@@ -2376,6 +2600,22 @@
           "path": "modules/databases/vector-db/hybrid-search/python/hybrid_search.py",
           "language": "python",
           "content": "\"\"\"hybrid_search - combine lexical overlap with cosine similarity.\"\"\"\n\nfrom __future__ import annotations\n\nimport math\nimport re\n\n\ndef tokenize(text: str) -> list[str]:\n    return re.findall(r\"[a-z0-9]+\", text.lower())\n\n\ndef cosine_similarity(left: list[float], right: list[float]) -> float:\n    if len(left) != len(right):\n        raise ValueError(\"vectors must have the same dimensions\")\n    left_norm = math.sqrt(sum(value * value for value in left))\n    right_norm = math.sqrt(sum(value * value for value in right))\n    if left_norm == 0 or right_norm == 0:\n        return 0.0\n    dot = sum(a * b for a, b in zip(left, right))\n    similarity = dot / (left_norm * right_norm)\n    if abs(similarity - 1.0) < 1e-12:\n        return 1.0\n    if abs(similarity + 1.0) < 1e-12:\n        return -1.0\n    return similarity\n\n\ndef lexical_overlap_score(query_text: str, doc_text: str) -> float:\n    query_terms = set(tokenize(query_text))\n    if not query_terms:\n        return 0.0\n    doc_terms = set(tokenize(doc_text))\n    return len(query_terms & doc_terms) / len(query_terms)\n\n\ndef hybrid_score(\n    query_text: str,\n    query_vector: list[float],\n    doc_text: str,\n    doc_vector: list[float],\n    alpha: float = 0.5,\n) -> float:\n    if not 0.0 <= alpha <= 1.0:\n        raise ValueError(\"alpha must be between 0 and 1\")\n    semantic = cosine_similarity(query_vector, doc_vector)\n    lexical = lexical_overlap_score(query_text, doc_text)\n    return alpha * semantic + (1.0 - alpha) * lexical\n\n\ndef rank_documents(\n    query_text: str,\n    query_vector: list[float],\n    documents: list[dict[str, object]],\n    alpha: float = 0.5,\n) -> list[tuple[str, float]]:\n    scored = [\n        (\n            str(document[\"id\"]),\n            hybrid_score(\n                query_text,\n                query_vector,\n                str(document[\"text\"]),\n                list(document[\"vector\"]),\n                alpha=alpha,\n            ),\n        )\n        for document in documents\n    ]\n    return sorted(scored, key=lambda item: (-item[1], item[0]))\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "vector-db",
+      "slug": "metadata-filtering",
+      "title": "Metadata Filtering",
+      "path": "modules/databases/vector-db/metadata-filtering",
+      "summary": "> Track: `databases` | Topic: `vector-db`",
+      "readme": "# Metadata Filtering\n\n> Track: `databases` | Topic: `vector-db`\n\n## Concept\n\nVector similarity alone is rarely enough; retrieval usually has to respect metadata filters like workspace, document type, or visibility.\n\n## Key Points\n\n- Metadata filters protect correctness and access control.\n- Similarity scoring should run only on candidates that already satisfy the filter.\n- A high-similarity vector from the wrong tenant is still the wrong result.\n- Filtering usually happens before reranking, not after.\n\n## Minimal Code Mental Model\n\n```python\nresults = top_k_with_metadata(\n    query_vector=[1.0, 0.0],\n    documents=documents,\n    filters={\"workspace_id\": 7, \"doc_type\": \"spec\"},\n    k=2,\n)\n```\n\n## Function\n\n```python\ndef cosine_similarity(left: list[float], right: list[float]) -> float:\ndef matches_filters(document: dict[str, object], filters: dict[str, object]) -> bool:\ndef top_k_with_metadata(\n    query_vector: list[float],\n    documents: list[dict[str, object]],\n    filters: dict[str, object],\n    k: int,\n) -> list[tuple[str, float]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/vector-db/metadata-filtering/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/vector-db/metadata-filtering/python/metadata_filtering.py",
+          "language": "python",
+          "content": "\"\"\"metadata_filtering - similarity search constrained by metadata filters.\"\"\"\n\nfrom __future__ import annotations\n\nimport math\n\n\ndef cosine_similarity(left: list[float], right: list[float]) -> float:\n    if len(left) != len(right):\n        raise ValueError(\"vectors must have the same dimensions\")\n    left_norm = math.sqrt(sum(value * value for value in left))\n    right_norm = math.sqrt(sum(value * value for value in right))\n    if left_norm == 0 or right_norm == 0:\n        return 0.0\n    similarity = sum(a * b for a, b in zip(left, right)) / (left_norm * right_norm)\n    if abs(similarity - 1.0) < 1e-12:\n        return 1.0\n    if abs(similarity + 1.0) < 1e-12:\n        return -1.0\n    return similarity\n\n\ndef matches_filters(document: dict[str, object], filters: dict[str, object]) -> bool:\n    return all(document.get(key) == value for key, value in filters.items())\n\n\ndef top_k_with_metadata(\n    query_vector: list[float],\n    documents: list[dict[str, object]],\n    filters: dict[str, object],\n    k: int,\n) -> list[tuple[str, float]]:\n    scored = [\n        (\n            str(document[\"id\"]),\n            cosine_similarity(query_vector, list(document[\"vector\"])),\n        )\n        for document in documents\n        if matches_filters(document, filters)\n    ]\n    return sorted(scored, key=lambda item: (-item[1], item[0]))[:k]\n"
         }
       ]
     },
@@ -8346,6 +8586,160 @@
           "path": "modules/ml/systems/training-loop-mechanics/python/training_loop_mechanics.py",
           "language": "python",
           "content": "from __future__ import annotations\n\nimport math\n\n\ndef zero_grad(grads: list[float]) -> list[float]:\n    return [0.0 for _ in grads]\n\n\ndef forward(x: list[float], w: list[float], b: float) -> float:\n    if len(x) != len(w):\n        raise ValueError(\"x and w must have the same length\")\n    return sum(wi * xi for wi, xi in zip(w, x)) + b\n\n\ndef backward(dy: float, x: float) -> float:\n    return dy * x\n\n\ndef step(w: float, grad: float, lr: float) -> float:\n    return w - lr * grad\n\n\ndef accumulate(grads: list[list[float]]) -> list[float]:\n    if not grads:\n        return []\n    total = [0.0 for _ in grads[0]]\n    for grad in grads:\n        total = [left + right for left, right in zip(total, grad)]\n    return total\n\n\ndef scale_gradients(grads: list[float], scale: float) -> list[float]:\n    return [gradient * scale for gradient in grads]\n\n\ndef gradients_ok(grads: list[float]) -> bool:\n    if any(math.isnan(gradient) for gradient in grads):\n        return False\n    return any(abs(gradient) > 0 for gradient in grads)\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "apis",
+      "slug": "api-contract-basics",
+      "title": "API Contract Basics",
+      "path": "modules/software-engineering/apis/api-contract-basics",
+      "summary": "> Track: `software-engineering` | Topic: `apis`",
+      "readme": "# API Contract Basics\n\n> Track: `software-engineering` | Topic: `apis`\n\n## Concept\n\nAn API contract is the set of method, path, path parameters, success conditions, and payload expectations that clients can depend on.\n\n## Key Points\n\n- Contract design starts with semantics, not with framework routes.\n- Path parameters should be explicit and unique.\n- Success responses and request body rules should be validated before implementation details grow around them.\n\n## Minimal Code Mental Model\n\n```python\nparams = extract_path_parameters(\"/v1/workspaces/{workspace_id}/documents/{document_id}\")\nvalidate_endpoint_contract(\"GET\", \"/v1/documents/{document_id}\", [], [200])\nsummary = make_endpoint_summary(\n    \"POST\",\n    \"/v1/documents\",\n    [\"title\", \"workspace_id\"],\n    [\"id\", \"title\"],\n)\n```\n\n## Function\n\n```python\ndef extract_path_parameters(path: str) -> list[str]:\ndef validate_endpoint_contract(\n    method: str,\n    path: str,\n    request_body_fields: list[str],\n    success_statuses: list[int],\n) -> None:\ndef make_endpoint_summary(\n    method: str,\n    path: str,\n    request_body_fields: list[str],\n    response_fields: list[str],\n) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/apis/api-contract-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/apis/api-contract-basics/python/api_contract_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\nimport re\n\n\ndef extract_path_parameters(path: str) -> list[str]:\n    normalized = path.strip()\n    if not normalized.startswith(\"/\"):\n        raise ValueError(\"path must start with '/'\")\n    params = re.findall(r\"{([^{}]+)}\", normalized)\n    if len(params) != len(set(params)):\n        raise ValueError(\"path parameters must be unique\")\n    return params\n\n\ndef validate_endpoint_contract(\n    method: str,\n    path: str,\n    request_body_fields: list[str],\n    success_statuses: list[int],\n) -> None:\n    normalized_method = method.strip().upper()\n    if normalized_method not in {\"GET\", \"POST\", \"PUT\", \"PATCH\", \"DELETE\"}:\n        raise ValueError(\"unsupported HTTP method\")\n\n    extract_path_parameters(path)\n    cleaned_body_fields = [field.strip() for field in request_body_fields if field.strip()]\n    if normalized_method == \"GET\" and cleaned_body_fields:\n        raise ValueError(\"GET endpoints should not require request body fields\")\n    if not success_statuses or not all(200 <= status < 300 for status in success_statuses):\n        raise ValueError(\"success_statuses must contain only 2xx codes\")\n\n\ndef make_endpoint_summary(\n    method: str,\n    path: str,\n    request_body_fields: list[str],\n    response_fields: list[str],\n) -> dict[str, object]:\n    validate_endpoint_contract(method, path, request_body_fields, [200])\n    return {\n        \"method\": method.strip().upper(),\n        \"path\": path.strip(),\n        \"path_params\": extract_path_parameters(path),\n        \"request_body_fields\": [field.strip() for field in request_body_fields if field.strip()],\n        \"response_fields\": [field.strip() for field in response_fields if field.strip()],\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "apis",
+      "slug": "idempotency-keys",
+      "title": "Idempotency Keys",
+      "path": "modules/software-engineering/apis/idempotency-keys",
+      "summary": "> Track: `software-engineering` | Topic: `apis`",
+      "readme": "# Idempotency Keys\n\n> Track: `software-engineering` | Topic: `apis`\n\n## Concept\n\nAn idempotency key lets a client retry a mutating request without accidentally applying the same change twice.\n\n## Key Points\n\n- The key should bind to the request intent, not just to the endpoint name.\n- A repeated request with the same key and same payload should replay the stored result.\n- A repeated request with the same key and different payload should be rejected as a conflict.\n\n## Minimal Code Mental Model\n\n```python\nfingerprint = request_fingerprint(\"POST\", \"/v1/payments\", {\"amount_cents\": 2500, \"currency\": \"USD\"})\ndecision = idempotency_decision(\"pay_123\", fingerprint, stored_record=None)\nstored = store_response(\"pay_123\", fingerprint, 201, {\"payment_id\": \"p_1\"})\n```\n\n## Function\n\n```python\ndef request_fingerprint(\n    method: str,\n    path: str,\n    body: dict[str, object],\n) -> tuple[str, str, tuple[tuple[str, str], ...]]:\ndef idempotency_decision(\n    idempotency_key: str,\n    fingerprint: tuple[str, str, tuple[tuple[str, str], ...]],\n    stored_record: dict[str, object] | None,\n) -> str:\ndef store_response(\n    idempotency_key: str,\n    fingerprint: tuple[str, str, tuple[tuple[str, str], ...]],\n    status_code: int,\n    response_body: dict[str, object],\n) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/apis/idempotency-keys/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/apis/idempotency-keys/python/idempotency_keys.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\nimport json\n\n\nFingerprint = tuple[str, str, tuple[tuple[str, str], ...]]\n\n\ndef request_fingerprint(\n    method: str,\n    path: str,\n    body: dict[str, object],\n) -> Fingerprint:\n    normalized_method = method.strip().upper()\n    normalized_path = path.strip()\n    if not normalized_method:\n        raise ValueError(\"method must be non-empty\")\n    if not normalized_path.startswith(\"/\"):\n        raise ValueError(\"path must start with '/'\")\n\n    serialized_items = tuple(\n        (key, json.dumps(value, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=True))\n        for key, value in sorted(body.items())\n    )\n    return (normalized_method, normalized_path, serialized_items)\n\n\ndef idempotency_decision(\n    idempotency_key: str,\n    fingerprint: Fingerprint,\n    stored_record: dict[str, object] | None,\n) -> str:\n    cleaned_key = idempotency_key.strip()\n    if not cleaned_key:\n        raise ValueError(\"idempotency_key must be non-empty\")\n\n    if stored_record is None:\n        return \"execute\"\n    if stored_record.get(\"key\") != cleaned_key:\n        raise ValueError(\"stored_record key does not match idempotency_key\")\n    if stored_record.get(\"fingerprint\") == fingerprint:\n        return \"replay\"\n    return \"conflict\"\n\n\ndef store_response(\n    idempotency_key: str,\n    fingerprint: Fingerprint,\n    status_code: int,\n    response_body: dict[str, object],\n) -> dict[str, object]:\n    if not 200 <= status_code < 600:\n        raise ValueError(\"status_code must be between 200 and 599\")\n\n    decision = idempotency_decision(idempotency_key, fingerprint, stored_record=None)\n    if decision != \"execute\":\n        raise ValueError(\"new idempotency record must be executable\")\n\n    return {\n        \"key\": idempotency_key.strip(),\n        \"fingerprint\": fingerprint,\n        \"status_code\": status_code,\n        \"response_body\": dict(response_body),\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "apis",
+      "slug": "retries-timeouts-and-backoff",
+      "title": "Retries, Timeouts, And Backoff",
+      "path": "modules/software-engineering/apis/retries-timeouts-and-backoff",
+      "summary": "> Track: `software-engineering` | Topic: `apis`",
+      "readme": "# Retries, Timeouts, And Backoff\n\n> Track: `software-engineering` | Topic: `apis`\n\n## Concept\n\nRetries help with transient failures only when the request is safe to repeat and the caller enforces bounded timeouts and backoff.\n\n## Key Points\n\n- Not every error should be retried.\n- Mutating requests usually need idempotency before retries are safe.\n- Backoff reduces pressure on a failing dependency.\n- Timeout budgets should be explicit instead of growing with every retry.\n\n## Minimal Code Mental Model\n\n```python\nsafe = retryable_request(\"POST\", has_idempotency_key=True)\nretry = should_retry_http(503, \"POST\", has_idempotency_key=True)\ndelay = capped_backoff_ms(base_delay_ms=200, attempt=3, max_delay_ms=1000)\nattempt_timeout = per_attempt_timeout_ms(total_deadline_ms=1200, max_attempts=3)\n```\n\n## Function\n\n```python\ndef retryable_request(method: str, has_idempotency_key: bool = False) -> bool:\ndef should_retry_http(status_code: int, method: str, has_idempotency_key: bool = False) -> bool:\ndef capped_backoff_ms(base_delay_ms: int, attempt: int, max_delay_ms: int) -> int:\ndef per_attempt_timeout_ms(total_deadline_ms: int, max_attempts: int) -> int:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/apis/retries-timeouts-and-backoff/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/apis/retries-timeouts-and-backoff/python/retries_timeouts_and_backoff.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\nRETRYABLE_HTTP_STATUSES = {408, 429, 500, 502, 503, 504}\nINHERENTLY_RETRYABLE_METHODS = {\"GET\", \"HEAD\", \"OPTIONS\", \"PUT\", \"DELETE\"}\n\n\ndef retryable_request(method: str, has_idempotency_key: bool = False) -> bool:\n    normalized_method = method.strip().upper()\n    if not normalized_method:\n        raise ValueError(\"method must be non-empty\")\n    return normalized_method in INHERENTLY_RETRYABLE_METHODS or (\n        normalized_method == \"POST\" and has_idempotency_key\n    )\n\n\ndef should_retry_http(status_code: int, method: str, has_idempotency_key: bool = False) -> bool:\n    if not 100 <= status_code <= 599:\n        raise ValueError(\"status_code must be between 100 and 599\")\n    return status_code in RETRYABLE_HTTP_STATUSES and retryable_request(\n        method,\n        has_idempotency_key=has_idempotency_key,\n    )\n\n\ndef capped_backoff_ms(base_delay_ms: int, attempt: int, max_delay_ms: int) -> int:\n    if base_delay_ms <= 0:\n        raise ValueError(\"base_delay_ms must be positive\")\n    if attempt < 0:\n        raise ValueError(\"attempt must be non-negative\")\n    if max_delay_ms < base_delay_ms:\n        raise ValueError(\"max_delay_ms must be at least base_delay_ms\")\n    return min(max_delay_ms, base_delay_ms * (2 ** attempt))\n\n\ndef per_attempt_timeout_ms(total_deadline_ms: int, max_attempts: int) -> int:\n    if total_deadline_ms <= 0:\n        raise ValueError(\"total_deadline_ms must be positive\")\n    if max_attempts <= 0:\n        raise ValueError(\"max_attempts must be positive\")\n    return total_deadline_ms // max_attempts\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "apis",
+      "slug": "schema-evolution-and-compatibility",
+      "title": "Schema Evolution And Compatibility",
+      "path": "modules/software-engineering/apis/schema-evolution-and-compatibility",
+      "summary": "> Track: `software-engineering` | Topic: `apis`",
+      "readme": "# Schema Evolution And Compatibility\n\n> Track: `software-engineering` | Topic: `apis`\n\n## Concept\n\nSchema evolution is about changing a payload shape without surprising existing clients or stored data readers.\n\n## Key Points\n\n- Adding an optional field is usually safe.\n- Removing a field, changing its type, or making an optional field required is usually breaking.\n- Compatibility checks should be mechanized instead of being left to review intuition.\n\n## Minimal Code Mental Model\n\n```python\nold_schema = {\n    \"id\": make_field(\"string\", required=True),\n    \"title\": make_field(\"string\", required=True),\n}\nnew_schema = {\n    \"id\": make_field(\"string\", required=True),\n    \"title\": make_field(\"string\", required=True),\n    \"summary\": make_field(\"string\"),\n}\nreport = compatibility_summary(old_schema, new_schema)\n```\n\n## Function\n\n```python\ndef make_field(type_name: str, required: bool = False) -> dict[str, object]:\ndef breaking_changes(\n    old_schema: dict[str, dict[str, object]],\n    new_schema: dict[str, dict[str, object]],\n) -> list[str]:\ndef compatibility_summary(\n    old_schema: dict[str, dict[str, object]],\n    new_schema: dict[str, dict[str, object]],\n) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/apis/schema-evolution-and-compatibility/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/apis/schema-evolution-and-compatibility/python/schema_evolution_and_compatibility.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef make_field(type_name: str, required: bool = False) -> dict[str, object]:\n    cleaned_type = type_name.strip()\n    if not cleaned_type:\n        raise ValueError(\"type_name must be non-empty\")\n    return {\"type\": cleaned_type, \"required\": required}\n\n\ndef breaking_changes(\n    old_schema: dict[str, dict[str, object]],\n    new_schema: dict[str, dict[str, object]],\n) -> list[str]:\n    issues: list[str] = []\n\n    for field_name, old_field in old_schema.items():\n        if field_name not in new_schema:\n            issues.append(f\"removed field: {field_name}\")\n            continue\n\n        new_field = new_schema[field_name]\n        if old_field[\"type\"] != new_field[\"type\"]:\n            issues.append(f\"type changed for field: {field_name}\")\n        if not old_field.get(\"required\", False) and new_field.get(\"required\", False):\n            issues.append(f\"field became required: {field_name}\")\n\n    return issues\n\n\ndef compatibility_summary(\n    old_schema: dict[str, dict[str, object]],\n    new_schema: dict[str, dict[str, object]],\n) -> dict[str, object]:\n    breaking = breaking_changes(old_schema, new_schema)\n    additive = sorted(name for name in new_schema if name not in old_schema)\n    return {\n        \"backward_compatible\": not breaking,\n        \"breaking_changes\": breaking,\n        \"additive_fields\": additive,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "contract-tests",
+      "title": "Contract Tests",
+      "path": "modules/software-engineering/testing/contract-tests",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "readme": "# Contract Tests\n\n> Track: `software-engineering` | Topic: `testing`\n\n## Concept\n\nA contract test checks that a provider still satisfies the exact fields and types a consumer depends on.\n\n## Key Points\n\n- Extra provider fields are usually fine.\n- Missing required fields or wrong types are the main contract breaks.\n- Contract tests protect boundaries without needing a full end-to-end environment.\n\n## Minimal Code Mental Model\n\n```python\ncontract = make_contract({\"id\": \"string\", \"amount_cents\": \"integer\"}, {\"memo\": \"string\"})\nviolations = contract_violations(contract, {\"id\": \"p_1\", \"amount_cents\": 2500})\nreport = contract_report(\"payment-created\", contract, {\"id\": \"p_1\", \"amount_cents\": \"2500\"})\n```\n\n## Function\n\n```python\ndef make_contract(\n    required_fields: dict[str, str],\n    optional_fields: dict[str, str] | None = None,\n) -> dict[str, dict[str, str]]:\ndef contract_violations(contract: dict[str, dict[str, str]], payload: dict[str, object]) -> list[str]:\ndef contract_report(\n    contract_name: str,\n    contract: dict[str, dict[str, str]],\n    payload: dict[str, object],\n) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/testing/contract-tests/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/testing/contract-tests/python/contract_tests.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef make_contract(\n    required_fields: dict[str, str],\n    optional_fields: dict[str, str] | None = None,\n) -> dict[str, dict[str, str]]:\n    return {\n        \"required\": {name: field_type.strip() for name, field_type in required_fields.items()},\n        \"optional\": {\n            name: field_type.strip()\n            for name, field_type in (optional_fields or {}).items()\n        },\n    }\n\n\ndef _matches_type(value: object, expected_type: str) -> bool:\n    if expected_type == \"string\":\n        return isinstance(value, str)\n    if expected_type == \"integer\":\n        return isinstance(value, int) and not isinstance(value, bool)\n    if expected_type == \"boolean\":\n        return isinstance(value, bool)\n    if expected_type == \"object\":\n        return isinstance(value, dict)\n    if expected_type == \"array\":\n        return isinstance(value, list)\n    raise ValueError(f\"unsupported contract type: {expected_type}\")\n\n\ndef contract_violations(contract: dict[str, dict[str, str]], payload: dict[str, object]) -> list[str]:\n    violations: list[str] = []\n\n    for field_name, field_type in contract[\"required\"].items():\n        if field_name not in payload:\n            violations.append(f\"missing required field: {field_name}\")\n            continue\n        if not _matches_type(payload[field_name], field_type):\n            violations.append(f\"wrong type for field: {field_name}\")\n\n    for field_name, field_type in contract[\"optional\"].items():\n        if field_name in payload and not _matches_type(payload[field_name], field_type):\n            violations.append(f\"wrong type for field: {field_name}\")\n\n    return violations\n\n\ndef contract_report(\n    contract_name: str,\n    contract: dict[str, dict[str, str]],\n    payload: dict[str, object],\n) -> dict[str, object]:\n    cleaned_name = contract_name.strip()\n    if not cleaned_name:\n        raise ValueError(\"contract_name must be non-empty\")\n\n    violations = contract_violations(contract, payload)\n    return {\n        \"contract\": cleaned_name,\n        \"passed\": not violations,\n        \"violations\": violations,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "regression-tests-for-ai-generated-code",
+      "title": "Regression Tests For AI-Generated Code",
+      "path": "modules/software-engineering/testing/regression-tests-for-ai-generated-code",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "readme": "# Regression Tests For AI-Generated Code\n\n> Track: `software-engineering` | Topic: `testing`\n\n## Concept\n\nAI-generated code should trigger targeted regression suites based on touched areas and recent failures, not just generic smoke tests.\n\n## Key Points\n\n- The regression suite should be selected from change scope and failure history.\n- Recent bug-fix cases should stay in the required suite.\n- Generated-code changes deserve extra drift checks because the output can look plausible while still breaking contracts.\n\n## Minimal Code Mental Model\n\n```python\nrequired = select_regression_cases(\n    [\"services/auth/policy.py\", \"src/generated/client.ts\"],\n    {\"auth\": [\"auth-deny-default\"], \"generated\": [\"client-contract-drift\"]},\n    recent_bugfix_case_ids=[\"incident-1427\"],\n    touches_generated_code=True,\n)\nmissing = missing_regression_cases(required, [\"smoke\", \"auth-deny-default\"])\nready = release_ready(required, [\"smoke\", \"auth-deny-default\", \"client-contract-drift\", \"incident-1427\"])\n```\n\n## Function\n\n```python\ndef select_regression_cases(\n    changed_paths: list[str],\n    historical_case_map: dict[str, list[str]],\n    recent_bugfix_case_ids: list[str] | None = None,\n    touches_generated_code: bool = False,\n) -> list[str]:\ndef missing_regression_cases(required_case_ids: list[str], executed_case_ids: list[str]) -> list[str]:\ndef release_ready(required_case_ids: list[str], passed_case_ids: list[str]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/testing/regression-tests-for-ai-generated-code/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/testing/regression-tests-for-ai-generated-code/python/regression_tests_for_ai_generated_code.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef select_regression_cases(\n    changed_paths: list[str],\n    historical_case_map: dict[str, list[str]],\n    recent_bugfix_case_ids: list[str] | None = None,\n    touches_generated_code: bool = False,\n) -> list[str]:\n    normalized_paths = [path.strip().lower() for path in changed_paths if path.strip()]\n    selected = {\"smoke\"}\n\n    for marker, case_ids in historical_case_map.items():\n        lowered_marker = marker.strip().lower()\n        if lowered_marker and any(lowered_marker in path for path in normalized_paths):\n            selected.update(case_ids)\n\n    if recent_bugfix_case_ids:\n        selected.update(case_id.strip() for case_id in recent_bugfix_case_ids if case_id.strip())\n    if touches_generated_code:\n        selected.add(\"generated-output-drift\")\n\n    return sorted(selected)\n\n\ndef missing_regression_cases(required_case_ids: list[str], executed_case_ids: list[str]) -> list[str]:\n    required = {case_id.strip() for case_id in required_case_ids if case_id.strip()}\n    executed = {case_id.strip() for case_id in executed_case_ids if case_id.strip()}\n    return sorted(required - executed)\n\n\ndef release_ready(required_case_ids: list[str], passed_case_ids: list[str]) -> bool:\n    return not missing_regression_cases(required_case_ids, passed_case_ids)\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "testing",
+      "slug": "test-portfolio-in-practice",
+      "title": "Test Portfolio In Practice",
+      "path": "modules/software-engineering/testing/test-portfolio-in-practice",
+      "summary": "> Track: `software-engineering` | Topic: `testing`",
+      "readme": "# Test Portfolio In Practice\n\n> Track: `software-engineering` | Topic: `testing`\n\n## Concept\n\nA practical test portfolio chooses the smallest set of test layers that protect the change's real failure modes.\n\n## Key Points\n\n- Every change should not trigger the same test stack.\n- Contract, integration, and end-to-end tests should be added because of boundary risk, not habit.\n- Regression tests matter more after bug fixes and AI-generated edits.\n\n## Minimal Code Mental Model\n\n```python\nlayers = recommended_test_layers([\"api\", \"bugfix\", \"critical-path\"])\nmissing = missing_required_layers([\"database\", \"workflow\"], [\"unit\", \"integration\"])\nready = merge_ready([\"api\", \"bugfix\"], [\"unit\", \"contract\", \"regression\"])\n```\n\n## Function\n\n```python\ndef recommended_test_layers(change_tags: list[str]) -> list[str]:\ndef missing_required_layers(change_tags: list[str], present_layers: list[str]) -> list[str]:\ndef merge_ready(change_tags: list[str], present_layers: list[str]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/testing/test-portfolio-in-practice/python -q\n```\n",
+      "sources": []
+    },
+    {
+      "track": "software-engineering",
+      "topic": "tooling",
+      "slug": "ai-assisted-dev-loop",
+      "title": "AI-Assisted Dev Loop",
+      "path": "modules/software-engineering/tooling/ai-assisted-dev-loop",
+      "summary": "> Track: `software-engineering` | Topic: `tooling`",
+      "readme": "# AI-Assisted Dev Loop\n\n> Track: `software-engineering` | Topic: `tooling`\n\n## Concept\n\nAn AI-assisted dev loop is safe when the task, constraints, checks, and review handoff are explicit instead of being left inside the model's hidden reasoning.\n\n## Key Points\n\n- A change request should include acceptance checks, not just a task sentence.\n- The next step after code generation should usually be targeted verification, not immediate merge.\n- Risk should rise when a change touches sensitive paths or generated outputs.\n\n## Minimal Code Mental Model\n\n```python\nrequest = make_change_request(\n    \"Add idempotency to payment retries\",\n    [\"keep API backward compatible\"],\n    [\"contract tests\", \"targeted retry tests\"],\n)\nstage = next_stage(patch_ready=True, checks_passed=False, review_signed_off=False)\nrisk = review_risk([\"services/payments/api.py\", \"docs/payments.md\"])\n```\n\n## Function\n\n```python\ndef make_change_request(\n    task: str,\n    constraints: list[str],\n    acceptance_checks: list[str],\n) -> dict[str, object]:\ndef next_stage(patch_ready: bool, checks_passed: bool, review_signed_off: bool) -> str:\ndef review_risk(changed_paths: list[str], touches_generated_code: bool = False) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/tooling/ai-assisted-dev-loop/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/tooling/ai-assisted-dev-loop/python/ai_assisted_dev_loop.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef make_change_request(\n    task: str,\n    constraints: list[str],\n    acceptance_checks: list[str],\n) -> dict[str, object]:\n    cleaned_task = task.strip()\n    if not cleaned_task:\n        raise ValueError(\"task must be non-empty\")\n\n    cleaned_constraints = [constraint.strip() for constraint in constraints if constraint.strip()]\n    cleaned_checks = [check.strip() for check in acceptance_checks if check.strip()]\n    if not cleaned_checks:\n        raise ValueError(\"acceptance_checks must include at least one non-empty item\")\n\n    return {\n        \"task\": cleaned_task,\n        \"constraints\": cleaned_constraints,\n        \"acceptance_checks\": cleaned_checks,\n    }\n\n\ndef next_stage(patch_ready: bool, checks_passed: bool, review_signed_off: bool) -> str:\n    if not patch_ready:\n        return \"draft_patch\"\n    if not checks_passed:\n        return \"run_checks\"\n    if not review_signed_off:\n        return \"human_review\"\n    return \"ship\"\n\n\ndef review_risk(changed_paths: list[str], touches_generated_code: bool = False) -> str:\n    cleaned_paths = [path.strip().lower() for path in changed_paths if path.strip()]\n    sensitive_markers = (\"auth\", \"permission\", \"billing\", \"payment\", \"secret\", \"migration\", \"security\")\n\n    if touches_generated_code:\n        return \"high\"\n    if any(marker in path for path in cleaned_paths for marker in sensitive_markers):\n        return \"high\"\n    if len(cleaned_paths) >= 6:\n        return \"medium\"\n    return \"low\"\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "tooling",
+      "slug": "repo-layout-and-codegen-boundaries",
+      "title": "Repo Layout And Codegen Boundaries",
+      "path": "modules/software-engineering/tooling/repo-layout-and-codegen-boundaries",
+      "summary": "> Track: `software-engineering` | Topic: `tooling`",
+      "readme": "# Repo Layout And Codegen Boundaries\n\n> Track: `software-engineering` | Topic: `tooling`\n\n## Concept\n\nA repo stays understandable when humans know which files are source of truth, which files are generated outputs, and which files should never be committed.\n\n## Key Points\n\n- Generated outputs should be easy to distinguish from hand-edited source.\n- Review should focus on generator inputs and ownership boundaries, not just on diff size.\n- Build artifacts and source files should not share the same commit path semantics.\n\n## Minimal Code Mental Model\n\n```python\nkind = classify_repo_path(\"src/generated/client.ts\")\neditable = should_edit_by_hand(\"src/generated/client.ts\")\nwarnings = boundary_warnings(\n    [\"src/api/spec.yaml\", \"src/generated/client.ts\", \"dist/bundle.js\"]\n)\n```\n\n## Function\n\n```python\ndef classify_repo_path(path: str) -> str:\ndef should_edit_by_hand(path: str) -> bool:\ndef boundary_warnings(changed_paths: list[str]) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/tooling/repo-layout-and-codegen-boundaries/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/tooling/repo-layout-and-codegen-boundaries/python/repo_layout_and_codegen_boundaries.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef classify_repo_path(path: str) -> str:\n    normalized = path.strip().lower()\n    if not normalized:\n        return \"unknown\"\n    if normalized.startswith(\"docs/\"):\n        return \"docs\"\n    if normalized.startswith((\"build/\", \"dist/\", \"target/\", \"artifacts/\")):\n        return \"build-artifact\"\n    if \"/generated/\" in normalized or normalized.startswith((\"generated/\", \"gen/\")):\n        return \"generated\"\n    if normalized.startswith((\".github/\", \".gitlab/\", \"infra/\", \"config/\")) or normalized.endswith(\n        (\".yaml\", \".yml\", \".toml\", \".json\")\n    ):\n        return \"config\"\n    if normalized.startswith(\"tests/\") or \"/tests/\" in normalized or normalized.endswith(\n        (\"_test.rs\", \"_test.go\")\n    ) or normalized.rsplit(\"/\", 1)[-1].startswith(\"test_\"):\n        return \"tests\"\n    if normalized.startswith((\"src/\", \"app/\", \"lib/\", \"services/\", \"modules/\", \"web/\")):\n        return \"source\"\n    return \"unknown\"\n\n\ndef should_edit_by_hand(path: str) -> bool:\n    return classify_repo_path(path) not in {\"generated\", \"build-artifact\"}\n\n\ndef boundary_warnings(changed_paths: list[str]) -> list[str]:\n    kinds = {classify_repo_path(path) for path in changed_paths if path.strip()}\n    warnings: list[str] = []\n    manual_kinds = {\"source\", \"config\", \"docs\", \"tests\"}\n\n    if \"generated\" in kinds:\n        warnings.append(\"verify the generator input before hand-editing generated output\")\n    if \"generated\" in kinds and kinds.intersection(manual_kinds):\n        warnings.append(\"review source-of-truth changes separately from generated diffs\")\n    if \"build-artifact\" in kinds:\n        warnings.append(\"avoid committing build artifacts unless the repo explicitly requires them\")\n    return warnings\n"
+        }
+      ]
+    },
+    {
+      "track": "software-engineering",
+      "topic": "tooling",
+      "slug": "reproducible-dev-environments",
+      "title": "Reproducible Dev Environments",
+      "path": "modules/software-engineering/tooling/reproducible-dev-environments",
+      "summary": "> Track: `software-engineering` | Topic: `tooling`",
+      "readme": "# Reproducible Dev Environments\n\n> Track: `software-engineering` | Topic: `tooling`\n\n## Concept\n\nA development environment is reproducible when another machine can rebuild the same runtime and dependency set without relying on local accident.\n\n## Key Points\n\n- Reproducibility needs both a pinned runtime and pinned dependencies.\n- A lockfile reduces ambiguity, but it does not fix unpinned dependency intent by itself.\n- Version drift should be reported explicitly instead of being discovered by failed builds later.\n\n## Minimal Code Mental Model\n\n```python\nunpinned = find_unpinned_dependencies({\"fastapi\": \"^0.116.0\", \"pydantic\": \"2.11.0\"})\ndrift = environment_drift({\"python\": \"3.12.2\"}, {\"python\": \"3.11.9\"})\nmissing = missing_reproducibility_controls(\n    runtime_version=\"3.12.2\",\n    lockfile_present=True,\n    dependencies={\"fastapi\": \"0.116.0\", \"pydantic\": \"2.11.0\"},\n)\n```\n\n## Function\n\n```python\ndef find_unpinned_dependencies(dependencies: dict[str, str]) -> list[str]:\ndef environment_drift(required: dict[str, str], actual: dict[str, str]) -> dict[str, list[str]]:\ndef missing_reproducibility_controls(\n    runtime_version: str | None,\n    lockfile_present: bool,\n    dependencies: dict[str, str],\n) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/software-engineering/tooling/reproducible-dev-environments/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/software-engineering/tooling/reproducible-dev-environments/python/reproducible_dev_environments.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _is_pinned(spec: str) -> bool:\n    cleaned = spec.strip()\n    if not cleaned:\n        return False\n    floating_markers = (\"^\", \"~\", \"*\", \">\", \"<\", \",\")\n    if any(marker in cleaned for marker in floating_markers):\n        return False\n    if cleaned.startswith(\"==\"):\n        cleaned = cleaned[2:]\n    return bool(cleaned)\n\n\ndef find_unpinned_dependencies(dependencies: dict[str, str]) -> list[str]:\n    return sorted(name for name, spec in dependencies.items() if not _is_pinned(spec))\n\n\ndef environment_drift(required: dict[str, str], actual: dict[str, str]) -> dict[str, list[str]]:\n    missing = sorted(name for name in required if name not in actual)\n    mismatched = sorted(\n        name for name, version in required.items() if name in actual and actual[name] != version\n    )\n    unexpected = sorted(name for name in actual if name not in required)\n    return {\n        \"missing\": missing,\n        \"mismatched\": mismatched,\n        \"unexpected\": unexpected,\n    }\n\n\ndef missing_reproducibility_controls(\n    runtime_version: str | None,\n    lockfile_present: bool,\n    dependencies: dict[str, str],\n) -> list[str]:\n    missing_controls: list[str] = []\n    if not runtime_version or not runtime_version.strip():\n        missing_controls.append(\"pin runtime version\")\n    if not lockfile_present:\n        missing_controls.append(\"commit lockfile\")\n\n    unpinned = find_unpinned_dependencies(dependencies)\n    if unpinned:\n        joined = \", \".join(unpinned)\n        missing_controls.append(f\"pin dependency versions: {joined}\")\n    return missing_controls\n"
         }
       ]
     }
