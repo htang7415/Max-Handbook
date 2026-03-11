@@ -35,6 +35,8 @@ breakdown = failure_breakdown(["tool", "model", "tool"])
 - Confidence-vs-accuracy alignment across runs: `confidence-calibration`
 - Final-answer judge scores plus trace-aware grading: `judge-and-trace-grading`
 - Paired-case significance checks for variant comparisons: `paired-run-significance`
+- Approximate sample sizing and detectable effect estimates: `sample-size-and-power`
+- Success scores penalized by risky failures: `risk-adjusted-benchmark-summaries`
 - Security-focused attack suites and release gates: `security-and-red-team-evals`
 - Step-level completion and blockage summaries: `step-level-evaluation`
 - Cost-quality summaries across runs: `cost-quality-tradeoffs`
@@ -50,6 +52,8 @@ breakdown = failure_breakdown(["tool", "model", "tool"])
 - Use `confidence-calibration` when the agent emits confidence scores and you need to know whether those scores match observed correctness.
 - Use `judge-and-trace-grading` when references are weak and you need final-answer judging plus step-trace evidence before accepting a run.
 - Use `paired-run-significance` when two variants were run on the same cases and you want to separate real disagreement from noise.
+- Use `sample-size-and-power` when you need to estimate how many eval cases are required before a target effect is realistically detectable.
+- Use `risk-adjusted-benchmark-summaries` when raw success rates hide too much safety or high-risk failure cost.
 - Use `security-and-red-team-evals` when the main benchmark question is whether prompt injection, exfiltration, privilege escalation, or unsafe-action cases are blocked reliably enough to ship.
 - Use `step-level-evaluation` when whole-run success is too coarse to explain where the agent fails.
 - Use `cost-quality-tradeoffs` when comparing variants where quality, cost, and success all matter.

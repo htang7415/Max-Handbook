@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T07:11:13.392Z",
+  "generated_at": "2026-03-11T07:14:53.918Z",
   "tracks": [
     {
       "id": "dsa",
@@ -26,7 +26,7 @@
       "accent": "#2ca02c",
       "accentVar": "--track-ai-agents",
       "topicCount": 12,
-      "moduleCount": 68
+      "moduleCount": 71
     },
     {
       "id": "databases",
@@ -166,6 +166,15 @@
       "moduleCount": 0
     },
     {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "name": "Evaluation",
+      "path": "/track/ai-agents/evaluation",
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 14
+    },
+    {
       "track": "ml",
       "topic": "evaluation",
       "name": "Evaluation",
@@ -173,15 +182,6 @@
       "hasDoc": true,
       "docCount": 3,
       "moduleCount": 17
-    },
-    {
-      "track": "ai-agents",
-      "topic": "evaluation",
-      "name": "Evaluation",
-      "path": "/track/ai-agents/evaluation",
-      "hasDoc": true,
-      "docCount": 1,
-      "moduleCount": 12
     },
     {
       "track": "ml",
@@ -388,7 +388,7 @@
       "path": "/track/ai-agents/planning",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 4
+      "moduleCount": 5
     },
     {
       "track": "ai-agents",
@@ -756,6 +756,38 @@
           "path": "modules/ai-agents/evaluation/regression-checks/python/regression_checks.py",
           "language": "python",
           "content": "from __future__ import annotations\n\n\ndef metric_drop(baseline: float, candidate: float) -> float:\n    return baseline - candidate\n\n\ndef regression_failed(baseline: float, candidate: float, max_drop: float) -> bool:\n    if max_drop < 0:\n        raise ValueError(\"max_drop must be non-negative\")\n    return metric_drop(baseline, candidate) > max_drop\n\n\ndef regression_report(\n    metric_name: str,\n    baseline: float,\n    candidate: float,\n    max_drop: float,\n) -> dict[str, object]:\n    if not metric_name.strip():\n        raise ValueError(\"metric_name must be non-empty\")\n    failed = regression_failed(baseline, candidate, max_drop)\n    return {\n        \"metric\": metric_name,\n        \"baseline\": baseline,\n        \"candidate\": candidate,\n        \"drop\": metric_drop(baseline, candidate),\n        \"failed\": failed,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "risk-adjusted-benchmark-summaries",
+      "title": "Risk-Adjusted Benchmark Summaries",
+      "path": "modules/ai-agents/evaluation/risk-adjusted-benchmark-summaries",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "readme": "# Risk-Adjusted Benchmark Summaries\n\n> Track: `ai-agents` | Topic: `evaluation`\n\n## Concept\n\nRisk-adjusted benchmark summaries combine task success with safety or high-risk failure rates so a benchmark does not look good just because it is aggressive.\n\n## Key Points\n\n- A benchmark score should penalize success that comes with too many risky failures.\n- Risk penalties make security and reliability tradeoffs visible in one comparable number.\n- A candidate can beat the raw success rate and still lose after adjustment.\n\n## Minimal Code Mental Model\n\n```python\nscore = risk_adjusted_score(success_rate=0.88, high_risk_failure_rate=0.02, risk_penalty=2.0)\nsummary = benchmark_risk_summary(\"candidate\", 0.88, 0.02, 2.0)\nroute = risk_adjusted_route(candidate_score=summary[\"risk_adjusted_score\"], baseline_score=0.75, min_score=0.7, max_drop=0.05)\n```\n\n## Function\n\n```python\ndef risk_adjusted_score(success_rate: float, high_risk_failure_rate: float, risk_penalty: float) -> float:\ndef benchmark_risk_summary(\n    name: str,\n    success_rate: float,\n    high_risk_failure_rate: float,\n    risk_penalty: float,\n) -> dict[str, object]:\ndef risk_adjusted_route(\n    candidate_score: float,\n    baseline_score: float,\n    min_score: float,\n    max_drop: float,\n) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/evaluation/risk-adjusted-benchmark-summaries/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/evaluation/risk-adjusted-benchmark-summaries/python/risk_adjusted_benchmark_summaries.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _validate_rate(value: float, name: str) -> None:\n    if not 0.0 <= value <= 1.0:\n        raise ValueError(f\"{name} must satisfy 0 <= value <= 1\")\n\n\ndef risk_adjusted_score(success_rate: float, high_risk_failure_rate: float, risk_penalty: float) -> float:\n    _validate_rate(success_rate, \"success_rate\")\n    _validate_rate(high_risk_failure_rate, \"high_risk_failure_rate\")\n    if risk_penalty < 0.0:\n        raise ValueError(\"risk_penalty must be non-negative\")\n    return success_rate - risk_penalty * high_risk_failure_rate\n\n\ndef benchmark_risk_summary(\n    name: str,\n    success_rate: float,\n    high_risk_failure_rate: float,\n    risk_penalty: float,\n) -> dict[str, object]:\n    cleaned_name = name.strip()\n    if not cleaned_name:\n        raise ValueError(\"name must be non-empty\")\n    score = risk_adjusted_score(success_rate, high_risk_failure_rate, risk_penalty)\n    return {\n        \"name\": cleaned_name,\n        \"success_rate\": success_rate,\n        \"high_risk_failure_rate\": high_risk_failure_rate,\n        \"risk_penalty\": risk_penalty,\n        \"risk_adjusted_score\": score,\n    }\n\n\ndef risk_adjusted_route(\n    candidate_score: float,\n    baseline_score: float,\n    min_score: float,\n    max_drop: float,\n) -> str:\n    if max_drop < 0.0:\n        raise ValueError(\"max_drop must be non-negative\")\n    if candidate_score < min_score:\n        return \"fail\"\n    if baseline_score - candidate_score > max_drop:\n        return \"review\"\n    return \"pass\"\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "sample-size-and-power",
+      "title": "Sample Size and Power",
+      "path": "modules/ai-agents/evaluation/sample-size-and-power",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "readme": "# Sample Size and Power\n\n> Track: `ai-agents` | Topic: `evaluation`\n\n## Concept\n\nSample size and power basics estimate how many paired or per-variant cases an agent evaluation needs before a target effect size is realistically detectable.\n\n## Key Points\n\n- Tiny quality differences need more eval cases than large differences.\n- Required sample size depends on the baseline rate and the effect you care about.\n- Before running more benchmarks, it helps to know whether the current sample can detect the change at all.\n\n## Minimal Code Mental Model\n\n```python\nrequired = required_sample_size(baseline_success=0.7, effect_size=0.05)\nmde = minimum_detectable_effect(baseline_success=0.7, sample_size_per_variant=required)\nroute = sample_size_route(current_samples_per_variant=900, required_samples_per_variant=required)\n```\n\n## Function\n\n```python\ndef required_sample_size(\n    baseline_success: float,\n    effect_size: float,\n    z_alpha: float = 1.96,\n    z_beta: float = 0.84,\n) -> int:\ndef minimum_detectable_effect(\n    baseline_success: float,\n    sample_size_per_variant: int,\n    z_alpha: float = 1.96,\n    z_beta: float = 0.84,\n) -> float:\ndef sample_size_route(current_samples_per_variant: int, required_samples_per_variant: int) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/evaluation/sample-size-and-power/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/evaluation/sample-size-and-power/python/sample_size_and_power.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\nimport math\n\n\ndef _validate_baseline_success(baseline_success: float) -> None:\n    if not 0.0 < baseline_success < 1.0:\n        raise ValueError(\"baseline_success must satisfy 0 < value < 1\")\n\n\ndef _validate_z_value(value: float, name: str) -> None:\n    if value <= 0.0:\n        raise ValueError(f\"{name} must be positive\")\n\n\ndef required_sample_size(\n    baseline_success: float,\n    effect_size: float,\n    z_alpha: float = 1.96,\n    z_beta: float = 0.84,\n) -> int:\n    _validate_baseline_success(baseline_success)\n    if effect_size <= 0.0:\n        raise ValueError(\"effect_size must be positive\")\n    _validate_z_value(z_alpha, \"z_alpha\")\n    _validate_z_value(z_beta, \"z_beta\")\n\n    variance = 2.0 * baseline_success * (1.0 - baseline_success)\n    z_total = z_alpha + z_beta\n    return math.ceil(variance * (z_total / effect_size) ** 2)\n\n\ndef minimum_detectable_effect(\n    baseline_success: float,\n    sample_size_per_variant: int,\n    z_alpha: float = 1.96,\n    z_beta: float = 0.84,\n) -> float:\n    _validate_baseline_success(baseline_success)\n    if sample_size_per_variant <= 0:\n        raise ValueError(\"sample_size_per_variant must be positive\")\n    _validate_z_value(z_alpha, \"z_alpha\")\n    _validate_z_value(z_beta, \"z_beta\")\n\n    variance = 2.0 * baseline_success * (1.0 - baseline_success)\n    z_total = z_alpha + z_beta\n    return z_total * math.sqrt(variance / sample_size_per_variant)\n\n\ndef sample_size_route(current_samples_per_variant: int, required_samples_per_variant: int) -> str:\n    if current_samples_per_variant < 0:\n        raise ValueError(\"current_samples_per_variant must be non-negative\")\n    if required_samples_per_variant <= 0:\n        raise ValueError(\"required_samples_per_variant must be positive\")\n    if current_samples_per_variant >= required_samples_per_variant:\n        return \"ready\"\n    return \"collect-more\"\n"
         }
       ]
     },
@@ -1220,6 +1252,22 @@
           "path": "modules/ai-agents/planning/task-decomposition/python/task_decomposition.py",
           "language": "python",
           "content": "from __future__ import annotations\n\n\ndef decompose_goal(goal: str, verbs: list[str]) -> list[str]:\n    cleaned_goal = goal.strip()\n    if not cleaned_goal:\n        raise ValueError(\"goal must be non-empty\")\n    parts = [f\"{verb.strip()} {cleaned_goal}\".strip() for verb in verbs if verb.strip()]\n    return [part for part in parts if part]\n\n\ndef numbered_checkpoints(items: list[str]) -> list[dict[str, object]]:\n    checkpoints: list[dict[str, object]] = []\n    for index, item in enumerate(items, start=1):\n        cleaned = item.strip()\n        if not cleaned:\n            continue\n        checkpoints.append({\"id\": index, \"text\": cleaned, \"done\": False})\n    return checkpoints\n\n\ndef decomposition_is_actionable(items: list[dict[str, object]], min_count: int) -> bool:\n    if min_count <= 0:\n        raise ValueError(\"min_count must be positive\")\n    return len(items) >= min_count and all(str(item.get(\"text\", \"\")).strip() for item in items)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "utility-aware-stopping",
+      "title": "Utility-Aware Stopping",
+      "path": "modules/ai-agents/planning/utility-aware-stopping",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "readme": "# Utility-Aware Stopping\n\n> Track: `ai-agents` | Topic: `planning`\n\n## Concept\n\nUtility-aware stopping decides whether an agent should continue, review, or stop by comparing the expected value of the next step against its cost and risk.\n\n## Key Points\n\n- Planning should stop when the next step is no longer worth its expected value.\n- Expected utility is a compact way to combine success probability, reward, cost, and risk.\n- A review band is useful when a step is neither clearly worth doing nor clearly not worth doing.\n\n## Minimal Code Mental Model\n\n```python\nutility = expected_step_utility(success_probability=0.7, success_value=10.0, step_cost=2.0, risk_penalty=1.0)\ntotal = plan_utility([utility, 1.5, -0.5])\nroute = utility_stop_route(utility, min_continue_utility=1.0, max_stop_loss=-1.0)\n```\n\n## Function\n\n```python\ndef expected_step_utility(\n    success_probability: float,\n    success_value: float,\n    step_cost: float,\n    risk_penalty: float = 0.0,\n) -> float:\ndef plan_utility(step_utilities: list[float]) -> float:\ndef utility_stop_route(\n    expected_utility: float,\n    min_continue_utility: float,\n    max_stop_loss: float = 0.0,\n) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/planning/utility-aware-stopping/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/planning/utility-aware-stopping/python/utility_aware_stopping.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef expected_step_utility(\n    success_probability: float,\n    success_value: float,\n    step_cost: float,\n    risk_penalty: float = 0.0,\n) -> float:\n    if not 0.0 <= success_probability <= 1.0:\n        raise ValueError(\"success_probability must satisfy 0 <= value <= 1\")\n    if success_value < 0.0:\n        raise ValueError(\"success_value must be non-negative\")\n    if step_cost < 0.0:\n        raise ValueError(\"step_cost must be non-negative\")\n    if risk_penalty < 0.0:\n        raise ValueError(\"risk_penalty must be non-negative\")\n    return success_probability * success_value - step_cost - risk_penalty\n\n\ndef plan_utility(step_utilities: list[float]) -> float:\n    if not step_utilities:\n        raise ValueError(\"step_utilities must be non-empty\")\n    return sum(step_utilities)\n\n\ndef utility_stop_route(\n    expected_utility: float,\n    min_continue_utility: float,\n    max_stop_loss: float = 0.0,\n) -> str:\n    if min_continue_utility < max_stop_loss:\n        raise ValueError(\"min_continue_utility must be greater than or equal to max_stop_loss\")\n    if expected_utility >= min_continue_utility:\n        return \"continue\"\n    if expected_utility <= max_stop_loss:\n        return \"stop\"\n    return \"review\"\n"
         }
       ]
     },
@@ -9316,7 +9364,7 @@
       "title": "Evaluation",
       "path": "docs/ai-agents/evaluation/README.md",
       "summary": "This section is about how to measure whether an agent succeeds, whether its tool calls work, and where failures happen.",
-      "content": "# Evaluation\n\nThis section is about how to measure whether an agent succeeds, whether its tool calls work, and where failures happen.\n\n## Purpose\n\nUse this page to understand:\n- task success\n- tool-call success\n- latency and cost baselines\n- failure category counts\n\n## First Principles\n\n- Agent evaluation should measure both final outcomes and the steps that produced them.\n- Simple metrics are usually enough to find the main bottlenecks.\n- A useful evaluation loop separates model failure, tool failure, and workflow failure.\n\n## Minimal Code Mental Model\n\n```python\nsuccess = task_success_rate([True, False, True])\ntool_success = tool_call_success_rate([True, True, False])\nbreakdown = failure_breakdown([\"tool\", \"model\", \"tool\"])\n```\n\n## Canonical Modules\n\n- Core agent metrics: `agent-evaluation-basics`\n\n## Supporting Modules\n\n- Frozen suites, bucket counts, and baseline gates: `benchmark-harness-basics`\n- Bucket-wise calibration tables and expected calibration error: `bucketed-calibration-diagnostics`\n- Confidence-vs-accuracy alignment across runs: `confidence-calibration`\n- Final-answer judge scores plus trace-aware grading: `judge-and-trace-grading`\n- Paired-case significance checks for variant comparisons: `paired-run-significance`\n- Security-focused attack suites and release gates: `security-and-red-team-evals`\n- Step-level completion and blockage summaries: `step-level-evaluation`\n- Cost-quality summaries across runs: `cost-quality-tradeoffs`\n- A/B-style comparison between agent variants: `experiment-comparison`\n- Detecting quality drift against a baseline: `regression-checks`\n- Grouping failures into stable categories: `failure-taxonomy`\n\n## When To Use What\n\n- Start with `agent-evaluation-basics` before adding judge-based or benchmark-heavy evaluation.\n- Use `benchmark-harness-basics` when you need a fixed task suite with bucket labels and a frozen baseline before comparing variants.\n- Use `bucketed-calibration-diagnostics` when a single global calibration gap is too coarse and you need to see where confidence is misaligned by band.\n- Use `confidence-calibration` when the agent emits confidence scores and you need to know whether those scores match observed correctness.\n- Use `judge-and-trace-grading` when references are weak and you need final-answer judging plus step-trace evidence before accepting a run.\n- Use `paired-run-significance` when two variants were run on the same cases and you want to separate real disagreement from noise.\n- Use `security-and-red-team-evals` when the main benchmark question is whether prompt injection, exfiltration, privilege escalation, or unsafe-action cases are blocked reliably enough to ship.\n- Use `step-level-evaluation` when whole-run success is too coarse to explain where the agent fails.\n- Use `cost-quality-tradeoffs` when comparing variants where quality, cost, and success all matter.\n- Use `experiment-comparison` when you need a side-by-side summary of two prompts, tools, or workflows.\n- Use `regression-checks` when a new variant should not fall below an existing baseline on key metrics.\n- Use `failure-taxonomy` when repeated failures need a stable set of labels for triage and reporting.\n- Track latency and failure labels together so you know whether the bottleneck is planning, tool use, or execution.\n"
+      "content": "# Evaluation\n\nThis section is about how to measure whether an agent succeeds, whether its tool calls work, and where failures happen.\n\n## Purpose\n\nUse this page to understand:\n- task success\n- tool-call success\n- latency and cost baselines\n- failure category counts\n\n## First Principles\n\n- Agent evaluation should measure both final outcomes and the steps that produced them.\n- Simple metrics are usually enough to find the main bottlenecks.\n- A useful evaluation loop separates model failure, tool failure, and workflow failure.\n\n## Minimal Code Mental Model\n\n```python\nsuccess = task_success_rate([True, False, True])\ntool_success = tool_call_success_rate([True, True, False])\nbreakdown = failure_breakdown([\"tool\", \"model\", \"tool\"])\n```\n\n## Canonical Modules\n\n- Core agent metrics: `agent-evaluation-basics`\n\n## Supporting Modules\n\n- Frozen suites, bucket counts, and baseline gates: `benchmark-harness-basics`\n- Bucket-wise calibration tables and expected calibration error: `bucketed-calibration-diagnostics`\n- Confidence-vs-accuracy alignment across runs: `confidence-calibration`\n- Final-answer judge scores plus trace-aware grading: `judge-and-trace-grading`\n- Paired-case significance checks for variant comparisons: `paired-run-significance`\n- Approximate sample sizing and detectable effect estimates: `sample-size-and-power`\n- Success scores penalized by risky failures: `risk-adjusted-benchmark-summaries`\n- Security-focused attack suites and release gates: `security-and-red-team-evals`\n- Step-level completion and blockage summaries: `step-level-evaluation`\n- Cost-quality summaries across runs: `cost-quality-tradeoffs`\n- A/B-style comparison between agent variants: `experiment-comparison`\n- Detecting quality drift against a baseline: `regression-checks`\n- Grouping failures into stable categories: `failure-taxonomy`\n\n## When To Use What\n\n- Start with `agent-evaluation-basics` before adding judge-based or benchmark-heavy evaluation.\n- Use `benchmark-harness-basics` when you need a fixed task suite with bucket labels and a frozen baseline before comparing variants.\n- Use `bucketed-calibration-diagnostics` when a single global calibration gap is too coarse and you need to see where confidence is misaligned by band.\n- Use `confidence-calibration` when the agent emits confidence scores and you need to know whether those scores match observed correctness.\n- Use `judge-and-trace-grading` when references are weak and you need final-answer judging plus step-trace evidence before accepting a run.\n- Use `paired-run-significance` when two variants were run on the same cases and you want to separate real disagreement from noise.\n- Use `sample-size-and-power` when you need to estimate how many eval cases are required before a target effect is realistically detectable.\n- Use `risk-adjusted-benchmark-summaries` when raw success rates hide too much safety or high-risk failure cost.\n- Use `security-and-red-team-evals` when the main benchmark question is whether prompt injection, exfiltration, privilege escalation, or unsafe-action cases are blocked reliably enough to ship.\n- Use `step-level-evaluation` when whole-run success is too coarse to explain where the agent fails.\n- Use `cost-quality-tradeoffs` when comparing variants where quality, cost, and success all matter.\n- Use `experiment-comparison` when you need a side-by-side summary of two prompts, tools, or workflows.\n- Use `regression-checks` when a new variant should not fall below an existing baseline on key metrics.\n- Use `failure-taxonomy` when repeated failures need a stable set of labels for triage and reporting.\n- Track latency and failure labels together so you know whether the bottleneck is planning, tool use, or execution.\n"
     },
     {
       "track": "ai-agents",
@@ -9379,7 +9427,7 @@
       "title": "Planning",
       "path": "docs/ai-agents/planning/README.md",
       "summary": "Planning is the layer that turns a broad goal into ordered steps the agent can execute and track.",
-      "content": "# Planning\n\nPlanning is the layer that turns a broad goal into ordered steps the agent can execute and track.\n\n## Purpose\n\nUse this page to understand:\n- when a task needs an explicit plan\n- how to track unfinished work\n- why short plans beat vague reasoning loops\n\n## First Principles\n\n- Planning is most useful when a task has multiple dependent steps.\n- A plan should be explicit enough to inspect and update.\n- The next action should come from plan state, not just free-form generation.\n\n## Minimal Code Mental Model\n\n```python\nplan = make_plan(\"Prepare launch report\", [\"collect metrics\", \"write summary\", \"send report\"])\nstep = next_pending_step(plan)\nplan = mark_step_done(plan, 0)\n```\n\n## Canonical Modules\n\n- Main step-tracking pattern: `plan-act-loop`\n\n## Supporting Modules\n\n- Breaking a goal into smaller checkpoints: `task-decomposition`\n- Adjusting a plan after new constraints or blocked steps: `replanning`\n- Deciding when the plan should stop or hand off: `planning-stop-conditions`\n\n## When To Use What\n\n- Start with `plan-act-loop` when the task needs state and ordering.\n- Use `task-decomposition` when the main difficulty is splitting a broad goal into concrete subgoals.\n- Use `replanning` when the current plan becomes stale because the task changes or a step gets blocked.\n- Use `planning-stop-conditions` when the workflow needs an explicit rule for done, blocked, or escalate.\n- Keep plans short and concrete before adding branching or multi-agent coordination.\n"
+      "content": "# Planning\n\nPlanning is the layer that turns a broad goal into ordered steps the agent can execute and track.\n\n## Purpose\n\nUse this page to understand:\n- when a task needs an explicit plan\n- how to track unfinished work\n- why short plans beat vague reasoning loops\n\n## First Principles\n\n- Planning is most useful when a task has multiple dependent steps.\n- A plan should be explicit enough to inspect and update.\n- The next action should come from plan state, not just free-form generation.\n\n## Minimal Code Mental Model\n\n```python\nplan = make_plan(\"Prepare launch report\", [\"collect metrics\", \"write summary\", \"send report\"])\nstep = next_pending_step(plan)\nplan = mark_step_done(plan, 0)\n```\n\n## Canonical Modules\n\n- Main step-tracking pattern: `plan-act-loop`\n\n## Supporting Modules\n\n- Breaking a goal into smaller checkpoints: `task-decomposition`\n- Adjusting a plan after new constraints or blocked steps: `replanning`\n- Deciding when the plan should stop or hand off: `planning-stop-conditions`\n- Choosing stop vs continue from expected value, cost, and risk: `utility-aware-stopping`\n\n## When To Use What\n\n- Start with `plan-act-loop` when the task needs state and ordering.\n- Use `task-decomposition` when the main difficulty is splitting a broad goal into concrete subgoals.\n- Use `replanning` when the current plan becomes stale because the task changes or a step gets blocked.\n- Use `planning-stop-conditions` when the workflow needs an explicit rule for done, blocked, or escalate.\n- Use `utility-aware-stopping` when the planner should compare likely upside against step cost and risk before continuing.\n- Keep plans short and concrete before adding branching or multi-agent coordination.\n"
     },
     {
       "track": "ai-agents",

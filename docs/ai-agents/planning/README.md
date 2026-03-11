@@ -32,6 +32,7 @@ plan = mark_step_done(plan, 0)
 - Breaking a goal into smaller checkpoints: `task-decomposition`
 - Adjusting a plan after new constraints or blocked steps: `replanning`
 - Deciding when the plan should stop or hand off: `planning-stop-conditions`
+- Choosing stop vs continue from expected value, cost, and risk: `utility-aware-stopping`
 
 ## When To Use What
 
@@ -39,4 +40,5 @@ plan = mark_step_done(plan, 0)
 - Use `task-decomposition` when the main difficulty is splitting a broad goal into concrete subgoals.
 - Use `replanning` when the current plan becomes stale because the task changes or a step gets blocked.
 - Use `planning-stop-conditions` when the workflow needs an explicit rule for done, blocked, or escalate.
+- Use `utility-aware-stopping` when the planner should compare likely upside against step cost and risk before continuing.
 - Keep plans short and concrete before adding branching or multi-agent coordination.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T07:11:13.392Z",
+  "generated_at": "2026-03-11T07:14:53.918Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -5078,6 +5078,18 @@
       "topicName": "Guardrails"
     },
     {
+      "id": "module:ai-agents/evaluation/risk-adjusted-benchmark-summaries",
+      "type": "module",
+      "title": "Risk-Adjusted Benchmark Summaries",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "risk-adjusted-benchmark-summaries",
+      "href": "/track/ai-agents/evaluation#risk-adjusted-benchmark-summaries",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "doc:ml/reinforcement-learning/rl-for-llm",
       "type": "doc",
       "title": "RL for LLMs",
@@ -5160,6 +5172,18 @@
       "href": "/track/ai-agents/observability#run-sampling",
       "trackName": "AI Agents",
       "topicName": "Observability"
+    },
+    {
+      "id": "module:ai-agents/evaluation/sample-size-and-power",
+      "type": "module",
+      "title": "Sample Size and Power",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "sample-size-and-power",
+      "href": "/track/ai-agents/evaluation#sample-size-and-power",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/data/scaling-methods",
@@ -5772,6 +5796,18 @@
       "href": "/track/dsa/binary-tree#unified-iterative-method-for-binary-trees",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Binary Tree"
+    },
+    {
+      "id": "module:ai-agents/planning/utility-aware-stopping",
+      "type": "module",
+      "title": "Utility-Aware Stopping",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "utility-aware-stopping",
+      "href": "/track/ai-agents/planning#utility-aware-stopping",
+      "trackName": "AI Agents",
+      "topicName": "Planning"
     },
     {
       "id": "module:ml/generative/vae",
