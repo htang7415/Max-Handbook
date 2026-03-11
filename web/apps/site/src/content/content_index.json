@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T18:46:09.528Z",
+  "generated_at": "2026-03-11T19:22:14.472Z",
   "tracks": [
     {
       "id": "dsa",
@@ -35,7 +35,7 @@
       "accent": "#17becf",
       "accentVar": "--track-databases",
       "topicCount": 10,
-      "moduleCount": 121
+      "moduleCount": 141
     },
     {
       "id": "software-engineering",
@@ -100,7 +100,7 @@
       "path": "/track/databases/caching",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 13
+      "moduleCount": 15
     },
     {
       "track": "software-engineering",
@@ -253,7 +253,7 @@
       "path": "/track/databases/indexing",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 9
+      "moduleCount": 13
     },
     {
       "track": "software-engineering",
@@ -334,7 +334,7 @@
       "path": "/track/databases/nosql",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 11
+      "moduleCount": 14
     },
     {
       "track": "software-engineering",
@@ -460,7 +460,7 @@
       "path": "/track/databases/query-plans",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 12
+      "moduleCount": 14
     },
     {
       "track": "ai-agents",
@@ -487,7 +487,7 @@
       "path": "/track/databases/relational",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 11
+      "moduleCount": 13
     },
     {
       "track": "software-engineering",
@@ -532,7 +532,7 @@
       "path": "/track/databases/schema-design",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 10
+      "moduleCount": 14
     },
     {
       "track": "software-engineering",
@@ -550,7 +550,7 @@
       "path": "/track/databases/sql-patterns",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 14
+      "moduleCount": 15
     },
     {
       "track": "dsa",
@@ -568,7 +568,7 @@
       "path": "/track/databases/streaming",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 13
+      "moduleCount": 14
     },
     {
       "track": "dsa",
@@ -631,7 +631,7 @@
       "path": "/track/databases/transactions",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 13
+      "moduleCount": 14
     },
     {
       "track": "software-engineering",
@@ -2121,6 +2121,22 @@
     {
       "track": "databases",
       "topic": "caching",
+      "slug": "client-side-caching",
+      "title": "Client Side Caching",
+      "path": "modules/databases/caching/client-side-caching",
+      "summary": "> Track: `databases` | Topic: `caching`",
+      "readme": "# Client Side Caching\n\n> Track: `databases` | Topic: `caching`\n\n## Concept\n\nClient-side caching keeps hot keys in the application process instead of making every read hit the server cache or database. It only works safely when the server can tell clients which cached keys became stale.\n\n## Key Points\n\n- Client-side caches save network hops as well as database work.\n- They go stale unless invalidation signals reach the client.\n- Reads are cheap when the local copy is valid.\n- Missed invalidations are the core failure mode.\n\n## Minimal Code Mental Model\n\n```python\nserver_update(server, invalidations, \"doc:1\", \"v2\")\napply_invalidations(client_cache, invalidations)\n```\n\n## Function\n\n```python\ndef client_read(\n    server: dict[str, tuple[str, int]],\n    client_cache: dict[str, tuple[str, int]],\n    key: str,\n) -> str | None:\ndef server_update(\n    server: dict[str, tuple[str, int]],\n    invalidations: list[str],\n    key: str,\n    value: str,\n) -> None:\ndef apply_invalidations(\n    client_cache: dict[str, tuple[str, int]],\n    invalidations: list[str],\n) -> None:\ndef stale_client_keys(\n    server: dict[str, tuple[str, int]],\n    client_cache: dict[str, tuple[str, int]],\n) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/caching/client-side-caching/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/caching/client-side-caching/python/client_side_caching.py",
+          "language": "python",
+          "content": "\"\"\"client_side_caching - local cache entries must be invalidated after server writes.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef client_read(\n    server: dict[str, tuple[str, int]],\n    client_cache: dict[str, tuple[str, int]],\n    key: str,\n) -> str | None:\n    cached = client_cache.get(key)\n    if cached is not None:\n        return cached[0]\n    current = server.get(key)\n    if current is None:\n        return None\n    client_cache[key] = current\n    return current[0]\n\n\ndef server_update(\n    server: dict[str, tuple[str, int]],\n    invalidations: list[str],\n    key: str,\n    value: str,\n) -> None:\n    current_version = 0 if key not in server else int(server[key][1])\n    server[key] = (value, current_version + 1)\n    invalidations.append(key)\n\n\ndef apply_invalidations(\n    client_cache: dict[str, tuple[str, int]],\n    invalidations: list[str],\n) -> None:\n    for key in list(invalidations):\n        client_cache.pop(key, None)\n        invalidations.remove(key)\n\n\ndef stale_client_keys(\n    server: dict[str, tuple[str, int]],\n    client_cache: dict[str, tuple[str, int]],\n) -> list[str]:\n    stale: list[str] = []\n    for key, cached in client_cache.items():\n        current = server.get(key)\n        if current is None or current[1] != cached[1]:\n            stale.append(key)\n    return sorted(stale)\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "caching",
       "slug": "hot-key-and-rate-limit-protection",
       "title": "Hot-Key And Rate-Limit Protection",
       "path": "modules/databases/caching/hot-key-and-rate-limit-protection",
@@ -2216,6 +2232,22 @@
     },
     {
       "track": "databases",
+      "topic": "caching",
+      "slug": "write-through-vs-write-behind",
+      "title": "Write Through Vs Write Behind",
+      "path": "modules/databases/caching/write-through-vs-write-behind",
+      "summary": "> Track: `databases` | Topic: `caching`",
+      "readme": "# Write Through Vs Write Behind\n\n> Track: `databases` | Topic: `caching`\n\n## Concept\n\nBoth patterns update the cache on writes, but they differ on when the database changes. Write-through updates the database immediately. Write-behind updates the cache first and flushes to the database later.\n\n## Key Points\n\n- Write-through keeps the cache and database aligned after each write.\n- Write-behind lowers synchronous write latency but creates a durability gap.\n- Buffered writes need a flush path and failure handling.\n- The right choice depends on whether freshness and durability matter more than write latency.\n\n## Minimal Code Mental Model\n\n```python\nwrite_behind_update(store, cache, pending, \"profile:1\", \"new-value\")\nflush_pending_writes(store, pending)\n```\n\n## Function\n\n```python\ndef write_through_update(\n    store: dict[str, str],\n    cache: dict[str, str],\n    key: str,\n    value: str,\n) -> None:\ndef write_behind_update(\n    store: dict[str, str],\n    cache: dict[str, str],\n    pending_writes: dict[str, str],\n    key: str,\n    value: str,\n) -> None:\ndef flush_pending_writes(store: dict[str, str], pending_writes: dict[str, str]) -> None:\ndef write_view(\n    store: dict[str, str],\n    cache: dict[str, str],\n    pending_writes: dict[str, str],\n    key: str,\n) -> dict[str, str | bool | None]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/caching/write-through-vs-write-behind/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/caching/write-through-vs-write-behind/python/write_through_vs_write_behind.py",
+          "language": "python",
+          "content": "\"\"\"write_through_vs_write_behind - compare immediate and buffered cache write paths.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef write_through_update(\n    store: dict[str, str],\n    cache: dict[str, str],\n    key: str,\n    value: str,\n) -> None:\n    store[key] = value\n    cache[key] = value\n\n\ndef write_behind_update(\n    store: dict[str, str],\n    cache: dict[str, str],\n    pending_writes: dict[str, str],\n    key: str,\n    value: str,\n) -> None:\n    del store\n    cache[key] = value\n    pending_writes[key] = value\n\n\ndef flush_pending_writes(\n    store: dict[str, str],\n    pending_writes: dict[str, str],\n) -> None:\n    for key, value in list(pending_writes.items()):\n        store[key] = value\n        pending_writes.pop(key, None)\n\n\ndef write_view(\n    store: dict[str, str],\n    cache: dict[str, str],\n    pending_writes: dict[str, str],\n    key: str,\n) -> dict[str, str | bool | None]:\n    return {\n        \"store_value\": store.get(key),\n        \"cache_value\": cache.get(key),\n        \"pending_flush\": key in pending_writes,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
       "topic": "indexing",
       "slug": "btree-basics",
       "title": "B-Tree Basics",
@@ -2265,6 +2297,38 @@
     {
       "track": "databases",
       "topic": "indexing",
+      "slug": "expression-index-basics",
+      "title": "Expression Index Basics",
+      "path": "modules/databases/indexing/expression-index-basics",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "readme": "# Expression Index Basics\n\n> Track: `databases` | Topic: `indexing`\n\n## Concept\n\nIf your query always applies a function like `lower(email)` or `date(created_at)`, a plain index on the raw column may not help. An expression index stores the transformed value so those function-shaped predicates can use an access path too.\n\n## Key Points\n\n- Function-wrapped predicates often break normal index usage.\n- Expression indexes materialize the transformed lookup key.\n- The indexed expression must match the query shape closely.\n- They are useful for normalized lookups like case-insensitive search.\n\n## Minimal Code Mental Model\n\n```python\nadd_lower_email_index(conn)\nplan = explain_lookup_by_lower_email(conn, \"ada@example.com\")\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_users_table(conn: sqlite3.Connection) -> None:\ndef seed_users(conn: sqlite3.Connection, rows: list[tuple[str, str]]) -> None:\ndef add_lower_email_index(conn: sqlite3.Connection) -> None:\ndef explain_lookup_by_lower_email(conn: sqlite3.Connection, email: str) -> list[str]:\ndef matching_names(conn: sqlite3.Connection, email: str) -> list[str]:\ndef plan_flags(plan_details: list[str]) -> dict[str, bool]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/indexing/expression-index-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/indexing/expression-index-basics/python/expression_index_basics.py",
+          "language": "python",
+          "content": "\"\"\"expression_index_basics - use an index on lower(email) for case-insensitive lookup.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_users_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE users (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            name TEXT NOT NULL,\n            email TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef seed_users(conn: sqlite3.Connection, rows: list[tuple[str, str]]) -> None:\n    conn.executemany(\n        \"\"\"\n        INSERT INTO users (name, email)\n        VALUES (?, ?)\n        \"\"\",\n        rows,\n    )\n\n\ndef add_lower_email_index(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE INDEX idx_users_lower_email\n        ON users (lower(email))\n        \"\"\"\n    )\n\n\ndef explain_lookup_by_lower_email(conn: sqlite3.Connection, email: str) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        EXPLAIN QUERY PLAN\n        SELECT name\n        FROM users\n        WHERE lower(email) = ?\n        \"\"\",\n        (email.lower(),),\n    ).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef matching_names(conn: sqlite3.Connection, email: str) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT name\n        FROM users\n        WHERE lower(email) = ?\n        ORDER BY id\n        \"\"\",\n        (email.lower(),),\n    ).fetchall()\n    return [name for (name,) in rows]\n\n\ndef plan_flags(plan_details: list[str]) -> dict[str, bool]:\n    joined = \" | \".join(plan_details)\n    return {\n        \"full_scan\": \"SCAN users\" in joined,\n        \"uses_expression_index\": \"idx_users_lower_email\" in joined,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "index-write-amplification",
+      "title": "Index Write Amplification",
+      "path": "modules/databases/indexing/index-write-amplification",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "readme": "# Index Write Amplification\n\n> Track: `databases` | Topic: `indexing`\n\n## Concept\n\nEvery extra index speeds up some reads, but inserts and key-changing updates must maintain that index too. Write amplification is the reason “just add another index” becomes expensive on hot OLTP tables.\n\n## Key Points\n\n- Inserts usually touch every secondary index.\n- Updates only pay index maintenance when indexed columns change.\n- Read-optimized schemas can become write bottlenecks.\n- Index count should follow actual query value, not wishful future queries.\n\n## Minimal Code Mental Model\n\n```python\nsummary = write_summary(insert_rows=1000, update_rows=200, index_count=4, indexed_updates=True)\n```\n\n## Function\n\n```python\ndef insert_work(insert_rows: int, index_count: int) -> int:\ndef update_work(update_rows: int, index_count: int, indexed_updates: bool) -> int:\ndef write_summary(\n    insert_rows: int,\n    update_rows: int,\n    index_count: int,\n    indexed_updates: bool,\n) -> dict[str, int | float]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/indexing/index-write-amplification/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/indexing/index-write-amplification/python/index_write_amplification.py",
+          "language": "python",
+          "content": "\"\"\"index_write_amplification - model how indexes add maintenance work to writes.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef insert_work(insert_rows: int, index_count: int) -> int:\n    rows = max(insert_rows, 0)\n    indexes = max(index_count, 0)\n    return rows * (1 + indexes)\n\n\ndef update_work(update_rows: int, index_count: int, indexed_updates: bool) -> int:\n    rows = max(update_rows, 0)\n    indexes = max(index_count, 0)\n    if not indexed_updates:\n        return rows\n    return rows * (1 + indexes)\n\n\ndef write_summary(\n    insert_rows: int,\n    update_rows: int,\n    index_count: int,\n    indexed_updates: bool,\n) -> dict[str, int | float]:\n    inserts = insert_work(insert_rows, index_count)\n    updates = update_work(update_rows, index_count, indexed_updates)\n    base_work = max(insert_rows, 0) + max(update_rows, 0)\n    total = inserts + updates\n    amplification = 0.0 if base_work == 0 else total / base_work\n    return {\n        \"insert_work\": inserts,\n        \"update_work\": updates,\n        \"total_work\": total,\n        \"amplification_ratio\": round(amplification, 2),\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "indexing",
       "slug": "jsonb-and-gin-indexing",
       "title": "JSONB And GIN Indexing",
       "path": "modules/databases/indexing/jsonb-and-gin-indexing",
@@ -2275,6 +2339,22 @@
           "path": "modules/databases/indexing/jsonb-and-gin-indexing/python/jsonb_and_gin_indexing.py",
           "language": "python",
           "content": "\"\"\"jsonb_and_gin_indexing - a tiny inverted index for JSON-like metadata.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef metadata_terms(document: dict[str, object]) -> set[str]:\n    metadata = document.get(\"metadata\", {})\n    assert isinstance(metadata, dict)\n    terms: set[str] = set()\n    for key, value in metadata.items():\n        if isinstance(value, list):\n            for item in value:\n                terms.add(f\"{key[:-1] if key.endswith('s') else key}={item}\")\n        else:\n            terms.add(f\"{key}={value}\")\n    return terms\n\n\ndef build_metadata_inverted_index(\n    documents: list[dict[str, object]],\n) -> dict[str, set[str]]:\n    inverted: dict[str, set[str]] = {}\n    for document in documents:\n        doc_id = str(document[\"id\"])\n        for term in metadata_terms(document):\n            inverted.setdefault(term, set()).add(doc_id)\n    return inverted\n\n\ndef filter_documents_with_index(\n    inverted_index: dict[str, set[str]],\n    required_terms: list[str],\n) -> list[str]:\n    if not required_terms:\n        return []\n    postings = [inverted_index.get(term, set()) for term in required_terms]\n    if not postings:\n        return []\n    return sorted(set.intersection(*postings))\n\n\ndef update_term_diff(\n    previous_document: dict[str, object],\n    new_document: dict[str, object],\n) -> tuple[set[str], set[str]]:\n    previous_terms = metadata_terms(previous_document)\n    new_terms = metadata_terms(new_document)\n    removed = previous_terms - new_terms\n    added = new_terms - previous_terms\n    return removed, added\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "low-cardinality-index-tradeoffs",
+      "title": "Low Cardinality Index Tradeoffs",
+      "path": "modules/databases/indexing/low-cardinality-index-tradeoffs",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "readme": "# Low Cardinality Index Tradeoffs\n\n> Track: `databases` | Topic: `indexing`\n\n## Concept\n\nIndexes help most when they avoid touching most of a table. On low-cardinality predicates like `is_active = true`, the index can become unattractive because too many rows still match.\n\n## Key Points\n\n- Selectivity matters more than the existence of an index.\n- When a predicate matches a large share of rows, a sequential scan can be cheaper.\n- Low-cardinality columns often need composite or partial indexes to become useful.\n- This is why “index every filter column” is a bad rule.\n\n## Minimal Code Mental Model\n\n```python\nsummary = tradeoff_summary(total_rows=1_000_000, match_fraction=0.5)\n```\n\n## Function\n\n```python\ndef matching_rows(total_rows: int, match_fraction: float) -> int:\ndef seq_scan_cost(total_rows: int) -> int:\ndef index_scan_cost(\n    total_rows: int,\n    match_fraction: float,\n    probe_overhead: int = 8,\n    heap_fetch_cost: int = 2,\n) -> int:\ndef recommended_path(\n    total_rows: int,\n    match_fraction: float,\n    probe_overhead: int = 8,\n    heap_fetch_cost: int = 2,\n) -> str:\ndef tradeoff_summary(\n    total_rows: int,\n    match_fraction: float,\n    probe_overhead: int = 8,\n    heap_fetch_cost: int = 2,\n) -> dict[str, int | float | str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/indexing/low-cardinality-index-tradeoffs/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/indexing/low-cardinality-index-tradeoffs/python/low_cardinality_index_tradeoffs.py",
+          "language": "python",
+          "content": "\"\"\"low_cardinality_index_tradeoffs - an index loses value when too much of the table matches.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef matching_rows(total_rows: int, match_fraction: float) -> int:\n    if total_rows < 0:\n        raise ValueError(\"total_rows must be non-negative\")\n    if not 0.0 <= match_fraction <= 1.0:\n        raise ValueError(\"match_fraction must be between 0 and 1\")\n    return round(total_rows * match_fraction)\n\n\ndef seq_scan_cost(total_rows: int) -> int:\n    if total_rows < 0:\n        raise ValueError(\"total_rows must be non-negative\")\n    return total_rows\n\n\ndef index_scan_cost(\n    total_rows: int,\n    match_fraction: float,\n    probe_overhead: int = 8,\n    heap_fetch_cost: int = 2,\n) -> int:\n    matches = matching_rows(total_rows, match_fraction)\n    return max(probe_overhead, 0) + matches * (1 + max(heap_fetch_cost, 0))\n\n\ndef recommended_path(\n    total_rows: int,\n    match_fraction: float,\n    probe_overhead: int = 8,\n    heap_fetch_cost: int = 2,\n) -> str:\n    index_cost = index_scan_cost(total_rows, match_fraction, probe_overhead, heap_fetch_cost)\n    return \"index-scan\" if index_cost < seq_scan_cost(total_rows) else \"seq-scan\"\n\n\ndef tradeoff_summary(\n    total_rows: int,\n    match_fraction: float,\n    probe_overhead: int = 8,\n    heap_fetch_cost: int = 2,\n) -> dict[str, int | float | str]:\n    rows = matching_rows(total_rows, match_fraction)\n    index_cost = index_scan_cost(total_rows, match_fraction, probe_overhead, heap_fetch_cost)\n    seq_cost = seq_scan_cost(total_rows)\n    return {\n        \"matching_rows\": rows,\n        \"match_fraction\": match_fraction,\n        \"seq_scan_cost\": seq_cost,\n        \"index_scan_cost\": index_cost,\n        \"recommended_path\": \"index-scan\" if index_cost < seq_cost else \"seq-scan\",\n    }\n"
         }
       ]
     },
@@ -2360,6 +2440,22 @@
     },
     {
       "track": "databases",
+      "topic": "indexing",
+      "slug": "sparse-index-selectivity",
+      "title": "Sparse Index Selectivity",
+      "path": "modules/databases/indexing/sparse-index-selectivity",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "readme": "# Sparse Index Selectivity\n\n> Track: `databases` | Topic: `indexing`\n\n## Concept\n\nA sparse index stores entries only for rows where an optional column is populated. When that column is rare, the index stays much smaller and each lookup searches a much tighter candidate set.\n\n## Key Points\n\n- Optional fields like `error_code`, `deleted_at`, or `published_at` are often sparse.\n- Indexing only populated rows can save substantial storage.\n- Sparse indexes are most useful when queries mostly target the populated subset.\n- If almost every row has the value, the sparse advantage mostly disappears.\n\n## Minimal Code Mental Model\n\n```python\nsummary = selectivity_summary(total_rows=1_000_000, populated_fraction=0.01, matching_rows=100)\n```\n\n## Function\n\n```python\ndef sparse_index_entries(total_rows: int, populated_fraction: float) -> int:\ndef full_index_entries(total_rows: int) -> int:\ndef selectivity_summary(\n    total_rows: int,\n    populated_fraction: float,\n    matching_rows: int,\n) -> dict[str, int | float]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/indexing/sparse-index-selectivity/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/indexing/sparse-index-selectivity/python/sparse_index_selectivity.py",
+          "language": "python",
+          "content": "\"\"\"sparse_index_selectivity - an index on a sparse column can stay small and highly selective.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef sparse_index_entries(total_rows: int, populated_fraction: float) -> int:\n    if total_rows < 0:\n        raise ValueError(\"total_rows must be non-negative\")\n    if not 0.0 <= populated_fraction <= 1.0:\n        raise ValueError(\"populated_fraction must be between 0 and 1\")\n    return round(total_rows * populated_fraction)\n\n\ndef full_index_entries(total_rows: int) -> int:\n    if total_rows < 0:\n        raise ValueError(\"total_rows must be non-negative\")\n    return total_rows\n\n\ndef selectivity_summary(\n    total_rows: int,\n    populated_fraction: float,\n    matching_rows: int,\n) -> dict[str, int | float]:\n    sparse_entries = sparse_index_entries(total_rows, populated_fraction)\n    return {\n        \"full_index_entries\": full_index_entries(total_rows),\n        \"sparse_index_entries\": sparse_entries,\n        \"entries_saved\": full_index_entries(total_rows) - sparse_entries,\n        \"match_fraction_within_sparse_index\": 0.0 if sparse_entries == 0 else matching_rows / sparse_entries,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
       "topic": "nosql",
       "slug": "anti-entropy-and-repair",
       "title": "Anti-Entropy And Repair",
@@ -2371,6 +2467,22 @@
           "path": "modules/databases/nosql/anti-entropy-and-repair/python/anti_entropy_and_repair.py",
           "language": "python",
           "content": "\"\"\"anti_entropy_and_repair - detect divergent replica keys and repair to the latest version.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef empty_replica(name: str) -> dict[str, object]:\n    return {\n        \"name\": name,\n        \"data\": {},\n    }\n\n\ndef write_value(\n    replica: dict[str, object],\n    key: str,\n    value: object,\n    version: int,\n) -> None:\n    data = replica[\"data\"]\n    assert isinstance(data, dict)\n    data[key] = {\n        \"value\": value,\n        \"version\": version,\n    }\n\n\ndef divergent_keys(\n    left: dict[str, object],\n    right: dict[str, object],\n) -> list[str]:\n    left_data = left[\"data\"]\n    right_data = right[\"data\"]\n    assert isinstance(left_data, dict)\n    assert isinstance(right_data, dict)\n\n    keys = sorted(set(left_data) | set(right_data))\n    divergent: list[str] = []\n    for key in keys:\n        if left_data.get(key) != right_data.get(key):\n            divergent.append(key)\n    return divergent\n\n\ndef repair_pair(\n    left: dict[str, object],\n    right: dict[str, object],\n) -> list[str]:\n    left_data = left[\"data\"]\n    right_data = right[\"data\"]\n    assert isinstance(left_data, dict)\n    assert isinstance(right_data, dict)\n\n    repaired = divergent_keys(left, right)\n    for key in repaired:\n        candidates = [entry for entry in [left_data.get(key), right_data.get(key)] if entry is not None]\n        winner = max(\n            candidates,\n            key=lambda entry: (int(entry[\"version\"]), str(entry[\"value\"])),\n        )\n        repaired_value = {\n            \"value\": winner[\"value\"],\n            \"version\": int(winner[\"version\"]),\n        }\n        left_data[key] = dict(repaired_value)\n        right_data[key] = dict(repaired_value)\n    return repaired\n\n\ndef visible_values(replica: dict[str, object]) -> dict[str, object]:\n    data = replica[\"data\"]\n    assert isinstance(data, dict)\n    return {\n        key: entry[\"value\"]\n        for key, entry in data.items()\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "compaction-debt-signals",
+      "title": "Compaction Debt Signals",
+      "path": "modules/databases/nosql/compaction-debt-signals",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "readme": "# Compaction Debt Signals\n\n> Track: `databases` | Topic: `nosql`\n\n## Concept\n\nCompaction debt is the backlog you build when write and delete pressure outpace background merge work. You usually notice it through indirect signals: too many SSTables, too many tombstones, or too much pending compaction work.\n\n## Key Points\n\n- Compaction debt shows up as read cost and space amplification.\n- Tombstones are cheap to write but expensive to carry around for too long.\n- Pending compaction bytes are a backlog signal, not a correctness signal.\n- Good alerts combine several weak signals instead of one metric alone.\n\n## Minimal Code Mental Model\n\n```python\nsummary = compaction_summary([6, 8, 5], tombstone_ratio=0.22, pending_bytes_mb=900)\n```\n\n## Function\n\n```python\ndef read_amplification(level_sstables: list[int]) -> int:\ndef debt_signals(\n    level_sstables: list[int],\n    tombstone_ratio: float,\n    pending_bytes_mb: int,\n) -> dict[str, bool]:\ndef recommended_action(\n    level_sstables: list[int],\n    tombstone_ratio: float,\n    pending_bytes_mb: int,\n) -> str:\ndef compaction_summary(\n    level_sstables: list[int],\n    tombstone_ratio: float,\n    pending_bytes_mb: int,\n) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/nosql/compaction-debt-signals/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/nosql/compaction-debt-signals/python/compaction_debt_signals.py",
+          "language": "python",
+          "content": "\"\"\"compaction_debt_signals - combine backlog signals into a compaction recommendation.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef read_amplification(level_sstables: list[int]) -> int:\n    return sum(max(count, 0) for count in level_sstables)\n\n\ndef debt_signals(\n    level_sstables: list[int],\n    tombstone_ratio: float,\n    pending_bytes_mb: int,\n) -> dict[str, bool]:\n    return {\n        \"high_read_amp\": read_amplification(level_sstables) >= 14,\n        \"high_tombstones\": tombstone_ratio >= 0.2,\n        \"high_pending_bytes\": pending_bytes_mb >= 512,\n    }\n\n\ndef recommended_action(\n    level_sstables: list[int],\n    tombstone_ratio: float,\n    pending_bytes_mb: int,\n) -> str:\n    signals = debt_signals(level_sstables, tombstone_ratio, pending_bytes_mb)\n    signal_count = sum(1 for value in signals.values() if value)\n    if signal_count >= 2:\n        return \"compact-now\"\n    if signal_count == 1:\n        return \"compact-soon\"\n    return \"observe\"\n\n\ndef compaction_summary(\n    level_sstables: list[int],\n    tombstone_ratio: float,\n    pending_bytes_mb: int,\n) -> dict[str, object]:\n    signals = debt_signals(level_sstables, tombstone_ratio, pending_bytes_mb)\n    return {\n        \"read_amplification\": read_amplification(level_sstables),\n        \"tombstone_ratio\": max(tombstone_ratio, 0.0),\n        \"pending_bytes_mb\": max(pending_bytes_mb, 0),\n        \"signals\": signals,\n        \"recommended_action\": recommended_action(\n            level_sstables,\n            tombstone_ratio,\n            pending_bytes_mb,\n        ),\n    }\n"
         }
       ]
     },
@@ -2499,6 +2611,38 @@
           "path": "modules/databases/nosql/secondary-indexes-in-lsm-systems/python/secondary_indexes_in_lsm_systems.py",
           "language": "python",
           "content": "\"\"\"secondary_indexes_in_lsm_systems - secondary indexes trade extra writes for new lookups.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef write_entries_per_row(index_count: int) -> int:\n    if index_count < 0:\n        raise ValueError(\"index_count must be non-negative\")\n    return 1 + index_count\n\n\ndef build_secondary_index(\n    rows: list[dict[str, object]],\n    field: str,\n) -> dict[object, list[str]]:\n    index: dict[object, list[str]] = {}\n    for row in rows:\n        value = row.get(field)\n        index.setdefault(value, []).append(str(row[\"id\"]))\n    return {\n        value: sorted(ids)\n        for value, ids in index.items()\n    }\n\n\ndef lookup_secondary(\n    index: dict[object, list[str]],\n    value: object,\n) -> list[str]:\n    return list(index.get(value, []))\n\n\ndef storage_entries(row_count: int, index_count: int) -> int:\n    return row_count * write_entries_per_row(index_count)\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "tenant-hotspot-mitigation",
+      "title": "Tenant Hotspot Mitigation",
+      "path": "modules/databases/nosql/tenant-hotspot-mitigation",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "readme": "# Tenant Hotspot Mitigation\n\n> Track: `databases` | Topic: `nosql`\n\n## Concept\n\nHashing one tenant to one shard is simple, but one very large tenant can overload that shard. A common mitigation is to keep normal tenants single-shard while splitting only hot tenants across multiple buckets.\n\n## Key Points\n\n- Default tenant hashing preserves locality for most tenants.\n- Hot tenants sometimes need bucketed fan-out instead of a single partition.\n- Splitting one tenant trades some locality for lower shard skew.\n- The goal is not perfect balance; it is avoiding one overloaded shard.\n\n## Minimal Code Mental Model\n\n```python\nloads = shard_loads(rows, shard_count=4, split_tenants={\"tenant-hot\": 4})\n```\n\n## Function\n\n```python\ndef stable_shard(value: str, shard_count: int) -> int:\ndef route_row(\n    tenant_id: str,\n    row_id: str,\n    shard_count: int,\n    split_tenants: dict[str, int] | None = None,\n) -> int:\ndef shard_loads(\n    rows: list[dict[str, object]],\n    shard_count: int,\n    split_tenants: dict[str, int] | None = None,\n) -> dict[int, int]:\ndef tenant_shard_span(\n    rows: list[dict[str, object]],\n    shard_count: int,\n    split_tenants: dict[str, int] | None = None,\n) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/nosql/tenant-hotspot-mitigation/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/nosql/tenant-hotspot-mitigation/python/tenant_hotspot_mitigation.py",
+          "language": "python",
+          "content": "\"\"\"tenant_hotspot_mitigation - split only hot tenants to reduce shard skew.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef stable_shard(value: str, shard_count: int) -> int:\n    if shard_count <= 0:\n        raise ValueError(\"shard_count must be positive\")\n    stable_hash = sum((index + 1) * ord(char) for index, char in enumerate(value))\n    return stable_hash % shard_count\n\n\ndef route_row(\n    tenant_id: str,\n    row_id: str,\n    shard_count: int,\n    split_tenants: dict[str, int] | None = None,\n) -> int:\n    split_count = 1 if split_tenants is None else int(split_tenants.get(tenant_id, 1))\n    if split_count <= 1:\n        return stable_shard(tenant_id, shard_count)\n    base_shard = stable_shard(tenant_id, shard_count)\n    bucket = stable_shard(row_id, split_count)\n    return (base_shard + bucket) % shard_count\n\n\ndef shard_loads(\n    rows: list[dict[str, object]],\n    shard_count: int,\n    split_tenants: dict[str, int] | None = None,\n) -> dict[int, int]:\n    loads = {shard_id: 0 for shard_id in range(shard_count)}\n    for row in rows:\n        tenant_id = str(row[\"tenant_id\"])\n        row_id = str(row[\"row_id\"])\n        weight = int(row.get(\"weight\", 1))\n        shard_id = route_row(tenant_id, row_id, shard_count, split_tenants)\n        loads[shard_id] += weight\n    return loads\n\n\ndef tenant_shard_span(\n    rows: list[dict[str, object]],\n    shard_count: int,\n    split_tenants: dict[str, int] | None = None,\n) -> dict[str, int]:\n    placements: dict[str, set[int]] = {}\n    for row in rows:\n        tenant_id = str(row[\"tenant_id\"])\n        row_id = str(row[\"row_id\"])\n        placements.setdefault(tenant_id, set()).add(\n            route_row(tenant_id, row_id, shard_count, split_tenants)\n        )\n    return {\n        tenant_id: len(shard_ids)\n        for tenant_id, shard_ids in sorted(placements.items())\n    }\n\n\ndef hottest_shard_load(loads: dict[int, int]) -> int:\n    return max(loads.values(), default=0)\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "tenant-partitioning-basics",
+      "title": "Tenant Partitioning Basics",
+      "path": "modules/databases/nosql/tenant-partitioning-basics",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "readme": "# Tenant Partitioning Basics\n\n> Track: `databases` | Topic: `nosql`\n\n## Concept\n\nTenant partitioning keeps one tenant’s rows together behind the same partition key. That reduces cross-partition reads for tenant-scoped workloads and makes movement or isolation decisions easier later.\n\n## Key Points\n\n- Partitioning by tenant localizes tenant reads and writes.\n- Partitioning by row ID can spread one tenant across many partitions.\n- Locality is often more valuable than perfectly even distribution for multi-tenant operational workloads.\n- Large tenants may still need overrides or dedicated partitions once they outgrow the default pattern.\n\n## Minimal Code Mental Model\n\n```python\nspan = tenant_partition_span(rows, partition_count=4, strategy=\"tenant\")\n```\n\n## Function\n\n```python\ndef stable_partition(value: str, partition_count: int) -> int:\ndef partition_rows_by_tenant(rows: list[dict[str, str]], partition_count: int) -> dict[int, list[str]]:\ndef partition_rows_by_row_id(rows: list[dict[str, str]], partition_count: int) -> dict[int, list[str]]:\ndef tenant_partition_span(\n    rows: list[dict[str, str]],\n    partition_count: int,\n    strategy: str,\n) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/nosql/tenant-partitioning-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/nosql/tenant-partitioning-basics/python/tenant_partitioning_basics.py",
+          "language": "python",
+          "content": "\"\"\"tenant_partitioning_basics - partition by tenant to keep each tenant localized.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef stable_partition(value: str, partition_count: int) -> int:\n    if partition_count <= 0:\n        raise ValueError(\"partition_count must be positive\")\n    stable_hash = sum((index + 1) * ord(char) for index, char in enumerate(value))\n    return stable_hash % partition_count\n\n\ndef partition_rows_by_tenant(\n    rows: list[dict[str, str]],\n    partition_count: int,\n) -> dict[int, list[str]]:\n    partitions = {partition_id: [] for partition_id in range(partition_count)}\n    for row in rows:\n        partition_id = stable_partition(str(row[\"tenant_id\"]), partition_count)\n        partitions[partition_id].append(str(row[\"row_id\"]))\n    return partitions\n\n\ndef partition_rows_by_row_id(\n    rows: list[dict[str, str]],\n    partition_count: int,\n) -> dict[int, list[str]]:\n    partitions = {partition_id: [] for partition_id in range(partition_count)}\n    for row in rows:\n        partition_id = stable_partition(str(row[\"row_id\"]), partition_count)\n        partitions[partition_id].append(str(row[\"row_id\"]))\n    return partitions\n\n\ndef tenant_partition_span(\n    rows: list[dict[str, str]],\n    partition_count: int,\n    strategy: str,\n) -> dict[str, int]:\n    partitions = (\n        partition_rows_by_tenant(rows, partition_count)\n        if strategy == \"tenant\"\n        else partition_rows_by_row_id(rows, partition_count)\n    )\n    spans: dict[str, set[int]] = {}\n    for partition_id, row_ids in partitions.items():\n        for row_id in row_ids:\n            tenant_id = next(str(row[\"tenant_id\"]) for row in rows if str(row[\"row_id\"]) == row_id)\n            spans.setdefault(tenant_id, set()).add(partition_id)\n    return {tenant_id: len(partition_ids) for tenant_id, partition_ids in spans.items()}\n"
         }
       ]
     },
@@ -2649,6 +2793,22 @@
     {
       "track": "databases",
       "topic": "query-plans",
+      "slug": "nested-loop-vs-hash-join",
+      "title": "Nested Loop Vs Hash Join",
+      "path": "modules/databases/query-plans/nested-loop-vs-hash-join",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "readme": "# Nested Loop Vs Hash Join\n\n> Track: `databases` | Topic: `query-plans`\n\n## Concept\n\nJoin strategy depends on how many rows arrive at the join and whether the inner side can be probed efficiently. Nested loops are great when the outer side is small and the inner side is indexed; hash joins are usually better for larger equality joins.\n\n## Key Points\n\n- Nested loops get expensive when they must rescan a large inner input.\n- Hash joins pay upfront build cost, then probe cheaply.\n- Equality joins are the usual case for hash joins.\n- A small filtered outer input can still make nested loops the right choice.\n\n## Minimal Code Mental Model\n\n```python\nstrategy = choose_join_strategy(outer_rows=20, inner_rows=100_000, indexed_lookup=True)\n```\n\n## Function\n\n```python\ndef nested_loop_cost(outer_rows: int, inner_rows: int, indexed_lookup: bool) -> int:\ndef hash_join_cost(left_rows: int, right_rows: int) -> int:\ndef choose_join_strategy(\n    outer_rows: int,\n    inner_rows: int,\n    indexed_lookup: bool,\n    equality_join: bool = True,\n) -> str:\ndef join_cost_summary(\n    outer_rows: int,\n    inner_rows: int,\n    indexed_lookup: bool,\n    equality_join: bool = True,\n) -> dict[str, int | str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/query-plans/nested-loop-vs-hash-join/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/query-plans/nested-loop-vs-hash-join/python/nested_loop_vs_hash_join.py",
+          "language": "python",
+          "content": "\"\"\"nested_loop_vs_hash_join - compare indexed nested loops to hash joins.\"\"\"\n\nfrom __future__ import annotations\n\nimport math\n\n\ndef nested_loop_cost(outer_rows: int, inner_rows: int, indexed_lookup: bool) -> int:\n    outer = max(outer_rows, 0)\n    inner = max(inner_rows, 0)\n    if outer == 0 or inner == 0:\n        return 0\n    if indexed_lookup:\n        probe_cost = max(1, int(math.ceil(math.log2(inner + 1))))\n        return outer * probe_cost\n    return outer * inner\n\n\ndef hash_join_cost(left_rows: int, right_rows: int) -> int:\n    return max(left_rows, 0) + max(right_rows, 0)\n\n\ndef choose_join_strategy(\n    outer_rows: int,\n    inner_rows: int,\n    indexed_lookup: bool,\n    equality_join: bool = True,\n) -> str:\n    nested = nested_loop_cost(outer_rows, inner_rows, indexed_lookup)\n    if not equality_join:\n        return \"nested-loop\"\n    hashed = hash_join_cost(outer_rows, inner_rows)\n    return \"nested-loop\" if nested <= hashed else \"hash-join\"\n\n\ndef join_cost_summary(\n    outer_rows: int,\n    inner_rows: int,\n    indexed_lookup: bool,\n    equality_join: bool = True,\n) -> dict[str, int | str]:\n    nested = nested_loop_cost(outer_rows, inner_rows, indexed_lookup)\n    hashed = hash_join_cost(outer_rows, inner_rows)\n    return {\n        \"nested_loop_cost\": nested,\n        \"hash_join_cost\": hashed,\n        \"recommended_strategy\": choose_join_strategy(\n            outer_rows,\n            inner_rows,\n            indexed_lookup,\n            equality_join,\n        ),\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "query-plans",
       "slug": "plan-regression-debugging",
       "title": "Plan Regression Debugging",
       "path": "modules/databases/query-plans/plan-regression-debugging",
@@ -2691,6 +2851,22 @@
           "path": "modules/databases/query-plans/sargability-basics/python/sargability_basics.py",
           "language": "python",
           "content": "\"\"\"sargability_basics - compare index-searchable predicates to scan-only ones.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_event_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE events (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            created_day TEXT NOT NULL,\n            payload TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef seed_events(conn: sqlite3.Connection, days: list[str]) -> None:\n    conn.executemany(\n        \"\"\"\n        INSERT INTO events (created_day, payload)\n        VALUES (?, ?)\n        \"\"\",\n        [(day, f\"payload-{index}\") for index, day in enumerate(days, start=1)],\n    )\n\n\ndef add_created_day_index(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE INDEX idx_events_created_day\n        ON events (created_day)\n        \"\"\"\n    )\n\n\ndef plan_details(\n    conn: sqlite3.Connection,\n    sql: str,\n    params: tuple[object, ...],\n) -> list[str]:\n    rows = conn.execute(f\"EXPLAIN QUERY PLAN {sql}\", params).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef sargable_range_plan(\n    conn: sqlite3.Connection,\n    start_day: str,\n    end_day: str,\n) -> list[str]:\n    return plan_details(\n        conn,\n        \"\"\"\n        SELECT id\n        FROM events\n        WHERE created_day >= ? AND created_day < ?\n        \"\"\",\n        (start_day, end_day),\n    )\n\n\ndef nonsargable_month_plan(\n    conn: sqlite3.Connection,\n    month_prefix: str,\n) -> list[str]:\n    return plan_details(\n        conn,\n        \"\"\"\n        SELECT id\n        FROM events\n        WHERE substr(created_day, 1, 7) = ?\n        \"\"\",\n        (month_prefix,),\n    )\n\n\ndef plan_summary(details: list[str]) -> dict[str, bool]:\n    joined = \" | \".join(details)\n    return {\n        \"uses_index_search\": \"SEARCH\" in joined and \"USING\" in joined,\n        \"uses_scan\": \"SCAN\" in joined,\n    }\n\n\ndef count_rows_in_range(\n    conn: sqlite3.Connection,\n    start_day: str,\n    end_day: str,\n) -> int:\n    row = conn.execute(\n        \"\"\"\n        SELECT COUNT(*)\n        FROM events\n        WHERE created_day >= ? AND created_day < ?\n        \"\"\",\n        (start_day, end_day),\n    ).fetchone()\n    assert row is not None\n    return int(row[0])\n\n\ndef count_rows_for_month(conn: sqlite3.Connection, month_prefix: str) -> int:\n    row = conn.execute(\n        \"\"\"\n        SELECT COUNT(*)\n        FROM events\n        WHERE substr(created_day, 1, 7) = ?\n        \"\"\",\n        (month_prefix,),\n    ).fetchone()\n    assert row is not None\n    return int(row[0])\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "query-plans",
+      "slug": "seq-scan-vs-index-scan",
+      "title": "Seq Scan Vs Index Scan",
+      "path": "modules/databases/query-plans/seq-scan-vs-index-scan",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "readme": "# Seq Scan Vs Index Scan\n\n> Track: `databases` | Topic: `query-plans`\n\n## Concept\n\nQuery optimizers choose between reading the whole table and probing an index. A sequential scan is often fine for broad reads, but once a query is selective and ordered on indexed columns, an index scan usually wins.\n\n## Key Points\n\n- A sequential scan reads every row whether most rows match or not.\n- An index scan pays lookup overhead but can skip most of the table.\n- Good plans depend on both filtering and sort order.\n- `EXPLAIN QUERY PLAN` shows when the planner switches from scan to indexed search.\n\n## Minimal Code Mental Model\n\n```python\nplan = explain_recent_workspace_events(conn, workspace_id=7)\nflags = plan_flags(plan)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_events_table(conn: sqlite3.Connection) -> None:\ndef seed_events(conn: sqlite3.Connection, rows: list[tuple[int, str, str]]) -> None:\ndef add_workspace_created_index(conn: sqlite3.Connection) -> None:\ndef explain_recent_workspace_events(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    limit: int = 3,\n) -> list[str]:\ndef plan_flags(plan_details: list[str]) -> dict[str, bool]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/query-plans/seq-scan-vs-index-scan/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/query-plans/seq-scan-vs-index-scan/python/seq_scan_vs_index_scan.py",
+          "language": "python",
+          "content": "\"\"\"seq_scan_vs_index_scan - show the plan shift from full scan to indexed lookup.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_events_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE events (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            created_at TEXT NOT NULL,\n            kind TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef seed_events(conn: sqlite3.Connection, rows: list[tuple[int, str, str]]) -> None:\n    conn.executemany(\n        \"\"\"\n        INSERT INTO events (workspace_id, created_at, kind)\n        VALUES (?, ?, ?)\n        \"\"\",\n        rows,\n    )\n\n\ndef add_workspace_created_index(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE INDEX idx_events_workspace_created\n        ON events (workspace_id, created_at DESC)\n        \"\"\"\n    )\n\n\ndef explain_recent_workspace_events(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    limit: int = 3,\n) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        EXPLAIN QUERY PLAN\n        SELECT id, created_at\n        FROM events\n        WHERE workspace_id = ?\n        ORDER BY created_at DESC\n        LIMIT ?\n        \"\"\",\n        (workspace_id, limit),\n    ).fetchall()\n    return [detail for _, _, _, detail in rows]\n\n\ndef plan_flags(plan_details: list[str]) -> dict[str, bool]:\n    joined = \" | \".join(plan_details)\n    return {\n        \"full_scan\": \"SCAN events\" in joined,\n        \"uses_index\": \"idx_events_workspace_created\" in joined,\n        \"temp_sort\": \"USE TEMP B-TREE FOR ORDER BY\" in joined,\n    }\n"
         }
       ]
     },
@@ -2761,6 +2937,22 @@
     {
       "track": "databases",
       "topic": "relational",
+      "slug": "foreign-key-cascades",
+      "title": "Foreign Key Cascades",
+      "path": "modules/databases/relational/foreign-key-cascades",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "readme": "# Foreign Key Cascades\n\n> Track: `databases` | Topic: `relational`\n\n## Concept\n\nForeign keys do more than block bad references. With cascade rules, they can also clean up dependent rows automatically when a parent row is deleted, which keeps ownership trees consistent.\n\n## Key Points\n\n- Foreign keys protect referential integrity between parent and child tables.\n- `ON DELETE CASCADE` removes dependent rows automatically.\n- Cascades are useful for true ownership hierarchies.\n- They are dangerous when child rows should outlive the parent.\n\n## Minimal Code Mental Model\n\n```python\ndelete_workspace(conn, workspace_id)\ncounts = row_counts(conn)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_cascade_schema(conn: sqlite3.Connection) -> None:\ndef insert_workspace(conn: sqlite3.Connection, name: str) -> int:\ndef insert_document(conn: sqlite3.Connection, workspace_id: int, title: str) -> int:\ndef insert_chunk(conn: sqlite3.Connection, document_id: int, body: str) -> int:\ndef delete_document(conn: sqlite3.Connection, document_id: int) -> None:\ndef delete_workspace(conn: sqlite3.Connection, workspace_id: int) -> None:\ndef row_counts(conn: sqlite3.Connection) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/relational/foreign-key-cascades/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/relational/foreign-key-cascades/python/foreign_key_cascades.py",
+          "language": "python",
+          "content": "\"\"\"foreign_key_cascades - delete owned child rows automatically with ON DELETE CASCADE.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.execute(\"PRAGMA foreign_keys = ON\")\n    return conn\n\n\ndef create_cascade_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE workspaces (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            name TEXT NOT NULL\n        );\n\n        CREATE TABLE documents (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            title TEXT NOT NULL,\n            FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE\n        );\n\n        CREATE TABLE chunks (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            document_id INTEGER NOT NULL,\n            body TEXT NOT NULL,\n            FOREIGN KEY (document_id) REFERENCES documents(id) ON DELETE CASCADE\n        );\n        \"\"\"\n    )\n\n\ndef insert_workspace(conn: sqlite3.Connection, name: str) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO workspaces (name)\n        VALUES (?)\n        \"\"\",\n        (name,),\n    )\n    return int(cursor.lastrowid)\n\n\ndef insert_document(conn: sqlite3.Connection, workspace_id: int, title: str) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO documents (workspace_id, title)\n        VALUES (?, ?)\n        \"\"\",\n        (workspace_id, title),\n    )\n    return int(cursor.lastrowid)\n\n\ndef insert_chunk(conn: sqlite3.Connection, document_id: int, body: str) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO chunks (document_id, body)\n        VALUES (?, ?)\n        \"\"\",\n        (document_id, body),\n    )\n    return int(cursor.lastrowid)\n\n\ndef delete_document(conn: sqlite3.Connection, document_id: int) -> None:\n    conn.execute(\n        \"\"\"\n        DELETE FROM documents\n        WHERE id = ?\n        \"\"\",\n        (document_id,),\n    )\n\n\ndef delete_workspace(conn: sqlite3.Connection, workspace_id: int) -> None:\n    conn.execute(\n        \"\"\"\n        DELETE FROM workspaces\n        WHERE id = ?\n        \"\"\",\n        (workspace_id,),\n    )\n\n\ndef row_counts(conn: sqlite3.Connection) -> dict[str, int]:\n    tables = [\"workspaces\", \"documents\", \"chunks\"]\n    counts: dict[str, int] = {}\n    for table in tables:\n        row = conn.execute(f\"SELECT COUNT(*) FROM {table}\").fetchone()\n        assert row is not None\n        counts[table] = int(row[0])\n    return counts\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "relational",
       "slug": "join-shapes",
       "title": "Join Shapes",
       "path": "modules/databases/relational/join-shapes",
@@ -2819,6 +3011,22 @@
           "path": "modules/databases/relational/jsonb-to-normalized-migration/python/jsonb_to_normalized_migration.py",
           "language": "python",
           "content": "\"\"\"jsonb_to_normalized_migration - move hot JSON metadata into relational tables.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_legacy_schema(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE tickets (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            title TEXT NOT NULL,\n            metadata_json TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef insert_legacy_ticket(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    title: str,\n    metadata: dict[str, object],\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO tickets (workspace_id, title, metadata_json)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (workspace_id, title, json.dumps(metadata, sort_keys=True)),\n    )\n    return int(cursor.lastrowid)\n\n\ndef create_normalized_tag_table(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE ticket_tags (\n            ticket_id INTEGER NOT NULL,\n            tag TEXT NOT NULL,\n            PRIMARY KEY (ticket_id, tag),\n            FOREIGN KEY (ticket_id) REFERENCES tickets (id) ON DELETE CASCADE\n        )\n        \"\"\"\n    )\n\n\ndef backfill_ticket_tags(conn: sqlite3.Connection) -> None:\n    rows = conn.execute(\n        \"\"\"\n        SELECT id, metadata_json\n        FROM tickets\n        ORDER BY id\n        \"\"\"\n    ).fetchall()\n    for ticket_id, metadata_json in rows:\n        metadata = json.loads(str(metadata_json))\n        tags = metadata.get(\"tags\", [])\n        if not isinstance(tags, list):\n            continue\n        conn.executemany(\n            \"\"\"\n            INSERT OR IGNORE INTO ticket_tags (ticket_id, tag)\n            VALUES (?, ?)\n            \"\"\",\n            [(int(ticket_id), str(tag)) for tag in sorted(set(tags))],\n        )\n\n\ndef tickets_with_tag_from_json(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    tag: str,\n) -> list[int]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT id, metadata_json\n        FROM tickets\n        WHERE workspace_id = ?\n        ORDER BY id\n        \"\"\",\n        (workspace_id,),\n    ).fetchall()\n    matches: list[int] = []\n    for ticket_id, metadata_json in rows:\n        metadata = json.loads(str(metadata_json))\n        tags = metadata.get(\"tags\", [])\n        if isinstance(tags, list) and tag in tags:\n            matches.append(int(ticket_id))\n    return matches\n\n\ndef tickets_with_tag_from_normalized(\n    conn: sqlite3.Connection,\n    workspace_id: int,\n    tag: str,\n) -> list[int]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT t.id\n        FROM tickets AS t\n        JOIN ticket_tags AS tt\n          ON tt.ticket_id = t.id\n        WHERE t.workspace_id = ? AND tt.tag = ?\n        ORDER BY t.id\n        \"\"\",\n        (workspace_id, tag),\n    ).fetchall()\n    return [int(ticket_id) for (ticket_id,) in rows]\n\n\ndef tag_rows(conn: sqlite3.Connection) -> list[tuple[int, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT ticket_id, tag\n        FROM ticket_tags\n        ORDER BY ticket_id, tag\n        \"\"\"\n    ).fetchall()\n    return [(int(ticket_id), str(tag)) for ticket_id, tag in rows]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "relational",
+      "slug": "null-semantics-in-joins",
+      "title": "Null Semantics In Joins",
+      "path": "modules/databases/relational/null-semantics-in-joins",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "readme": "# Null Semantics In Joins\n\n> Track: `databases` | Topic: `relational`\n\n## Concept\n\n`NULL` does not behave like a normal value in SQL joins. A nullable foreign key does not match anything under `=`, so inner joins drop those rows and left joins are often required to preserve them.\n\n## Key Points\n\n- `NULL = anything` is not true, including `NULL = NULL`.\n- Inner joins silently remove rows whose join key is `NULL`.\n- Left joins preserve those rows and surface `NULL` on the missing side.\n- Filtering for missing relationships usually needs `IS NULL`, not `= NULL`.\n\n## Minimal Code Mental Model\n\n```python\nrows = left_join_ticket_assignees(conn)\nmissing = unassigned_tickets(conn)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_demo_tables(conn: sqlite3.Connection) -> None:\ndef seed_users(conn: sqlite3.Connection, rows: list[tuple[int, str]]) -> None:\ndef seed_tickets(conn: sqlite3.Connection, rows: list[tuple[str, int | None]]) -> None:\ndef inner_join_ticket_assignees(conn: sqlite3.Connection) -> list[tuple[str, str]]:\ndef left_join_ticket_assignees(conn: sqlite3.Connection) -> list[tuple[str, str | None]]:\ndef unassigned_tickets(conn: sqlite3.Connection) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/relational/null-semantics-in-joins/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/relational/null-semantics-in-joins/python/null_semantics_in_joins.py",
+          "language": "python",
+          "content": "\"\"\"null_semantics_in_joins - nullable join keys disappear under inner joins.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_demo_tables(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE users (\n            id INTEGER PRIMARY KEY,\n            name TEXT NOT NULL\n        );\n\n        CREATE TABLE tickets (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            title TEXT NOT NULL,\n            assignee_id INTEGER\n        );\n        \"\"\"\n    )\n\n\ndef seed_users(conn: sqlite3.Connection, rows: list[tuple[int, str]]) -> None:\n    conn.executemany(\n        \"INSERT INTO users (id, name) VALUES (?, ?)\",\n        rows,\n    )\n\n\ndef seed_tickets(conn: sqlite3.Connection, rows: list[tuple[str, int | None]]) -> None:\n    conn.executemany(\n        \"\"\"\n        INSERT INTO tickets (title, assignee_id)\n        VALUES (?, ?)\n        \"\"\",\n        rows,\n    )\n\n\ndef inner_join_ticket_assignees(conn: sqlite3.Connection) -> list[tuple[str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT t.title, u.name\n        FROM tickets AS t\n        JOIN users AS u ON u.id = t.assignee_id\n        ORDER BY t.id\n        \"\"\"\n    ).fetchall()\n    return [(str(title), str(name)) for title, name in rows]\n\n\ndef left_join_ticket_assignees(conn: sqlite3.Connection) -> list[tuple[str, str | None]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT t.title, u.name\n        FROM tickets AS t\n        LEFT JOIN users AS u ON u.id = t.assignee_id\n        ORDER BY t.id\n        \"\"\"\n    ).fetchall()\n    return [\n        (str(title), None if name is None else str(name))\n        for title, name in rows\n    ]\n\n\ndef unassigned_tickets(conn: sqlite3.Connection) -> list[str]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT t.title\n        FROM tickets AS t\n        LEFT JOIN users AS u ON u.id = t.assignee_id\n        WHERE u.id IS NULL\n        ORDER BY t.id\n        \"\"\"\n    ).fetchall()\n    return [str(title) for (title,) in rows]\n"
         }
       ]
     },
@@ -2915,6 +3123,22 @@
           "path": "modules/databases/schema-design/asset-versioning/python/asset_versioning.py",
           "language": "python",
           "content": "\"\"\"asset_versioning - immutable version rows for datasets, prompts, and configs.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.execute(\"PRAGMA foreign_keys = ON\")\n    return conn\n\n\ndef create_asset_versioning_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE assets (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            name TEXT NOT NULL,\n            UNIQUE (workspace_id, name)\n        );\n\n        CREATE TABLE asset_versions (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            asset_id INTEGER NOT NULL,\n            version_label TEXT NOT NULL,\n            content_hash TEXT NOT NULL,\n            created_at TEXT NOT NULL,\n            FOREIGN KEY (asset_id) REFERENCES assets(id) ON DELETE CASCADE,\n            UNIQUE (asset_id, version_label),\n            UNIQUE (asset_id, content_hash)\n        );\n        \"\"\"\n    )\n\n\ndef insert_asset(conn: sqlite3.Connection, workspace_id: int, name: str) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO assets (workspace_id, name)\n        VALUES (?, ?)\n        \"\"\",\n        (workspace_id, name),\n    )\n    return int(cursor.lastrowid)\n\n\ndef publish_asset_version(\n    conn: sqlite3.Connection,\n    asset_id: int,\n    version_label: str,\n    content_hash: str,\n    created_at: str,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO asset_versions (asset_id, version_label, content_hash, created_at)\n        VALUES (?, ?, ?, ?)\n        \"\"\",\n        (asset_id, version_label, content_hash, created_at),\n    )\n    return int(cursor.lastrowid)\n\n\ndef version_history(\n    conn: sqlite3.Connection,\n    asset_id: int,\n) -> list[tuple[str, str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT version_label, content_hash, created_at\n        FROM asset_versions\n        WHERE asset_id = ?\n        ORDER BY created_at, id\n        \"\"\",\n        (asset_id,),\n    ).fetchall()\n    return [(label, content_hash, created_at) for label, content_hash, created_at in rows]\n\n\ndef latest_version(\n    conn: sqlite3.Connection,\n    asset_id: int,\n) -> tuple[str, str, str] | None:\n    row = conn.execute(\n        \"\"\"\n        SELECT version_label, content_hash, created_at\n        FROM asset_versions\n        WHERE asset_id = ?\n        ORDER BY created_at DESC, id DESC\n        LIMIT 1\n        \"\"\",\n        (asset_id,),\n    ).fetchone()\n    if row is None:\n        return None\n    return row[0], row[1], row[2]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "audit-soft-delete-and-history",
+      "title": "Audit Soft Delete And History",
+      "path": "modules/databases/schema-design/audit-soft-delete-and-history",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "readme": "# Audit Soft Delete And History\n\n> Track: `databases` | Topic: `schema-design`\n\n## Concept\n\nSome systems need more than a `deleted_at` column. They need a current-state row for product behavior and a separate audit history for who changed what and when, even after soft deletes and restores.\n\n## Key Points\n\n- Current-state tables and audit history serve different purposes.\n- Soft delete hides a row from normal product reads without losing it.\n- Audit rows preserve lifecycle transitions like create, delete, and restore.\n- This pattern is useful when compliance or debugging needs a full record of state changes.\n\n## Minimal Code Mental Model\n\n```python\nsoft_delete_document(conn, document_id, \"2026-03-11T10:00:00Z\")\nrestore_document(conn, document_id, \"2026-03-11T11:00:00Z\")\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_audit_schema(conn: sqlite3.Connection) -> None:\ndef insert_document(conn: sqlite3.Connection, title: str, occurred_at: str) -> int:\ndef soft_delete_document(conn: sqlite3.Connection, document_id: int, deleted_at: str) -> None:\ndef restore_document(conn: sqlite3.Connection, document_id: int, restored_at: str) -> None:\ndef live_documents(conn: sqlite3.Connection) -> list[tuple[int, str]]:\ndef audit_history(conn: sqlite3.Connection, document_id: int) -> list[tuple[str, str, str | None]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/schema-design/audit-soft-delete-and-history/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/schema-design/audit-soft-delete-and-history/python/audit_soft_delete_and_history.py",
+          "language": "python",
+          "content": "\"\"\"audit_soft_delete_and_history - current-state rows plus explicit lifecycle audit history.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_audit_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE documents (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            title TEXT NOT NULL,\n            deleted_at TEXT\n        );\n\n        CREATE TABLE document_audit (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            document_id INTEGER NOT NULL,\n            action TEXT NOT NULL,\n            title TEXT NOT NULL,\n            deleted_at TEXT,\n            occurred_at TEXT NOT NULL\n        );\n        \"\"\"\n    )\n\n\ndef insert_document(conn: sqlite3.Connection, title: str, occurred_at: str) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO documents (title)\n        VALUES (?)\n        \"\"\",\n        (title,),\n    )\n    document_id = int(cursor.lastrowid)\n    conn.execute(\n        \"\"\"\n        INSERT INTO document_audit (document_id, action, title, deleted_at, occurred_at)\n        VALUES (?, 'created', ?, NULL, ?)\n        \"\"\",\n        (document_id, title, occurred_at),\n    )\n    return document_id\n\n\ndef soft_delete_document(conn: sqlite3.Connection, document_id: int, deleted_at: str) -> None:\n    row = conn.execute(\n        \"\"\"\n        SELECT title\n        FROM documents\n        WHERE id = ?\n        \"\"\",\n        (document_id,),\n    ).fetchone()\n    if row is None:\n        raise ValueError(f\"missing document {document_id}\")\n    title = str(row[0])\n    conn.execute(\n        \"\"\"\n        UPDATE documents\n        SET deleted_at = ?\n        WHERE id = ?\n        \"\"\",\n        (deleted_at, document_id),\n    )\n    conn.execute(\n        \"\"\"\n        INSERT INTO document_audit (document_id, action, title, deleted_at, occurred_at)\n        VALUES (?, 'soft-deleted', ?, ?, ?)\n        \"\"\",\n        (document_id, title, deleted_at, deleted_at),\n    )\n\n\ndef restore_document(conn: sqlite3.Connection, document_id: int, restored_at: str) -> None:\n    row = conn.execute(\n        \"\"\"\n        SELECT title\n        FROM documents\n        WHERE id = ?\n        \"\"\",\n        (document_id,),\n    ).fetchone()\n    if row is None:\n        raise ValueError(f\"missing document {document_id}\")\n    title = str(row[0])\n    conn.execute(\n        \"\"\"\n        UPDATE documents\n        SET deleted_at = NULL\n        WHERE id = ?\n        \"\"\",\n        (document_id,),\n    )\n    conn.execute(\n        \"\"\"\n        INSERT INTO document_audit (document_id, action, title, deleted_at, occurred_at)\n        VALUES (?, 'restored', ?, NULL, ?)\n        \"\"\",\n        (document_id, title, restored_at),\n    )\n\n\ndef live_documents(conn: sqlite3.Connection) -> list[tuple[int, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT id, title\n        FROM documents\n        WHERE deleted_at IS NULL\n        ORDER BY id\n        \"\"\"\n    ).fetchall()\n    return [(int(document_id), str(title)) for document_id, title in rows]\n\n\ndef audit_history(conn: sqlite3.Connection, document_id: int) -> list[tuple[str, str, str | None]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT action, occurred_at, deleted_at\n        FROM document_audit\n        WHERE document_id = ?\n        ORDER BY id\n        \"\"\",\n        (document_id,),\n    ).fetchall()\n    return [\n        (\n            str(action),\n            str(occurred_at),\n            None if deleted_at is None else str(deleted_at),\n        )\n        for action, occurred_at, deleted_at in rows\n    ]\n"
         }
       ]
     },
@@ -3049,6 +3273,38 @@
     {
       "track": "databases",
       "topic": "schema-design",
+      "slug": "rollups-vs-raw-events",
+      "title": "Rollups Vs Raw Events",
+      "path": "modules/databases/schema-design/rollups-vs-raw-events",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "readme": "# Rollups Vs Raw Events\n\n> Track: `databases` | Topic: `schema-design`\n\n## Concept\n\nRaw event tables preserve full detail. Rollup tables pre-aggregate hot query paths. Good systems often keep both because they solve different problems.\n\n## Key Points\n\n- Raw events are the source of truth for audits, backfills, and new analyses.\n- Rollups trade freshness and flexibility for cheaper reads.\n- Rebuild or incremental maintenance is the real cost of rollups.\n- This pattern is common in analytics tables, dashboards, and agent usage reporting.\n\n## Minimal Code Mental Model\n\n```python\ninsert_event(conn, 1, \"2026-03-01T10:00\", 5)\nrebuild_hourly_rollups(conn)\ntotal = rollup_total(conn, 1, \"2026-03-01T10:00\")\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_rollup_schema(conn: sqlite3.Connection) -> None:\ndef insert_event(conn: sqlite3.Connection, workspace_id: int, hour_bucket: str, amount: int) -> int:\ndef rebuild_hourly_rollups(conn: sqlite3.Connection) -> None:\ndef raw_total(conn: sqlite3.Connection, workspace_id: int, hour_bucket: str) -> int:\ndef rollup_total(conn: sqlite3.Connection, workspace_id: int, hour_bucket: str) -> int:\ndef row_counts(conn: sqlite3.Connection) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/schema-design/rollups-vs-raw-events/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/schema-design/rollups-vs-raw-events/python/rollups_vs_raw_events.py",
+          "language": "python",
+          "content": "\"\"\"rollups_vs_raw_events - raw events preserve detail while rollups speed hot reads.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_rollup_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE raw_events (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            workspace_id INTEGER NOT NULL,\n            hour_bucket TEXT NOT NULL,\n            amount INTEGER NOT NULL\n        );\n\n        CREATE TABLE hourly_rollups (\n            workspace_id INTEGER NOT NULL,\n            hour_bucket TEXT NOT NULL,\n            total_amount INTEGER NOT NULL,\n            PRIMARY KEY (workspace_id, hour_bucket)\n        );\n        \"\"\"\n    )\n\n\ndef insert_event(conn: sqlite3.Connection, workspace_id: int, hour_bucket: str, amount: int) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO raw_events (workspace_id, hour_bucket, amount)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (workspace_id, hour_bucket, amount),\n    )\n    return int(cursor.lastrowid)\n\n\ndef rebuild_hourly_rollups(conn: sqlite3.Connection) -> None:\n    conn.execute(\"DELETE FROM hourly_rollups\")\n    conn.execute(\n        \"\"\"\n        INSERT INTO hourly_rollups (workspace_id, hour_bucket, total_amount)\n        SELECT workspace_id, hour_bucket, SUM(amount)\n        FROM raw_events\n        GROUP BY workspace_id, hour_bucket\n        \"\"\"\n    )\n\n\ndef raw_total(conn: sqlite3.Connection, workspace_id: int, hour_bucket: str) -> int:\n    row = conn.execute(\n        \"\"\"\n        SELECT COALESCE(SUM(amount), 0)\n        FROM raw_events\n        WHERE workspace_id = ? AND hour_bucket = ?\n        \"\"\",\n        (workspace_id, hour_bucket),\n    ).fetchone()\n    assert row is not None\n    return int(row[0])\n\n\ndef rollup_total(conn: sqlite3.Connection, workspace_id: int, hour_bucket: str) -> int:\n    row = conn.execute(\n        \"\"\"\n        SELECT COALESCE(total_amount, 0)\n        FROM hourly_rollups\n        WHERE workspace_id = ? AND hour_bucket = ?\n        \"\"\",\n        (workspace_id, hour_bucket),\n    ).fetchone()\n    return 0 if row is None else int(row[0])\n\n\ndef row_counts(conn: sqlite3.Connection) -> dict[str, int]:\n    raw_count = conn.execute(\"SELECT COUNT(*) FROM raw_events\").fetchone()\n    rollup_count = conn.execute(\"SELECT COUNT(*) FROM hourly_rollups\").fetchone()\n    assert raw_count is not None and rollup_count is not None\n    return {\n        \"raw_events\": int(raw_count[0]),\n        \"hourly_rollups\": int(rollup_count[0]),\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "schema-evolution-and-backfills",
+      "title": "Schema Evolution And Backfills",
+      "path": "modules/databases/schema-design/schema-evolution-and-backfills",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "readme": "# Schema Evolution And Backfills\n\n> Track: `databases` | Topic: `schema-design`\n\n## Concept\n\nSafe schema evolution is usually additive first: add a nullable column, let old and new writers coexist, then backfill old rows. That avoids locking the whole rollout to one deploy.\n\n## Key Points\n\n- Additive columns make mixed-version deploys safer.\n- Old rows stay incomplete until a backfill runs.\n- Backfills should only fill missing values, not overwrite fresh writes.\n- Schema rollout and data rollout are separate steps.\n\n## Minimal Code Mental Model\n\n```python\nevolve_to_v2_add_priority(conn)\nbackfill_priority(conn)\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_job_table_v1(conn: sqlite3.Connection) -> None:\ndef evolve_to_v2_add_priority(conn: sqlite3.Connection) -> None:\ndef insert_job_v1(conn: sqlite3.Connection, job_name: str, job_type: str) -> int:\ndef insert_job_v2(\n    conn: sqlite3.Connection,\n    job_name: str,\n    job_type: str,\n    priority: str,\n) -> int:\ndef backfill_priority(conn: sqlite3.Connection) -> None:\ndef job_rows(conn: sqlite3.Connection) -> list[tuple[str, str, str | None]]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/schema-design/schema-evolution-and-backfills/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/schema-design/schema-evolution-and-backfills/python/schema_evolution_and_backfills.py",
+          "language": "python",
+          "content": "\"\"\"schema_evolution_and_backfills - additive column rollout plus backfill.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_job_table_v1(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        CREATE TABLE jobs (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            job_name TEXT NOT NULL,\n            job_type TEXT NOT NULL\n        )\n        \"\"\"\n    )\n\n\ndef evolve_to_v2_add_priority(conn: sqlite3.Connection) -> None:\n    conn.execute(\"ALTER TABLE jobs ADD COLUMN priority TEXT\")\n\n\ndef insert_job_v1(conn: sqlite3.Connection, job_name: str, job_type: str) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO jobs (job_name, job_type)\n        VALUES (?, ?)\n        \"\"\",\n        (job_name, job_type),\n    )\n    return int(cursor.lastrowid)\n\n\ndef insert_job_v2(\n    conn: sqlite3.Connection,\n    job_name: str,\n    job_type: str,\n    priority: str,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO jobs (job_name, job_type, priority)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (job_name, job_type, priority),\n    )\n    return int(cursor.lastrowid)\n\n\ndef backfill_priority(conn: sqlite3.Connection) -> None:\n    conn.execute(\n        \"\"\"\n        UPDATE jobs\n        SET priority = CASE\n            WHEN job_type = 'incident' THEN 'high'\n            ELSE 'normal'\n        END\n        WHERE priority IS NULL\n        \"\"\"\n    )\n\n\ndef job_rows(conn: sqlite3.Connection) -> list[tuple[str, str, str | None]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT job_name, job_type, priority\n        FROM jobs\n        ORDER BY id\n        \"\"\"\n    ).fetchall()\n    return [\n        (str(job_name), str(job_type), None if priority is None else str(priority))\n        for job_name, job_type, priority in rows\n    ]\n\n\ndef null_priority_count(conn: sqlite3.Connection) -> int:\n    row = conn.execute(\n        \"\"\"\n        SELECT COUNT(*)\n        FROM jobs\n        WHERE priority IS NULL\n        \"\"\"\n    ).fetchone()\n    assert row is not None\n    return int(row[0])\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "schema-design",
       "slug": "snapshot-vs-current-state-tables",
       "title": "Snapshot Vs Current State Tables",
       "path": "modules/databases/schema-design/snapshot-vs-current-state-tables",
@@ -3059,6 +3315,38 @@
           "path": "modules/databases/schema-design/snapshot-vs-current-state-tables/python/snapshot_vs_current_state_tables.py",
           "language": "python",
           "content": "\"\"\"snapshot_vs_current_state_tables - current rows for now, snapshots for history.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    return sqlite3.connect(\":memory:\")\n\n\ndef create_snapshot_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE prompt_configs_current (\n            prompt_id TEXT PRIMARY KEY,\n            model_name TEXT NOT NULL,\n            updated_at TEXT NOT NULL\n        );\n\n        CREATE TABLE prompt_config_snapshots (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            prompt_id TEXT NOT NULL,\n            model_name TEXT NOT NULL,\n            captured_at TEXT NOT NULL\n        );\n        \"\"\"\n    )\n\n\ndef upsert_current_config(\n    conn: sqlite3.Connection,\n    prompt_id: str,\n    model_name: str,\n    updated_at: str,\n) -> None:\n    conn.execute(\n        \"\"\"\n        INSERT INTO prompt_configs_current (prompt_id, model_name, updated_at)\n        VALUES (?, ?, ?)\n        ON CONFLICT(prompt_id) DO UPDATE SET\n            model_name = excluded.model_name,\n            updated_at = excluded.updated_at\n        \"\"\",\n        (prompt_id, model_name, updated_at),\n    )\n\n\ndef capture_prompt_snapshot(\n    conn: sqlite3.Connection,\n    prompt_id: str,\n    model_name: str,\n    captured_at: str,\n) -> int:\n    cursor = conn.execute(\n        \"\"\"\n        INSERT INTO prompt_config_snapshots (prompt_id, model_name, captured_at)\n        VALUES (?, ?, ?)\n        \"\"\",\n        (prompt_id, model_name, captured_at),\n    )\n    return int(cursor.lastrowid)\n\n\ndef current_prompt_models(conn: sqlite3.Connection) -> dict[str, str]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT prompt_id, model_name\n        FROM prompt_configs_current\n        ORDER BY prompt_id\n        \"\"\"\n    ).fetchall()\n    return {prompt_id: model_name for prompt_id, model_name in rows}\n\n\ndef snapshot_model_as_of(\n    conn: sqlite3.Connection,\n    prompt_id: str,\n    as_of: str,\n) -> str | None:\n    row = conn.execute(\n        \"\"\"\n        SELECT model_name\n        FROM prompt_config_snapshots\n        WHERE prompt_id = ? AND captured_at <= ?\n        ORDER BY captured_at DESC, id DESC\n        LIMIT 1\n        \"\"\",\n        (prompt_id, as_of),\n    ).fetchone()\n    if row is None:\n        return None\n    return str(row[0])\n\n\ndef snapshot_history(conn: sqlite3.Connection, prompt_id: str) -> list[tuple[str, str]]:\n    rows = conn.execute(\n        \"\"\"\n        SELECT captured_at, model_name\n        FROM prompt_config_snapshots\n        WHERE prompt_id = ?\n        ORDER BY captured_at, id\n        \"\"\",\n        (prompt_id,),\n    ).fetchall()\n    return [(captured_at, model_name) for captured_at, model_name in rows]\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "tenant-offboarding-data-flows",
+      "title": "Tenant Offboarding Data Flows",
+      "path": "modules/databases/schema-design/tenant-offboarding-data-flows",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "readme": "# Tenant Offboarding Data Flows\n\n> Track: `databases` | Topic: `schema-design`\n\n## Concept\n\nTenant deletion is usually a workflow, not one SQL statement. A safe offboarding flow tracks request state, completes required export or retention steps, then deletes tenant-owned rows and leaves a tombstone for auditability.\n\n## Key Points\n\n- Offboarding needs ordered steps, not an ad hoc delete.\n- Export and retention requirements often block immediate deletion.\n- Child rows should disappear with the tenant once deletion is approved.\n- A tombstone preserves proof that offboarding happened.\n\n## Minimal Code Mental Model\n\n```python\nrequest_offboarding(conn, \"tenant-a\", \"2026-03-11T09:00:00Z\")\nmark_export_complete(conn, \"tenant-a\", \"2026-03-11T10:00:00Z\")\nfinalize_offboarding(conn, \"tenant-a\", \"2026-03-11T11:00:00Z\")\n```\n\n## Function\n\n```python\ndef create_connection() -> sqlite3.Connection:\ndef create_offboarding_schema(conn: sqlite3.Connection) -> None:\ndef insert_tenant(conn: sqlite3.Connection, tenant_id: str) -> None:\ndef insert_document(conn: sqlite3.Connection, tenant_id: str, document_id: str) -> None:\ndef request_offboarding(conn: sqlite3.Connection, tenant_id: str, requested_at: str) -> None:\ndef mark_export_complete(conn: sqlite3.Connection, tenant_id: str, exported_at: str) -> None:\ndef finalize_offboarding(conn: sqlite3.Connection, tenant_id: str, deleted_at: str) -> None:\ndef tenant_row_counts(conn: sqlite3.Connection, tenant_id: str) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/schema-design/tenant-offboarding-data-flows/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/schema-design/tenant-offboarding-data-flows/python/tenant_offboarding_data_flows.py",
+          "language": "python",
+          "content": "\"\"\"tenant_offboarding_data_flows - stateful tenant deletion with export gating.\"\"\"\n\nfrom __future__ import annotations\n\nimport sqlite3\n\n\ndef create_connection() -> sqlite3.Connection:\n    conn = sqlite3.connect(\":memory:\")\n    conn.execute(\"PRAGMA foreign_keys = ON\")\n    return conn\n\n\ndef create_offboarding_schema(conn: sqlite3.Connection) -> None:\n    conn.executescript(\n        \"\"\"\n        CREATE TABLE tenants (\n            tenant_id TEXT PRIMARY KEY\n        );\n\n        CREATE TABLE tenant_documents (\n            id INTEGER PRIMARY KEY AUTOINCREMENT,\n            tenant_id TEXT NOT NULL,\n            document_id TEXT NOT NULL,\n            FOREIGN KEY (tenant_id) REFERENCES tenants(tenant_id) ON DELETE CASCADE\n        );\n\n        CREATE TABLE offboarding_jobs (\n            tenant_id TEXT PRIMARY KEY,\n            requested_at TEXT NOT NULL,\n            exported_at TEXT,\n            FOREIGN KEY (tenant_id) REFERENCES tenants(tenant_id) ON DELETE CASCADE\n        );\n\n        CREATE TABLE tenant_tombstones (\n            tenant_id TEXT PRIMARY KEY,\n            deleted_at TEXT NOT NULL\n        );\n        \"\"\"\n    )\n\n\ndef insert_tenant(conn: sqlite3.Connection, tenant_id: str) -> None:\n    conn.execute(\n        \"\"\"\n        INSERT INTO tenants (tenant_id)\n        VALUES (?)\n        \"\"\",\n        (tenant_id,),\n    )\n\n\ndef insert_document(conn: sqlite3.Connection, tenant_id: str, document_id: str) -> None:\n    conn.execute(\n        \"\"\"\n        INSERT INTO tenant_documents (tenant_id, document_id)\n        VALUES (?, ?)\n        \"\"\",\n        (tenant_id, document_id),\n    )\n\n\ndef request_offboarding(conn: sqlite3.Connection, tenant_id: str, requested_at: str) -> None:\n    conn.execute(\n        \"\"\"\n        INSERT INTO offboarding_jobs (tenant_id, requested_at)\n        VALUES (?, ?)\n        \"\"\",\n        (tenant_id, requested_at),\n    )\n\n\ndef mark_export_complete(conn: sqlite3.Connection, tenant_id: str, exported_at: str) -> None:\n    conn.execute(\n        \"\"\"\n        UPDATE offboarding_jobs\n        SET exported_at = ?\n        WHERE tenant_id = ?\n        \"\"\",\n        (exported_at, tenant_id),\n    )\n\n\ndef finalize_offboarding(conn: sqlite3.Connection, tenant_id: str, deleted_at: str) -> None:\n    row = conn.execute(\n        \"\"\"\n        SELECT exported_at\n        FROM offboarding_jobs\n        WHERE tenant_id = ?\n        \"\"\",\n        (tenant_id,),\n    ).fetchone()\n    if row is None:\n        raise ValueError(f\"missing offboarding request for {tenant_id}\")\n    if row[0] is None:\n        raise ValueError(f\"export not complete for {tenant_id}\")\n\n    conn.execute(\n        \"\"\"\n        INSERT INTO tenant_tombstones (tenant_id, deleted_at)\n        VALUES (?, ?)\n        \"\"\",\n        (tenant_id, deleted_at),\n    )\n    conn.execute(\n        \"\"\"\n        DELETE FROM tenants\n        WHERE tenant_id = ?\n        \"\"\",\n        (tenant_id,),\n    )\n\n\ndef tenant_row_counts(conn: sqlite3.Connection, tenant_id: str) -> dict[str, int]:\n    tables = {\n        \"tenants\": \"SELECT COUNT(*) FROM tenants WHERE tenant_id = ?\",\n        \"tenant_documents\": \"SELECT COUNT(*) FROM tenant_documents WHERE tenant_id = ?\",\n        \"offboarding_jobs\": \"SELECT COUNT(*) FROM offboarding_jobs WHERE tenant_id = ?\",\n        \"tenant_tombstones\": \"SELECT COUNT(*) FROM tenant_tombstones WHERE tenant_id = ?\",\n    }\n    counts: dict[str, int] = {}\n    for key, query in tables.items():\n        row = conn.execute(query, (tenant_id,)).fetchone()\n        assert row is not None\n        counts[key] = int(row[0])\n    return counts\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "sql-patterns",
+      "slug": "approximate-count-distinct",
+      "title": "Approximate Count Distinct",
+      "path": "modules/databases/sql-patterns/approximate-count-distinct",
+      "summary": "> Track: `databases` | Topic: `sql-patterns`",
+      "readme": "# Approximate Count Distinct\n\n> Track: `databases` | Topic: `sql-patterns`\n\n## Concept\n\nExact `COUNT(DISTINCT ...)` can get expensive on large streams or rollups. Approximate distinct counting uses a compact sketch to trade a small amount of error for much lower memory and merge cost.\n\n## Key Points\n\n- Distinct counting is expensive because duplicates must collapse somewhere.\n- Approximate sketches keep fixed-size state instead of one slot per unique value.\n- More buckets usually mean lower error.\n- Approximate counts are good for dashboards and monitoring, not exact billing.\n\n## Minimal Code Mental Model\n\n```python\nsummary = count_distinct_summary(user_ids, bucket_count=128)\n```\n\n## Function\n\n```python\ndef stable_bucket(value: str, bucket_count: int) -> int:\ndef exact_count_distinct(values: list[str]) -> int:\ndef approximate_count_distinct(values: list[str], bucket_count: int) -> int:\ndef count_distinct_summary(values: list[str], bucket_count: int) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/sql-patterns/approximate-count-distinct/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/sql-patterns/approximate-count-distinct/python/approximate_count_distinct.py",
+          "language": "python",
+          "content": "\"\"\"approximate_count_distinct - simple linear-counting style cardinality estimate.\"\"\"\n\nfrom __future__ import annotations\n\nimport math\n\n\ndef stable_bucket(value: str, bucket_count: int) -> int:\n    if bucket_count <= 1:\n        raise ValueError(\"bucket_count must be greater than 1\")\n    stable_hash = sum((index + 1) * ord(char) for index, char in enumerate(value))\n    return stable_hash % bucket_count\n\n\ndef exact_count_distinct(values: list[str]) -> int:\n    return len(set(values))\n\n\ndef approximate_count_distinct(values: list[str], bucket_count: int) -> int:\n    occupied = {stable_bucket(value, bucket_count) for value in set(values)}\n    filled = len(occupied)\n    if filled >= bucket_count:\n        return bucket_count\n    estimate = -bucket_count * math.log(1 - (filled / bucket_count))\n    return max(int(round(estimate)), filled)\n\n\ndef count_distinct_summary(values: list[str], bucket_count: int) -> dict[str, int]:\n    exact = exact_count_distinct(values)\n    approximate = approximate_count_distinct(values, bucket_count)\n    return {\n        \"exact\": exact,\n        \"approximate\": approximate,\n        \"absolute_error\": abs(approximate - exact),\n    }\n"
         }
       ]
     },
@@ -3465,6 +3753,22 @@
     {
       "track": "databases",
       "topic": "streaming",
+      "slug": "outbox-relay-failures",
+      "title": "Outbox Relay Failures",
+      "path": "modules/databases/streaming/outbox-relay-failures",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "readme": "# Outbox Relay Failures\n\n> Track: `databases` | Topic: `streaming`\n\n## Concept\n\nThe outbox pattern makes database writes durable before relay, but the relay itself can still fail at awkward points. If it crashes after publishing an event but before marking it delivered, a retry can publish the same event again.\n\n## Key Points\n\n- Outbox solves “write plus event” atomicity inside the database.\n- Relay crashes move the failure boundary to publish-versus-mark behavior.\n- Duplicate publication is normal unless downstream consumers are idempotent.\n- The practical guarantee is often “at least once from the relay, exactly once only with sink dedup.”\n\n## Minimal Code Mental Model\n\n```python\nsummary = relay_summary([1, 2], first_failure_event_id=1)\n```\n\n## Function\n\n```python\ndef pending_ids(outbox_ids: list[int], marked_ids: set[int]) -> list[int]:\ndef duplicate_published_ids(published_ids: list[int]) -> list[int]:\ndef relay_once(\n    outbox_ids: list[int],\n    published_ids: list[int],\n    marked_ids: set[int],\n    fail_after_publish_event_id: int | None = None,\n) -> None:\ndef relay_summary(\n    outbox_ids: list[int],\n    first_failure_event_id: int | None = None,\n) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/streaming/outbox-relay-failures/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/streaming/outbox-relay-failures/python/outbox_relay_failures.py",
+          "language": "python",
+          "content": "\"\"\"outbox_relay_failures - a relay crash after publish can duplicate delivery on retry.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef pending_ids(outbox_ids: list[int], marked_ids: set[int]) -> list[int]:\n    return [event_id for event_id in outbox_ids if event_id not in marked_ids]\n\n\ndef duplicate_published_ids(published_ids: list[int]) -> list[int]:\n    counts: dict[int, int] = {}\n    for event_id in published_ids:\n        counts[event_id] = counts.get(event_id, 0) + 1\n    return sorted(event_id for event_id, count in counts.items() if count > 1)\n\n\ndef relay_once(\n    outbox_ids: list[int],\n    published_ids: list[int],\n    marked_ids: set[int],\n    fail_after_publish_event_id: int | None = None,\n) -> None:\n    for event_id in pending_ids(outbox_ids, marked_ids):\n        published_ids.append(event_id)\n        if fail_after_publish_event_id == event_id:\n            return\n        marked_ids.add(event_id)\n\n\ndef relay_summary(\n    outbox_ids: list[int],\n    first_failure_event_id: int | None = None,\n) -> dict[str, object]:\n    published_ids: list[int] = []\n    marked_ids: set[int] = set()\n    relay_once(outbox_ids, published_ids, marked_ids, fail_after_publish_event_id=first_failure_event_id)\n    relay_once(outbox_ids, published_ids, marked_ids)\n    return {\n        \"published_ids\": published_ids,\n        \"duplicate_published_ids\": duplicate_published_ids(published_ids),\n        \"marked_ids\": sorted(marked_ids),\n        \"pending_ids\": pending_ids(outbox_ids, marked_ids),\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "streaming",
       "slug": "replay-and-backfill-consumers",
       "title": "Replay And Backfill Consumers",
       "path": "modules/databases/streaming/replay-and-backfill-consumers",
@@ -3651,6 +3955,22 @@
           "path": "modules/databases/transactions/replication-lag-mental-model/python/replication_lag_mental_model.py",
           "language": "python",
           "content": "\"\"\"replication_lag_mental_model - primary commit visibility versus replica replay.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef empty_primary_log() -> list[dict[str, object]]:\n    return []\n\n\ndef commit_write(\n    primary_log: list[dict[str, object]],\n    key: str,\n    value: object | None,\n) -> int:\n    lsn = 1 if not primary_log else int(primary_log[-1][\"lsn\"]) + 1\n    primary_log.append(\n        {\n            \"lsn\": lsn,\n            \"key\": key,\n            \"op\": \"delete\" if value is None else \"upsert\",\n            \"value\": value,\n        }\n    )\n    return lsn\n\n\ndef empty_replica_state() -> dict[str, object]:\n    return {\"applied_lsn\": 0, \"values\": {}}\n\n\ndef apply_replica_writes(\n    replica_state: dict[str, object],\n    primary_log: list[dict[str, object]],\n    up_to_lsn: int,\n) -> list[int]:\n    applied: list[int] = []\n    values = replica_state[\"values\"]\n    assert isinstance(values, dict)\n    current_lsn = int(replica_state[\"applied_lsn\"])\n\n    for entry in primary_log:\n        lsn = int(entry[\"lsn\"])\n        if lsn <= current_lsn or lsn > up_to_lsn:\n            continue\n        key = str(entry[\"key\"])\n        if entry[\"op\"] == \"delete\":\n            values.pop(key, None)\n        else:\n            values[key] = entry[\"value\"]\n        applied.append(lsn)\n        current_lsn = lsn\n\n    replica_state[\"applied_lsn\"] = current_lsn\n    return applied\n\n\ndef replica_lag(\n    primary_log: list[dict[str, object]],\n    replica_state: dict[str, object],\n) -> int:\n    latest_lsn = 0 if not primary_log else int(primary_log[-1][\"lsn\"])\n    return latest_lsn - int(replica_state[\"applied_lsn\"])\n\n\ndef visible_value_on_primary(\n    primary_log: list[dict[str, object]],\n    key: str,\n) -> object | None:\n    value: object | None = None\n    for entry in primary_log:\n        if entry[\"key\"] != key:\n            continue\n        value = None if entry[\"op\"] == \"delete\" else entry[\"value\"]\n    return value\n\n\ndef visible_value_on_replica(\n    replica_state: dict[str, object],\n    key: str,\n) -> object | None:\n    values = replica_state[\"values\"]\n    assert isinstance(values, dict)\n    return values.get(key)\n"
+        }
+      ]
+    },
+    {
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "secondary-read-after-write-consistency",
+      "title": "Secondary Read After Write Consistency",
+      "path": "modules/databases/transactions/secondary-read-after-write-consistency",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "readme": "# Secondary Read After Write Consistency\n\n> Track: `databases` | Topic: `transactions`\n\n## Concept\n\nA secondary replica may lag behind the latest committed write. If a session writes on the primary and then reads from a lagging secondary, it can observe stale state instead of its own update.\n\n## Key Points\n\n- Replica freshness is an LSN or applied-log position problem.\n- A secondary is safe only after it has applied at least the session’s last write.\n- Without that check, read scaling can break read-after-write consistency.\n- This is why some systems route recent reads back to the primary until the replica catches up.\n\n## Minimal Code Mental Model\n\n```python\nsummary = read_after_write_summary(versions, last_write_lsn=120, secondary_applied_lsn=100)\n```\n\n## Function\n\n```python\ndef version(lsn: int, value: str) -> dict[str, object]:\ndef visible_value(versions: list[dict[str, object]], applied_lsn: int) -> str | None:\ndef can_secondary_serve(last_write_lsn: int, secondary_applied_lsn: int) -> bool:\ndef read_after_write_summary(\n    versions: list[dict[str, object]],\n    last_write_lsn: int,\n    secondary_applied_lsn: int,\n) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/databases/transactions/secondary-read-after-write-consistency/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/databases/transactions/secondary-read-after-write-consistency/python/secondary_read_after_write_consistency.py",
+          "language": "python",
+          "content": "\"\"\"secondary_read_after_write_consistency - a lagging secondary can miss the latest committed write.\"\"\"\n\nfrom __future__ import annotations\n\n\ndef version(lsn: int, value: str) -> dict[str, object]:\n    return {\n        \"lsn\": lsn,\n        \"value\": value,\n    }\n\n\ndef visible_value(versions: list[dict[str, object]], applied_lsn: int) -> str | None:\n    visible = [row for row in versions if int(row[\"lsn\"]) <= applied_lsn]\n    if not visible:\n        return None\n    return str(visible[-1][\"value\"])\n\n\ndef can_secondary_serve(last_write_lsn: int, secondary_applied_lsn: int) -> bool:\n    return secondary_applied_lsn >= last_write_lsn\n\n\ndef read_after_write_summary(\n    versions: list[dict[str, object]],\n    last_write_lsn: int,\n    secondary_applied_lsn: int,\n) -> dict[str, object]:\n    secondary_value = visible_value(versions, secondary_applied_lsn)\n    primary_value = visible_value(versions, last_write_lsn)\n    return {\n        \"secondary_value\": secondary_value,\n        \"primary_value\": primary_value,\n        \"secondary_is_safe\": can_secondary_serve(last_write_lsn, secondary_applied_lsn),\n        \"recommended_target\": \"secondary\" if can_secondary_serve(last_write_lsn, secondary_applied_lsn) else \"primary\",\n    }\n"
         }
       ]
     },

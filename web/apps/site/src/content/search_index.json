@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T18:46:09.528Z",
+  "generated_at": "2026-03-11T19:22:14.472Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -2030,6 +2030,18 @@
       "topicName": "Guardrails"
     },
     {
+      "id": "module:databases/sql-patterns/approximate-count-distinct",
+      "type": "module",
+      "title": "Approximate Count Distinct",
+      "summary": "> Track: `databases` | Topic: `sql-patterns`",
+      "track": "databases",
+      "topic": "sql-patterns",
+      "slug": "approximate-count-distinct",
+      "href": "/track/databases/sql-patterns#approximate-count-distinct",
+      "trackName": "Databases",
+      "topicName": "SQL Patterns"
+    },
+    {
       "id": "doc:dsa/array/array",
       "type": "doc",
       "title": "Array",
@@ -2136,6 +2148,18 @@
       "href": "/track/ml/llm#attention-mechanisms",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:databases/schema-design/audit-soft-delete-and-history",
+      "type": "module",
+      "title": "Audit Soft Delete And History",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "audit-soft-delete-and-history",
+      "href": "/track/databases/schema-design#audit-soft-delete-and-history",
+      "trackName": "Databases",
+      "topicName": "Schema Design"
     },
     {
       "id": "module:software-engineering/security-basics/authn-vs-authz",
@@ -2738,6 +2762,18 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:databases/caching/client-side-caching",
+      "type": "module",
+      "title": "Client Side Caching",
+      "summary": "> Track: `databases` | Topic: `caching`",
+      "track": "databases",
+      "topic": "caching",
+      "slug": "client-side-caching",
+      "href": "/track/databases/caching#client-side-caching",
+      "trackName": "Databases",
+      "topicName": "Caching"
+    },
+    {
       "id": "module:dsa/dynamic-programming/climbing-stairs-advanced",
       "type": "module",
       "title": "Climbing Stairs (Advanced)",
@@ -2808,6 +2844,18 @@
       "href": "/track/databases/sql-patterns#cohort-retention-basics",
       "trackName": "Databases",
       "topicName": "SQL Patterns"
+    },
+    {
+      "id": "module:databases/nosql/compaction-debt-signals",
+      "type": "module",
+      "title": "Compaction Debt Signals",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "compaction-debt-signals",
+      "href": "/track/databases/nosql#compaction-debt-signals",
+      "trackName": "Databases",
+      "topicName": "Nosql"
     },
     {
       "id": "module:databases/nosql/compaction-vs-repair-tradeoffs",
@@ -4010,6 +4058,18 @@
       "topicName": "Reinforcement Learning"
     },
     {
+      "id": "module:databases/indexing/expression-index-basics",
+      "type": "module",
+      "title": "Expression Index Basics",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "expression-index-basics",
+      "href": "/track/databases/indexing#expression-index-basics",
+      "trackName": "Databases",
+      "topicName": "Indexing"
+    },
+    {
       "id": "module:databases/schema-design/fact-grain-and-double-counting",
       "type": "module",
       "title": "Fact Grain And Double Counting",
@@ -4056,6 +4116,18 @@
       "href": "/track/software-engineering/testing#flaky-test-reduction",
       "trackName": "Software Engineering",
       "topicName": "Testing"
+    },
+    {
+      "id": "module:databases/relational/foreign-key-cascades",
+      "type": "module",
+      "title": "Foreign Key Cascades",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "track": "databases",
+      "topic": "relational",
+      "slug": "foreign-key-cascades",
+      "href": "/track/databases/relational#foreign-key-cascades",
+      "trackName": "Databases",
+      "topicName": "Relational"
     },
     {
       "id": "module:ml/data/frequency-capping",
@@ -4548,6 +4620,18 @@
       "href": "/track/databases/sql-patterns#incremental-refresh-watermarks",
       "trackName": "Databases",
       "topicName": "SQL Patterns"
+    },
+    {
+      "id": "module:databases/indexing/index-write-amplification",
+      "type": "module",
+      "title": "Index Write Amplification",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "index-write-amplification",
+      "href": "/track/databases/indexing#index-write-amplification",
+      "trackName": "Databases",
+      "topicName": "Indexing"
     },
     {
       "id": "doc:databases/indexing/overview",
@@ -5318,6 +5402,18 @@
       "topicName": "Optimization"
     },
     {
+      "id": "module:databases/indexing/low-cardinality-index-tradeoffs",
+      "type": "module",
+      "title": "Low Cardinality Index Tradeoffs",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "low-cardinality-index-tradeoffs",
+      "href": "/track/databases/indexing#low-cardinality-index-tradeoffs",
+      "trackName": "Databases",
+      "topicName": "Indexing"
+    },
+    {
       "id": "doc:ml/README.md/README",
       "type": "doc",
       "title": "Machine Learning",
@@ -5858,6 +5954,18 @@
       "topicName": "Caching"
     },
     {
+      "id": "module:databases/query-plans/nested-loop-vs-hash-join",
+      "type": "module",
+      "title": "Nested Loop Vs Hash Join",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "track": "databases",
+      "topic": "query-plans",
+      "slug": "nested-loop-vs-hash-join",
+      "href": "/track/databases/query-plans#nested-loop-vs-hash-join",
+      "trackName": "Databases",
+      "topicName": "Query Plans"
+    },
+    {
       "id": "module:ml/deep-learning/network-building-blocks",
       "type": "module",
       "title": "Network Building Blocks",
@@ -5952,6 +6060,18 @@
       "href": "/track/databases/nosql#overview",
       "trackName": "Databases",
       "topicName": "Nosql"
+    },
+    {
+      "id": "module:databases/relational/null-semantics-in-joins",
+      "type": "module",
+      "title": "Null Semantics In Joins",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "track": "databases",
+      "topic": "relational",
+      "slug": "null-semantics-in-joins",
+      "href": "/track/databases/relational#null-semantics-in-joins",
+      "trackName": "Databases",
+      "topicName": "Relational"
     },
     {
       "id": "doc:ai-agents/observability/observability",
@@ -6084,6 +6204,18 @@
       "href": "/track/databases/transactions#outbox-pattern",
       "trackName": "Databases",
       "topicName": "Transactions"
+    },
+    {
+      "id": "module:databases/streaming/outbox-relay-failures",
+      "type": "module",
+      "title": "Outbox Relay Failures",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "outbox-relay-failures",
+      "href": "/track/databases/streaming#outbox-relay-failures",
+      "trackName": "Databases",
+      "topicName": "Streaming"
     },
     {
       "id": "module:ml/data/overflow-metrics",
@@ -7358,6 +7490,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:databases/schema-design/rollups-vs-raw-events",
+      "type": "module",
+      "title": "Rollups Vs Raw Events",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "rollups-vs-raw-events",
+      "href": "/track/databases/schema-design#rollups-vs-raw-events",
+      "trackName": "Databases",
+      "topicName": "Schema Design"
+    },
+    {
       "id": "module:ml/systems/roofline-analysis",
       "type": "module",
       "title": "Roofline Analysis",
@@ -7514,6 +7658,18 @@
       "topicName": "Schema Design"
     },
     {
+      "id": "module:databases/schema-design/schema-evolution-and-backfills",
+      "type": "module",
+      "title": "Schema Evolution And Backfills",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "schema-evolution-and-backfills",
+      "href": "/track/databases/schema-design#schema-evolution-and-backfills",
+      "trackName": "Databases",
+      "topicName": "Schema Design"
+    },
+    {
       "id": "module:software-engineering/apis/schema-evolution-and-compatibility",
       "type": "module",
       "title": "Schema Evolution And Compatibility",
@@ -7548,6 +7704,18 @@
       "href": "/track/databases/nosql#secondary-indexes-in-lsm-systems",
       "trackName": "Databases",
       "topicName": "Nosql"
+    },
+    {
+      "id": "module:databases/transactions/secondary-read-after-write-consistency",
+      "type": "module",
+      "title": "Secondary Read After Write Consistency",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "secondary-read-after-write-consistency",
+      "href": "/track/databases/transactions#secondary-read-after-write-consistency",
+      "trackName": "Databases",
+      "topicName": "Transactions"
     },
     {
       "id": "module:software-engineering/security-basics/secrets-management",
@@ -7656,6 +7824,18 @@
       "href": "/track/databases/relational#semi-join-and-anti-join-shapes",
       "trackName": "Databases",
       "topicName": "Relational"
+    },
+    {
+      "id": "module:databases/query-plans/seq-scan-vs-index-scan",
+      "type": "module",
+      "title": "Seq Scan Vs Index Scan",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "track": "databases",
+      "topic": "query-plans",
+      "slug": "seq-scan-vs-index-scan",
+      "href": "/track/databases/query-plans#seq-scan-vs-index-scan",
+      "trackName": "Databases",
+      "topicName": "Query Plans"
     },
     {
       "id": "module:ai-agents/evaluation/sequential-test-stopping",
@@ -7824,6 +8004,18 @@
       "href": "/track/ai-agents/observability#span-taxonomy",
       "trackName": "AI Agents",
       "topicName": "Observability"
+    },
+    {
+      "id": "module:databases/indexing/sparse-index-selectivity",
+      "type": "module",
+      "title": "Sparse Index Selectivity",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "sparse-index-selectivity",
+      "href": "/track/databases/indexing#sparse-index-selectivity",
+      "trackName": "Databases",
+      "topicName": "Indexing"
     },
     {
       "id": "module:ml/llm/moe-routing",
@@ -8196,6 +8388,42 @@
       "href": "/track/ml/reinforcement-learning#td-control-methods",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:databases/nosql/tenant-hotspot-mitigation",
+      "type": "module",
+      "title": "Tenant Hotspot Mitigation",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "tenant-hotspot-mitigation",
+      "href": "/track/databases/nosql#tenant-hotspot-mitigation",
+      "trackName": "Databases",
+      "topicName": "Nosql"
+    },
+    {
+      "id": "module:databases/schema-design/tenant-offboarding-data-flows",
+      "type": "module",
+      "title": "Tenant Offboarding Data Flows",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "tenant-offboarding-data-flows",
+      "href": "/track/databases/schema-design#tenant-offboarding-data-flows",
+      "trackName": "Databases",
+      "topicName": "Schema Design"
+    },
+    {
+      "id": "module:databases/nosql/tenant-partitioning-basics",
+      "type": "module",
+      "title": "Tenant Partitioning Basics",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "tenant-partitioning-basics",
+      "href": "/track/databases/nosql#tenant-partitioning-basics",
+      "trackName": "Databases",
+      "topicName": "Nosql"
     },
     {
       "id": "module:databases/nosql/tenant-sharding-basics",
@@ -8916,6 +9144,18 @@
       "href": "/track/databases/transactions#write-skew-anomaly",
       "trackName": "Databases",
       "topicName": "Transactions"
+    },
+    {
+      "id": "module:databases/caching/write-through-vs-write-behind",
+      "type": "module",
+      "title": "Write Through Vs Write Behind",
+      "summary": "> Track: `databases` | Topic: `caching`",
+      "track": "databases",
+      "topic": "caching",
+      "slug": "write-through-vs-write-behind",
+      "href": "/track/databases/caching#write-through-vs-write-behind",
+      "trackName": "Databases",
+      "topicName": "Caching"
     },
     {
       "id": "module:ml/data/outlier-detection",

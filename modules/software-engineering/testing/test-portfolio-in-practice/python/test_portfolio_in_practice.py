@@ -1,27 +1,26 @@
 from __future__ import annotations
 
-
-def recommended_test_layers(change_tags: list[str]) -> list[str]:
-    normalized_tags = {tag.strip().lower() for tag in change_tags if tag.strip()}
-    layers = ["unit"]
-
-    if normalized_tags.intersection({"api", "schema", "serialization"}):
-        layers.append("contract")
-    if normalized_tags.intersection({"database", "workflow", "queue", "integration"}):
-        layers.append("integration")
-    if normalized_tags.intersection({"bugfix", "ai-generated", "security"}):
-        layers.append("regression")
-    if normalized_tags.intersection({"critical-path", "ui-flow", "release"}):
-        layers.append("end-to-end")
-
-    return layers
+from portfolio_in_practice import (
+    merge_ready,
+    missing_required_layers,
+    recommended_test_layers,
+)
 
 
-def missing_required_layers(change_tags: list[str], present_layers: list[str]) -> list[str]:
-    expected = set(recommended_test_layers(change_tags))
-    present = {layer.strip().lower() for layer in present_layers if layer.strip()}
-    return sorted(expected - present)
+def test_recommended_test_layers_match_change_risk() -> None:
+    assert recommended_test_layers(["api", "bugfix", "critical-path"]) == [
+        "unit",
+        "contract",
+        "regression",
+        "end-to-end",
+    ]
 
 
-def merge_ready(change_tags: list[str], present_layers: list[str]) -> bool:
-    return not missing_required_layers(change_tags, present_layers)
+def test_missing_required_layers_detects_absent_boundary_coverage() -> None:
+    assert missing_required_layers(["database", "workflow"], ["unit"]) == ["integration"]
+    assert missing_required_layers(["api", "bugfix"], ["unit", "contract", "regression"]) == []
+
+
+def test_merge_ready_requires_all_recommended_layers() -> None:
+    assert merge_ready(["api", "bugfix"], ["unit", "contract", "regression"]) is True
+    assert merge_ready(["critical-path"], ["unit"]) is False
