@@ -15,6 +15,18 @@ Use this page to understand:
 - Workers should differ by responsibility, not just by name.
 - Merging should be simple and structured so the coordinator can decide what to trust.
 
+## Core Math
+
+- Delegation budget:
+  $$
+  \sum_i \text{worker cost}_i \le \text{coordinator budget}
+  $$
+- Arbitration share:
+  $$
+  \frac{\text{votes for top answer}}{\text{worker outputs}}
+  $$
+- Merge quality should improve enough to justify the extra latency and coordination cost.
+
 ## Minimal Code Mental Model
 
 ```python

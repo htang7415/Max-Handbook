@@ -12,6 +12,7 @@
 - Narrow OR branches can justify separate index probes plus union.
 - Broad OR predicates often collapse into “just scan it.”
 - Overlap between branches matters because duplicate candidates still cost work.
+- The overlap between branches cannot exceed either branch on its own.
 
 ## Minimal Code Mental Model
 

@@ -15,6 +15,21 @@ Use this page to understand:
 - The model only benefits from context that is both relevant and compact.
 - Packing too many chunks can hurt just as much as retrieving too little.
 
+## Core Math
+
+- Retrieval score ranking:
+  $$
+  \text{top-}k = \operatorname{arg\,sort}_k(\text{chunk score})
+  $$
+- Coverage rate:
+  $$
+  \frac{\text{supported claims}}{\text{claims made}}
+  $$
+- Packed-context budget:
+  $$
+  \sum_i \text{chunk tokens}_i \le \text{context budget}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

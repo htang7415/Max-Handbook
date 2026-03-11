@@ -1,4 +1,4 @@
-"""prefix_search_and_like_indexing - prefix LIKE can use a B-tree range scan."""
+"""prefix_search_and_like_indexing - SQLite demo of prefix LIKE using a B-tree range scan."""
 
 from __future__ import annotations
 
@@ -7,6 +7,8 @@ import sqlite3
 
 def create_connection() -> sqlite3.Connection:
     conn = sqlite3.connect(":memory:")
+    # SQLite only uses the plain text index for LIKE here because we force
+    # case-sensitive semantics. Postgres has different collation/opclass rules.
     conn.execute("PRAGMA case_sensitive_like = ON")
     return conn
 

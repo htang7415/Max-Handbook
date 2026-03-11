@@ -15,6 +15,21 @@ Use this page to understand:
 - Good memory is selective. Keeping everything is expensive and often noisy.
 - Short summaries are useful for recent task state. Retrieval is better for larger memory stores.
 
+## Core Math
+
+- Memory score:
+  $$
+  \text{relevance} + \text{recency} + \text{trust}
+  $$
+- Retention budget:
+  $$
+  \text{stored items} \le \text{memory cap}
+  $$
+- Compaction ratio:
+  $$
+  \frac{\text{summary length}}{\text{raw memory length}}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

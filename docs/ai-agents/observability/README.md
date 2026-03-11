@@ -15,6 +15,21 @@ Use this page to understand:
 - A useful trace records steps, status, and latency with as little extra structure as possible.
 - The first goal is to separate model, tool, and workflow problems.
 
+## Core Math
+
+- Run success rate:
+  $$
+  \frac{\text{successful runs}}{\text{runs observed}}
+  $$
+- Total run latency:
+  $$
+  \sum_i \text{span latency}_i
+  $$
+- Failure share by source:
+  $$
+  \frac{\text{failures from one source}}{\text{all failures}}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

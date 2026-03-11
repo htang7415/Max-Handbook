@@ -12,6 +12,17 @@ Handoffs and routing decide which worker or step should handle a task, package t
 - Handoffs should contain compact state that the next worker can actually use.
 - Retries should be bounded so failed steps do not loop forever.
 
+## Core Math
+
+- Route score:
+  $$
+  \text{quality estimate} - \text{latency cost} - \text{tool cost}
+  $$
+- Retry budget:
+  $$
+  \text{attempt} \le \text{max attempts}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

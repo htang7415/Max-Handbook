@@ -8,6 +8,11 @@ def test_read_committed_blocks_dirty_reads_but_allows_some_read_instability() ->
     assert "nonrepeatable-read" in allowed_anomalies("read-committed")
 
 
+def test_repeatable_read_blocks_phantoms_in_postgres_style_model() -> None:
+    assert prevents("repeatable-read", "phantom-read") is True
+    assert prevents("repeatable-read", "nonrepeatable-read") is True
+
+
 def test_serializable_is_needed_when_write_skew_must_be_blocked() -> None:
     assert minimum_isolation_for(["write-skew"]) == "serializable"
 

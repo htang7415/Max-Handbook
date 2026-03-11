@@ -15,6 +15,17 @@ Use this page to understand:
 - System instructions define behavior; user messages define the task.
 - Constraints are most useful when they are explicit and easy to check.
 
+## Core Math
+
+- Active prompt budget:
+  $$
+  \text{system} + \text{task} + \text{memory} + \text{retrieved context} \le \text{context window}
+  $$
+- Constraint coverage:
+  $$
+  \frac{\text{satisfied constraints}}{\text{required constraints}}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

@@ -12,6 +12,17 @@ Agent tracing basics record the important steps of one run so you can see what h
 - Step-level latency is often enough to find the bottleneck.
 - Failed spans are the fastest way to separate model, tool, and workflow issues.
 
+## Core Math
+
+- Total trace latency:
+  $$
+  \sum_i \text{span latency}_i
+  $$
+- Failure rate:
+  $$
+  \frac{\text{failed spans}}{\text{all spans}}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

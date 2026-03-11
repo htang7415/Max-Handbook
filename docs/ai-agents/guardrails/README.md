@@ -15,6 +15,21 @@ Use this page to understand:
 - Output validation is easier when the expected shape is explicit.
 - Escalation is often better than pretending uncertain output is safe.
 
+## Core Math
+
+- Weighted risk score:
+  $$
+  \frac{\sum_i w_i s_i}{\sum_i w_i}
+  $$
+- Threshold decision:
+  $$
+  \text{allow} < \tau_{\text{review}} < \tau_{\text{block}}
+  $$
+- Expected decision cost:
+  $$
+  \sum_a p(\text{outcome}\mid a)\,\text{cost}(a)
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

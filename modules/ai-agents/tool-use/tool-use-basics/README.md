@@ -12,6 +12,17 @@ Basic tool use turns a user request into a structured tool call and then feeds t
 - The core loop is select tool -> call tool -> read result.
 - Structured calls reduce parsing errors and make retries safer.
 
+## Core Math
+
+- Expected tool value:
+  $$
+  p(\text{success}) \cdot \text{success value} - \text{tool cost}
+  $$
+- Validation rate:
+  $$
+  \frac{\text{valid results}}{\text{tool calls}}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

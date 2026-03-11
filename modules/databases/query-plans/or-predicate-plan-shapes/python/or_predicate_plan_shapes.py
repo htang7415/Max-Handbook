@@ -11,12 +11,22 @@ def matching_rows(total_rows: int, selectivity: float) -> int:
     return round(total_rows * selectivity)
 
 
+def validate_overlap(
+    left_selectivity: float,
+    right_selectivity: float,
+    overlap_selectivity: float,
+) -> None:
+    if overlap_selectivity > min(left_selectivity, right_selectivity):
+        raise ValueError("overlap_selectivity cannot exceed either branch selectivity")
+
+
 def union_rows(
     total_rows: int,
     left_selectivity: float,
     right_selectivity: float,
     overlap_selectivity: float,
 ) -> int:
+    validate_overlap(left_selectivity, right_selectivity, overlap_selectivity)
     left_rows = matching_rows(total_rows, left_selectivity)
     right_rows = matching_rows(total_rows, right_selectivity)
     overlap_rows = matching_rows(total_rows, overlap_selectivity)
@@ -45,6 +55,7 @@ def recommended_path(
     right_selectivity: float,
     overlap_selectivity: float,
 ) -> str:
+    validate_overlap(left_selectivity, right_selectivity, overlap_selectivity)
     index_cost = index_union_cost(
         total_rows,
         left_selectivity,
@@ -60,6 +71,7 @@ def or_plan_summary(
     right_selectivity: float,
     overlap_selectivity: float,
 ) -> dict[str, int | float | str]:
+    validate_overlap(left_selectivity, right_selectivity, overlap_selectivity)
     total_match_rows = union_rows(
         total_rows,
         left_selectivity,

@@ -4,13 +4,13 @@
 
 ## Concept
 
-Isolation levels are best understood by the anomalies they permit or prevent. The goal is not “use the strongest level always,” but “use the weakest level that still blocks the bug you care about.”
+Isolation levels are best understood by the anomalies they permit or prevent. In this track, use a PostgreSQL-style mental model: the goal is not “use the strongest level always,” but “use the weakest level that still blocks the bug you care about.”
 
 ## Key Points
 
 - Lower isolation allows more concurrency but more anomalies.
 - Read committed blocks dirty reads but still allows some race conditions.
-- Repeatable read blocks more read instability but can still allow write skew in some systems.
+- Repeatable read blocks nonrepeatable reads and phantoms in PostgreSQL-style snapshot isolation, but can still allow write skew.
 - Serializable aims to reject executions that would break serial correctness.
 
 ## Minimal Code Mental Model

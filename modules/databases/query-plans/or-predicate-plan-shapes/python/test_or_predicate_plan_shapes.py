@@ -30,3 +30,8 @@ def test_broad_or_predicates_can_fall_back_to_seq_scan() -> None:
 def test_invalid_selectivity_is_rejected() -> None:
     with pytest.raises(ValueError, match="selectivity"):
         recommended_path(100, -0.1, 0.2, 0.0)
+
+
+def test_invalid_overlap_is_rejected() -> None:
+    with pytest.raises(ValueError, match="overlap_selectivity"):
+        recommended_path(100, 0.1, 0.2, 0.3)

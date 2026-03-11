@@ -12,6 +12,17 @@ A plan-act loop turns a goal into explicit steps, tracks what is still open, and
 - The next action should come from plan state, not from free-form guessing.
 - A simple linear plan is a good baseline before branching strategies.
 
+## Core Math
+
+- Completion fraction:
+  $$
+  \frac{\text{completed steps}}{\text{total steps}}
+  $$
+- Next-step rule:
+  $$
+  \text{next} = \min\{i : \text{step}_i \text{ not done}\}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

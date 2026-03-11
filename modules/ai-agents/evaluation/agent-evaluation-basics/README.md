@@ -12,6 +12,21 @@ Agent evaluation basics measure whether tasks finish successfully, whether tools
 - Tool-call success tells you whether failures come from execution instead of reasoning.
 - A simple failure breakdown is often enough to find the next bottleneck.
 
+## Core Math
+
+- Task success rate:
+  $$
+  \frac{\text{successful tasks}}{\text{tasks evaluated}}
+  $$
+- Tool-call success rate:
+  $$
+  \frac{\text{successful tool calls}}{\text{tool calls}}
+  $$
+- Mean latency:
+  $$
+  \frac{1}{N}\sum_i \text{latency}_i
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

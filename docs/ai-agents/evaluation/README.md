@@ -16,6 +16,21 @@ Use this page to understand:
 - Simple metrics are usually enough to find the main bottlenecks.
 - A useful evaluation loop separates model failure, tool failure, and workflow failure.
 
+## Core Math
+
+- Task success rate:
+  $$
+  \frac{\text{successful tasks}}{\text{tasks evaluated}}
+  $$
+- Tool-call success rate:
+  $$
+  \frac{\text{successful tool calls}}{\text{tool calls}}
+  $$
+- Mean latency:
+  $$
+  \frac{1}{N}\sum_i \text{latency}_i
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

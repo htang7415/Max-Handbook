@@ -12,6 +12,17 @@ Input-output guardrails check simple unsafe terms, validate required output fiel
 - Output validation is easier when the expected keys are explicit.
 - Escalation is often safer than pretending a weak answer is acceptable.
 
+## Core Math
+
+- Escalation rule:
+  $$
+  \text{blocked} \;\lor\; \text{confidence} < \text{threshold}
+  $$
+- Validation rate:
+  $$
+  \frac{\text{valid outputs}}{\text{outputs checked}}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

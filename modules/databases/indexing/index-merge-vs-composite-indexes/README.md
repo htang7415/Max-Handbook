@@ -11,6 +11,7 @@ Two single-column indexes can sometimes be combined, but a composite index on th
 - Index merge starts with two separate candidate sets.
 - Composite indexes can jump directly to the combined predicate.
 - Broad predicates can still make a sequential scan cheaper than either index strategy.
+- The overlap between predicates cannot exceed either individual predicate.
 - This is why hot query shapes should drive composite index design.
 
 ## Minimal Code Mental Model

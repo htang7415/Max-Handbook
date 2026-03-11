@@ -16,6 +16,21 @@ Use this page to keep tool-using agents in the right order:
 - MCP is a transport and discovery layer for tools, resources, and prompts, not a reasoning policy by itself.
 - Good tool use needs structure, validation, and short feedback loops.
 
+## Core Math
+
+- Expected tool value:
+  $$
+  p(\text{success}) \cdot \text{success value} - \text{tool cost} - p(\text{failure}) \cdot \text{failure penalty}
+  $$
+- Validation rate:
+  $$
+  \frac{\text{valid tool results}}{\text{tool calls}}
+  $$
+- Selection margin:
+  $$
+  \text{best tool score} - \text{runner-up score}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

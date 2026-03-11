@@ -12,6 +12,17 @@ Memory patterns let an agent keep a small amount of useful state, summarize rece
 - Summaries compress recent state so later steps do not need the entire transcript.
 - Retrieval is better than replaying every past message when memory grows.
 
+## Core Math
+
+- Retrieval score:
+  $$
+  \text{relevance} + \text{recency}
+  $$
+- Memory cap:
+  $$
+  \text{stored items} \le \text{max items}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

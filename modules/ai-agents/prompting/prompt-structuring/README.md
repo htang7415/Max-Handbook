@@ -12,6 +12,17 @@ Prompt structuring separates behavior instructions, user intent, and explicit co
 - Put constraints in an explicit checklist when they matter.
 - Short structured prompts are easier to debug than long blended prompts.
 
+## Core Math
+
+- Active prompt budget:
+  $$
+  \text{system} + \text{task} + \text{constraints} \le \text{context window}
+  $$
+- Constraint coverage:
+  $$
+  \frac{\text{satisfied constraints}}{\text{required constraints}}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

@@ -11,6 +11,15 @@ def matching_rows(total_rows: int, selectivity: float) -> int:
     return round(total_rows * selectivity)
 
 
+def validate_overlap(
+    left_selectivity: float,
+    right_selectivity: float,
+    overlap_selectivity: float,
+) -> None:
+    if overlap_selectivity > min(left_selectivity, right_selectivity):
+        raise ValueError("overlap_selectivity cannot exceed either branch selectivity")
+
+
 def index_merge_cost(
     total_rows: int,
     left_selectivity: float,
@@ -18,6 +27,7 @@ def index_merge_cost(
     overlap_selectivity: float,
     row_fetch_cost: int = 2,
 ) -> int:
+    validate_overlap(left_selectivity, right_selectivity, overlap_selectivity)
     left_rows = matching_rows(total_rows, left_selectivity)
     right_rows = matching_rows(total_rows, right_selectivity)
     overlap_rows = matching_rows(total_rows, overlap_selectivity)
@@ -40,6 +50,7 @@ def recommended_strategy(
     right_selectivity: float,
     overlap_selectivity: float,
 ) -> str:
+    validate_overlap(left_selectivity, right_selectivity, overlap_selectivity)
     seq_cost = total_rows
     merge_cost = index_merge_cost(
         total_rows,
@@ -61,6 +72,7 @@ def strategy_summary(
     right_selectivity: float,
     overlap_selectivity: float,
 ) -> dict[str, int | float | str]:
+    validate_overlap(left_selectivity, right_selectivity, overlap_selectivity)
     return {
         "left_rows": matching_rows(total_rows, left_selectivity),
         "right_rows": matching_rows(total_rows, right_selectivity),

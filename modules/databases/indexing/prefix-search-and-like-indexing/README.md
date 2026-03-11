@@ -4,7 +4,7 @@
 
 ## Concept
 
-B-tree indexes can help prefix searches like `name LIKE 'ada%'`, but only when the pattern can be turned into a range scan. Prefix search is index-friendly; leading wildcards like `'%ada'` are not.
+B-tree indexes can help prefix searches like `name LIKE 'ada%'`, but only when the pattern can be turned into a range scan. This module demonstrates that behavior in SQLite with `case_sensitive_like` enabled; in PostgreSQL, `LIKE` and `ILIKE` indexability also depends on collation and operator class choices.
 
 ## Key Points
 

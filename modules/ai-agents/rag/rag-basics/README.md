@@ -12,6 +12,17 @@ RAG basics cover the smallest useful loop: retrieve candidate chunks, keep the t
 - Only the highest-value chunks should be packed into the final context.
 - Grounded context should be short enough that the model can still use it.
 
+## Core Math
+
+- Retrieval ranking:
+  $$
+  \text{top-}k = \operatorname{arg\,sort}_k(\text{chunk score})
+  $$
+- Packing budget:
+  $$
+  \sum_i \text{chunk tokens}_i \le \text{context budget}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

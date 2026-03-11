@@ -1,4 +1,4 @@
-"""isolation_levels_and_anomalies - map isolation levels to the anomalies they allow."""
+"""isolation_levels_and_anomalies - Postgres-style mapping from isolation levels to anomalies."""
 
 from __future__ import annotations
 
@@ -23,7 +23,6 @@ _ALLOWED = {
         "write-skew",
     },
     "repeatable-read": {
-        "phantom-read",
         "write-skew",
     },
     "serializable": set(),

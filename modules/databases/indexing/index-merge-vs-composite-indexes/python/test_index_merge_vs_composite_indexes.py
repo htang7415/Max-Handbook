@@ -30,3 +30,8 @@ def test_broad_predicates_can_make_seq_scan_cheaper() -> None:
 def test_invalid_selectivity_is_rejected() -> None:
     with pytest.raises(ValueError, match="selectivity"):
         recommended_strategy(100, 1.2, 0.1, 0.05)
+
+
+def test_invalid_overlap_is_rejected() -> None:
+    with pytest.raises(ValueError, match="overlap_selectivity"):
+        recommended_strategy(100, 0.1, 0.2, 0.3)

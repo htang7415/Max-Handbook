@@ -15,6 +15,21 @@ Use this page to understand:
 - A plan should be explicit enough to inspect and update.
 - The next action should come from plan state, not just free-form generation.
 
+## Core Math
+
+- Completion fraction:
+  $$
+  \frac{\text{completed steps}}{\text{total planned steps}}
+  $$
+- Budgeted policy score:
+  $$
+  \text{expected reward} - \lambda_c \text{cost} - \lambda_t \text{latency}
+  $$
+- Feasibility rule:
+  $$
+  \text{cost}, \text{latency}, \text{risk} \le \text{allowed budgets}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python

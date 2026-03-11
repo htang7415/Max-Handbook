@@ -16,6 +16,21 @@ Use this page to understand:
 - Handoffs should pass compact structured state, not the entire raw transcript.
 - Retries should be limited and explicit.
 
+## Core Math
+
+- Route score:
+  $$
+  \text{quality estimate} - \text{latency cost} - \text{tool cost}
+  $$
+- End-to-end latency:
+  $$
+  \sum_i \text{step latency}_i
+  $$
+- Retry budget:
+  $$
+  \text{attempt} \le \text{max attempts}
+  $$
+
 ## Minimal Code Mental Model
 
 ```python
