@@ -12,6 +12,7 @@ Cache stampede mitigation lets one caller refresh a cold or expired key while ot
 - Single-flight refresh means only one caller becomes the loader for that key.
 - Stale-while-revalidate can keep serving a slightly stale value while the loader refreshes it.
 - Cold misses without a stale value usually need waiting or request coalescing, not parallel origin calls.
+- The stale window should extend beyond expiry, and refresh TTLs should stay positive.
 
 ## Minimal Code Mental Model
 
@@ -26,6 +27,7 @@ finish_refresh(cache, inflight, "doc:42", "new", now=112, ttl=30, stale_window=6
 ## Function
 
 ```python
+def validate_timing(expires_at: int, stale_until: int) -> None:
 def cache_entry(value: str, expires_at: int, stale_until: int) -> dict[str, object]:
 def request_action(
     cache: dict[str, dict[str, object]],

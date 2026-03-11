@@ -3,6 +3,7 @@ from read_amplification_in_lsm_trees import (
     tables_checked_with_bloom,
     tables_checked_without_bloom,
 )
+import pytest
 
 
 def test_bloom_filters_reduce_but_do_not_remove_read_amplification():
@@ -19,3 +20,11 @@ def test_more_levels_mean_more_point_read_work():
 
     assert deep["tables_without_bloom"] > shallow["tables_without_bloom"]
     assert deep["tables_with_bloom"] > shallow["tables_with_bloom"]
+
+
+def test_invalid_lsm_inputs_are_rejected():
+    with pytest.raises(ValueError, match="level_sstables"):
+        tables_checked_without_bloom([3, -1, 10])
+
+    with pytest.raises(ValueError, match="false_positive_tables"):
+        point_lookup_cost([3, 5, 10], false_positive_tables=-1)

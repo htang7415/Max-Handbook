@@ -12,6 +12,7 @@ Agent memory retrieval should combine relevance, scope, and recency so the agent
 - Shared memories can be visible to many agents, but private memories should stay scoped to one agent.
 - Pure similarity is not enough for memory systems; recent interactions often deserve a boost.
 - Retrieval needs a minimum score or the agent fills context with weak, noisy memories.
+- Keep `importance` and `min_score` in the `0..1` range so the weighted score stays interpretable.
 
 ## Minimal Code Mental Model
 
@@ -49,6 +50,7 @@ def retrieve_agent_memories(
     now: int,
     top_k: int,
     min_score: float = 0.2,
+    recency_window: int = 3600,
 ) -> list[tuple[str, float]]:
 ```
 

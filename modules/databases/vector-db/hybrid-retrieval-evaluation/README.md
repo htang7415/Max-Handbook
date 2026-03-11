@@ -9,6 +9,7 @@ Hybrid retrieval should be judged by retrieval metrics, not intuition. The usefu
 ## Key Points
 
 - Precision at `k` tells you how many top results are relevant.
+- Duplicate result ids should not get extra precision credit.
 - Reciprocal rank tells you how quickly the first relevant result appears.
 - A hybrid system should beat or justify itself against lexical-only and vector-only baselines.
 - Evaluation should happen per query set, not by staring at one anecdotal search result.

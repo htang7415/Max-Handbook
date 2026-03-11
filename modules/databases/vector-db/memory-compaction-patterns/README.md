@@ -12,6 +12,7 @@ Long-running agents need memory compaction so the raw memory store does not grow
 - Collapse older low-value memories into topic summaries.
 - Pinned memories should survive compaction even if they are old.
 - Compaction should reduce retrieval noise, not just save storage.
+- Keep `importance` in the `0..1` range and `keep_raw` non-negative so the ranking stays interpretable.
 
 ## Minimal Code Mental Model
 
@@ -23,6 +24,9 @@ compacted = compact_memories(memories, now=200, keep_raw=2)
 ## Function
 
 ```python
+def validate_importance(importance: float) -> None:
+def validate_recency_window(recency_window: int) -> None:
+def validate_keep_raw(keep_raw: int) -> None:
 def memory_score(
     memory: dict[str, object],
     now: int,

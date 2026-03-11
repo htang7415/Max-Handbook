@@ -12,6 +12,7 @@ Negative caching stores “not found” results for a short time so repeated mis
 - A short negative TTL reduces repeated misses without hiding newly-created data forever.
 - Negative entries should expire and be refreshed.
 - This pattern is for stable misses, not for caching arbitrary transient errors forever.
+- The negative TTL should stay positive; `0` does not create a meaningful cache window.
 
 ## Minimal Code Mental Model
 
@@ -24,6 +25,7 @@ value2, origin2 = read_with_negative_cache(store, cache, "doc:404", now=110, neg
 ## Function
 
 ```python
+def validate_negative_ttl(ttl: int) -> None:
 def negative_entry(now: int, ttl: int) -> dict[str, object]:
 def read_with_negative_cache(
     store: dict[str, str],

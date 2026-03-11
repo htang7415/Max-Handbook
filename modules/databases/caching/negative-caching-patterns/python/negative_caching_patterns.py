@@ -3,7 +3,13 @@
 from __future__ import annotations
 
 
+def validate_negative_ttl(ttl: int) -> None:
+    if ttl <= 0:
+        raise ValueError("negative_ttl must be positive")
+
+
 def negative_entry(now: int, ttl: int) -> dict[str, object]:
+    validate_negative_ttl(ttl)
     return {
         "kind": "missing",
         "expires_at": now + ttl,
@@ -30,6 +36,7 @@ def read_with_negative_cache(
     now: int,
     negative_ttl: int,
 ) -> tuple[str | None, bool]:
+    validate_negative_ttl(negative_ttl)
     purge_expired_negative(cache, now)
 
     if key in cache:

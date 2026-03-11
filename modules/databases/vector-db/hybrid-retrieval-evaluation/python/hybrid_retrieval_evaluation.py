@@ -3,6 +3,16 @@
 from __future__ import annotations
 
 
+def unique_hits_within_k(ranked_ids: list[str], relevant_ids: set[str], k: int) -> int:
+    seen: set[str] = set()
+    hits = 0
+    for doc_id in ranked_ids[:k]:
+        if doc_id in relevant_ids and doc_id not in seen:
+            hits += 1
+        seen.add(doc_id)
+    return hits
+
+
 def precision_at_k(
     ranked_ids: list[str],
     relevant_ids: set[str],
@@ -13,7 +23,7 @@ def precision_at_k(
     top_k = ranked_ids[:k]
     if not top_k:
         return 0.0
-    hits = sum(1 for doc_id in top_k if doc_id in relevant_ids)
+    hits = unique_hits_within_k(ranked_ids, relevant_ids, k)
     return hits / k
 
 

@@ -3,6 +3,7 @@ from cache_admission_policies import (
     admitted_keys,
     request_counts,
 )
+import pytest
 
 
 def test_frequency_gate_rejects_one_hit_noise() -> None:
@@ -28,3 +29,10 @@ def test_min_hits_of_one_admits_every_seen_key() -> None:
     stream = ["a", "b", "a"]
 
     assert admitted_keys(stream, min_hits=1)["frequency_threshold"] == ["a", "b"]
+
+
+def test_min_hits_must_be_positive() -> None:
+    counts = request_counts(["a", "a"])
+
+    with pytest.raises(ValueError, match="min_hits"):
+        admit_on_frequency("a", counts, min_hits=0)

@@ -1,8 +1,10 @@
 from agent_memory_retrieval import (
+    memory_retrieval_score,
     matches_scope,
     retrieve_agent_memories,
     token_overlap_score,
 )
+import pytest
 
 
 def test_token_overlap_and_scope_rules():
@@ -83,3 +85,30 @@ def test_min_score_drops_weak_memories():
         )
         == []
     )
+
+
+def test_invalid_scoring_inputs_are_rejected():
+    with pytest.raises(ValueError, match="min_score"):
+        retrieve_agent_memories(
+            "hybrid search support docs",
+            [],
+            workspace_id=7,
+            agent_id="agent-1",
+            now=200,
+            top_k=1,
+            min_score=1.2,
+        )
+
+    with pytest.raises(ValueError, match="importance"):
+        memory_retrieval_score(
+            "hybrid search support docs",
+            {
+                "id": "m1",
+                "workspace_id": 7,
+                "agent_id": None,
+                "text": "Use hybrid search for support docs",
+                "created_at": 180,
+                "importance": 1.5,
+            },
+            now=200,
+        )

@@ -1,4 +1,5 @@
 from exact_vs_ann_search import ann_top_k, bucket_key, exact_top_k, recall_at_k
+import pytest
 
 
 DOCUMENTS = [
@@ -38,3 +39,11 @@ def test_ann_search_scores_fewer_candidates_but_can_reduce_recall() -> None:
     assert candidates_scored == 2
     assert recall_at_k(exact_results, ann_results) == 0.5
     assert ann_results[0][1] < exact_results[0][1]
+
+
+def test_empty_vectors_and_negative_k_are_rejected() -> None:
+    with pytest.raises(ValueError, match="vector"):
+        bucket_key([])
+
+    with pytest.raises(ValueError, match="k"):
+        exact_top_k(QUERY, DOCUMENTS, k=-1)

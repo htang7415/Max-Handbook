@@ -3,6 +3,11 @@
 from __future__ import annotations
 
 
+def validate_min_hits(min_hits: int) -> None:
+    if min_hits <= 0:
+        raise ValueError("min_hits must be positive")
+
+
 def request_counts(stream: list[str]) -> dict[str, int]:
     counts: dict[str, int] = {}
     for key in stream:
@@ -16,11 +21,12 @@ def admit_always(key: str) -> bool:
 
 
 def admit_on_frequency(key: str, counts: dict[str, int], min_hits: int) -> bool:
-    threshold = max(min_hits, 1)
-    return counts.get(key, 0) >= threshold
+    validate_min_hits(min_hits)
+    return counts.get(key, 0) >= min_hits
 
 
 def admitted_keys(stream: list[str], min_hits: int) -> dict[str, list[str]]:
+    validate_min_hits(min_hits)
     counts = request_counts(stream)
     ordered_unique: list[str] = []
     seen: set[str] = set()

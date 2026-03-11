@@ -3,7 +3,13 @@
 from __future__ import annotations
 
 
+def validate_timing(expires_at: int, stale_until: int) -> None:
+    if stale_until < expires_at:
+        raise ValueError("stale_until cannot be earlier than expires_at")
+
+
 def cache_entry(value: str, expires_at: int, stale_until: int) -> dict[str, object]:
+    validate_timing(expires_at, stale_until)
     return {
         "value": value,
         "expires_at": expires_at,
@@ -19,6 +25,7 @@ def request_action(
 ) -> str:
     entry = cache.get(key)
     if entry is not None:
+        validate_timing(int(entry["expires_at"]), int(entry["stale_until"]))
         if now < int(entry["expires_at"]):
             return "hit"
         if key in inflight:
@@ -41,6 +48,10 @@ def finish_refresh(
     ttl: int,
     stale_window: int,
 ) -> None:
+    if ttl <= 0:
+        raise ValueError("ttl must be positive")
+    if stale_window < 0:
+        raise ValueError("stale_window must be non-negative")
     cache[key] = cache_entry(
         value=value,
         expires_at=now + ttl,

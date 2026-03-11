@@ -12,6 +12,7 @@ Teams often reach for NoSQL too early. If the product still needs joins, transac
 - Joins and transactions are strong signals to stay relational.
 - NoSQL becomes more attractive when access paths are extremely simple and scale pressure is unusually high.
 - “Enough” means operationally simpler for the real workload, not theoretically perfect.
+- If the signals are balanced, treat the result as `depends` instead of forcing a fake winner.
 
 ## Minimal Code Mental Model
 
@@ -27,6 +28,13 @@ decision = recommend_store(
 ## Function
 
 ```python
+def store_scores(
+    needs_joins: bool,
+    needs_transactions: bool,
+    simple_key_access: bool,
+    extreme_write_scale: bool,
+    ad_hoc_queries: bool = True,
+) -> tuple[int, int]:
 def recommend_store(
     needs_joins: bool,
     needs_transactions: bool,

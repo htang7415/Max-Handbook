@@ -4,6 +4,7 @@ from semantic_cache_hit_rate_analysis import (
     savings_summary,
     scoped_hit_rates,
 )
+import pytest
 
 
 def test_hit_rates_can_be_computed_overall_and_by_scope():
@@ -30,3 +31,13 @@ def test_latency_savings_links_hit_rate_to_actual_value():
         "hit_rate": 2 / 3,
         "latency_saved_ms": 360,
     }
+
+
+def test_hit_field_must_be_bool() -> None:
+    with pytest.raises(ValueError, match="event\\['hit'\\]"):
+        hit_rate([{"workspace_id": 7, "hit": "yes"}])
+
+
+def test_latency_inputs_must_be_non_negative() -> None:
+    with pytest.raises(ValueError, match="hit_latency_ms"):
+        latency_saved_ms([{"workspace_id": 7, "hit": True}], hit_latency_ms=-1, miss_latency_ms=200)

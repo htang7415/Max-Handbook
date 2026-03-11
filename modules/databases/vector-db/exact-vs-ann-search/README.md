@@ -12,6 +12,7 @@ Exact search scores every vector, while approximate nearest neighbor search prun
 - ANN is a candidate-pruning strategy, not a different similarity metric.
 - ANN usually evaluates fewer vectors than exact search.
 - Lower candidate count can lower latency, but it can also miss a true nearest neighbor.
+- Query and document vectors should be real non-empty vectors, and `k` should not be negative.
 
 ## Minimal Code Mental Model
 
@@ -24,6 +25,8 @@ recall = recall_at_k(exact, ann)
 ## Function
 
 ```python
+def validate_vector(vector: list[float]) -> None:
+def validate_k(k: int) -> None:
 def cosine_similarity(left: list[float], right: list[float]) -> float:
 def bucket_key(vector: list[float], threshold: float = 0.8) -> str:
 def exact_top_k(

@@ -12,6 +12,7 @@ Semantic caching only matters if it actually hits often enough to save time or c
 - Scoped hit rates can reveal one workspace or version doing much worse than another.
 - Savings estimates connect hit rate to latency or cost impact.
 - A low hit rate may point to key design, similarity thresholds, or version churn.
+- Event records should store `hit` as a real boolean, not a truthy string.
 
 ## Minimal Code Mental Model
 
@@ -29,6 +30,7 @@ summary = savings_summary(events, hit_latency_ms=20, miss_latency_ms=200)
 ## Function
 
 ```python
+def validate_event(event: dict[str, object]) -> None:
 def hit_rate(events: list[dict[str, object]]) -> float:
 def scoped_hit_rates(
     events: list[dict[str, object]],

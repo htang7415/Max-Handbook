@@ -5,7 +5,19 @@ from __future__ import annotations
 import math
 
 
+def validate_vector(vector: list[float]) -> None:
+    if not vector:
+        raise ValueError("vector must be non-empty")
+
+
+def validate_k(k: int) -> None:
+    if k < 0:
+        raise ValueError("k must be non-negative")
+
+
 def cosine_similarity(left: list[float], right: list[float]) -> float:
+    validate_vector(left)
+    validate_vector(right)
     if len(left) != len(right):
         raise ValueError("vectors must have the same dimensions")
     left_norm = math.sqrt(sum(value * value for value in left))
@@ -21,6 +33,7 @@ def cosine_similarity(left: list[float], right: list[float]) -> float:
 
 
 def bucket_key(vector: list[float], threshold: float = 0.8) -> str:
+    validate_vector(vector)
     if vector[0] >= threshold:
         return "high-x"
     if len(vector) > 1 and vector[1] >= threshold:
@@ -33,6 +46,8 @@ def exact_top_k(
     documents: list[dict[str, object]],
     k: int,
 ) -> list[tuple[str, float]]:
+    validate_vector(query_vector)
+    validate_k(k)
     scored = [
         (
             str(document["id"]),
@@ -49,6 +64,8 @@ def ann_top_k(
     k: int,
     threshold: float = 0.8,
 ) -> tuple[list[tuple[str, float]], int]:
+    validate_vector(query_vector)
+    validate_k(k)
     query_bucket = bucket_key(query_vector, threshold=threshold)
     candidates = [
         document

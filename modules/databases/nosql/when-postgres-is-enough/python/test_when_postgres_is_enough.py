@@ -24,3 +24,17 @@ def test_extreme_simple_key_workload_can_tip_toward_nosql() -> None:
     )
 
     assert summary["recommendation"] == "nosql"
+
+
+def test_balanced_signals_should_stay_explicitly_ambiguous() -> None:
+    summary = decision_summary(
+        needs_joins=True,
+        needs_transactions=False,
+        simple_key_access=True,
+        extreme_write_scale=False,
+        ad_hoc_queries=False,
+    )
+
+    assert summary["recommendation"] == "depends"
+    assert summary["relational_score"] == 2
+    assert summary["nosql_score"] == 2

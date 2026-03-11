@@ -1,4 +1,5 @@
-from memory_compaction_patterns import compact_memories, raw_memory_ids, summary_text
+from memory_compaction_patterns import compact_memories, memory_score, raw_memory_ids, summary_text
+import pytest
 
 
 def test_raw_memory_selection_keeps_pinned_and_recent_high_value_items():
@@ -26,3 +27,11 @@ def test_compaction_summarizes_older_memories_by_topic():
     assert compacted[0]["kind"] == "summary"
     assert compacted[0]["text"] == "Summary of retrieval: Old note | Switch to hybrid search"
     assert summary_text(memories[:2]) == "Old note | Switch to hybrid search"
+
+
+def test_invalid_memory_ranges_are_rejected():
+    with pytest.raises(ValueError, match="keep_raw"):
+        raw_memory_ids([], now=200, keep_raw=-1)
+
+    with pytest.raises(ValueError, match="importance"):
+        memory_score({"id": "m1", "text": "bad", "created_at": 100, "importance": 2.0}, now=200)

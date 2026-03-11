@@ -3,16 +3,33 @@
 from __future__ import annotations
 
 
+def validate_importance(importance: float) -> None:
+    if not 0.0 <= importance <= 1.0:
+        raise ValueError("importance must be between 0 and 1")
+
+
+def validate_recency_window(recency_window: int) -> None:
+    if recency_window <= 0:
+        raise ValueError("recency_window must be positive")
+
+
+def validate_keep_raw(keep_raw: int) -> None:
+    if keep_raw < 0:
+        raise ValueError("keep_raw must be non-negative")
+
+
 def memory_score(
     memory: dict[str, object],
     now: int,
     recency_window: int = 3600,
 ) -> float:
+    validate_recency_window(recency_window)
+    importance = float(memory.get("importance", 0.5))
+    validate_importance(importance)
     if memory.get("pinned"):
-        return 1000.0 + float(memory.get("importance", 0.5))
+        return 1000.0 + importance
     age = max(now - int(memory["created_at"]), 0)
     recency = max(0.0, 1.0 - (age / recency_window))
-    importance = float(memory.get("importance", 0.5))
     return (0.7 * importance) + (0.3 * recency)
 
 
@@ -21,6 +38,7 @@ def raw_memory_ids(
     now: int,
     keep_raw: int,
 ) -> list[str]:
+    validate_keep_raw(keep_raw)
     ranked = sorted(
         memories,
         key=lambda memory: (
@@ -42,6 +60,7 @@ def compact_memories(
     now: int,
     keep_raw: int,
 ) -> list[dict[str, object]]:
+    validate_keep_raw(keep_raw)
     kept_ids = set(raw_memory_ids(memories, now, keep_raw))
     kept_raw = [dict(memory) for memory in memories if str(memory["id"]) in kept_ids]
 

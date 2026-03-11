@@ -31,3 +31,7 @@ def test_hybrid_run_beats_lexical_and_vector_baselines_on_toy_queries():
 def test_evaluate_run_handles_missing_rankings():
     relevant = {"q1": {"a"}}
     assert evaluate_run({}, relevant, k=2) == {"precision_at_k": 0.0, "mrr": 0.0}
+
+
+def test_duplicate_results_do_not_get_extra_precision_credit():
+    assert precision_at_k(["a", "a"], {"a"}, 2) == 0.5

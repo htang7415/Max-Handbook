@@ -18,8 +18,8 @@ Reranking can improve result quality, but it adds cost and latency. Budgeting me
 ```python
 summary = pipeline_summary(
     budget_ms=120,
-    retrieve_k=20,
-    rerank_candidates=50,
+    retrieve_k=50,
+    rerank_candidates=20,
     retrieval_cost_per_doc=1,
     rerank_cost_per_doc=2,
     expected_retrieval_mrr=0.62,
@@ -30,6 +30,15 @@ summary = pipeline_summary(
 ## Function
 
 ```python
+def validate_pipeline_inputs(
+    budget_ms: int,
+    retrieve_k: int,
+    rerank_candidates: int,
+    retrieval_cost_per_doc: int,
+    rerank_cost_per_doc: int,
+    expected_retrieval_mrr: float,
+    expected_rerank_mrr: float,
+) -> None:
 def retrieval_only_cost(retrieve_k: int, retrieval_cost_per_doc: int) -> int:
 def rerank_pipeline_cost(
     retrieve_k: int,
@@ -57,6 +66,8 @@ def pipeline_summary(
     expected_rerank_mrr: float,
 ) -> dict[str, int | float | str | bool]:
 ```
+
+`rerank_candidates` should be a subset of the retrieved set, so it should not exceed `retrieve_k`.
 
 ## Run tests
 

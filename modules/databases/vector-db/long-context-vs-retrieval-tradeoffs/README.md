@@ -12,6 +12,7 @@ Long context and retrieval solve the same “get the model the right information
 - If the source is much larger than the useful subset, retrieval usually reduces token load.
 - Retrieval introduces recall and ranking risks that long context avoids.
 - The right choice depends on source size, relevant fraction, and model window.
+- If neither approach fits the window, reduce token load first by shrinking chunks, lowering `top_k`, or summarizing.
 
 ## Minimal Code Mental Model
 
@@ -35,6 +36,14 @@ def retrieval_token_load(
     prompt_overhead: int = 0,
 ) -> int:
 def fits_context_window(total_tokens: int, model_window: int) -> bool:
+def validate_inputs(
+    source_tokens: int,
+    relevant_tokens: int,
+    model_window: int,
+    top_k: int,
+    avg_chunk_tokens: int,
+    prompt_overhead: int = 0,
+) -> None:
 def choose_strategy(
     source_tokens: int,
     relevant_tokens: int,

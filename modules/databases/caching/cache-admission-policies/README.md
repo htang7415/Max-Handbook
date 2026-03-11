@@ -12,6 +12,7 @@ Cache admission decides which responses are worth storing at all. In noisy workl
 - Frequency-based admission waits for repeat demand before spending cache space.
 - Admission and eviction solve different problems: one decides what gets in, the other decides what stays.
 - This matters for AI products where long-tail prompts or document queries can create many low-reuse keys.
+- A frequency threshold should be positive; `0` is not a meaningful gate.
 
 ## Minimal Code Mental Model
 
@@ -23,6 +24,7 @@ summary = admitted_keys(stream, min_hits=2)
 ## Function
 
 ```python
+def validate_min_hits(min_hits: int) -> None:
 def request_counts(stream: list[str]) -> dict[str, int]:
 def admit_always(key: str) -> bool:
 def admit_on_frequency(key: str, counts: dict[str, int], min_hits: int) -> bool:

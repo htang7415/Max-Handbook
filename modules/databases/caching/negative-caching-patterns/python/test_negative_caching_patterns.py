@@ -3,6 +3,7 @@ from negative_caching_patterns import (
     purge_expired_negative,
     read_with_negative_cache,
 )
+import pytest
 
 
 def test_repeated_missing_key_hits_negative_cache_instead_of_origin():
@@ -21,3 +22,8 @@ def test_negative_entries_expire_and_allow_recheck():
     assert expired_negative_keys(cache, now=111) == ["doc:404"]
     purge_expired_negative(cache, now=111)
     assert read_with_negative_cache(store, cache, "doc:404", now=111, negative_ttl=10) == (None, True)
+
+
+def test_negative_ttl_must_be_positive():
+    with pytest.raises(ValueError, match="negative_ttl"):
+        read_with_negative_cache({}, {}, "doc:404", now=100, negative_ttl=0)
