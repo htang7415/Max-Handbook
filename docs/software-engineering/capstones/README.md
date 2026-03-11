@@ -26,8 +26,9 @@ Use this page to combine:
 
 ## Math And Code
 
-- Capstones should reuse only the math that drives decisions: success rates, latency thresholds, error budgets, blast radius, and rollback readiness.
-- Code should stitch together multiple responsibilities in one flow: validation, retries, observability, release gates, incident mitigation, and follow-up actions.
+- Math level: `medium`
+- Main quantitative objects: success rates, latency thresholds, error budgets, blast radius, and rollback readiness.
+- Code shape: end-to-end flows that stitch together validation, retries, observability, release gates, incident mitigation, and follow-up actions.
 
 ## When To Use What
 

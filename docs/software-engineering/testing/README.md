@@ -32,8 +32,9 @@ Use this page to organize testing into:
 
 ## Math And Code
 
-- Math appears here as properties, distributions, flake rates, and threshold reasoning rather than heavy symbolic derivations.
-- Code should make invariants executable: contract checks, regression cases, metamorphic relations, and focused failure reproduction.
+- Math level: `medium`
+- Main quantitative objects: properties, distributions, flake rates, and threshold reasoning.
+- Code shape: executable invariants through contract checks, regression cases, metamorphic relations, and focused failure reproduction.
 
 ## When To Use What
 

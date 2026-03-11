@@ -28,8 +28,9 @@ Use this page to understand:
 
 ## Math And Code
 
-- Math here is lightweight and operational: timeout budgets, retry counts, page sizes, rate limits, and success/failure ratios.
-- Code should focus on schemas, request validation, compatibility checks, idempotency state, and retry behavior at the boundary.
+- Math level: `medium`
+- Main quantitative objects: timeout budgets, retry counts, page sizes, rate limits, and success/failure ratios.
+- Code shape: boundary validators, schema compatibility checks, idempotency state, pagination rules, and retry policy helpers.
 
 ## When To Use What
 

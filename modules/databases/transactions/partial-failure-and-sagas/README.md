@@ -10,7 +10,7 @@ Sagas handle workflows that span multiple local writes. If a later step fails af
 
 - Local steps can succeed independently and still leave the workflow in a bad intermediate state.
 - Compensation is explicit business logic such as refunding a payment or releasing inventory.
-- A saga is not a free rollback. It is a forward process plus compensating steps.
+- A saga is not a free rollback. It is a forward process plus explicit reverse-order compensation.
 - This pattern matters when one transaction cannot cover all side effects or services involved.
 
 ## Minimal Code Mental Model
@@ -28,6 +28,7 @@ def charge_payment(state: dict[str, object]) -> None:
 def create_shipment(state: dict[str, object]) -> None:
 def release_inventory(state: dict[str, object]) -> None:
 def refund_payment(state: dict[str, object]) -> None:
+def cancel_shipment(state: dict[str, object]) -> None:
 def run_order_saga(fail_after_step: str | None = None) -> dict[str, object]:
 ```
 

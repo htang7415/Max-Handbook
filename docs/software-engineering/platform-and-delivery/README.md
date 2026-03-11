@@ -32,8 +32,9 @@ Use this page to organize platform engineering into:
 
 ## Math And Code
 
-- Math here is organizationally operational: lead time, deployment frequency, blast radius, open risk count, and change-budget capacity.
-- Code should model gates and policies, not a fake platform stack; release decisions, ownership boundaries, and rollout controls matter more than infrastructure ceremony.
+- Math level: `medium`
+- Main quantitative objects: lead time, deployment frequency, blast radius, open risk count, and change-budget capacity.
+- Code shape: release gates, rollout policies, ownership heuristics, DX leverage estimates, and change-risk evaluators.
 
 ## When To Use What
 

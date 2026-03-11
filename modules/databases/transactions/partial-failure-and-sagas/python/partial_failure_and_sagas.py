@@ -39,6 +39,13 @@ def refund_payment(state: dict[str, object]) -> None:
     compensations.append("refund-payment")
 
 
+def cancel_shipment(state: dict[str, object]) -> None:
+    state["shipment_created"] = False
+    compensations = state["compensations"]
+    assert isinstance(compensations, list)
+    compensations.append("cancel-shipment")
+
+
 def run_order_saga(fail_after_step: str | None = None) -> dict[str, object]:
     state = empty_saga_state()
     try:
@@ -58,7 +65,7 @@ def run_order_saga(fail_after_step: str | None = None) -> dict[str, object]:
         return state
     except RuntimeError:
         if bool(state["shipment_created"]):
-            state["shipment_created"] = False
+            cancel_shipment(state)
         if bool(state["payment_charged"]):
             refund_payment(state)
         if bool(state["inventory_reserved"]):

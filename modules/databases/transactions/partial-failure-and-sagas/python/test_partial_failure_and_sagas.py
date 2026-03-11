@@ -21,6 +21,16 @@ def test_failure_after_charge_refunds_and_releases_inventory() -> None:
     }
 
 
+def test_failure_after_ship_runs_reverse_order_compensation() -> None:
+    assert run_order_saga(fail_after_step="ship") == {
+        "inventory_reserved": False,
+        "payment_charged": False,
+        "shipment_created": False,
+        "compensations": ["cancel-shipment", "refund-payment", "release-inventory"],
+        "status": "compensated",
+    }
+
+
 def test_failure_after_reserve_only_releases_inventory() -> None:
     assert run_order_saga(fail_after_step="reserve") == {
         "inventory_reserved": False,

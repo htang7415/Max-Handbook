@@ -33,8 +33,9 @@ Use this page to organize tooling into:
 
 ## Math And Code
 
-- Math here is lightweight and managerial: CI time budgets, review queue size, and risk-based gating rather than algorithm analysis.
-- Code should express workflow rules directly: required spec sections, merge blockers, generated-code boundaries, and reproducible setup checks.
+- Math level: `low`
+- Main quantitative objects: CI time budgets, review queue size, and risk-based gating counts.
+- Code shape: workflow rules such as required spec sections, merge blockers, generated-code boundaries, and reproducible setup checks.
 
 ## When To Use What
 

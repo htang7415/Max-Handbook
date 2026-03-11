@@ -28,8 +28,9 @@ Use this page to understand:
 
 ## Math And Code
 
-- Math matters here through capacity, fanout, tail latency, queue depth, storage cost, and consistency tradeoff reasoning.
-- Code should stay simulation-sized: small models of state placement, workflow coordination, storage choice, and boundary failure behavior.
+- Math level: `medium`
+- Main quantitative objects: capacity, fanout, tail latency, queue depth, storage cost, and consistency tradeoffs.
+- Code shape: simulation-sized models of state placement, workflow coordination, storage choice, and boundary failure behavior.
 
 ## When To Use What
 

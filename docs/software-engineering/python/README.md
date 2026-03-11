@@ -27,8 +27,9 @@ Use this page to organize Python engineering into:
 
 ## Math And Code
 
-- Math is secondary here; use it only where service limits, latency, or profiling results need quantitative reasoning.
-- Code should emphasize explicit interfaces, async boundaries, typing discipline, and measurable performance behavior in real Python service shapes.
+- Math level: `low`
+- Main quantitative objects: occasional timeout, profiling, or service-limit measurements.
+- Code shape: explicit interfaces, async service boundaries, typing discipline, and measurable Python runtime behavior.
 
 ## When To Use What
 

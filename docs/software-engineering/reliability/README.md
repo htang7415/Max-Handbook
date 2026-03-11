@@ -31,8 +31,9 @@ Use this page to organize reliability into:
 
 ## Math And Code
 
-- Math here is about operational thresholds: success rates, budget burn, retry counts, concurrency limits, and rollout health.
-- Code should demonstrate containment and recovery logic directly: fallback choice, breaker state, degradation path, and rollback decision.
+- Math level: `high`
+- Main quantitative objects: success rates, budget burn, retry counts, concurrency limits, and rollout health.
+- Code shape: containment and recovery logic such as fallback choice, breaker state, degradation path, and rollback decision.
 
 ## When To Use What
 

@@ -28,8 +28,9 @@ Use this page to organize security into:
 
 ## Math And Code
 
-- Math here is limited but real: scope counts, credential age, risk thresholds, and exposure surface all matter.
-- Code should default to deny-by-default boundaries, explicit validation, secret isolation, and reviewable privilege changes.
+- Math level: `low`
+- Main quantitative objects: scope counts, credential age, risk thresholds, and exposure surface.
+- Code shape: deny-by-default checks, validators, secret-handling policies, and reviewable privilege transitions.
 
 ## When To Use What
 

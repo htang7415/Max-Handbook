@@ -27,8 +27,9 @@ Use this page to organize TypeScript engineering into:
 
 ## Math And Code
 
-- Math is usually secondary here; keep it for capacity, timeout, or threshold reasoning where the service behavior depends on numbers.
-- Code should emphasize what TypeScript is best at in this track: boundary types, runtime validation, async result shape, and shared-contract discipline.
+- Math level: `low`
+- Main quantitative objects: occasional timeout, capacity, or threshold reasoning at service boundaries.
+- Code shape: boundary types, runtime parsers, async result models, and shared-contract discipline across client and server.
 
 ## When To Use What
 

@@ -27,8 +27,9 @@ Use this page to organize Rust engineering into:
 
 ## Math And Code
 
-- Math is rarely the main subject here; use it only where service limits, resource budgets, or concurrency capacity matter.
-- Code should focus on what Rust makes explicit: ownership, error types, abstraction boundaries, async discipline, and testable invariants.
+- Math level: `low`
+- Main quantitative objects: occasional service limits, resource budgets, or concurrency capacity.
+- Code shape: ownership boundaries, explicit result types, narrow traits, async discipline, and invariant-driven tests.
 
 ## When To Use What
 

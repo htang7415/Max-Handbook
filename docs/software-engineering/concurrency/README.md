@@ -28,8 +28,9 @@ Use this page to understand:
 
 ## Math And Code
 
-- Math here usually means counts and bounds: in-flight work, queue depth, retry attempts, deadlines, and ordering assumptions.
-- Code should make state transitions, duplicate handling, and cancellation behavior explicit rather than hiding them in timing-dependent control flow.
+- Math level: `medium`
+- Main quantitative objects: in-flight work, queue depth, retry attempts, deadlines, and ordering assumptions.
+- Code shape: state machines, duplicate-handling paths, worker policies, and cancellation-aware control flow.
 
 ## When To Use What
 

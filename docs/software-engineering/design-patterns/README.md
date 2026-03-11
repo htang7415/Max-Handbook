@@ -27,8 +27,9 @@ Use this page to organize patterns into:
 
 ## Math And Code
 
-- Math is usually minimal here; the important structure is behavioral shape, not formula depth.
-- Code should show the boundary clearly: who owns the interface, what varies, and what stays invariant under the pattern.
+- Math level: `low`
+- Main quantitative objects: usually none beyond occasional policy ranking or threshold choice.
+- Code shape: adapters, DI seams, strategies, state transitions, and small composable boundaries.
 
 ## When To Use What
 

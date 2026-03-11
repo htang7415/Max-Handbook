@@ -40,16 +40,20 @@ Each software-engineering module should answer the same six questions:
 
 ## Math And Code Rule
 
-- Use math only when it clarifies an operational decision: rates, ratios, percentiles, error budgets, latency budgets, queue depth, retry counts, blast radius, or cost.
-- Do not force symbolic math into topics that are really about boundaries, ownership, or review discipline.
-- Every module should have executable code that demonstrates the contract, invariant, or failure mode directly.
-- Code examples should stay framework-light and production-shaped: boundary parsing, state transitions, retries, thresholds, rollback logic, or policy decisions.
+- Math intensity should be explicit.
+- `Low` math sections: `tooling`, `security-basics`, `design-patterns`, `python`, `rust`, `typescript`.
+- `Medium` math sections: `apis`, `concurrency`, `testing`, `platform-and-delivery`, `system-design`, `capstones`.
+- `High` math-for-software sections: `observability`, `reliability`, `performance`.
+- Use math only when it clarifies an operational decision: rates, ratios, percentiles, error budgets, latency budgets, retry counts, queue depth, blast radius, or cost.
+- Every module should have executable code that demonstrates the contract, invariant, threshold, or failure mode directly.
+- Preferred code shapes are: boundary parsing, policy checks, threshold calculators, state transitions, retry/rollback logic, and small production-shaped workflows.
 - Treat math as compression for reasoning and code as executable verification, not as separate learning tracks.
 
 ## Writing Shape
 
 - Section docs should follow: `Purpose`, `First Principles`, `Canonical Modules`, optional `Supporting Modules`, `Math And Code`, `When To Use What`.
 - Module docs should usually follow: `Concept`, `Key Points`, `Minimal Code Mental Model`, `Function`, `Run tests`.
+- In section docs, `Math And Code` should usually answer three things in order: `Math level`, `Main quantitative objects`, `Code shape`.
 - Add explicit math inside a module only when the topic genuinely needs a formula or threshold calculation.
 
 ## Main Sections

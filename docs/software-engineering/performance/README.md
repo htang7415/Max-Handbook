@@ -28,8 +28,9 @@ Use this page to organize performance into:
 
 ## Math And Code
 
-- Math matters here through latency decomposition, throughput, allocation counts, cache hit rates, and cost curves.
-- Code should stay measurement-first: small profiles, budget calculations, batching choices, and correctness-preserving optimizations.
+- Math level: `high`
+- Main quantitative objects: latency decomposition, throughput, allocation counts, cache hit rates, and cost curves.
+- Code shape: measurement-first helpers for budgets, profiles, batching, caching, and correctness-preserving optimization decisions.
 
 ## When To Use What
 
