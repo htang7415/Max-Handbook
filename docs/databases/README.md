@@ -18,25 +18,37 @@ Use this track to learn databases in the order that matters most in 2026:
 - AI products add new data needs like embeddings, chunk metadata, eval logs, lineage, and freshness, but they do not replace transactional fundamentals.
 - Most production systems are hybrid: one operational store, one cache, one stream, one retrieval layer, and one analytics path.
 
-## How To Use This Track
+## Recommended Path
 
-- Start with `relational`, `schema-design`, and `sql-patterns`.
-- Add `indexing`, `transactions`, and `query-plans` before chasing system-specific optimizations.
-- Add `caching`, `streaming`, `nosql`, and `vector-db` when the product shape actually requires them.
-- Prefer learning one stable pattern deeply over memorizing a long vendor feature list.
+Use the track in this order:
 
-## Main Sections
+1. Relational core
+   Start with `tables-and-keys`, `join-shapes`, `constraints-and-integrity`, and `foreign-key-cascades`.
+2. Schema design
+   Move to `one-to-many-and-many-to-many`, `entity-vs-event-tables`, `document-chunk-embedding-schema`, and `ownership-and-delete-boundaries`.
+3. SQL patterns
+   Learn `window-functions-basics`, `dedup-and-latest-row`, `upserts-and-merge-patterns`, and `duckdb-parquet-query-patterns`.
+4. Indexing
+   Add `btree-basics`, `composite-index-order`, `partial-indexes`, and `expression-index-basics`.
+5. Transactions and query plans
+   Learn `transaction-basics`, `isolation-levels-and-anomalies`, `mvcc-mental-model`, `explain-basics`, and `seq-scan-vs-index-scan`.
+6. System patterns
+   Only then add `caching`, `streaming`, and `nosql`.
+7. AI retrieval
+   Finish with `vector-db` once metadata, freshness, and product constraints already make sense.
 
-- Relational core: `docs/databases/relational/overview.md`
-- Schema design: `docs/databases/schema-design/overview.md`
-- SQL and analytics patterns: `docs/databases/sql-patterns/overview.md`
-- Indexing and access paths: `docs/databases/indexing/overview.md`
-- Transactions and concurrency: `docs/databases/transactions/overview.md`
-- Query plans and tuning: `docs/databases/query-plans/overview.md`
-- Caching and semantic caching: `docs/databases/caching/overview.md`
-- NoSQL trade-offs: `docs/databases/nosql/overview.md`
-- Streaming and CDC: `docs/databases/streaming/overview.md`
-- Vector retrieval and memory: `docs/databases/vector-db/overview.md`
+## Topic Map
+
+- Relational core: `relational/overview.md`
+- Schema design: `schema-design/overview.md`
+- SQL and analytics patterns: `sql-patterns/overview.md`
+- Indexing and access paths: `indexing/overview.md`
+- Transactions and concurrency: `transactions/overview.md`
+- Query plans and tuning: `query-plans/overview.md`
+- Caching and semantic caching: `caching/overview.md`
+- NoSQL trade-offs: `nosql/overview.md`
+- Streaming and CDC: `streaming/overview.md`
+- Vector retrieval and memory: `vector-db/overview.md`
 
 ## AI-Time 2026 Priorities
 

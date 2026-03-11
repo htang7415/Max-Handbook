@@ -2,26 +2,50 @@
 
 Breach bucket metrics summarize overload severity after turning capacity breaches into severity buckets.
 
-## Metric Families
+## Purpose
 
-- Mass metrics: breach bucket share, mass, cumulative share
-- Shape metrics: entropy, slope, curvature, bend, wave
-- Threshold-location metrics: quantile, knee, turning point, inflection
-- Tail metrics: breach bucket tail, span
-- Area metrics: step function, step area
+Use this guide when overload has already been bucketized into severity bands and you need the right summary:
+- overall burden
+- concentration across severities
+- escalation shape
+- where mild overload turns into severe overload
 
-## How to Use Them
+## First Principles
 
-- Use share or mass when you want the basic severity distribution across buckets.
-- Use entropy when you want to know whether overload is spread across many severities or concentrated.
-- Use slope and curvature when you care about abrupt changes from mild to severe overload.
-- Use knee or inflection metrics when you need a “where does it get bad” summary.
-- Use step-area style metrics when cumulative burden matters more than local shape.
+- Bucketized overload is a second-stage summary; the first-stage check is still the raw breach rate.
+- Distribution shape matters because two systems can have the same breach mass but very different severity profiles.
+- Threshold-location metrics are useful when operators need a simple “where does it get bad” signal.
+- Bucket metrics are only worthwhile when severity buckets reflect an actual operational policy.
 
-## Good Defaults
+## Core Math
 
-- Start with the canonical module `capacity-stress-metrics`
-- Use `capacity_breach_rate` before any bucketized analysis
-- Use `breach_bucket_share` as the base distribution view
-- Use `breach_bucket_entropy` for concentration
-- Use `breach_bucket_slope` when abrupt escalation matters
+- Breach share by bucket:
+  $$
+  \frac{n_b}{N}
+  $$
+- Bucket entropy:
+  $$
+  -\sum_b p_b \log p_b
+  $$
+- Slope and curvature summarize how quickly severity mass moves toward worse buckets.
+
+## Minimal Code Mental Model
+
+```python
+buckets = bucketize_breaches(load, thresholds)
+share = breach_bucket_share(buckets)
+entropy = breach_bucket_entropy(buckets)
+slope = breach_bucket_slope(buckets)
+```
+
+## Canonical Modules
+
+- Family module: `capacity-stress-metrics`
+
+## When To Use What
+
+- Start with `capacity-stress-metrics` before narrower bucket summaries.
+- Use breach share or mass for the base severity distribution.
+- Use entropy when you care about concentration across severity levels.
+- Use slope or curvature when abrupt escalation matters more than average burden.
+- Use knee or threshold-location summaries when operations needs a simple escalation boundary.

@@ -29,6 +29,7 @@ Use this topic to learn events, consumer groups, CDC, and the patterns that keep
 
 - `event-stream-basics`
 - `cdc-vs-application-events`
+- `event-versioning-and-schema-evolution`
 - `consumer-groups-and-offsets`
 - `idempotent-consumers`
 - `outbox-and-materialized-view-patterns`
@@ -36,7 +37,7 @@ Use this topic to learn events, consumer groups, CDC, and the patterns that keep
 
 ## When To Use What
 
-- Use CDC when downstream systems need committed database changes.
-- Use application events when business meaning matters more than raw row-level change capture.
-- Use idempotent consumers whenever retries or replay are possible.
+- Start with event basics, then decide between CDC and application events.
+- Add versioning rules once multiple producers or long-lived consumers exist.
+- Use idempotent consumers whenever retries, replay, or out-of-order handling are possible.
 - Use streaming when freshness across systems matters enough that batch polling is no longer acceptable.

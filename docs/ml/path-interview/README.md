@@ -2,14 +2,20 @@
 
 Use this path if your main goal is ML interview readiness rather than full production depth.
 
-## Goal
+## Purpose
 
-Build fast recall on:
+Use this path to build fast recall on:
 - fundamentals and common math
 - model selection trade-offs
 - evaluation choices
 - deep-learning basics
 - modern LLM intuition
+
+## First Principles
+
+- Interview readiness is mostly about fast judgment on model families, metrics, optimization, and trade-offs.
+- Canonical family modules are higher value than memorizing many narrow variants.
+- Production systems depth is secondary unless the target role explicitly tests it.
 
 ## Order
 
@@ -30,16 +36,8 @@ Build fast recall on:
 - `decoding-methods`
 - `retrieval-metrics`
 
-## Focus
+## When To Use What
 
-- bias/variance and regularization
-- validation and leakage
-- metric selection
-- backprop, optimization, and normalization
-- transformer basics and decoding trade-offs
-
-## Deprioritize
-
-- deep systems internals
-- long-tail monitoring ratios
-- specialized RL operational details
+- Use this path when interview prep matters more than production depth.
+- Focus on bias/variance, leakage, metric choice, backprop, optimization, normalization, and transformer basics.
+- Deprioritize deep systems internals, long-tail monitoring ratios, and specialized RL operational details until the core interview loop is stable.

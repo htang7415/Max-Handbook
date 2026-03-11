@@ -2,23 +2,46 @@
 
 Transition indicators turn episode termination state into tensors that control bootstrapping and loss masking.
 
-## Metric Families
+## Purpose
 
-- Binary masks: terminal mask, continuation mask, not-done mask
-- Fraction summaries: done fraction, nonterminal fraction, terminal share
-- Per-transition indicators: terminal indicator, nonterminal indicator, continuing indicator
-- Batch helpers: done indicator batch, continuing transition batch, resilient transition batch
+Use this guide to keep RL transition state in the right order:
+- per-transition masks for targets
+- numeric indicators for pipelines
+- dataset summaries for debugging
+- vectorized helpers for batch code
 
-## How to Use Them
+## First Principles
 
-- Use binary masks when computing TD targets or bootstrapped returns.
-- Use fraction summaries for dataset-level diagnostics.
-- Use per-transition indicators when the pipeline expects numeric features instead of booleans.
-- Use batch helpers when shaping tensors for vectorized RL code.
+- Bootstrapped targets depend on whether a transition continues.
+- Loss masking and target masking are the same structural signal in different code paths.
+- Dataset-level fractions help debug data quality but do not replace per-transition masks.
+- Transition indicators should be learned as one family before memorizing narrow variants.
 
-## Good Defaults
+## Core Math
 
-- Start with the canonical module `transition-indicators`
-- Use `terminal_mask` for TD target logic
-- Use `done_fraction` for replay-buffer diagnostics
-- Use `td-control-methods` plus `terminal_mask` as the core teaching pair
+- TD target masking:
+  $$
+  y = r + \gamma (1-d) V(s')
+  $$
+- Here `d` is the done or terminal indicator controlling whether bootstrapping continues.
+
+## Minimal Code Mental Model
+
+```python
+mask = terminal_mask(done_flags)
+target = reward + gamma * mask * next_value
+fraction = done_fraction(done_flags)
+```
+
+## Canonical Modules
+
+- Family module: `transition-indicators`
+- Neighboring module: `td-control-methods`
+
+## When To Use What
+
+- Start with `transition-indicators` before narrower done-mask helpers.
+- Use terminal masks for TD target logic and bootstrapped returns.
+- Use done fractions for replay-buffer diagnostics.
+- Use numeric per-transition indicators when the downstream pipeline expects features instead of booleans.
+- Pair this guide with `td-control-methods` when learning value targets end to end.

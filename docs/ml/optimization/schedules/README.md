@@ -2,22 +2,45 @@
 
 Schedules shape how aggressively optimization explores early and settles late.
 
-## Current Anchors
+## Purpose
 
-- Constant LR (`modules/ml/optimization/lr-constant`)
-- Step decay (`modules/ml/optimization/lr-step-decay`)
-- Exponential decay (`modules/ml/optimization/lr-exponential-decay`)
-- Warmup (`modules/ml/optimization/lr-warmup`)
-- Cosine decay (`modules/ml/optimization/lr-cosine-decay`)
-- Warmup plus cosine decay (`modules/ml/optimization/warmup-cosine-decay`)
-- One-cycle schedule (`modules/ml/optimization/one-cycle-schedule`)
-- Cosine restarts (`modules/ml/optimization/cosine-restarts`)
+Use this guide to choose the right schedule family:
+- constant and monotone decay
+- warmup
+- cosine-style annealing
+- one-cycle and restart patterns
 
-## Concepts to Cover Well
+## First Principles
 
-- Warmup to avoid early instability
-- Monotone decay when late optimization should get conservative
-- Cosine schedules for smooth annealing
-- Restarts for periodic exploration
-- One-cycle as an aggressive train-fast schedule
-- Matching schedule shape to batch size, optimizer, and training length
+- The optimizer defines the update rule; the schedule defines how large the updates should be over time.
+- Warmup exists because the earliest steps are often the least stable.
+- Decay exists because late training usually benefits from smaller steps.
+- Smooth schedules are easier to tune than brittle hand-crafted piecewise jumps.
+
+## Core Math
+
+- Step decay and exponential decay shrink the base learning rate over time.
+- Cosine schedules use a smooth annealing curve:
+  $$
+  \eta_t = \eta_0 \frac{1 + \cos(\pi t / T)}{2}
+  $$
+
+## Minimal Code Mental Model
+
+```python
+warm = warmup_factor(t=20, warmup_steps=100)
+decay = cosine_decay_factor(t=200, t_max=1000)
+lr = warmup_cosine_lr(base_lr=1e-3, step=200, warmup_steps=100, total_steps=1000)
+```
+
+## Canonical Modules
+
+- Family module: `learning-rate-schedules`
+
+## When To Use What
+
+- Start with `learning-rate-schedules` for the family overview.
+- Use monotone decay when you want a simple conservative schedule.
+- Use warmup when early-step instability is the main issue.
+- Use cosine or warmup-plus-cosine as strong modern defaults.
+- Use one-cycle when you want an aggressive short-run schedule with strong annealing.

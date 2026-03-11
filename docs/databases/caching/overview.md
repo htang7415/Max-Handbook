@@ -29,12 +29,13 @@ return value
 - `ttl-and-invalidation`
 - `write-through-vs-write-behind`
 - `client-side-caching`
+- `cache-consistency-patterns`
 - `hot-key-and-rate-limit-protection`
 - `semantic-caching-basics`
 
 ## When To Use What
 
-- Start with cache-aside and explicit invalidation rules.
-- Use TTL when stale reads are acceptable for a bounded period.
-- Use write-through or write-behind only when the operational trade-off is clear.
-- Use semantic caching for repeated retrieval or model-answer patterns with stable permissions and bounded freshness needs.
+- Start with `cache-aside`, then learn TTL and invalidation before any more advanced cache policy.
+- Add write-through, write-behind, and client-side caching only when the ownership and freshness rules are already clear.
+- Use consistency, stampede, and hot-key modules when the cache is already on a real product path.
+- Use semantic caching only for repeated retrieval or model-answer patterns with stable permissions and bounded freshness needs.

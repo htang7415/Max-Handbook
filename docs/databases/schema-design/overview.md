@@ -37,6 +37,7 @@ CREATE TABLE chunks (
 
 - `entity-vs-event-tables`
 - `one-to-many-and-many-to-many`
+- `ownership-and-delete-boundaries`
 - `metadata-and-lineage-tables`
 - `multi-tenant-schema-patterns`
 - `audit-soft-delete-and-history`
@@ -44,7 +45,8 @@ CREATE TABLE chunks (
 
 ## When To Use What
 
+- Start with entities, relationships, and delete boundaries before adding history or AI-specific tables.
 - Use entity tables when the product needs the latest state quickly.
 - Use append-only event tables when ordering and replay matter.
 - Use explicit join tables when relationships are real first-class data.
-- Use clear lineage tables when AI outputs depend on prompts, datasets, or upstream jobs.
+- Use lineage, audit, and document-chunk-embedding modules once ownership and lifecycle rules are already settled.

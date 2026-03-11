@@ -34,13 +34,14 @@ COMMIT;
 - `transaction-basics`
 - `isolation-levels-and-anomalies`
 - `mvcc-mental-model`
+- `optimistic-concurrency-control`
 - `deadlocks-and-lock-ordering`
 - `idempotent-writes-and-retries`
 - `outbox-pattern`
 
 ## When To Use What
 
-- Start with transaction basics before explicit locking.
-- Use stronger isolation only when the anomaly really matters.
-- Use retries for transient conflicts and deadlocks.
+- Start with transaction basics, then map the real bug to an isolation level or anomaly.
+- Use optimistic concurrency when conflicts are real but explicit locking would be too heavy.
+- Use retries for transient conflicts and deadlocks, not as a substitute for missing invariants.
 - Use the outbox pattern when database writes must drive downstream queues or events reliably.

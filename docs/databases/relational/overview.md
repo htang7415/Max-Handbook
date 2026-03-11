@@ -29,12 +29,13 @@ ORDER BY d.created_at DESC;
 - `tables-and-keys`
 - `join-shapes`
 - `constraints-and-integrity`
-- `normalization-vs-denormalization`
+- `foreign-key-cascades`
+- `null-semantics-in-joins`
 - `jsonb-inside-relational-systems`
 
 ## When To Use What
 
 - Start here before `nosql` or `vector-db`.
-- Use normalized tables for correctness and long-term maintainability.
-- Add selective denormalization only after the hot read path is real.
-- Use flexible columns like JSONB for metadata at the edge, not as an excuse to skip schema design.
+- Learn keys, joins, and constraints before moving to JSONB or denormalization decisions.
+- Use cascades and nullable join patterns when ownership and optional relationships are part of the real schema.
+- Use flexible columns like JSONB for metadata at the edge, not as an excuse to skip relational structure.

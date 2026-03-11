@@ -31,6 +31,7 @@ LIMIT 5;
 - `metadata-filtering`
 - `hybrid-search`
 - `reranking-pipelines`
+- `hybrid-retrieval-evaluation`
 - `agent-memory-retrieval`
 
 ## When To Use What
@@ -38,4 +39,5 @@ LIMIT 5;
 - Start with embedding table design and metadata filters before ANN tuning.
 - Use exact search for smaller collections or correctness-first baselines.
 - Use ANN when collection size or latency targets make exact search too expensive.
-- Use hybrid search when lexical terms and semantic similarity both matter.
+- Add reranking and retrieval evaluation once first-stage retrieval is stable enough to measure.
+- Use agent memory only after scoring, freshness, and conflict rules are already explicit.

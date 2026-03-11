@@ -2,27 +2,49 @@
 
 Serving quality depends on latency, memory, batching, and hardware efficiency more than on model architecture alone.
 
-## Current Anchors
+## Purpose
 
-- Long context and prompt/context caching (`modules/ml/llm/long-context-and-caching`)
-- KV cache sizing (`modules/ml/llm/kv-cache`)
-- Prefix-cache reuse (`modules/ml/llm/prefix-cache`)
-- Prefix-cache savings metrics (`modules/ml/systems/prefix-cache-metrics`)
-- Speculative decoding verification (`modules/ml/llm/speculative-decoding`)
-- Inference head pruning (`modules/ml/llm/inference-head-pruning`)
-- Numeric formats and quantization (`modules/ml/llm/precision-and-quantization`)
-- Request batching (`modules/ml/mlops/request-batching`)
-- Continuous batching (`modules/ml/systems/continuous-batching`)
-- Chunked prefill rounds (`modules/ml/systems/chunked-prefill`)
-- Roofline analysis (`modules/ml/systems/roofline-analysis`)
+Use this guide to organize LLM serving around the real bottlenecks:
+- long-context cost
+- cache reuse
+- batching and scheduling
+- memory format and hardware limits
 
-## Concepts to Cover Well
+## First Principles
 
-- Long-context budgets and quadratic prefill growth
-- Prompt/context caching and shared-prefix reuse
-- TTFT, ITL, and tokens/sec
-- Continuous batching and chunked prefill
-- KV cache memory budgets and eviction
-- Prefix cache reuse
-- Prefix cache hit lengths and saved-token metrics
-- Speculative decoding and verification
+- Serving quality is mostly a systems problem once the base model is fixed.
+- TTFT, ITL, and tokens per second are shaped by scheduling and memory movement as much as by raw compute.
+- Cache reuse matters only when prompts actually share structure.
+- Long context is expensive because prefill cost and cache memory both grow quickly.
+
+## Core Math
+
+- KV cache memory grows with sequence length and layer width.
+- Throughput is roughly:
+  $$
+  \frac{\text{tokens}}{\text{second}}
+  $$
+- Shared-prefix reuse changes effective prefill cost by avoiding repeated prompt work.
+
+## Minimal Code Mental Model
+
+```python
+batch = continuous_batch(requests)
+cached = prefix_cache_lookup(prompt_prefix)
+decoded = speculative_decode(batch, draft_model, target_model)
+```
+
+## Canonical Modules
+
+- Context and cache fundamentals: `long-context-and-caching`, `kv-cache`, `prefix-cache`
+- Serving efficiency: `precision-and-quantization`, `speculative-decoding`
+- Scheduling: `request-batching`, `continuous-batching`, `chunked-prefill`
+- Performance modeling: `roofline-analysis`, `prefix-cache-metrics`
+
+## When To Use What
+
+- Start with `long-context-and-caching` when context length or memory is the first bottleneck.
+- Use `kv-cache` and `prefix-cache` when reuse and memory budgets are the main issue.
+- Use batching modules when latency and throughput trade-offs dominate.
+- Use `precision-and-quantization` when model memory footprint blocks deployment targets.
+- Use `speculative-decoding` only when verification overhead is smaller than the decode savings.

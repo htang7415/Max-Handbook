@@ -30,14 +30,15 @@ Use this topic to understand when document, key-value, and wide-column systems f
 
 - `key-value-patterns`
 - `document-modeling`
+- `when-postgres-is-enough`
 - `consistency-and-quorum-mental-model`
 - `secondary-index-tradeoffs`
 - `wide-row-and-time-series-patterns`
-- `when-postgres-is-enough`
+- `tenant-sharding-basics`
 
 ## When To Use What
 
+- Start with `when-postgres-is-enough` before assuming you need a NoSQL system.
 - Use key-value systems for extremely simple lookup paths with predictable keys.
 - Use document stores when nested data is the natural product shape and cross-document joins are limited.
-- Use wide-row or time-series models when write shape and retention patterns dominate the design.
-- Stay relational when consistency, joins, and flexible querying matter more than a narrow scaling win.
+- Use wide-row, sharding, and quorum modules only when distribution and scale constraints actually drive the design.

@@ -2,27 +2,53 @@
 
 Overflow metrics describe what happens when examples exceed a hard token or length budget.
 
-## Metric Families
+## Purpose
 
-- Incidence metrics: truncation rate, overflow count, overflow presence rate
-- Mean severity metrics: mean overflow, budget overrun share, overflow density
-- Distribution metrics: overflow quantile, peak, spread, Gini
-- Thresholded metrics: overflow threshold rate and count
-- Unacceptable-case metrics: overflow cutoff mean, median, IQR, range, skew
-- Upper-tail metrics: cutoff upper tail, tail mass, tail Gini, tail mean, tail variance
+Use this guide to choose the right overflow summary when a hard budget exists:
+- whether overflow happens at all
+- how severe the average overrun is
+- how bad the tail is
+- whether a product threshold defines failure
 
-## How to Use Them
+## First Principles
 
-- Start with incidence metrics to see whether the cap is a routine event or a rare edge case.
-- Use mean severity metrics when comparing datasets or prompting strategies.
-- Use distribution metrics when a single average hides a few severe failures.
-- Use cutoff metrics when only overflow above a policy threshold should count.
-- Use upper-tail metrics when the most severe truncation cases drive quality regressions.
+- Overflow is a product constraint problem, not just a data-summary problem.
+- Incidence and severity answer different questions and should not be collapsed into one number too early.
+- Tail cases matter because a few severe overruns can drive most quality loss.
+- Thresholded metrics matter when the product defines a clear unacceptable overrun level.
 
-## Good Defaults
+## Core Math
 
-- Start with the canonical module `overflow-metrics`
-- Use `truncation_rate` for the first dashboard number
-- Use `budget_overrun_share` for normalized cross-dataset comparisons
-- Use `overflow_quantile` for worst-case visibility
-- Use `overflow_cutoff_rate` plus `overflow_cutoff_tail_mass` when a product threshold defines failure
+- Per-example overflow:
+  $$
+  o_i = \max(0, \ell_i - B)
+  $$
+- Truncation rate:
+  $$
+  \frac{\#\{i : o_i > 0\}}{N}
+  $$
+- Normalized overrun share:
+  $$
+  \frac{1}{N}\sum_i \frac{o_i}{B}
+  $$
+
+## Minimal Code Mental Model
+
+```python
+overflows = [max(0, length - budget) for length in lengths]
+rate = truncation_rate(lengths, budget)
+share = budget_overrun_share(lengths, budget)
+tail = overflow_quantile(lengths, budget, q=0.95)
+```
+
+## Canonical Modules
+
+- Family module: `overflow-metrics`
+
+## When To Use What
+
+- Start with `overflow-metrics` before looking at narrower overflow summaries.
+- Use truncation rate for the first dashboard number.
+- Use budget overrun share for normalized cross-dataset comparison.
+- Use quantiles and tail metrics when a small number of severe overruns drive quality regressions.
+- Use cutoff metrics when a product policy defines a hard failure threshold.

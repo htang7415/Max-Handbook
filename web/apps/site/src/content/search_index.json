@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T19:22:14.472Z",
+  "generated_at": "2026-03-11T19:47:02.404Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -3938,6 +3938,18 @@
       "topicName": "Streaming"
     },
     {
+      "id": "module:databases/streaming/event-versioning-and-schema-evolution",
+      "type": "module",
+      "title": "Event Versioning And Schema Evolution",
+      "summary": "> Track: `databases` | Topic: `streaming`",
+      "track": "databases",
+      "topic": "streaming",
+      "slug": "event-versioning-and-schema-evolution",
+      "href": "/track/databases/streaming#event-versioning-and-schema-evolution",
+      "trackName": "Databases",
+      "topicName": "Streaming"
+    },
+    {
       "id": "module:databases/vector-db/exact-vs-ann-search",
       "type": "module",
       "title": "Exact Vs ANN Search",
@@ -4622,6 +4634,18 @@
       "topicName": "SQL Patterns"
     },
     {
+      "id": "module:databases/indexing/index-merge-vs-composite-indexes",
+      "type": "module",
+      "title": "Index Merge Vs Composite Indexes",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "index-merge-vs-composite-indexes",
+      "href": "/track/databases/indexing#index-merge-vs-composite-indexes",
+      "trackName": "Databases",
+      "topicName": "Indexing"
+    },
+    {
       "id": "module:databases/indexing/index-write-amplification",
       "type": "module",
       "title": "Index Write Amplification",
@@ -4812,6 +4836,18 @@
       "href": "/track/ml/models#isolation-forest",
       "trackName": "Machine Learning",
       "topicName": "Models"
+    },
+    {
+      "id": "module:databases/transactions/isolation-levels-and-anomalies",
+      "type": "module",
+      "title": "Isolation Levels And Anomalies",
+      "summary": "> Track: `databases` | Topic: `transactions`",
+      "track": "databases",
+      "topic": "transactions",
+      "slug": "isolation-levels-and-anomalies",
+      "href": "/track/databases/transactions#isolation-levels-and-anomalies",
+      "trackName": "Databases",
+      "topicName": "Transactions"
     },
     {
       "id": "module:dsa/binary-tree/iterative-traversal-of-binary-trees",
@@ -5016,6 +5052,18 @@
       "href": "/track/ml/models#kernel-pca",
       "trackName": "Machine Learning",
       "topicName": "Models"
+    },
+    {
+      "id": "module:databases/nosql/key-value-patterns",
+      "type": "module",
+      "title": "Key Value Patterns",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "key-value-patterns",
+      "href": "/track/databases/nosql#key-value-patterns",
+      "trackName": "Databases",
+      "topicName": "Nosql"
     },
     {
       "id": "module:ml/fundamentals/kl-divergence",
@@ -6170,6 +6218,18 @@
       "topicName": "Optimization"
     },
     {
+      "id": "module:databases/query-plans/or-predicate-plan-shapes",
+      "type": "module",
+      "title": "OR Predicate Plan Shapes",
+      "summary": "> Track: `databases` | Topic: `query-plans`",
+      "track": "databases",
+      "topic": "query-plans",
+      "slug": "or-predicate-plan-shapes",
+      "href": "/track/databases/query-plans#or-predicate-plan-shapes",
+      "trackName": "Databases",
+      "topicName": "Query Plans"
+    },
+    {
       "id": "module:ai-agents/multi-agent/orchestrator-workers",
       "type": "module",
       "title": "Orchestrator Workers",
@@ -6218,6 +6278,18 @@
       "topicName": "Streaming"
     },
     {
+      "id": "module:databases/relational/outer-join-filter-traps",
+      "type": "module",
+      "title": "Outer Join Filter Traps",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "track": "databases",
+      "topic": "relational",
+      "slug": "outer-join-filter-traps",
+      "href": "/track/databases/relational#outer-join-filter-traps",
+      "trackName": "Databases",
+      "topicName": "Relational"
+    },
+    {
       "id": "module:ml/data/overflow-metrics",
       "type": "module",
       "title": "Overflow Metrics",
@@ -6240,6 +6312,18 @@
       "href": "/track/ml/data#overflow-metrics",
       "trackName": "Machine Learning",
       "topicName": "Data"
+    },
+    {
+      "id": "module:databases/schema-design/ownership-and-delete-boundaries",
+      "type": "module",
+      "title": "Ownership And Delete Boundaries",
+      "summary": "> Track: `databases` | Topic: `schema-design`",
+      "track": "databases",
+      "topic": "schema-design",
+      "slug": "ownership-and-delete-boundaries",
+      "href": "/track/databases/schema-design#ownership-and-delete-boundaries",
+      "trackName": "Databases",
+      "topicName": "Schema Design"
     },
     {
       "id": "module:software-engineering/rust/ownership-at-api-boundaries",
@@ -6684,6 +6768,18 @@
       "href": "/track/ml/systems#prefix-cache-metrics",
       "trackName": "Machine Learning",
       "topicName": "Systems"
+    },
+    {
+      "id": "module:databases/indexing/prefix-search-and-like-indexing",
+      "type": "module",
+      "title": "Prefix Search And LIKE Indexing",
+      "summary": "> Track: `databases` | Topic: `indexing`",
+      "track": "databases",
+      "topic": "indexing",
+      "slug": "prefix-search-and-like-indexing",
+      "href": "/track/databases/indexing#prefix-search-and-like-indexing",
+      "trackName": "Databases",
+      "topicName": "Indexing"
     },
     {
       "id": "module:ml/llm/pretraining",
@@ -7764,6 +7860,18 @@
       "href": "/track/software-engineering/security-basics#security-basics",
       "trackName": "Software Engineering",
       "topicName": "Security Basics"
+    },
+    {
+      "id": "module:databases/relational/self-referential-relationships",
+      "type": "module",
+      "title": "Self Referential Relationships",
+      "summary": "> Track: `databases` | Topic: `relational`",
+      "track": "databases",
+      "topic": "relational",
+      "slug": "self-referential-relationships",
+      "href": "/track/databases/relational#self-referential-relationships",
+      "trackName": "Databases",
+      "topicName": "Relational"
     },
     {
       "id": "module:ai-agents/prompting/self-check-patterns",
@@ -9060,6 +9168,18 @@
       "href": "/track/software-engineering/apis#webhooks-and-signature-validation",
       "trackName": "Software Engineering",
       "topicName": "APIs"
+    },
+    {
+      "id": "module:databases/nosql/when-postgres-is-enough",
+      "type": "module",
+      "title": "When Postgres Is Enough",
+      "summary": "> Track: `databases` | Topic: `nosql`",
+      "track": "databases",
+      "topic": "nosql",
+      "slug": "when-postgres-is-enough",
+      "href": "/track/databases/nosql#when-postgres-is-enough",
+      "trackName": "Databases",
+      "topicName": "Nosql"
     },
     {
       "id": "module:databases/nosql/wide-row-and-time-series-patterns",

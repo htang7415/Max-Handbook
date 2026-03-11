@@ -29,14 +29,15 @@ LIMIT 20;
 
 - `btree-basics`
 - `composite-index-order`
+- `expression-index-basics`
 - `covering-index-concepts`
 - `partial-indexes`
+- `index-write-amplification`
 - `jsonb-and-gin-indexing`
-- `partition-pruning-basics`
 
 ## When To Use What
 
-- Use B-tree indexes first for equality, range, and ordered lookups.
-- Use composite indexes when filters and sort order repeat on a hot path.
-- Use partial indexes when only a subset of rows matters often enough to justify a targeted structure.
-- Use JSONB and GIN only when flexible metadata queries are truly part of the product path.
+- Start with `btree-basics`, then learn `composite-index-order` and `covering-index-concepts`.
+- Use expression and partial indexes only when the predicate shape is already stable.
+- Reach for JSONB, GIN, prefix search, or partitioning only after a plain B-tree design is clearly insufficient.
+- Recheck `index-write-amplification` and low-selectivity trade-offs before adding another index to a hot write path.

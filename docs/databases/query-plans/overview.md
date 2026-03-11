@@ -30,12 +30,13 @@ GROUP BY c.document_id;
 - `seq-scan-vs-index-scan`
 - `nested-loop-vs-hash-join`
 - `cardinality-estimation`
+- `sargability-basics`
+- `or-predicate-plan-shapes`
 - `sort-limit-and-group-by-costs`
-- `plan-regression-debugging`
 
 ## When To Use What
 
-- Use `EXPLAIN` before changing schema or adding indexes.
+- Start with `explain-basics`, then compare scan and join shapes before debugging edge cases.
 - Use `EXPLAIN ANALYZE` when a query is already slow and you need actual timing and row counts.
-- Suspect cardinality errors when a plan shape looks reasonable but performs badly.
-- Recheck the data model when tuning becomes a long chain of special-case indexes.
+- Suspect cardinality or sargability issues when a plan shape looks reasonable but still performs badly.
+- Recheck the data model when tuning becomes a long chain of special-case indexes and plan workarounds.

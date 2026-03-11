@@ -34,16 +34,18 @@ WHERE rn = 1;
 
 ## Canonical Modules
 
-- `joins-and-aggregations`
-- `ctes-and-readable-sql`
 - `window-functions-basics`
 - `dedup-and-latest-row`
+- `as-of-joins`
 - `upserts-and-merge-patterns`
+- `time-bucket-aggregations`
 - `duckdb-parquet-query-patterns`
 
 ## When To Use What
 
-- Start with joins and aggregations before window functions.
+- Start here after the basic join shapes in `relational`.
 - Use window functions when you need row context without collapsing the result set.
+- Use as-of joins and latest-row patterns when time and freshness matter.
 - Use upserts when writes must be idempotent and conflict-safe.
+- Use time-bucket aggregations for dashboards and periodic rollups.
 - Use DuckDB and Parquet when the question is analytical and does not need transactional writes.
