@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T07:32:22.359Z",
+  "generated_at": "2026-03-11T07:40:34.796Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -1802,6 +1802,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "doc:ai-agents/overview/decision-methods",
+      "type": "doc",
+      "title": "Agent Decision Methods",
+      "summary": "This page groups the main quantitative decision patterns used across the `ai-agents` track.",
+      "track": "ai-agents",
+      "topic": "overview",
+      "slug": "decision-methods",
+      "href": "/track/ai-agents/overview#decision-methods",
+      "trackName": "AI Agents",
+      "topicName": "Overview"
+    },
+    {
       "id": "module:ai-agents/evaluation/agent-evaluation-basics",
       "type": "module",
       "title": "Agent Evaluation Basics",
@@ -2724,6 +2736,18 @@
       "href": "/track/ml/deep-learning#training-techniques",
       "trackName": "Machine Learning",
       "topicName": "Deep Learning"
+    },
+    {
+      "id": "module:ai-agents/multi-agent/delegation-budgets",
+      "type": "module",
+      "title": "Delegation Budgets",
+      "summary": "> Track: `ai-agents` | Topic: `multi-agent`",
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "delegation-budgets",
+      "href": "/track/ai-agents/multi-agent#delegation-budgets",
+      "trackName": "AI Agents",
+      "topicName": "Multi Agent"
     },
     {
       "id": "module:ml/evaluation/delong-test",
@@ -4082,6 +4106,18 @@
       "topicName": "Memory"
     },
     {
+      "id": "module:ai-agents/memory/memory-conflict-resolution",
+      "type": "module",
+      "title": "Memory Conflict Resolution",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-conflict-resolution",
+      "href": "/track/ai-agents/memory#memory-conflict-resolution",
+      "trackName": "AI Agents",
+      "topicName": "Memory"
+    },
+    {
       "id": "module:ai-agents/memory/memory-patterns",
       "type": "module",
       "title": "Memory Patterns",
@@ -5078,6 +5114,18 @@
       "topicName": "Workflows"
     },
     {
+      "id": "module:ai-agents/rag/retrieval-abstention-and-coverage",
+      "type": "module",
+      "title": "Retrieval Abstention and Coverage",
+      "summary": "> Track: `ai-agents` | Topic: `rag`",
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "retrieval-abstention-and-coverage",
+      "href": "/track/ai-agents/rag#retrieval-abstention-and-coverage",
+      "trackName": "AI Agents",
+      "topicName": "Rag"
+    },
+    {
       "id": "module:ml/llm/retrieval-fusion-methods",
       "type": "module",
       "title": "Retrieval Fusion Methods",
@@ -5232,6 +5280,18 @@
       "href": "/track/ml/systems#roofline-analysis",
       "trackName": "Machine Learning",
       "topicName": "Systems"
+    },
+    {
+      "id": "module:ai-agents/observability/root-cause-attribution",
+      "type": "module",
+      "title": "Root Cause Attribution",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "root-cause-attribution",
+      "href": "/track/ai-agents/observability#root-cause-attribution",
+      "trackName": "AI Agents",
+      "topicName": "Observability"
     },
     {
       "id": "module:ai-agents/workflows/routing-scorecards",

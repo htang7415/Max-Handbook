@@ -29,6 +29,7 @@ merged = merge_worker_outputs(outputs)
 
 ## Supporting Modules
 
+- Budgeting coordinator resources across workers: `delegation-budgets`
 - Coordinator-to-worker delegation with bounded subtasks: `orchestrator-workers`
 - Arbitration over multiple worker answers: `debate-and-arbitration`
 - Assigning roles before workers start: `role-assignment`
@@ -36,6 +37,7 @@ merged = merge_worker_outputs(outputs)
 ## When To Use What
 
 - Start with `worker-coordination` when one planner or executor is no longer enough.
+- Use `delegation-budgets` when the coordinator must bound worker cost or effort instead of delegating without limits.
 - Use `orchestrator-workers` when one coordinator should own the global goal and delegate narrow subtasks to workers.
 - Use `debate-and-arbitration` when workers can disagree and the coordinator needs a simple merge rule.
 - Use `role-assignment` when the main problem is deciding which workers should exist and what each one should own.

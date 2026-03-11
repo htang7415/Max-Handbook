@@ -28,12 +28,14 @@ context = build_grounded_context(top_chunks, max_chunks=2)
 
 ## Supporting Modules
 
+- Abstaining or retrieving more when evidence coverage is weak: `retrieval-abstention-and-coverage`
 - Grounding checks and citation coverage: `retrieval-quality-and-citations`
 - Claim-level grounding checks after answer generation: `answer-grounding-checks`
 
 ## When To Use What
 
 - Start with `rag-basics` when you need the simplest retrieve-then-answer workflow.
+- Use `retrieval-abstention-and-coverage` when the main question is whether the retrieved evidence is strong enough to answer at all.
 - Use `retrieval-quality-and-citations` when the answer needs explicit evidence coverage.
 - Use `answer-grounding-checks` when the answer is already generated and you need to score whether each claim is actually supported.
 - Keep chunk packing conservative before optimizing fancier reranking or fusion.

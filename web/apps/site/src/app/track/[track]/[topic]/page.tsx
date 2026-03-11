@@ -469,56 +469,85 @@ function makePurposeSentence(text: string) {
     "are",
     "was",
     "were",
+    "measure",
     "measures",
+    "compute",
     "computes",
+    "estimate",
     "estimates",
+    "normalize",
     "normalizes",
+    "stabilize",
     "stabilizes",
+    "reduce",
     "reduces",
+    "add",
     "adds",
+    "apply",
     "applies",
+    "map",
     "maps",
+    "convert",
     "converts",
+    "split",
     "splits",
+    "update",
     "updates",
+    "compare",
     "compares",
+    "detect",
     "detects",
+    "balance",
     "balances",
+    "sample",
     "samples",
+    "clip",
     "clips",
+    "approximate",
     "approximates",
+    "factorize",
     "factorizes",
+    "decompose",
     "decomposes",
+    "model",
     "models",
+    "encode",
     "encodes",
+    "decode",
     "decodes",
+    "optimize",
     "optimizes",
+    "regularize",
     "regularizes",
+    "encourage",
     "encourages",
+    "prevent",
     "prevents",
+    "control",
     "controls",
+    "limit",
     "limits",
+    "align",
     "aligns",
+    "route",
     "routes",
+    "use",
     "uses",
   ];
 
-  for (const verb of verbList) {
-    const regex = new RegExp(`\\b${verb}\\b`, "i");
-    const match = cleaned.match(regex);
-    if (match && match.index !== undefined) {
-      const rest = cleaned.slice(match.index + match[0].length).trim();
-      if (["is", "are", "was", "were"].includes(verb)) {
-        if (!rest) break;
-        return ensurePeriod(`Use this to understand ${rest}`);
-      }
-      const baseVerb = toBaseVerb(match[0]);
-      if (!rest) break;
-      return ensurePeriod(`Use this to ${baseVerb} ${rest}`);
+  const startVerbPattern = new RegExp(`^(${verbList.join("|")})\\b`, "i");
+  const startVerbMatch = cleaned.match(startVerbPattern);
+  if (startVerbMatch) {
+    const rest = cleaned.slice(startVerbMatch[0].length).trim();
+    if (!rest) return ensurePeriod(cleaned);
+    if (["is", "are", "was", "were"].includes(startVerbMatch[0].toLowerCase())) {
+      return ensurePeriod(`Use this to understand ${rest}`);
     }
+    const baseVerb = toBaseVerb(startVerbMatch[0]);
+    return ensurePeriod(`Use this to ${baseVerb} ${rest}`);
   }
 
-  return ensurePeriod(`Use this to understand ${cleaned}`);
+  return ensurePeriod(cleaned);
 }
 
 function normalizeSections(
@@ -547,9 +576,10 @@ function normalizeSections(
     const lowerSummary = fallback.toLowerCase();
     const lowerTitle = title.toLowerCase();
     if (lowerSummary.startsWith(lowerTitle)) {
-      fallback = fallback.slice(title.length).trim();
-      fallback = fallback.replace(/^[\s:–-]+/, "");
-      fallback = fallback.replace(/^(is|are|was|were)\s+/i, "");
+      const stripped = fallback.slice(title.length).trim().replace(/^[\s:–-]+/, "");
+      if (/^(is|are|was|were)\b/i.test(stripped)) {
+        fallback = stripped.replace(/^(is|are|was|were)\s+/i, "");
+      }
     }
   }
   const keywordPurpose = purposeFromKeywords(title, fallback, conceptText, intro, keypointsText);

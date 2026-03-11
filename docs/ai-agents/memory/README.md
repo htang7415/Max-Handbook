@@ -29,6 +29,7 @@ hits = retrieve_relevant_memories("csv report", memory, k=2)
 
 ## Supporting Modules
 
+- Resolving conflicting memories by recency, trust, and confirmations: `memory-conflict-resolution`
 - Retrieval-backed memory over stored notes: `retrieval-backed-memory`
 - Compaction of many notes into a shorter working summary: `memory-compaction`
 - Retaining high-value notes and evicting weak ones: `memory-retention-policy`
@@ -37,6 +38,7 @@ hits = retrieve_relevant_memories("csv report", memory, k=2)
 ## When To Use What
 
 - Start with `memory-patterns` when the agent must remember user preferences or prior step outputs.
+- Use `memory-conflict-resolution` when stored memories disagree and the system needs an explicit choose-or-review rule.
 - Use `retrieval-backed-memory` when recent summaries are not enough and the agent needs simple lookup over older notes.
 - Use `memory-compaction` when stored notes are growing but the active summary needs to stay short.
 - Use `memory-retention-policy` when the store is growing and the agent needs a simple keep-or-drop rule.

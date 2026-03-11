@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-11T07:32:22.359Z",
+  "generated_at": "2026-03-11T07:40:34.796Z",
   "tracks": [
     {
       "id": "dsa",
@@ -26,7 +26,7 @@
       "accent": "#2ca02c",
       "accentVar": "--track-ai-agents",
       "topicCount": 12,
-      "moduleCount": 80
+      "moduleCount": 84
     },
     {
       "id": "databases",
@@ -166,15 +166,6 @@
       "moduleCount": 0
     },
     {
-      "track": "ai-agents",
-      "topic": "evaluation",
-      "name": "Evaluation",
-      "path": "/track/ai-agents/evaluation",
-      "hasDoc": true,
-      "docCount": 1,
-      "moduleCount": 18
-    },
-    {
       "track": "ml",
       "topic": "evaluation",
       "name": "Evaluation",
@@ -182,6 +173,15 @@
       "hasDoc": true,
       "docCount": 3,
       "moduleCount": 17
+    },
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "name": "Evaluation",
+      "path": "/track/ai-agents/evaluation",
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 18
     },
     {
       "track": "ml",
@@ -262,7 +262,7 @@
       "path": "/track/ai-agents/memory",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 5
+      "moduleCount": 6
     },
     {
       "track": "ml",
@@ -298,7 +298,7 @@
       "path": "/track/ai-agents/multi-agent",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 4
+      "moduleCount": 5
     },
     {
       "track": "databases",
@@ -316,7 +316,7 @@
       "path": "/track/ai-agents/observability",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 5
+      "moduleCount": 6
     },
     {
       "track": "ml",
@@ -333,7 +333,7 @@
       "name": "Overview",
       "path": "/track/ai-agents/overview",
       "hasDoc": true,
-      "docCount": 2,
+      "docCount": 3,
       "moduleCount": 0
     },
     {
@@ -424,7 +424,7 @@
       "path": "/track/ai-agents/rag",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 4
     },
     {
       "track": "ml",
@@ -1050,6 +1050,22 @@
     {
       "track": "ai-agents",
       "topic": "memory",
+      "slug": "memory-conflict-resolution",
+      "title": "Memory Conflict Resolution",
+      "path": "modules/ai-agents/memory/memory-conflict-resolution",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "readme": "# Memory Conflict Resolution\n\n> Track: `ai-agents` | Topic: `memory`\n\n## Concept\n\nMemory conflict resolution ranks conflicting memories by recency, source trust, and confirming evidence so the agent can choose one or escalate when the conflict remains ambiguous.\n\n## Key Points\n\n- A conflicting memory should not win just because it was seen most recently.\n- Recency, source trust, and confirmations should be combined explicitly.\n- If the best memory is weak or too close to the next one, review is safer than guessing.\n\n## Minimal Code Mental Model\n\n```python\nscore = memory_evidence_score(recency_score=0.9, source_trust=0.8, confirmations=2)\nranked = rank_conflicting_memories(memories)\nroute = memory_conflict_route(memories, min_score=0.6, min_margin=0.1)\n```\n\n## Function\n\n```python\ndef memory_evidence_score(recency_score: float, source_trust: float, confirmations: int) -> float:\ndef rank_conflicting_memories(memories: list[dict[str, object]]) -> list[dict[str, object]]:\ndef memory_conflict_route(memories: list[dict[str, object]], min_score: float, min_margin: float = 0.0) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/memory/memory-conflict-resolution/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/memory/memory-conflict-resolution/python/memory_conflict_resolution.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef memory_evidence_score(recency_score: float, source_trust: float, confirmations: int) -> float:\n    if not 0.0 <= recency_score <= 1.0:\n        raise ValueError(\"recency_score must satisfy 0 <= value <= 1\")\n    if not 0.0 <= source_trust <= 1.0:\n        raise ValueError(\"source_trust must satisfy 0 <= value <= 1\")\n    if confirmations < 0:\n        raise ValueError(\"confirmations must be non-negative\")\n\n    confirmation_score = min(confirmations, 3) / 3\n    return 0.4 * recency_score + 0.4 * source_trust + 0.2 * confirmation_score\n\n\ndef rank_conflicting_memories(memories: list[dict[str, object]]) -> list[dict[str, object]]:\n    if not memories:\n        raise ValueError(\"memories must be non-empty\")\n\n    ranked: list[dict[str, object]] = []\n    for memory in memories:\n        memory_id = str(memory.get(\"memory_id\", \"\")).strip()\n        if not memory_id:\n            raise ValueError(\"memory_id must be non-empty\")\n        score = memory_evidence_score(\n            recency_score=float(memory.get(\"recency_score\", 0.0)),\n            source_trust=float(memory.get(\"source_trust\", 0.0)),\n            confirmations=int(memory.get(\"confirmations\", 0)),\n        )\n        ranked.append({\"memory_id\": memory_id, \"score\": score})\n\n    return sorted(ranked, key=lambda item: (-float(item[\"score\"]), str(item[\"memory_id\"])))\n\n\ndef memory_conflict_route(memories: list[dict[str, object]], min_score: float, min_margin: float = 0.0) -> str:\n    if not 0.0 <= min_score <= 1.0:\n        raise ValueError(\"min_score must satisfy 0 <= value <= 1\")\n    if min_margin < 0.0:\n        raise ValueError(\"min_margin must be non-negative\")\n\n    ranked = rank_conflicting_memories(memories)\n    top_score = float(ranked[0][\"score\"])\n    if top_score < min_score:\n        return \"review\"\n    second_score = float(ranked[1][\"score\"]) if len(ranked) > 1 else 0.0\n    if top_score - second_score < min_margin:\n        return \"review\"\n    return str(ranked[0][\"memory_id\"])\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "memory",
       "slug": "memory-patterns",
       "title": "Memory Patterns",
       "path": "modules/ai-agents/memory/memory-patterns",
@@ -1130,6 +1146,22 @@
     {
       "track": "ai-agents",
       "topic": "multi-agent",
+      "slug": "delegation-budgets",
+      "title": "Delegation Budgets",
+      "path": "modules/ai-agents/multi-agent/delegation-budgets",
+      "summary": "> Track: `ai-agents` | Topic: `multi-agent`",
+      "readme": "# Delegation Budgets\n\n> Track: `ai-agents` | Topic: `multi-agent`\n\n## Concept\n\nDelegation budgets split a shared worker budget across agents, detect which workers exceed their share, and decide whether the coordinator can execute, rebalance, or should review.\n\n## Key Points\n\n- Delegation should be bounded by explicit budgets, not only by task text.\n- Worker budgets should be proportional to role importance or expected workload.\n- If only some workers exceed budget, rebalancing is better than failing the whole plan.\n\n## Minimal Code Mental Model\n\n```python\nbudgets = proportional_worker_budgets({\"research\": 2.0, \"writer\": 1.0}, total_budget=6.0, reserve_budget=1.0)\nover_budget = over_budget_workers({\"research\": 3.5, \"writer\": 1.0}, budgets)\nroute = delegation_budget_route({\"research\": 3.5, \"writer\": 1.0}, budgets)\n```\n\n## Function\n\n```python\ndef proportional_worker_budgets(worker_weights: dict[str, float], total_budget: float, reserve_budget: float = 0.0) -> dict[str, float]:\ndef over_budget_workers(worker_costs: dict[str, float], worker_budgets: dict[str, float]) -> list[str]:\ndef delegation_budget_route(worker_costs: dict[str, float], worker_budgets: dict[str, float]) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/multi-agent/delegation-budgets/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/multi-agent/delegation-budgets/python/delegation_budgets.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef proportional_worker_budgets(\n    worker_weights: dict[str, float],\n    total_budget: float,\n    reserve_budget: float = 0.0,\n) -> dict[str, float]:\n    if not worker_weights:\n        raise ValueError(\"worker_weights must be non-empty\")\n    if total_budget <= 0.0:\n        raise ValueError(\"total_budget must be positive\")\n    if reserve_budget < 0.0:\n        raise ValueError(\"reserve_budget must be non-negative\")\n    if reserve_budget >= total_budget:\n        raise ValueError(\"reserve_budget must be smaller than total_budget\")\n\n    cleaned: dict[str, float] = {}\n    total_weight = 0.0\n    for worker_name, weight in worker_weights.items():\n        cleaned_name = worker_name.strip()\n        if not cleaned_name:\n            raise ValueError(\"worker names must be non-empty\")\n        if weight <= 0.0:\n            raise ValueError(\"worker weights must be positive\")\n        cleaned[cleaned_name] = weight\n        total_weight += weight\n\n    usable_budget = total_budget - reserve_budget\n    return {\n        worker_name: usable_budget * weight / total_weight\n        for worker_name, weight in sorted(cleaned.items())\n    }\n\n\ndef over_budget_workers(worker_costs: dict[str, float], worker_budgets: dict[str, float]) -> list[str]:\n    if not worker_costs:\n        raise ValueError(\"worker_costs must be non-empty\")\n    if not worker_budgets:\n        raise ValueError(\"worker_budgets must be non-empty\")\n\n    over_budget: list[str] = []\n    for worker_name, cost in worker_costs.items():\n        cleaned_name = worker_name.strip()\n        if not cleaned_name:\n            raise ValueError(\"worker names must be non-empty\")\n        if cleaned_name not in worker_budgets:\n            raise ValueError(f\"missing budget for worker: {cleaned_name}\")\n        if cost < 0.0:\n            raise ValueError(\"worker costs must be non-negative\")\n        if cost > worker_budgets[cleaned_name]:\n            over_budget.append(cleaned_name)\n    return sorted(over_budget)\n\n\ndef delegation_budget_route(worker_costs: dict[str, float], worker_budgets: dict[str, float]) -> str:\n    over_budget = over_budget_workers(worker_costs, worker_budgets)\n    if not over_budget:\n        return \"execute\"\n    if len(over_budget) == len(worker_costs):\n        return \"review\"\n    return \"rebalance\"\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "multi-agent",
       "slug": "orchestrator-workers",
       "title": "Orchestrator Workers",
       "path": "modules/ai-agents/multi-agent/orchestrator-workers",
@@ -1204,6 +1236,22 @@
           "path": "modules/ai-agents/observability/alerting-thresholds/python/alerting_thresholds.py",
           "language": "python",
           "content": "from __future__ import annotations\n\n\ndef threshold_breached(value: float, threshold: float, direction: str) -> bool:\n    if direction == \"above\":\n        return value > threshold\n    if direction == \"below\":\n        return value < threshold\n    raise ValueError(\"direction must be above or below\")\n\n\ndef alert_message(metric_name: str, value: float, threshold: float, direction: str) -> str:\n    if not metric_name.strip():\n        raise ValueError(\"metric_name must be non-empty\")\n    breached = threshold_breached(value, threshold, direction)\n    status = \"ALERT\" if breached else \"OK\"\n    return f\"{status}: {metric_name}={value:.2f} vs {direction} {threshold:.2f}\"\n\n\ndef alert_candidates(\n    metrics: dict[str, float],\n    thresholds: dict[str, tuple[float, str]],\n) -> list[str]:\n    alerts: list[str] = []\n    for metric_name, (threshold, direction) in thresholds.items():\n        if metric_name not in metrics:\n            continue\n        if threshold_breached(metrics[metric_name], threshold, direction):\n            alerts.append(metric_name)\n    return alerts\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "root-cause-attribution",
+      "title": "Root Cause Attribution",
+      "path": "modules/ai-agents/observability/root-cause-attribution",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "readme": "# Root Cause Attribution\n\n> Track: `ai-agents` | Topic: `observability`\n\n## Concept\n\nRoot cause attribution groups failing spans by source so the system can tell whether a run is mostly breaking in the model layer, tool layer, or workflow layer.\n\n## Key Points\n\n- Failure counts are more useful when they roll up to stable sources.\n- A dominant failure source can drive a focused fix instead of a broad review.\n- If failures are spread across sources, the system should review broadly rather than overfit one cause.\n\n## Minimal Code Mental Model\n\n```python\ncounts = attributed_failure_counts(spans)\nsource = dominant_failure_source(counts)\nroute = attribution_route(counts, min_share=0.6)\n```\n\n## Function\n\n```python\ndef attributed_failure_counts(spans: list[dict[str, object]]) -> dict[str, int]:\ndef dominant_failure_source(counts: dict[str, int]) -> str | None:\ndef attribution_route(counts: dict[str, int], min_share: float) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/observability/root-cause-attribution/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/observability/root-cause-attribution/python/root_cause_attribution.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef attributed_failure_counts(spans: list[dict[str, object]]) -> dict[str, int]:\n    if not spans:\n        raise ValueError(\"spans must be non-empty\")\n\n    counts = {\"model\": 0, \"tool\": 0, \"workflow\": 0, \"unknown\": 0}\n    for span in spans:\n        status = str(span.get(\"status\", \"\")).strip().lower()\n        if status in {\"\", \"ok\"}:\n            continue\n        kind = str(span.get(\"kind\", \"\")).strip().lower()\n        if kind in counts:\n            counts[kind] += 1\n        else:\n            counts[\"unknown\"] += 1\n\n    return {name: count for name, count in counts.items() if count > 0}\n\n\ndef dominant_failure_source(counts: dict[str, int]) -> str | None:\n    if not counts:\n        return None\n    cleaned = {name.strip(): int(value) for name, value in counts.items() if name.strip() and int(value) > 0}\n    if not cleaned:\n        return None\n    return sorted(cleaned.items(), key=lambda item: (-item[1], item[0]))[0][0]\n\n\ndef attribution_route(counts: dict[str, int], min_share: float) -> str:\n    if not 0.0 <= min_share <= 1.0:\n        raise ValueError(\"min_share must satisfy 0 <= value <= 1\")\n    dominant = dominant_failure_source(counts)\n    if dominant is None:\n        return \"no-failures\"\n\n    cleaned = {name.strip(): int(value) for name, value in counts.items() if name.strip() and int(value) > 0}\n    total = sum(cleaned.values())\n    if total <= 0:\n        return \"no-failures\"\n    dominant_share = cleaned[dominant] / total\n    if dominant_share >= min_share:\n        return \"targeted-fix\"\n    return \"broad-review\"\n"
         }
       ]
     },
@@ -1460,6 +1508,22 @@
           "path": "modules/ai-agents/rag/rag-basics/python/rag_basics.py",
           "language": "python",
           "content": "from __future__ import annotations\n\n\ndef select_top_k(scored_chunks: list[tuple[str, float]], k: int) -> list[str]:\n    if k <= 0:\n        raise ValueError(\"k must be positive\")\n    ranked = sorted(scored_chunks, key=lambda item: item[1], reverse=True)\n    return [chunk for chunk, _score in ranked[:k]]\n\n\ndef build_grounded_context(chunks: list[str], max_chunks: int) -> str:\n    if max_chunks <= 0:\n        raise ValueError(\"max_chunks must be positive\")\n    selected = [chunk.strip() for chunk in chunks[:max_chunks] if chunk.strip()]\n    return \"\\n\\n\".join(f\"[{i + 1}] {chunk}\" for i, chunk in enumerate(selected))\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "retrieval-abstention-and-coverage",
+      "title": "Retrieval Abstention and Coverage",
+      "path": "modules/ai-agents/rag/retrieval-abstention-and-coverage",
+      "summary": "> Track: `ai-agents` | Topic: `rag`",
+      "readme": "# Retrieval Abstention and Coverage\n\n> Track: `ai-agents` | Topic: `rag`\n\n## Concept\n\nRetrieval abstention and coverage decide whether the retrieved evidence is strong enough to answer, whether the system should retrieve more, or whether it should abstain.\n\n## Key Points\n\n- Coverage should reflect how many required claims are actually supported.\n- An answer should not proceed just because some evidence exists.\n- `Retrieve more` is different from `abstain`: it means the evidence is partial rather than absent.\n\n## Minimal Code Mental Model\n\n```python\ncoverage = claim_coverage([\"c1\", \"c2\", \"c3\"], [\"c1\", \"c3\"])\nmissing = unsupported_claims([\"c1\", \"c2\", \"c3\"], [\"c1\", \"c3\"])\nroute = rag_abstention_route(coverage, support_count=2, min_coverage=0.7, min_support_count=2)\n```\n\n## Function\n\n```python\ndef claim_coverage(required_claims: list[str], supported_claims: list[str]) -> float:\ndef unsupported_claims(required_claims: list[str], supported_claims: list[str]) -> list[str]:\ndef rag_abstention_route(\n    coverage: float,\n    support_count: int,\n    min_coverage: float,\n    min_support_count: int,\n) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/rag/retrieval-abstention-and-coverage/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/rag/retrieval-abstention-and-coverage/python/retrieval_abstention_and_coverage.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef claim_coverage(required_claims: list[str], supported_claims: list[str]) -> float:\n    required = [claim.strip() for claim in required_claims if claim.strip()]\n    supported = {claim.strip() for claim in supported_claims if claim.strip()}\n    if not required:\n        raise ValueError(\"required_claims must contain at least one non-empty claim\")\n    covered = sum(1 for claim in required if claim in supported)\n    return covered / len(required)\n\n\ndef unsupported_claims(required_claims: list[str], supported_claims: list[str]) -> list[str]:\n    required = [claim.strip() for claim in required_claims if claim.strip()]\n    supported = {claim.strip() for claim in supported_claims if claim.strip()}\n    if not required:\n        raise ValueError(\"required_claims must contain at least one non-empty claim\")\n    return [claim for claim in required if claim not in supported]\n\n\ndef rag_abstention_route(\n    coverage: float,\n    support_count: int,\n    min_coverage: float,\n    min_support_count: int,\n) -> str:\n    if not 0.0 <= coverage <= 1.0:\n        raise ValueError(\"coverage must satisfy 0 <= value <= 1\")\n    if support_count < 0:\n        raise ValueError(\"support_count must be non-negative\")\n    if not 0.0 <= min_coverage <= 1.0:\n        raise ValueError(\"min_coverage must satisfy 0 <= value <= 1\")\n    if min_support_count <= 0:\n        raise ValueError(\"min_support_count must be positive\")\n\n    if coverage >= min_coverage and support_count >= min_support_count:\n        return \"answer\"\n    if coverage == 0.0 or support_count == 0:\n        return \"abstain\"\n    return \"retrieve-more\"\n"
         }
       ]
     },
@@ -9526,7 +9590,7 @@
       "title": "Memory",
       "path": "docs/ai-agents/memory/README.md",
       "summary": "This section is about how an agent keeps useful state across steps and turns without replaying the full conversation every time.",
-      "content": "# Memory\n\nThis section is about how an agent keeps useful state across steps and turns without replaying the full conversation every time.\n\n## Purpose\n\nUse this page to understand:\n- short-term working memory\n- compressed summaries\n- retrieval-backed memory\n\n## First Principles\n\n- Memory is useful because agents often need facts from earlier steps after the prompt has changed.\n- Good memory is selective. Keeping everything is expensive and often noisy.\n- Short summaries are useful for recent task state. Retrieval is better for larger memory stores.\n\n## Minimal Code Mental Model\n\n```python\nmemory = append_memory(memory, \"User prefers CSV output\", max_items=5)\nsummary = summarize_recent_memory(memory, max_items=3)\nhits = retrieve_relevant_memories(\"csv report\", memory, k=2)\n```\n\n## Canonical Modules\n\n- Core memory patterns: `memory-patterns`\n\n## Supporting Modules\n\n- Retrieval-backed memory over stored notes: `retrieval-backed-memory`\n- Compaction of many notes into a shorter working summary: `memory-compaction`\n- Retaining high-value notes and evicting weak ones: `memory-retention-policy`\n- Scoring notes before retrieval returns them: `memory-retrieval-scoring`\n\n## When To Use What\n\n- Start with `memory-patterns` when the agent must remember user preferences or prior step outputs.\n- Use `retrieval-backed-memory` when recent summaries are not enough and the agent needs simple lookup over older notes.\n- Use `memory-compaction` when stored notes are growing but the active summary needs to stay short.\n- Use `memory-retention-policy` when the store is growing and the agent needs a simple keep-or-drop rule.\n- Use `memory-retrieval-scoring` when the memory store needs a better rank order than raw keyword overlap alone.\n- Use summaries for recent working state before building a larger retrieval-backed memory layer.\n"
+      "content": "# Memory\n\nThis section is about how an agent keeps useful state across steps and turns without replaying the full conversation every time.\n\n## Purpose\n\nUse this page to understand:\n- short-term working memory\n- compressed summaries\n- retrieval-backed memory\n\n## First Principles\n\n- Memory is useful because agents often need facts from earlier steps after the prompt has changed.\n- Good memory is selective. Keeping everything is expensive and often noisy.\n- Short summaries are useful for recent task state. Retrieval is better for larger memory stores.\n\n## Minimal Code Mental Model\n\n```python\nmemory = append_memory(memory, \"User prefers CSV output\", max_items=5)\nsummary = summarize_recent_memory(memory, max_items=3)\nhits = retrieve_relevant_memories(\"csv report\", memory, k=2)\n```\n\n## Canonical Modules\n\n- Core memory patterns: `memory-patterns`\n\n## Supporting Modules\n\n- Resolving conflicting memories by recency, trust, and confirmations: `memory-conflict-resolution`\n- Retrieval-backed memory over stored notes: `retrieval-backed-memory`\n- Compaction of many notes into a shorter working summary: `memory-compaction`\n- Retaining high-value notes and evicting weak ones: `memory-retention-policy`\n- Scoring notes before retrieval returns them: `memory-retrieval-scoring`\n\n## When To Use What\n\n- Start with `memory-patterns` when the agent must remember user preferences or prior step outputs.\n- Use `memory-conflict-resolution` when stored memories disagree and the system needs an explicit choose-or-review rule.\n- Use `retrieval-backed-memory` when recent summaries are not enough and the agent needs simple lookup over older notes.\n- Use `memory-compaction` when stored notes are growing but the active summary needs to stay short.\n- Use `memory-retention-policy` when the store is growing and the agent needs a simple keep-or-drop rule.\n- Use `memory-retrieval-scoring` when the memory store needs a better rank order than raw keyword overlap alone.\n- Use summaries for recent working state before building a larger retrieval-backed memory layer.\n"
     },
     {
       "track": "ai-agents",
@@ -9535,7 +9599,7 @@
       "title": "Multi-Agent",
       "path": "docs/ai-agents/multi-agent/README.md",
       "summary": "This section is about when more than one worker is useful, how roles should differ, and how results should be merged back into one answer.",
-      "content": "# Multi-Agent\n\nThis section is about when more than one worker is useful, how roles should differ, and how results should be merged back into one answer.\n\n## Purpose\n\nUse this page to understand:\n- role specialization\n- handoffs between workers\n- merging worker outputs\n\n## First Principles\n\n- A multi-agent system only helps when tasks naturally split into different roles.\n- Workers should differ by responsibility, not just by name.\n- Merging should be simple and structured so the coordinator can decide what to trust.\n\n## Minimal Code Mental Model\n\n```python\nworker = select_worker(\"write release notes\", worker_keywords)\nhandoff = worker_handoff(worker, \"write summary\", {\"doc_id\": \"abc\"})\nmerged = merge_worker_outputs(outputs)\n```\n\n## Canonical Modules\n\n- Coordination basics: `worker-coordination`\n\n## Supporting Modules\n\n- Coordinator-to-worker delegation with bounded subtasks: `orchestrator-workers`\n- Arbitration over multiple worker answers: `debate-and-arbitration`\n- Assigning roles before workers start: `role-assignment`\n\n## When To Use What\n\n- Start with `worker-coordination` when one planner or executor is no longer enough.\n- Use `orchestrator-workers` when one coordinator should own the global goal and delegate narrow subtasks to workers.\n- Use `debate-and-arbitration` when workers can disagree and the coordinator needs a simple merge rule.\n- Use `role-assignment` when the main problem is deciding which workers should exist and what each one should own.\n- Do not add more workers until the role boundaries are obvious.\n"
+      "content": "# Multi-Agent\n\nThis section is about when more than one worker is useful, how roles should differ, and how results should be merged back into one answer.\n\n## Purpose\n\nUse this page to understand:\n- role specialization\n- handoffs between workers\n- merging worker outputs\n\n## First Principles\n\n- A multi-agent system only helps when tasks naturally split into different roles.\n- Workers should differ by responsibility, not just by name.\n- Merging should be simple and structured so the coordinator can decide what to trust.\n\n## Minimal Code Mental Model\n\n```python\nworker = select_worker(\"write release notes\", worker_keywords)\nhandoff = worker_handoff(worker, \"write summary\", {\"doc_id\": \"abc\"})\nmerged = merge_worker_outputs(outputs)\n```\n\n## Canonical Modules\n\n- Coordination basics: `worker-coordination`\n\n## Supporting Modules\n\n- Budgeting coordinator resources across workers: `delegation-budgets`\n- Coordinator-to-worker delegation with bounded subtasks: `orchestrator-workers`\n- Arbitration over multiple worker answers: `debate-and-arbitration`\n- Assigning roles before workers start: `role-assignment`\n\n## When To Use What\n\n- Start with `worker-coordination` when one planner or executor is no longer enough.\n- Use `delegation-budgets` when the coordinator must bound worker cost or effort instead of delegating without limits.\n- Use `orchestrator-workers` when one coordinator should own the global goal and delegate narrow subtasks to workers.\n- Use `debate-and-arbitration` when workers can disagree and the coordinator needs a simple merge rule.\n- Use `role-assignment` when the main problem is deciding which workers should exist and what each one should own.\n- Do not add more workers until the role boundaries are obvious.\n"
     },
     {
       "track": "ai-agents",
@@ -9544,7 +9608,7 @@
       "title": "Observability",
       "path": "docs/ai-agents/observability/README.md",
       "summary": "This section is about how to trace an agent run, inspect the steps it took, and measure where failures or latency come from.",
-      "content": "# Observability\n\nThis section is about how to trace an agent run, inspect the steps it took, and measure where failures or latency come from.\n\n## Purpose\n\nUse this page to understand:\n- trace structure\n- step-level latency\n- failed span counts\n\n## First Principles\n\n- Observability is how you debug the agent loop after the prompt leaves the editor.\n- A useful trace records steps, status, and latency with as little extra structure as possible.\n- The first goal is to separate model, tool, and workflow problems.\n\n## Minimal Code Mental Model\n\n```python\ntrace = start_trace(\"run_7\", \"prepare report\")\ntrace = add_span(trace, \"tool_call\", 180.0, \"ok\")\nsummary = summarize_trace(trace)\n```\n\n## Canonical Modules\n\n- Trace basics: `agent-tracing-basics`\n\n## Supporting Modules\n\n- Aggregate trace summaries across runs: `run-analysis-metrics`\n- Threshold-based alerts over run metrics: `alerting-thresholds`\n- A simple vocabulary for trace span types: `span-taxonomy`\n- Deterministic retention of only some runs: `run-sampling`\n\n## When To Use What\n\n- Start with `agent-tracing-basics` as soon as the agent has more than one meaningful step.\n- Use `run-analysis-metrics` when you need one dashboard-like summary over many runs.\n- Use `alerting-thresholds` when the system needs a simple rule for raising alerts from latency or failure metrics.\n- Use `span-taxonomy` when traces need a consistent naming scheme across model, tool, and workflow steps.\n- Use `run-sampling` when full tracing is too expensive and you need a stable subset of runs to inspect.\n- Add richer dashboards later; first get the basic run trace right.\n"
+      "content": "# Observability\n\nThis section is about how to trace an agent run, inspect the steps it took, and measure where failures or latency come from.\n\n## Purpose\n\nUse this page to understand:\n- trace structure\n- step-level latency\n- failed span counts\n\n## First Principles\n\n- Observability is how you debug the agent loop after the prompt leaves the editor.\n- A useful trace records steps, status, and latency with as little extra structure as possible.\n- The first goal is to separate model, tool, and workflow problems.\n\n## Minimal Code Mental Model\n\n```python\ntrace = start_trace(\"run_7\", \"prepare report\")\ntrace = add_span(trace, \"tool_call\", 180.0, \"ok\")\nsummary = summarize_trace(trace)\n```\n\n## Canonical Modules\n\n- Trace basics: `agent-tracing-basics`\n\n## Supporting Modules\n\n- Aggregate trace summaries across runs: `run-analysis-metrics`\n- Threshold-based alerts over run metrics: `alerting-thresholds`\n- Attributing failures to model, tool, or workflow sources: `root-cause-attribution`\n- A simple vocabulary for trace span types: `span-taxonomy`\n- Deterministic retention of only some runs: `run-sampling`\n\n## When To Use What\n\n- Start with `agent-tracing-basics` as soon as the agent has more than one meaningful step.\n- Use `run-analysis-metrics` when you need one dashboard-like summary over many runs.\n- Use `alerting-thresholds` when the system needs a simple rule for raising alerts from latency or failure metrics.\n- Use `root-cause-attribution` when the main debugging question is which layer is actually causing most failures.\n- Use `span-taxonomy` when traces need a consistent naming scheme across model, tool, and workflow steps.\n- Use `run-sampling` when full tracing is too expensive and you need a stable subset of runs to inspect.\n- Add richer dashboards later; first get the basic run trace right.\n"
     },
     {
       "track": "ai-agents",
@@ -9553,7 +9617,16 @@
       "title": "AI Agents",
       "path": "docs/ai-agents/overview/README.md",
       "summary": "This section is about how an agent turns a goal into actions, keeps useful state, calls tools, and measures whether the workflow actually works.",
-      "content": "# AI Agents\n\nThis section is about how an agent turns a goal into actions, keeps useful state, calls tools, and measures whether the workflow actually works.\n\n## Purpose\n\nUse this page to keep the agent stack in the right order:\n- prompting and task framing\n- retrieval and memory\n- planning and workflows\n- tool use\n- evaluation and guardrails\n\n## First Principles\n\n- An agent is not just a model. It is a loop around the model.\n- Good agents keep only the state they need, use tools when text alone is not enough, and recover when steps fail.\n- Most agent systems become easier to debug when planning, memory, tool use, and evaluation are separated.\n- As systems grow, routing, latency, and risk decisions should become explicit scores, budgets, or thresholds instead of ad hoc prompt intuition.\n\n## Minimal Code Mental Model\n\n```python\nprompt = build_prompt(goal, context)\nplan = make_plan(goal, steps)\ncall = tool_call(\"search_docs\", {\"query\": goal})\nscore = task_success_rate([True, False, True])\n```\n\n## Canonical Modules\n\n- Prompt structure: `docs/ai-agents/prompting`\n- Retrieval: `docs/ai-agents/rag`\n- Memory: `docs/ai-agents/memory`\n- Planning: `docs/ai-agents/planning`\n- Workflows: `docs/ai-agents/workflows`\n- Multi-agent coordination: `docs/ai-agents/multi-agent`\n- Tool use: `docs/ai-agents/tool-use`\n- Observability: `docs/ai-agents/observability`\n- Evaluation: `docs/ai-agents/evaluation`\n- Guardrails: `docs/ai-agents/guardrails`\n\n## Supporting Docs\n\n- 2026 gap-closure roadmap: `roadmap-2026`\n\n## When To Use What\n\n- Start with prompting and one simple tool loop before adding more workflow structure.\n- Add retrieval or memory only when the task depends on outside or prior context.\n- Add planning and workflows when one free-form loop is no longer stable enough.\n- Add multi-agent coordination only when role split is clearer than one stronger single-agent loop.\n- Add observability once the agent is useful enough that failures need structured debugging.\n- Add evaluation and guardrails before scaling usage, not after.\n"
+      "content": "# AI Agents\n\nThis section is about how an agent turns a goal into actions, keeps useful state, calls tools, and measures whether the workflow actually works.\n\n## Purpose\n\nUse this page to keep the agent stack in the right order:\n- prompting and task framing\n- retrieval and memory\n- planning and workflows\n- tool use\n- evaluation and guardrails\n\n## First Principles\n\n- An agent is not just a model. It is a loop around the model.\n- Good agents keep only the state they need, use tools when text alone is not enough, and recover when steps fail.\n- Most agent systems become easier to debug when planning, memory, tool use, and evaluation are separated.\n- As systems grow, routing, latency, and risk decisions should become explicit scores, budgets, or thresholds instead of ad hoc prompt intuition.\n\n## Minimal Code Mental Model\n\n```python\nprompt = build_prompt(goal, context)\nplan = make_plan(goal, steps)\ncall = tool_call(\"search_docs\", {\"query\": goal})\nscore = task_success_rate([True, False, True])\n```\n\n## Canonical Modules\n\n- Prompt structure: `docs/ai-agents/prompting`\n- Retrieval: `docs/ai-agents/rag`\n- Memory: `docs/ai-agents/memory`\n- Planning: `docs/ai-agents/planning`\n- Workflows: `docs/ai-agents/workflows`\n- Multi-agent coordination: `docs/ai-agents/multi-agent`\n- Tool use: `docs/ai-agents/tool-use`\n- Observability: `docs/ai-agents/observability`\n- Evaluation: `docs/ai-agents/evaluation`\n- Guardrails: `docs/ai-agents/guardrails`\n\n## Supporting Docs\n\n- Agent decision methods: `decision-methods`\n- 2026 gap-closure roadmap: `roadmap-2026`\n\n## When To Use What\n\n- Start with prompting and one simple tool loop before adding more workflow structure.\n- Add retrieval or memory only when the task depends on outside or prior context.\n- Add planning and workflows when one free-form loop is no longer stable enough.\n- Add multi-agent coordination only when role split is clearer than one stronger single-agent loop.\n- Add observability once the agent is useful enough that failures need structured debugging.\n- Add evaluation and guardrails before scaling usage, not after.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "overview",
+      "slug": "decision-methods",
+      "title": "Agent Decision Methods",
+      "path": "docs/ai-agents/overview/decision-methods.md",
+      "summary": "This page groups the main quantitative decision patterns used across the `ai-agents` track.",
+      "content": "# Agent Decision Methods\n\nThis page groups the main quantitative decision patterns used across the `ai-agents` track.\n\n## Purpose\n\nUse this page to choose the right kind of decision logic:\n- scores and rankings\n- thresholds and gates\n- priors and posterior updates\n- budgets and constrained choices\n- stopping rules and trade-off frontiers\n\n## First Principles\n\n- A score is useful when the system must rank alternatives on one scale.\n- A threshold is useful when the system must map a score to `allow`, `review`, `block`, or similar routes.\n- A posterior is useful when decisions should update from observed evidence instead of staying fixed.\n- A budget is useful when steps or policies must fit within hard limits on cost, latency, or risk.\n- A stopping rule is useful when more evidence or more steps are not always worth continuing.\n\n## Core Patterns\n\n- Scores and rankings:\n  `routing-scorecards`, `expected-value-tool-selection`, `risk-adjusted-benchmark-summaries`\n- Thresholds and gates:\n  `risk-scoring-and-thresholds`, `decision-cost-matrices`, `planning-stop-conditions`\n- Priors and posteriors:\n  `posterior-routing`, `bayesian-benchmark-updating`\n- Budgets and constraints:\n  `latency-budget-accounting`, `budgeted-multi-step-planning`, `constrained-optimization-for-budgeted-agent-policies`\n- Stopping rules:\n  `utility-aware-stopping`, `sequential-test-stopping`\n- Trade-off sets:\n  `pareto-front-benchmark-comparisons`, `hierarchical-benchmark-aggregation`\n- Adaptive exploration:\n  `bandit-style-exploration-exploitation`\n\n## When To Use What\n\n- Use a scorecard when several signals should combine into one comparable rank.\n- Use thresholds when the route depends on crossing a known safety or quality bar.\n- Use a posterior when repeated evidence should update route choice or benchmark belief over time.\n- Use budgets when the main question is feasibility under hard resource limits.\n- Use stopping rules when the system must decide whether continuing is still worth it.\n- Use Pareto or hierarchical summaries when one scalar score would hide too much structure.\n\n## Cross-Topic Links\n\n- Workflow decisions: `routing-scorecards`, `posterior-routing`, `uncertainty-aware-routing`\n- Tool decisions: `expected-value-tool-selection`, `bandit-style-exploration-exploitation`\n- Planning decisions: `utility-aware-stopping`, `budgeted-multi-step-planning`, `constrained-optimization-for-budgeted-agent-policies`\n- Evaluation decisions: `bayesian-benchmark-updating`, `sequential-test-stopping`, `pareto-front-benchmark-comparisons`, `hierarchical-benchmark-aggregation`\n- Guardrail decisions: `decision-cost-matrices`, `policy-decision-tables`, `risk-scoring-and-thresholds`\n"
     },
     {
       "track": "ai-agents",
@@ -9589,7 +9662,7 @@
       "title": "RAG",
       "path": "docs/ai-agents/rag/README.md",
       "summary": "RAG is the pattern where an agent retrieves outside knowledge and then answers using that retrieved context.",
-      "content": "# RAG\n\nRAG is the pattern where an agent retrieves outside knowledge and then answers using that retrieved context.\n\n## Purpose\n\nUse this page to understand:\n- when retrieval is better than pure prompting\n- how to select and pack evidence\n- why grounded context should stay short\n\n## First Principles\n\n- Retrieval is useful when the answer depends on information not already in the prompt.\n- The model only benefits from context that is both relevant and compact.\n- Packing too many chunks can hurt just as much as retrieving too little.\n\n## Minimal Code Mental Model\n\n```python\ntop_chunks = select_top_k(search_results, k=3)\ncontext = build_grounded_context(top_chunks, max_chunks=2)\n```\n\n## Canonical Modules\n\n- Main retrieval-to-answer loop: `rag-basics`\n\n## Supporting Modules\n\n- Grounding checks and citation coverage: `retrieval-quality-and-citations`\n- Claim-level grounding checks after answer generation: `answer-grounding-checks`\n\n## When To Use What\n\n- Start with `rag-basics` when you need the simplest retrieve-then-answer workflow.\n- Use `retrieval-quality-and-citations` when the answer needs explicit evidence coverage.\n- Use `answer-grounding-checks` when the answer is already generated and you need to score whether each claim is actually supported.\n- Keep chunk packing conservative before optimizing fancier reranking or fusion.\n"
+      "content": "# RAG\n\nRAG is the pattern where an agent retrieves outside knowledge and then answers using that retrieved context.\n\n## Purpose\n\nUse this page to understand:\n- when retrieval is better than pure prompting\n- how to select and pack evidence\n- why grounded context should stay short\n\n## First Principles\n\n- Retrieval is useful when the answer depends on information not already in the prompt.\n- The model only benefits from context that is both relevant and compact.\n- Packing too many chunks can hurt just as much as retrieving too little.\n\n## Minimal Code Mental Model\n\n```python\ntop_chunks = select_top_k(search_results, k=3)\ncontext = build_grounded_context(top_chunks, max_chunks=2)\n```\n\n## Canonical Modules\n\n- Main retrieval-to-answer loop: `rag-basics`\n\n## Supporting Modules\n\n- Abstaining or retrieving more when evidence coverage is weak: `retrieval-abstention-and-coverage`\n- Grounding checks and citation coverage: `retrieval-quality-and-citations`\n- Claim-level grounding checks after answer generation: `answer-grounding-checks`\n\n## When To Use What\n\n- Start with `rag-basics` when you need the simplest retrieve-then-answer workflow.\n- Use `retrieval-abstention-and-coverage` when the main question is whether the retrieved evidence is strong enough to answer at all.\n- Use `retrieval-quality-and-citations` when the answer needs explicit evidence coverage.\n- Use `answer-grounding-checks` when the answer is already generated and you need to score whether each claim is actually supported.\n- Keep chunk packing conservative before optimizing fancier reranking or fusion.\n"
     },
     {
       "track": "ai-agents",

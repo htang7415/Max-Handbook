@@ -42,6 +42,7 @@ score = task_success_rate([True, False, True])
 
 ## Supporting Docs
 
+- Agent decision methods: `decision-methods`
 - 2026 gap-closure roadmap: `roadmap-2026`
 
 ## When To Use What

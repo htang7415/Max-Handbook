@@ -426,6 +426,7 @@ code,
   border-radius: 6px;
   transition: color 120ms ease, background 120ms ease;
   line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .toc-link:hover {
@@ -1298,6 +1299,7 @@ code,
 
 .concept-summary {
   max-width: 62ch;
+  overflow-wrap: anywhere;
 }
 
 .concept-divider {
@@ -1625,6 +1627,7 @@ code,
   font-size: 0.84rem;
   line-height: 1.55;
   color: var(--text-secondary);
+  overflow-wrap: anywhere;
 }
 
 .first-principles-eyebrow {
@@ -1709,6 +1712,7 @@ code,
   font-size: 0.86rem;
   line-height: 1.55;
   color: var(--text-primary);
+  overflow-wrap: anywhere;
 }
 
 @media (min-width: 720px) {
@@ -1955,6 +1959,7 @@ code,
 .markdown p {
   color: var(--text-secondary);
   margin: 0.5rem 0;
+  overflow-wrap: anywhere;
 }
 
 .markdown ul,
@@ -1965,6 +1970,7 @@ code,
 
 .markdown li {
   margin: 0.2rem 0;
+  overflow-wrap: anywhere;
 }
 
 .markdown blockquote {
@@ -1996,6 +2002,9 @@ code,
 }
 
 .markdown pre code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
   background: none;
   border: none;
   padding: 0;
@@ -2004,8 +2013,14 @@ code,
   font-weight: 400;
 }
 
+.markdown-table-wrapper {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 .markdown table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
   font-size: 0.9rem;
@@ -2060,6 +2075,7 @@ code,
   margin: 0.5rem 0;
   min-width: 0;
   max-width: 100%;
+  width: 100%;
 }
 
 .code-block-header {
@@ -2090,10 +2106,15 @@ code,
   padding: 0.9rem 1rem;
   font-size: 0.82rem;
   line-height: 1.6;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
   max-width: 100%;
 }
 
 .code-block pre code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
   color: var(--text-on-dark);
   background: none;
   padding: 0;

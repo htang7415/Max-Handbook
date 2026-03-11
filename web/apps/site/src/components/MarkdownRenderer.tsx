@@ -4,6 +4,7 @@ import remarkMath from "remark-math";
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
+import type { ComponentPropsWithoutRef } from "react";
 import MarkdownCodeBlock from "./MarkdownCodeBlock";
 
 interface MarkdownRendererProps {
@@ -16,7 +17,14 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
       className="markdown"
       remarkPlugins={[remarkGfm, remarkMath]}
       rehypePlugins={[rehypeSlug, rehypeKatex, rehypeHighlight]}
-      components={{ pre: MarkdownCodeBlock }}
+      components={{
+        pre: MarkdownCodeBlock,
+        table: ({ children, ...props }: ComponentPropsWithoutRef<"table">) => (
+          <div className="markdown-table-wrapper">
+            <table {...props}>{children}</table>
+          </div>
+        ),
+      }}
     >
       {content}
     </ReactMarkdown>
