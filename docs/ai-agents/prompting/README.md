@@ -30,7 +30,14 @@ messages = build_messages(
 
 - Main structuring pattern: `prompt-structuring`
 
+## Supporting Modules
+
+- Few-shot examples and explicit delimiters: `examples-and-delimiters`
+- Lightweight answer verification prompts: `self-check-patterns`
+
 ## When To Use What
 
 - Start with `prompt-structuring` when the problem is basic message layout and instruction clarity.
+- Use `examples-and-delimiters` when the model needs a clearer output pattern or stronger separation between sections.
+- Use `self-check-patterns` when the model should verify constraints before returning a final answer.
 - Keep prompts short before adding more examples or scaffolding.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-10T20:59:20.173Z",
+  "generated_at": "2026-03-11T01:23:45.966Z",
   "tracks": [
     {
       "id": "dsa",
@@ -25,8 +25,8 @@
       "description": "Prompting, tool use, memory, and evaluation.",
       "accent": "#2ca02c",
       "accentVar": "--track-ai-agents",
-      "topicCount": 9,
-      "moduleCount": 3
+      "topicCount": 12,
+      "moduleCount": 43
     },
     {
       "id": "databases",
@@ -175,6 +175,15 @@
       "moduleCount": 17
     },
     {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "name": "Evaluation",
+      "path": "/track/ai-agents/evaluation",
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 6
+    },
+    {
       "track": "ml",
       "topic": "fundamentals",
       "name": "Fundamentals",
@@ -206,9 +215,9 @@
       "topic": "guardrails",
       "name": "Guardrails",
       "path": "/track/ai-agents/guardrails",
-      "hasDoc": false,
-      "docCount": 0,
-      "moduleCount": 0
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 3
     },
     {
       "track": "dsa",
@@ -251,9 +260,9 @@
       "topic": "memory",
       "name": "Memory",
       "path": "/track/ai-agents/memory",
-      "hasDoc": false,
-      "docCount": 0,
-      "moduleCount": 0
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 5
     },
     {
       "track": "ml",
@@ -287,9 +296,9 @@
       "topic": "multi-agent",
       "name": "Multi Agent",
       "path": "/track/ai-agents/multi-agent",
-      "hasDoc": false,
-      "docCount": 0,
-      "moduleCount": 0
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 3
     },
     {
       "track": "databases",
@@ -305,9 +314,9 @@
       "topic": "observability",
       "name": "Observability",
       "path": "/track/ai-agents/observability",
-      "hasDoc": false,
-      "docCount": 0,
-      "moduleCount": 0
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 4
     },
     {
       "track": "ml",
@@ -317,6 +326,15 @@
       "hasDoc": true,
       "docCount": 2,
       "moduleCount": 6
+    },
+    {
+      "track": "ai-agents",
+      "topic": "overview",
+      "name": "Overview",
+      "path": "/track/ai-agents/overview",
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 0
     },
     {
       "track": "ml",
@@ -368,18 +386,18 @@
       "topic": "planning",
       "name": "Planning",
       "path": "/track/ai-agents/planning",
-      "hasDoc": false,
-      "docCount": 0,
-      "moduleCount": 0
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 4
     },
     {
       "track": "ai-agents",
       "topic": "prompting",
       "name": "Prompting",
       "path": "/track/ai-agents/prompting",
-      "hasDoc": false,
-      "docCount": 0,
-      "moduleCount": 0
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 3
     },
     {
       "track": "software-engineering",
@@ -404,9 +422,9 @@
       "topic": "rag",
       "name": "Rag",
       "path": "/track/ai-agents/rag",
-      "hasDoc": false,
-      "docCount": 0,
-      "moduleCount": 0
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 3
     },
     {
       "track": "ml",
@@ -541,7 +559,7 @@
       "path": "/track/ai-agents/tool-use",
       "hasDoc": true,
       "docCount": 1,
-      "moduleCount": 3
+      "moduleCount": 7
     },
     {
       "track": "software-engineering",
@@ -569,9 +587,514 @@
       "hasDoc": false,
       "docCount": 0,
       "moduleCount": 0
+    },
+    {
+      "track": "ai-agents",
+      "topic": "workflows",
+      "name": "Workflows",
+      "path": "/track/ai-agents/workflows",
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 5
     }
   ],
   "modules": [
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "agent-evaluation-basics",
+      "title": "Agent Evaluation Basics",
+      "path": "modules/ai-agents/evaluation/agent-evaluation-basics",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "readme": "# Agent Evaluation Basics\n\n> Track: `ai-agents` | Topic: `evaluation`\n\n## Concept\n\nAgent evaluation basics measure whether tasks finish successfully, whether tools work reliably, how long runs take, and which failure category dominates.\n\n## Key Points\n\n- Final task success is the main outcome metric.\n- Tool-call success tells you whether failures come from execution instead of reasoning.\n- A simple failure breakdown is often enough to find the next bottleneck.\n\n## Minimal Code Mental Model\n\n```python\nsuccess = task_success_rate([True, False, True])\ntool_success = tool_call_success_rate([True, True, False])\nlatency = mean_latency_ms([100.0, 140.0, 160.0])\nbreakdown = failure_breakdown([\"tool\", \"model\", \"tool\"])\n```\n\n## Function\n\n```python\ndef task_success_rate(outcomes: list[bool]) -> float:\ndef tool_call_success_rate(outcomes: list[bool]) -> float:\ndef mean_latency_ms(latencies_ms: list[float]) -> float:\ndef failure_breakdown(labels: list[str]) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/evaluation/agent-evaluation-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/evaluation/agent-evaluation-basics/python/agent_evaluation_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _rate(outcomes: list[bool]) -> float:\n    if not outcomes:\n        raise ValueError(\"outcomes must be non-empty\")\n    return sum(1 for outcome in outcomes if outcome) / len(outcomes)\n\n\ndef task_success_rate(outcomes: list[bool]) -> float:\n    return _rate(outcomes)\n\n\ndef tool_call_success_rate(outcomes: list[bool]) -> float:\n    return _rate(outcomes)\n\n\ndef mean_latency_ms(latencies_ms: list[float]) -> float:\n    if not latencies_ms:\n        raise ValueError(\"latencies_ms must be non-empty\")\n    if any(latency < 0 for latency in latencies_ms):\n        raise ValueError(\"latencies_ms must be non-negative\")\n    return sum(latencies_ms) / len(latencies_ms)\n\n\ndef failure_breakdown(labels: list[str]) -> dict[str, int]:\n    counts: dict[str, int] = {}\n    for label in labels:\n        cleaned = label.strip()\n        if not cleaned:\n            continue\n        counts[cleaned] = counts.get(cleaned, 0) + 1\n    return counts\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "cost-quality-tradeoffs",
+      "title": "Cost-Quality Tradeoffs",
+      "path": "modules/ai-agents/evaluation/cost-quality-tradeoffs",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "readme": "# Cost-Quality Tradeoffs\n\n> Track: `ai-agents` | Topic: `evaluation`\n\n## Concept\n\nCost-quality tradeoffs compare runs by balancing output quality or success against their monetary or token cost.\n\n## Key Points\n\n- A better agent is not always the one with the highest raw quality.\n- Cost per successful run is often a better operational metric than mean cost alone.\n- Simple ratios are enough for first comparisons.\n\n## Minimal Code Mental Model\n\n```python\nratio = quality_per_cost([0.8, 0.9], [0.2, 0.5])\ncost = cost_per_success([True, False, True], [0.2, 0.3, 0.5])\nbest = best_tradeoff_index([0.7, 0.9], [0.1, 0.4])\n```\n\n## Function\n\n```python\ndef quality_per_cost(qualities: list[float], costs: list[float]) -> float:\ndef cost_per_success(successes: list[bool], costs: list[float]) -> float:\ndef best_tradeoff_index(qualities: list[float], costs: list[float]) -> int:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/evaluation/cost-quality-tradeoffs/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/evaluation/cost-quality-tradeoffs/python/cost_quality_tradeoffs.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _validate_pairs(left: list[object], right: list[object]) -> None:\n    if not left or not right:\n        raise ValueError(\"inputs must be non-empty\")\n    if len(left) != len(right):\n        raise ValueError(\"inputs must have the same length\")\n\n\ndef quality_per_cost(qualities: list[float], costs: list[float]) -> float:\n    _validate_pairs(qualities, costs)\n    if any(cost <= 0 for cost in costs):\n        raise ValueError(\"costs must be positive\")\n    return sum(qualities) / sum(costs)\n\n\ndef cost_per_success(successes: list[bool], costs: list[float]) -> float:\n    _validate_pairs(successes, costs)\n    if any(cost < 0 for cost in costs):\n        raise ValueError(\"costs must be non-negative\")\n    success_count = sum(1 for success in successes if success)\n    if success_count == 0:\n        raise ValueError(\"at least one success is required\")\n    return sum(costs) / success_count\n\n\ndef best_tradeoff_index(qualities: list[float], costs: list[float]) -> int:\n    _validate_pairs(qualities, costs)\n    if any(cost <= 0 for cost in costs):\n        raise ValueError(\"costs must be positive\")\n    scores = [quality / cost for quality, cost in zip(qualities, costs)]\n    return max(range(len(scores)), key=lambda index: scores[index])\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "experiment-comparison",
+      "title": "Experiment Comparison",
+      "path": "modules/ai-agents/evaluation/experiment-comparison",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "readme": "# Experiment Comparison\n\n> Track: `ai-agents` | Topic: `evaluation`\n\n## Concept\n\nExperiment comparison summarizes two agent variants side by side so you can see which one is better on success, latency, and cost.\n\n## Key Points\n\n- A good comparison uses the same metrics for both variants.\n- Success deltas are usually more important than raw counts.\n- Latency and cost should be read together with quality, not in isolation.\n\n## Minimal Code Mental Model\n\n```python\ndelta = success_delta(0.72, 0.81)\nwinner = compare_variant_scores({\"success\": 0.81, \"latency_ms\": 140}, {\"success\": 0.72, \"latency_ms\": 120})\nsummary = comparison_summary(\"A\", \"B\", 0.72, 0.81)\n```\n\n## Function\n\n```python\ndef success_delta(baseline_success: float, candidate_success: float) -> float:\ndef compare_variant_scores(baseline: dict[str, float], candidate: dict[str, float]) -> str:\ndef comparison_summary(baseline_name: str, candidate_name: str, baseline_success: float, candidate_success: float) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/evaluation/experiment-comparison/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/evaluation/experiment-comparison/python/experiment_comparison.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _validate_rate(value: float, name: str) -> None:\n    if not 0.0 <= value <= 1.0:\n        raise ValueError(f\"{name} must satisfy 0 <= value <= 1\")\n\n\ndef success_delta(baseline_success: float, candidate_success: float) -> float:\n    _validate_rate(baseline_success, \"baseline_success\")\n    _validate_rate(candidate_success, \"candidate_success\")\n    return candidate_success - baseline_success\n\n\ndef compare_variant_scores(baseline: dict[str, float], candidate: dict[str, float]) -> str:\n    baseline_success = float(baseline.get(\"success\", 0.0))\n    candidate_success = float(candidate.get(\"success\", 0.0))\n    _validate_rate(baseline_success, \"baseline.success\")\n    _validate_rate(candidate_success, \"candidate.success\")\n    if candidate_success > baseline_success:\n        return \"candidate\"\n    if candidate_success < baseline_success:\n        return \"baseline\"\n\n    baseline_latency = float(baseline.get(\"latency_ms\", 0.0))\n    candidate_latency = float(candidate.get(\"latency_ms\", 0.0))\n    if candidate_latency < baseline_latency:\n        return \"candidate\"\n    if candidate_latency > baseline_latency:\n        return \"baseline\"\n    return \"tie\"\n\n\ndef comparison_summary(\n    baseline_name: str,\n    candidate_name: str,\n    baseline_success: float,\n    candidate_success: float,\n) -> str:\n    _validate_rate(baseline_success, \"baseline_success\")\n    _validate_rate(candidate_success, \"candidate_success\")\n    delta = candidate_success - baseline_success\n    return (\n        f\"{candidate_name} vs {baseline_name}: \"\n        f\"success {candidate_success:.2f} vs {baseline_success:.2f} \"\n        f\"(delta {delta:+.2f})\"\n    )\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "failure-taxonomy",
+      "title": "Failure Taxonomy",
+      "path": "modules/ai-agents/evaluation/failure-taxonomy",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "readme": "# Failure Taxonomy\n\n> Track: `ai-agents` | Topic: `evaluation`\n\n## Concept\n\nFailure taxonomy groups agent failures into a small set of stable categories so runs can be triaged and compared consistently.\n\n## Key Points\n\n- A small taxonomy is easier to use than many one-off error labels.\n- Good categories separate model, tool, workflow, and policy failures.\n- Counting by category is often enough to find the main bottleneck.\n\n## Minimal Code Mental Model\n\n```python\nkind = categorize_failure(\"tool timeout\")\ncounts = failure_category_counts([\"tool timeout\", \"policy block\", \"tool timeout\"])\ntop = top_failure_category([\"tool timeout\", \"policy block\", \"tool timeout\"])\n```\n\n## Function\n\n```python\ndef categorize_failure(message: str) -> str:\ndef failure_category_counts(messages: list[str]) -> dict[str, int]:\ndef top_failure_category(messages: list[str]) -> str | None:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/evaluation/failure-taxonomy/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/evaluation/failure-taxonomy/python/failure_taxonomy.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef categorize_failure(message: str) -> str:\n    lowered = message.strip().lower()\n    if not lowered:\n        return \"unknown\"\n    if \"tool\" in lowered or \"timeout\" in lowered or \"rate limit\" in lowered:\n        return \"tool\"\n    if \"policy\" in lowered or \"guardrail\" in lowered or \"blocked\" in lowered:\n        return \"policy\"\n    if \"plan\" in lowered or \"workflow\" in lowered or \"handoff\" in lowered:\n        return \"workflow\"\n    if \"model\" in lowered or \"halluc\" in lowered:\n        return \"model\"\n    return \"unknown\"\n\n\ndef failure_category_counts(messages: list[str]) -> dict[str, int]:\n    counts: dict[str, int] = {}\n    for message in messages:\n        category = categorize_failure(message)\n        counts[category] = counts.get(category, 0) + 1\n    return counts\n\n\ndef top_failure_category(messages: list[str]) -> str | None:\n    counts = failure_category_counts(messages)\n    if not counts:\n        return None\n    return max(counts.items(), key=lambda item: (item[1], item[0]))[0]\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "regression-checks",
+      "title": "Regression Checks",
+      "path": "modules/ai-agents/evaluation/regression-checks",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "readme": "# Regression Checks\n\n> Track: `ai-agents` | Topic: `evaluation`\n\n## Concept\n\nRegression checks compare a new variant against a baseline and flag when a key metric drops below an allowed threshold.\n\n## Key Points\n\n- Regression checks protect against silent quality drops.\n- The threshold should be explicit and small enough to audit.\n- A few key metrics are better than a large unstable checklist.\n\n## Minimal Code Mental Model\n\n```python\ndrop = metric_drop(0.84, 0.79)\nfailed = regression_failed(0.84, 0.79, max_drop=0.03)\nreport = regression_report(\"success\", 0.84, 0.79, max_drop=0.03)\n```\n\n## Function\n\n```python\ndef metric_drop(baseline: float, candidate: float) -> float:\ndef regression_failed(baseline: float, candidate: float, max_drop: float) -> bool:\ndef regression_report(metric_name: str, baseline: float, candidate: float, max_drop: float) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/evaluation/regression-checks/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/evaluation/regression-checks/python/regression_checks.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef metric_drop(baseline: float, candidate: float) -> float:\n    return baseline - candidate\n\n\ndef regression_failed(baseline: float, candidate: float, max_drop: float) -> bool:\n    if max_drop < 0:\n        raise ValueError(\"max_drop must be non-negative\")\n    return metric_drop(baseline, candidate) > max_drop\n\n\ndef regression_report(\n    metric_name: str,\n    baseline: float,\n    candidate: float,\n    max_drop: float,\n) -> dict[str, object]:\n    if not metric_name.strip():\n        raise ValueError(\"metric_name must be non-empty\")\n    failed = regression_failed(baseline, candidate, max_drop)\n    return {\n        \"metric\": metric_name,\n        \"baseline\": baseline,\n        \"candidate\": candidate,\n        \"drop\": metric_drop(baseline, candidate),\n        \"failed\": failed,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "step-level-evaluation",
+      "title": "Step-Level Evaluation",
+      "path": "modules/ai-agents/evaluation/step-level-evaluation",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "readme": "# Step-Level Evaluation\n\n> Track: `ai-agents` | Topic: `evaluation`\n\n## Concept\n\nStep-level evaluation measures whether the individual steps inside a run completed, stalled, or failed, instead of only scoring the final outcome.\n\n## Key Points\n\n- Whole-run success can hide where the breakdown actually happened.\n- Step completion is useful for planning-heavy agents.\n- Blocked or failed steps should be counted separately from completed ones.\n\n## Minimal Code Mental Model\n\n```python\nrates = step_completion_rate([\"done\", \"done\", \"blocked\"])\nblocked = blocked_step_rate([\"done\", \"done\", \"blocked\"])\ncounts = step_status_counts([\"done\", \"failed\", \"blocked\", \"done\"])\n```\n\n## Function\n\n```python\ndef step_completion_rate(statuses: list[str]) -> float:\ndef blocked_step_rate(statuses: list[str]) -> float:\ndef step_status_counts(statuses: list[str]) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/evaluation/step-level-evaluation/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/evaluation/step-level-evaluation/python/step_level_evaluation.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _normalized_statuses(statuses: list[str]) -> list[str]:\n    cleaned = [status.strip().lower() for status in statuses if status.strip()]\n    if not cleaned:\n        raise ValueError(\"statuses must contain at least one non-empty status\")\n    return cleaned\n\n\ndef step_completion_rate(statuses: list[str]) -> float:\n    cleaned = _normalized_statuses(statuses)\n    return sum(1 for status in cleaned if status == \"done\") / len(cleaned)\n\n\ndef blocked_step_rate(statuses: list[str]) -> float:\n    cleaned = _normalized_statuses(statuses)\n    return sum(1 for status in cleaned if status == \"blocked\") / len(cleaned)\n\n\ndef step_status_counts(statuses: list[str]) -> dict[str, int]:\n    cleaned = _normalized_statuses(statuses)\n    counts: dict[str, int] = {}\n    for status in cleaned:\n        counts[status] = counts.get(status, 0) + 1\n    return counts\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "input-output-guardrails",
+      "title": "Input-Output Guardrails",
+      "path": "modules/ai-agents/guardrails/input-output-guardrails",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "readme": "# Input-Output Guardrails\n\n> Track: `ai-agents` | Topic: `guardrails`\n\n## Concept\n\nInput-output guardrails check simple unsafe terms, validate required output fields, and escalate when confidence is too low.\n\n## Key Points\n\n- Simple guards should run before deeper reasoning or tool use.\n- Output validation is easier when the expected keys are explicit.\n- Escalation is often safer than pretending a weak answer is acceptable.\n\n## Minimal Code Mental Model\n\n```python\nblocked = blocked_by_terms(\"send me the private key\", [\"private key\"])\nvalid = required_fields_present({\"answer\": \"ok\", \"confidence\": 0.8}, [\"answer\", \"confidence\"])\nescalate = should_escalate(model_confidence=0.42, threshold=0.6, blocked=blocked)\n```\n\n## Function\n\n```python\ndef blocked_by_terms(text: str, blocked_terms: list[str]) -> bool:\ndef required_fields_present(record: dict[str, object], required_keys: list[str]) -> bool:\ndef should_escalate(model_confidence: float, threshold: float, blocked: bool) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/guardrails/input-output-guardrails/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/guardrails/input-output-guardrails/python/input_output_guardrails.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef blocked_by_terms(text: str, blocked_terms: list[str]) -> bool:\n    lowered = text.lower()\n    return any(term.strip().lower() in lowered for term in blocked_terms if term.strip())\n\n\ndef required_fields_present(record: dict[str, object], required_keys: list[str]) -> bool:\n    return all(key in record for key in required_keys)\n\n\ndef should_escalate(model_confidence: float, threshold: float, blocked: bool) -> bool:\n    if not 0.0 <= model_confidence <= 1.0:\n        raise ValueError(\"model_confidence must satisfy 0 <= value <= 1\")\n    if not 0.0 <= threshold <= 1.0:\n        raise ValueError(\"threshold must satisfy 0 <= value <= 1\")\n    return blocked or model_confidence < threshold\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "policy-and-escalation",
+      "title": "Policy and Escalation",
+      "path": "modules/ai-agents/guardrails/policy-and-escalation",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "readme": "# Policy and Escalation\n\n> Track: `ai-agents` | Topic: `guardrails`\n\n## Concept\n\nPolicy and escalation turn a request into a simple allow, review, or block decision and explain why the agent should stop or hand off.\n\n## Key Points\n\n- Policy logic should stay simple enough to audit.\n- Review is useful when the content is sensitive but not automatically blocked.\n- Escalation reasons should be explicit so downstream systems know what happened.\n\n## Minimal Code Mental Model\n\n```python\ndecision = policy_decision(\"share the private key\", blocked_terms, review_terms)\nreason = escalation_reason(decision, model_confidence=0.45, threshold=0.7)\nmessage = action_message(decision)\n```\n\n## Function\n\n```python\ndef policy_decision(text: str, blocked_terms: list[str], review_terms: list[str]) -> str:\ndef escalation_reason(decision: str, model_confidence: float, threshold: float) -> str | None:\ndef action_message(decision: str) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/guardrails/policy-and-escalation/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/guardrails/policy-and-escalation/python/policy_and_escalation.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _contains_any(text: str, terms: list[str]) -> bool:\n    lowered = text.lower()\n    return any(term.strip().lower() in lowered for term in terms if term.strip())\n\n\ndef policy_decision(text: str, blocked_terms: list[str], review_terms: list[str]) -> str:\n    if _contains_any(text, blocked_terms):\n        return \"block\"\n    if _contains_any(text, review_terms):\n        return \"review\"\n    return \"allow\"\n\n\ndef escalation_reason(decision: str, model_confidence: float, threshold: float) -> str | None:\n    if not 0.0 <= model_confidence <= 1.0:\n        raise ValueError(\"model_confidence must satisfy 0 <= value <= 1\")\n    if not 0.0 <= threshold <= 1.0:\n        raise ValueError(\"threshold must satisfy 0 <= value <= 1\")\n    if decision == \"block\":\n        return \"policy_block\"\n    if decision == \"review\":\n        return \"policy_review\"\n    if model_confidence < threshold:\n        return \"low_confidence\"\n    return None\n\n\ndef action_message(decision: str) -> str:\n    if decision == \"allow\":\n        return \"Proceed.\"\n    if decision == \"review\":\n        return \"Escalate for review.\"\n    if decision == \"block\":\n        return \"Do not answer. Block the request.\"\n    raise ValueError(\"decision must be allow, review, or block\")\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "review-queue-handoff",
+      "title": "Review Queue Handoff",
+      "path": "modules/ai-agents/guardrails/review-queue-handoff",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "readme": "# Review Queue Handoff\n\n> Track: `ai-agents` | Topic: `guardrails`\n\n## Concept\n\nReview queue handoff turns a risky or blocked request into a structured packet that a reviewer can inspect and resolve.\n\n## Key Points\n\n- Human review is easier when the reason and requested action are explicit.\n- A review packet should be small, structured, and auditable.\n- Queue priority should depend on risk level, not just arrival order.\n\n## Minimal Code Mental Model\n\n```python\npriority = review_priority(reason=\"policy_review\", confidence=0.42)\npacket = review_packet(\"task_17\", \"policy_review\", \"human_review\", priority)\nneeds_review = send_to_review_queue(packet)\n```\n\n## Function\n\n```python\ndef review_priority(reason: str, confidence: float) -> str:\ndef review_packet(task_id: str, reason: str, route: str, priority: str) -> dict[str, str]:\ndef send_to_review_queue(packet: dict[str, str]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/guardrails/review-queue-handoff/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/guardrails/review-queue-handoff/python/review_queue_handoff.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef review_priority(reason: str, confidence: float) -> str:\n    if not 0.0 <= confidence <= 1.0:\n        raise ValueError(\"confidence must satisfy 0 <= value <= 1\")\n    cleaned_reason = reason.strip()\n    if not cleaned_reason:\n        raise ValueError(\"reason must be non-empty\")\n    if cleaned_reason == \"policy_block\":\n        return \"high\"\n    if cleaned_reason == \"policy_review\" or confidence < 0.5:\n        return \"medium\"\n    return \"low\"\n\n\ndef review_packet(task_id: str, reason: str, route: str, priority: str) -> dict[str, str]:\n    if not task_id.strip():\n        raise ValueError(\"task_id must be non-empty\")\n    if not reason.strip():\n        raise ValueError(\"reason must be non-empty\")\n    if not route.strip():\n        raise ValueError(\"route must be non-empty\")\n    if priority not in {\"high\", \"medium\", \"low\"}:\n        raise ValueError(\"priority must be high, medium, or low\")\n    return {\n        \"task_id\": task_id,\n        \"reason\": reason,\n        \"route\": route,\n        \"priority\": priority,\n    }\n\n\ndef send_to_review_queue(packet: dict[str, str]) -> bool:\n    required = {\"task_id\", \"reason\", \"route\", \"priority\"}\n    return required.issubset(packet.keys())\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-compaction",
+      "title": "Memory Compaction",
+      "path": "modules/ai-agents/memory/memory-compaction",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "readme": "# Memory Compaction\n\n> Track: `ai-agents` | Topic: `memory`\n\n## Concept\n\nMemory compaction turns many small notes into a shorter working summary so the agent can keep the main facts without replaying the full history.\n\n## Key Points\n\n- Compaction is useful when note count grows faster than the active prompt budget.\n- A compact summary should keep only the strongest repeated or recent facts.\n- The compacted summary is for working state, not permanent storage.\n\n## Minimal Code Mental Model\n\n```python\nsummary = compact_memories(\n    [\"User prefers CSV\", \"Weekly report due Friday\", \"Use concise tone\"],\n    max_items=2,\n)\nupdated = append_compacted_summary(\"User prefers CSV | Weekly report due Friday\", \"Use concise tone\")\n```\n\n## Function\n\n```python\ndef compact_memories(items: list[str], max_items: int) -> str:\ndef append_compacted_summary(summary: str, new_item: str) -> str:\ndef compacted_item_count(summary: str) -> int:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/memory/memory-compaction/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/memory/memory-compaction/python/memory_compaction.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\nSEPARATOR = \" | \"\n\n\ndef compact_memories(items: list[str], max_items: int) -> str:\n    if max_items <= 0:\n        raise ValueError(\"max_items must be positive\")\n    cleaned = [item.strip() for item in items if item.strip()]\n    return SEPARATOR.join(cleaned[-max_items:])\n\n\ndef append_compacted_summary(summary: str, new_item: str) -> str:\n    base_items = [item.strip() for item in summary.split(SEPARATOR) if item.strip()]\n    new_cleaned = new_item.strip()\n    if new_cleaned:\n        base_items.append(new_cleaned)\n    return SEPARATOR.join(base_items)\n\n\ndef compacted_item_count(summary: str) -> int:\n    return len([item for item in summary.split(SEPARATOR) if item.strip()])\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-patterns",
+      "title": "Memory Patterns",
+      "path": "modules/ai-agents/memory/memory-patterns",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "readme": "# Memory Patterns\n\n> Track: `ai-agents` | Topic: `memory`\n\n## Concept\n\nMemory patterns let an agent keep a small amount of useful state, summarize recent context, and retrieve the most relevant past facts.\n\n## Key Points\n\n- Working memory should stay short and task-relevant.\n- Summaries compress recent state so later steps do not need the entire transcript.\n- Retrieval is better than replaying every past message when memory grows.\n\n## Minimal Code Mental Model\n\n```python\nmemory = append_memory([], \"User prefers CSV output\", max_items=3)\nsummary = summarize_recent_memory(memory + [\"Need weekly totals\"], max_items=2)\nhits = retrieve_relevant_memories(\"csv totals\", memory, k=1)\n```\n\n## Function\n\n```python\ndef append_memory(memory: list[str], item: str, max_items: int | None = None) -> list[str]:\ndef summarize_recent_memory(memory: list[str], max_items: int) -> str:\ndef retrieve_relevant_memories(query: str, memory: list[str], k: int) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/memory/memory-patterns/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/memory/memory-patterns/python/memory_patterns.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef append_memory(memory: list[str], item: str, max_items: int | None = None) -> list[str]:\n    cleaned = item.strip()\n    updated = [entry for entry in memory if entry.strip()]\n    if cleaned:\n        updated.append(cleaned)\n    if max_items is not None:\n        if max_items <= 0:\n            raise ValueError(\"max_items must be positive\")\n        updated = updated[-max_items:]\n    return updated\n\n\ndef summarize_recent_memory(memory: list[str], max_items: int) -> str:\n    if max_items <= 0:\n        raise ValueError(\"max_items must be positive\")\n    recent = [entry.strip() for entry in memory[-max_items:] if entry.strip()]\n    return \" | \".join(recent)\n\n\ndef _tokens(text: str) -> set[str]:\n    return {token for token in text.lower().split() if token}\n\n\ndef retrieve_relevant_memories(query: str, memory: list[str], k: int) -> list[str]:\n    if k <= 0:\n        raise ValueError(\"k must be positive\")\n    query_tokens = _tokens(query)\n    scored: list[tuple[int, float, int, str]] = []\n    for index, entry in enumerate(memory):\n        cleaned = entry.strip()\n        if not cleaned:\n            continue\n        entry_tokens = _tokens(cleaned)\n        overlap = len(query_tokens & entry_tokens)\n        density = overlap / max(len(entry_tokens), 1)\n        scored.append((overlap, density, index, cleaned))\n    ranked = sorted(scored, key=lambda item: (-item[0], -item[1], item[2]))\n    return [entry for overlap, _density, _index, entry in ranked[:k] if overlap > 0]\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-retention-policy",
+      "title": "Memory Retention Policy",
+      "path": "modules/ai-agents/memory/memory-retention-policy",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "readme": "# Memory Retention Policy\n\n> Track: `ai-agents` | Topic: `memory`\n\n## Concept\n\nMemory retention policy decides which notes stay in memory and which ones get dropped when the store gets too large.\n\n## Key Points\n\n- A retention policy should prefer notes with higher value or more reuse.\n- The goal is to keep the memory store small without dropping the most important facts.\n- A simple score-and-keep rule is enough for a first version.\n\n## Minimal Code Mental Model\n\n```python\nscored = score_memory_items([\"User prefers CSV\", \"Weekly report due Friday\"], {\"csv\": 2, \"report\": 1})\nkept = retain_top_memory_items(scored, max_items=1)\nevicted = evicted_memory_items(scored, max_items=1)\n```\n\n## Function\n\n```python\ndef score_memory_items(items: list[str], keyword_weights: dict[str, int]) -> list[tuple[str, int]]:\ndef retain_top_memory_items(scored_items: list[tuple[str, int]], max_items: int) -> list[str]:\ndef evicted_memory_items(scored_items: list[tuple[str, int]], max_items: int) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/memory/memory-retention-policy/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/memory/memory-retention-policy/python/memory_retention_policy.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef score_memory_items(items: list[str], keyword_weights: dict[str, int]) -> list[tuple[str, int]]:\n    scored: list[tuple[str, int]] = []\n    for item in items:\n        cleaned = item.strip()\n        if not cleaned:\n            continue\n        lowered = cleaned.lower()\n        score = sum(weight for keyword, weight in keyword_weights.items() if keyword.strip().lower() in lowered)\n        scored.append((cleaned, score))\n    return scored\n\n\ndef retain_top_memory_items(scored_items: list[tuple[str, int]], max_items: int) -> list[str]:\n    if max_items <= 0:\n        raise ValueError(\"max_items must be positive\")\n    ranked = sorted(scored_items, key=lambda item: (-item[1], item[0]))\n    return [text for text, _score in ranked[:max_items]]\n\n\ndef evicted_memory_items(scored_items: list[tuple[str, int]], max_items: int) -> list[str]:\n    if max_items <= 0:\n        raise ValueError(\"max_items must be positive\")\n    ranked = sorted(scored_items, key=lambda item: (-item[1], item[0]))\n    return [text for text, _score in ranked[max_items:]]\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-retrieval-scoring",
+      "title": "Memory Retrieval Scoring",
+      "path": "modules/ai-agents/memory/memory-retrieval-scoring",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "readme": "# Memory Retrieval Scoring\n\n> Track: `ai-agents` | Topic: `memory`\n\n## Concept\n\nMemory retrieval scoring ranks stored notes by how useful they are for the current query before the agent builds context.\n\n## Key Points\n\n- Ranking is useful when many notes match a query.\n- A simple score can combine token overlap and note priority.\n- Better ordering often matters more than adding more notes.\n\n## Minimal Code Mental Model\n\n```python\nscored = score_memory_for_query(\"csv report\", memories)\ntop = top_scored_memories(scored, k=2)\nbest = best_memory_match(\"csv report\", memories)\n```\n\n## Function\n\n```python\ndef score_memory_for_query(query: str, memories: list[dict[str, object]]) -> list[tuple[str, int]]:\ndef top_scored_memories(scored_items: list[tuple[str, int]], k: int) -> list[str]:\ndef best_memory_match(query: str, memories: list[dict[str, object]]) -> str | None:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/memory/memory-retrieval-scoring/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/memory/memory-retrieval-scoring/python/memory_retrieval_scoring.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _tokens(text: str) -> set[str]:\n    return {token for token in text.lower().split() if token}\n\n\ndef score_memory_for_query(query: str, memories: list[dict[str, object]]) -> list[tuple[str, int]]:\n    query_tokens = _tokens(query)\n    scored: list[tuple[str, int, int]] = []\n    for item in memories:\n        text = str(item.get(\"text\", \"\")).strip()\n        if not text:\n            continue\n        tokens = item.get(\"tokens\")\n        if isinstance(tokens, set):\n            memory_tokens = tokens\n        else:\n            memory_tokens = _tokens(text)\n        priority = int(item.get(\"priority\", 0))\n        overlap = len(query_tokens & memory_tokens)\n        score = overlap + priority\n        scored.append((text, score, overlap))\n    ranked = sorted(scored, key=lambda item: (-item[1], -item[2], item[0]))\n    return [(text, score) for text, score, _overlap in ranked]\n\n\ndef top_scored_memories(scored_items: list[tuple[str, int]], k: int) -> list[str]:\n    if k <= 0:\n        raise ValueError(\"k must be positive\")\n    return [text for text, _score in scored_items[:k]]\n\n\ndef best_memory_match(query: str, memories: list[dict[str, object]]) -> str | None:\n    scored = score_memory_for_query(query, memories)\n    if not scored:\n        return None\n    return scored[0][0]\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "retrieval-backed-memory",
+      "title": "Retrieval-Backed Memory",
+      "path": "modules/ai-agents/memory/retrieval-backed-memory",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "readme": "# Retrieval-Backed Memory\n\n> Track: `ai-agents` | Topic: `memory`\n\n## Concept\n\nRetrieval-backed memory stores older notes and pulls back only the ones that overlap with the current task.\n\n## Key Points\n\n- Retrieval-backed memory is useful when recent summaries are no longer enough.\n- The memory store should stay small and text-like before moving to a heavier vector system.\n- Returning the top few matching notes is usually enough for a first working loop.\n\n## Minimal Code Mental Model\n\n```python\nstore = index_memories([\"User prefers CSV\", \"Weekly report due Friday\"])\nhits = retrieve_memory_hits(\"csv report\", store, k=1)\ncontext = memory_context(hits, max_items=1)\n```\n\n## Function\n\n```python\ndef index_memories(items: list[str]) -> list[dict[str, object]]:\ndef retrieve_memory_hits(query: str, memory_index: list[dict[str, object]], k: int) -> list[str]:\ndef memory_context(items: list[str], max_items: int) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/memory/retrieval-backed-memory/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/memory/retrieval-backed-memory/python/retrieval_backed_memory.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _tokens(text: str) -> set[str]:\n    return {token for token in text.lower().split() if token}\n\n\ndef index_memories(items: list[str]) -> list[dict[str, object]]:\n    indexed: list[dict[str, object]] = []\n    for item in items:\n        cleaned = item.strip()\n        if not cleaned:\n            continue\n        indexed.append({\"text\": cleaned, \"tokens\": _tokens(cleaned)})\n    return indexed\n\n\ndef retrieve_memory_hits(query: str, memory_index: list[dict[str, object]], k: int) -> list[str]:\n    if k <= 0:\n        raise ValueError(\"k must be positive\")\n    query_tokens = _tokens(query)\n    scored: list[tuple[int, int, str]] = []\n    for index, item in enumerate(memory_index):\n        text = str(item.get(\"text\", \"\")).strip()\n        tokens = item.get(\"tokens\", set())\n        if not text or not isinstance(tokens, set):\n            continue\n        overlap = len(query_tokens & tokens)\n        if overlap > 0:\n            scored.append((overlap, -index, text))\n    ranked = sorted(scored, reverse=True)\n    return [text for _overlap, _index, text in ranked[:k]]\n\n\ndef memory_context(items: list[str], max_items: int) -> str:\n    if max_items <= 0:\n        raise ValueError(\"max_items must be positive\")\n    cleaned = [item.strip() for item in items[:max_items] if item.strip()]\n    return \"\\n\".join(f\"- {item}\" for item in cleaned)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "debate-and-arbitration",
+      "title": "Debate and Arbitration",
+      "path": "modules/ai-agents/multi-agent/debate-and-arbitration",
+      "summary": "> Track: `ai-agents` | Topic: `multi-agent`",
+      "readme": "# Debate and Arbitration\n\n> Track: `ai-agents` | Topic: `multi-agent`\n\n## Concept\n\nDebate and arbitration collect multiple worker answers, measure how much they agree, and pick a simple winner for the coordinator.\n\n## Key Points\n\n- Arbitration only helps when workers can produce different plausible answers.\n- Simple normalization is often enough before counting votes.\n- Low agreement is a useful signal that the coordinator may need review or more evidence.\n\n## Minimal Code Mental Model\n\n```python\ncounts = vote_counts([\"Ship now\", \"ship now\", \"Delay\"])\nagreement = agreement_rate([\"Ship now\", \"ship now\", \"Delay\"])\nwinner = arbitrate_majority([\"Ship now\", \"ship now\", \"Delay\"])\n```\n\n## Function\n\n```python\ndef normalize_candidate(text: str) -> str:\ndef vote_counts(candidates: list[str]) -> dict[str, int]:\ndef agreement_rate(candidates: list[str]) -> float:\ndef arbitrate_majority(candidates: list[str]) -> str | None:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/multi-agent/debate-and-arbitration/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/multi-agent/debate-and-arbitration/python/debate_and_arbitration.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef normalize_candidate(text: str) -> str:\n    return \" \".join(text.strip().lower().split())\n\n\ndef vote_counts(candidates: list[str]) -> dict[str, int]:\n    counts: dict[str, int] = {}\n    for candidate in candidates:\n        normalized = normalize_candidate(candidate)\n        if not normalized:\n            continue\n        counts[normalized] = counts.get(normalized, 0) + 1\n    return counts\n\n\ndef agreement_rate(candidates: list[str]) -> float:\n    counts = vote_counts(candidates)\n    total = sum(counts.values())\n    if total == 0:\n        raise ValueError(\"candidates must contain at least one non-empty answer\")\n    return max(counts.values()) / total\n\n\ndef arbitrate_majority(candidates: list[str]) -> str | None:\n    counts = vote_counts(candidates)\n    if not counts:\n        return None\n    winner = max(counts.items(), key=lambda item: (item[1], item[0]))\n    return winner[0]\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "role-assignment",
+      "title": "Role Assignment",
+      "path": "modules/ai-agents/multi-agent/role-assignment",
+      "summary": "> Track: `ai-agents` | Topic: `multi-agent`",
+      "readme": "# Role Assignment\n\n> Track: `ai-agents` | Topic: `multi-agent`\n\n## Concept\n\nRole assignment picks which worker roles should exist for a task and maps each role to the part of the job it should own.\n\n## Key Points\n\n- Roles should be assigned from task needs, not from arbitrary worker names.\n- A small number of clear roles is easier to debug than many overlapping ones.\n- The assignment should explain why a worker was chosen.\n\n## Minimal Code Mental Model\n\n```python\nroles = assign_roles(\"investigate outage and write summary\", role_keywords)\nowners = role_owners(roles)\nplan = role_assignment_summary(roles)\n```\n\n## Function\n\n```python\ndef assign_roles(task: str, role_keywords: dict[str, list[str]]) -> list[str]:\ndef role_owners(roles: list[str]) -> dict[str, str]:\ndef role_assignment_summary(roles: list[str]) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/multi-agent/role-assignment/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/multi-agent/role-assignment/python/role_assignment.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef assign_roles(task: str, role_keywords: dict[str, list[str]]) -> list[str]:\n    lowered = task.strip().lower()\n    if not lowered:\n        return []\n    selected: list[str] = []\n    for role, keywords in role_keywords.items():\n        if any(keyword.strip().lower() in lowered for keyword in keywords if keyword.strip()):\n            selected.append(role)\n    return selected\n\n\ndef role_owners(roles: list[str]) -> dict[str, str]:\n    return {role: f\"{role}-worker\" for role in roles if role.strip()}\n\n\ndef role_assignment_summary(roles: list[str]) -> str:\n    cleaned = [role.strip() for role in roles if role.strip()]\n    if not cleaned:\n        return \"No roles assigned.\"\n    return \"Roles: \" + \", \".join(cleaned)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "worker-coordination",
+      "title": "Worker Coordination",
+      "path": "modules/ai-agents/multi-agent/worker-coordination",
+      "summary": "> Track: `ai-agents` | Topic: `multi-agent`",
+      "readme": "# Worker Coordination\n\n> Track: `ai-agents` | Topic: `multi-agent`\n\n## Concept\n\nWorker coordination routes a task to the right specialist, packages a small handoff, and merges worker outputs into one coordinator-facing result.\n\n## Key Points\n\n- Workers should have distinct roles.\n- Handoffs should carry only the context the worker needs.\n- Merge logic should stay simple enough to inspect.\n\n## Minimal Code Mental Model\n\n```python\nworker = select_worker(\"investigate billing issue\", worker_keywords)\nhandoff = worker_handoff(worker, \"investigate invoice mismatch\", {\"invoice_id\": \"inv_7\"})\nmerged = merge_worker_outputs(outputs)\n```\n\n## Function\n\n```python\ndef select_worker(task: str, worker_keywords: dict[str, list[str]]) -> str | None:\ndef worker_handoff(worker: str, task: str, context: dict[str, object]) -> dict[str, object]:\ndef merge_worker_outputs(outputs: list[dict[str, object]]) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/multi-agent/worker-coordination/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/multi-agent/worker-coordination/python/worker_coordination.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef select_worker(task: str, worker_keywords: dict[str, list[str]]) -> str | None:\n    lowered = task.strip().lower()\n    if not lowered:\n        return None\n    best_worker: str | None = None\n    best_score = 0\n    for worker, keywords in worker_keywords.items():\n        score = sum(keyword.strip().lower() in lowered for keyword in keywords)\n        if score > best_score:\n            best_worker = worker\n            best_score = score\n    return best_worker\n\n\ndef worker_handoff(worker: str, task: str, context: dict[str, object]) -> dict[str, object]:\n    if not worker.strip():\n        raise ValueError(\"worker must be non-empty\")\n    if not task.strip():\n        raise ValueError(\"task must be non-empty\")\n    return {\n        \"worker\": worker,\n        \"task\": task,\n        \"context\": context,\n    }\n\n\ndef merge_worker_outputs(outputs: list[dict[str, object]]) -> dict[str, object]:\n    workers: list[str] = []\n    results: list[object] = []\n    for output in outputs:\n        worker = str(output.get(\"worker\", \"\")).strip()\n        if not worker:\n            continue\n        workers.append(worker)\n        results.append(output.get(\"result\"))\n    return {\n        \"workers\": workers,\n        \"results\": results,\n        \"count\": len(workers),\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "agent-tracing-basics",
+      "title": "Agent Tracing Basics",
+      "path": "modules/ai-agents/observability/agent-tracing-basics",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "readme": "# Agent Tracing Basics\n\n> Track: `ai-agents` | Topic: `observability`\n\n## Concept\n\nAgent tracing basics record the important steps of one run so you can see what happened, how long it took, and which steps failed.\n\n## Key Points\n\n- A trace should be cheap to record and easy to inspect.\n- Step-level latency is often enough to find the bottleneck.\n- Failed spans are the fastest way to separate model, tool, and workflow issues.\n\n## Minimal Code Mental Model\n\n```python\ntrace = start_trace(\"run_7\", \"prepare report\")\ntrace = add_span(trace, \"tool_call\", 180.0, \"ok\")\nsummary = summarize_trace(trace)\n```\n\n## Function\n\n```python\ndef start_trace(run_id: str, goal: str) -> dict[str, object]:\ndef add_span(trace: dict[str, object], name: str, latency_ms: float, status: str) -> dict[str, object]:\ndef summarize_trace(trace: dict[str, object]) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/observability/agent-tracing-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/observability/agent-tracing-basics/python/agent_tracing_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef start_trace(run_id: str, goal: str) -> dict[str, object]:\n    if not run_id.strip():\n        raise ValueError(\"run_id must be non-empty\")\n    if not goal.strip():\n        raise ValueError(\"goal must be non-empty\")\n    return {\n        \"run_id\": run_id,\n        \"goal\": goal,\n        \"spans\": [],\n    }\n\n\ndef add_span(trace: dict[str, object], name: str, latency_ms: float, status: str) -> dict[str, object]:\n    if not name.strip():\n        raise ValueError(\"name must be non-empty\")\n    if latency_ms < 0:\n        raise ValueError(\"latency_ms must be non-negative\")\n    if not status.strip():\n        raise ValueError(\"status must be non-empty\")\n    spans = list(trace.get(\"spans\", []))\n    spans.append(\n        {\n            \"name\": name,\n            \"latency_ms\": latency_ms,\n            \"status\": status,\n        }\n    )\n    updated = dict(trace)\n    updated[\"spans\"] = spans\n    return updated\n\n\ndef summarize_trace(trace: dict[str, object]) -> dict[str, object]:\n    spans = list(trace.get(\"spans\", []))\n    total_latency_ms = sum(float(span.get(\"latency_ms\", 0.0)) for span in spans)\n    failed_spans = sum(1 for span in spans if str(span.get(\"status\", \"\")).lower() != \"ok\")\n    return {\n        \"span_count\": len(spans),\n        \"total_latency_ms\": total_latency_ms,\n        \"failed_spans\": failed_spans,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "alerting-thresholds",
+      "title": "Alerting Thresholds",
+      "path": "modules/ai-agents/observability/alerting-thresholds",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "readme": "# Alerting Thresholds\n\n> Track: `ai-agents` | Topic: `observability`\n\n## Concept\n\nAlerting thresholds turn observed metrics into simple raise-or-don't-raise decisions so operators know when the agent needs attention.\n\n## Key Points\n\n- Good alerts focus on a few high-signal metrics.\n- Thresholds should be easy to inspect and adjust.\n- Alert messages should say which metric crossed which boundary.\n\n## Minimal Code Mental Model\n\n```python\nbreached = threshold_breached(220.0, 200.0, direction=\"above\")\nmessage = alert_message(\"latency_ms\", 220.0, 200.0, direction=\"above\")\nalerts = alert_candidates({\"latency_ms\": 220.0}, {\"latency_ms\": (200.0, \"above\")})\n```\n\n## Function\n\n```python\ndef threshold_breached(value: float, threshold: float, direction: str) -> bool:\ndef alert_message(metric_name: str, value: float, threshold: float, direction: str) -> str:\ndef alert_candidates(metrics: dict[str, float], thresholds: dict[str, tuple[float, str]]) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/observability/alerting-thresholds/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/observability/alerting-thresholds/python/alerting_thresholds.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef threshold_breached(value: float, threshold: float, direction: str) -> bool:\n    if direction == \"above\":\n        return value > threshold\n    if direction == \"below\":\n        return value < threshold\n    raise ValueError(\"direction must be above or below\")\n\n\ndef alert_message(metric_name: str, value: float, threshold: float, direction: str) -> str:\n    if not metric_name.strip():\n        raise ValueError(\"metric_name must be non-empty\")\n    breached = threshold_breached(value, threshold, direction)\n    status = \"ALERT\" if breached else \"OK\"\n    return f\"{status}: {metric_name}={value:.2f} vs {direction} {threshold:.2f}\"\n\n\ndef alert_candidates(\n    metrics: dict[str, float],\n    thresholds: dict[str, tuple[float, str]],\n) -> list[str]:\n    alerts: list[str] = []\n    for metric_name, (threshold, direction) in thresholds.items():\n        if metric_name not in metrics:\n            continue\n        if threshold_breached(metrics[metric_name], threshold, direction):\n            alerts.append(metric_name)\n    return alerts\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "run-analysis-metrics",
+      "title": "Run Analysis Metrics",
+      "path": "modules/ai-agents/observability/run-analysis-metrics",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "readme": "# Run Analysis Metrics\n\n> Track: `ai-agents` | Topic: `observability`\n\n## Concept\n\nRun analysis metrics compress many traces into a small summary so you can see success rate, mean latency, and which span names fail most often.\n\n## Key Points\n\n- One good run trace is useful, but repeated runs show the actual bottleneck.\n- Aggregate metrics should stay small enough to compare across experiments.\n- Failed span counts are often the fastest way to find unstable steps.\n\n## Minimal Code Mental Model\n\n```python\nruns = [{\"success\": True, \"latency_ms\": 120.0}, {\"success\": False, \"latency_ms\": 200.0}]\nsuccess = run_success_rate(runs)\nmean_latency = mean_run_latency_ms(runs)\nfailures = failed_span_counts(traces)\n```\n\n## Function\n\n```python\ndef run_success_rate(runs: list[dict[str, object]]) -> float:\ndef mean_run_latency_ms(runs: list[dict[str, object]]) -> float:\ndef failed_span_counts(traces: list[dict[str, object]]) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/observability/run-analysis-metrics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/observability/run-analysis-metrics/python/run_analysis_metrics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef run_success_rate(runs: list[dict[str, object]]) -> float:\n    if not runs:\n        raise ValueError(\"runs must be non-empty\")\n    successes = sum(1 for run in runs if bool(run.get(\"success\")))\n    return successes / len(runs)\n\n\ndef mean_run_latency_ms(runs: list[dict[str, object]]) -> float:\n    if not runs:\n        raise ValueError(\"runs must be non-empty\")\n    latencies = [float(run.get(\"latency_ms\", 0.0)) for run in runs]\n    if any(latency < 0 for latency in latencies):\n        raise ValueError(\"latency_ms must be non-negative\")\n    return sum(latencies) / len(latencies)\n\n\ndef failed_span_counts(traces: list[dict[str, object]]) -> dict[str, int]:\n    counts: dict[str, int] = {}\n    for trace in traces:\n        spans = trace.get(\"spans\", [])\n        if not isinstance(spans, list):\n            continue\n        for span in spans:\n            if not isinstance(span, dict):\n                continue\n            status = str(span.get(\"status\", \"\")).strip().lower()\n            if status == \"ok\":\n                continue\n            name = str(span.get(\"name\", \"\")).strip()\n            if not name:\n                continue\n            counts[name] = counts.get(name, 0) + 1\n    return counts\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "span-taxonomy",
+      "title": "Span Taxonomy",
+      "path": "modules/ai-agents/observability/span-taxonomy",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "readme": "# Span Taxonomy\n\n> Track: `ai-agents` | Topic: `observability`\n\n## Concept\n\nSpan taxonomy gives traces a small shared vocabulary so each span is labeled as model, tool, workflow, or guardrail work.\n\n## Key Points\n\n- Consistent span labels make traces easier to compare.\n- A small taxonomy is usually enough for a first observability system.\n- Unknown spans should stay visible instead of being forced into the wrong bucket.\n\n## Minimal Code Mental Model\n\n```python\nkind = span_kind(\"tool_call\")\nlabels = label_spans([\"plan\", \"tool_call\", \"guardrail_check\"])\ncounts = span_kind_counts([\"plan\", \"tool_call\", \"tool_result\"])\n```\n\n## Function\n\n```python\ndef span_kind(span_name: str) -> str:\ndef label_spans(span_names: list[str]) -> dict[str, str]:\ndef span_kind_counts(span_names: list[str]) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/observability/span-taxonomy/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/observability/span-taxonomy/python/span_taxonomy.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef span_kind(span_name: str) -> str:\n    lowered = span_name.strip().lower()\n    if not lowered:\n        return \"unknown\"\n    if \"tool\" in lowered:\n        return \"tool\"\n    if \"guardrail\" in lowered or \"policy\" in lowered:\n        return \"guardrail\"\n    if lowered in {\"plan\", \"route\", \"handoff\", \"workflow\", \"state\"} or \"plan\" in lowered:\n        return \"workflow\"\n    if lowered in {\"model\", \"generate\", \"decode\"} or \"model\" in lowered:\n        return \"model\"\n    return \"unknown\"\n\n\ndef label_spans(span_names: list[str]) -> dict[str, str]:\n    return {\n        span_name: span_kind(span_name)\n        for span_name in span_names\n        if span_name.strip()\n    }\n\n\ndef span_kind_counts(span_names: list[str]) -> dict[str, int]:\n    counts: dict[str, int] = {}\n    for kind in label_spans(span_names).values():\n        counts[kind] = counts.get(kind, 0) + 1\n    return counts\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "plan-act-loop",
+      "title": "Plan-Act Loop",
+      "path": "modules/ai-agents/planning/plan-act-loop",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "readme": "# Plan-Act Loop\n\n> Track: `ai-agents` | Topic: `planning`\n\n## Concept\n\nA plan-act loop turns a goal into explicit steps, tracks what is still open, and updates the plan after each completed step.\n\n## Key Points\n\n- Planning is most useful when a task has more than one dependent action.\n- The next action should come from plan state, not from free-form guessing.\n- A simple linear plan is a good baseline before branching strategies.\n\n## Minimal Code Mental Model\n\n```python\nplan = make_plan(\"Prepare launch report\", [\"collect metrics\", \"write summary\", \"send report\"])\nnext_step = next_pending_step(plan)\nupdated = mark_step_done(plan, 0)\n```\n\n## Function\n\n```python\ndef make_plan(goal: str, steps: list[str]) -> list[dict[str, object]]:\ndef next_pending_step(plan: list[dict[str, object]]) -> int | None:\ndef mark_step_done(plan: list[dict[str, object]], step_index: int) -> list[dict[str, object]]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/planning/plan-act-loop/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/planning/plan-act-loop/python/plan_act_loop.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef make_plan(goal: str, steps: list[str]) -> list[dict[str, object]]:\n    if not goal.strip():\n        raise ValueError(\"goal must be non-empty\")\n    cleaned_steps = [step.strip() for step in steps if step.strip()]\n    if not cleaned_steps:\n        raise ValueError(\"steps must include at least one non-empty step\")\n    return [\n        {\"goal\": goal.strip(), \"step\": step, \"done\": False}\n        for step in cleaned_steps\n    ]\n\n\ndef next_pending_step(plan: list[dict[str, object]]) -> int | None:\n    for index, step in enumerate(plan):\n        if not step.get(\"done\", False):\n            return index\n    return None\n\n\ndef mark_step_done(plan: list[dict[str, object]], step_index: int) -> list[dict[str, object]]:\n    if not 0 <= step_index < len(plan):\n        raise IndexError(\"step_index out of range\")\n    updated = [dict(step) for step in plan]\n    updated[step_index][\"done\"] = True\n    return updated\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "planning-stop-conditions",
+      "title": "Planning Stop Conditions",
+      "path": "modules/ai-agents/planning/planning-stop-conditions",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "readme": "# Planning Stop Conditions\n\n> Track: `ai-agents` | Topic: `planning`\n\n## Concept\n\nPlanning stop conditions define when a workflow should finish, pause, or escalate instead of continuing to generate more steps.\n\n## Key Points\n\n- A plan should stop when the goal is satisfied or the remaining work is blocked.\n- Explicit stop rules reduce wasted looping.\n- Stop conditions are often simpler than the planning logic itself.\n\n## Minimal Code Mental Model\n\n```python\ndone = all_steps_done(plan)\nblocked = stop_due_to_blockers(blockers)\ndecision = stop_decision(plan, blockers, needs_review=False)\n```\n\n## Function\n\n```python\ndef all_steps_done(plan: list[dict[str, object]]) -> bool:\ndef stop_due_to_blockers(blockers: list[str]) -> bool:\ndef stop_decision(plan: list[dict[str, object]], blockers: list[str], needs_review: bool) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/planning/planning-stop-conditions/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/planning/planning-stop-conditions/python/planning_stop_conditions.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef all_steps_done(plan: list[dict[str, object]]) -> bool:\n    if not plan:\n        return False\n    return all(bool(item.get(\"done\", False)) for item in plan)\n\n\ndef stop_due_to_blockers(blockers: list[str]) -> bool:\n    return any(blocker.strip() for blocker in blockers)\n\n\ndef stop_decision(plan: list[dict[str, object]], blockers: list[str], needs_review: bool) -> str:\n    if all_steps_done(plan):\n        return \"done\"\n    if needs_review:\n        return \"review\"\n    if stop_due_to_blockers(blockers):\n        return \"blocked\"\n    return \"continue\"\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "replanning",
+      "title": "Replanning",
+      "path": "modules/ai-agents/planning/replanning",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "readme": "# Replanning\n\n> Track: `ai-agents` | Topic: `planning`\n\n## Concept\n\nReplanning updates the remaining work after a goal changes, a step gets blocked, or new constraints arrive.\n\n## Key Points\n\n- A plan should change when the task state changes.\n- Replanning should preserve what is already done and only update what remains.\n- New constraints should be attached explicitly so the revised plan is easy to inspect.\n\n## Minimal Code Mental Model\n\n```python\nneed = replan_needed(goal_changed=False, blocked_step=True, new_constraints=[\"Need manager approval\"])\nremaining = remaining_steps(plan)\nupdated = replan_summary(remaining, [\"Need manager approval\"])\n```\n\n## Function\n\n```python\ndef replan_needed(goal_changed: bool, blocked_step: bool, new_constraints: list[str]) -> bool:\ndef remaining_steps(plan: list[dict[str, object]]) -> list[str]:\ndef replan_summary(steps: list[str], constraints: list[str]) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/planning/replanning/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/planning/replanning/python/replanning.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef replan_needed(goal_changed: bool, blocked_step: bool, new_constraints: list[str]) -> bool:\n    return goal_changed or blocked_step or any(item.strip() for item in new_constraints)\n\n\ndef remaining_steps(plan: list[dict[str, object]]) -> list[str]:\n    steps: list[str] = []\n    for item in plan:\n        text = str(item.get(\"text\", \"\")).strip()\n        done = bool(item.get(\"done\", False))\n        if text and not done:\n            steps.append(text)\n    return steps\n\n\ndef replan_summary(steps: list[str], constraints: list[str]) -> str:\n    cleaned_steps = [step.strip() for step in steps if step.strip()]\n    cleaned_constraints = [constraint.strip() for constraint in constraints if constraint.strip()]\n    step_part = \"Remaining: \" + \", \".join(cleaned_steps) if cleaned_steps else \"Remaining: none\"\n    if not cleaned_constraints:\n        return step_part\n    return step_part + \" | Constraints: \" + \", \".join(cleaned_constraints)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "task-decomposition",
+      "title": "Task Decomposition",
+      "path": "modules/ai-agents/planning/task-decomposition",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "readme": "# Task Decomposition\n\n> Track: `ai-agents` | Topic: `planning`\n\n## Concept\n\nTask decomposition turns one broad goal into smaller checkpoints that are easier to inspect and execute.\n\n## Key Points\n\n- Decomposition is useful when a goal is too vague to execute directly.\n- Good checkpoints are concrete and ordered.\n- A short list of checkpoints is better than a long speculative plan.\n\n## Minimal Code Mental Model\n\n```python\nparts = decompose_goal(\"Prepare launch report\", [\"collect\", \"write\", \"send\"])\ncheckpoints = numbered_checkpoints(parts)\nready = decomposition_is_actionable(checkpoints, min_count=2)\n```\n\n## Function\n\n```python\ndef decompose_goal(goal: str, verbs: list[str]) -> list[str]:\ndef numbered_checkpoints(items: list[str]) -> list[dict[str, object]]:\ndef decomposition_is_actionable(items: list[dict[str, object]], min_count: int) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/planning/task-decomposition/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/planning/task-decomposition/python/task_decomposition.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef decompose_goal(goal: str, verbs: list[str]) -> list[str]:\n    cleaned_goal = goal.strip()\n    if not cleaned_goal:\n        raise ValueError(\"goal must be non-empty\")\n    parts = [f\"{verb.strip()} {cleaned_goal}\".strip() for verb in verbs if verb.strip()]\n    return [part for part in parts if part]\n\n\ndef numbered_checkpoints(items: list[str]) -> list[dict[str, object]]:\n    checkpoints: list[dict[str, object]] = []\n    for index, item in enumerate(items, start=1):\n        cleaned = item.strip()\n        if not cleaned:\n            continue\n        checkpoints.append({\"id\": index, \"text\": cleaned, \"done\": False})\n    return checkpoints\n\n\ndef decomposition_is_actionable(items: list[dict[str, object]], min_count: int) -> bool:\n    if min_count <= 0:\n        raise ValueError(\"min_count must be positive\")\n    return len(items) >= min_count and all(str(item.get(\"text\", \"\")).strip() for item in items)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "prompting",
+      "slug": "examples-and-delimiters",
+      "title": "Examples and Delimiters",
+      "path": "modules/ai-agents/prompting/examples-and-delimiters",
+      "summary": "> Track: `ai-agents` | Topic: `prompting`",
+      "readme": "# Examples and Delimiters\n\n> Track: `ai-agents` | Topic: `prompting`\n\n## Concept\n\nExamples and delimiters make the prompt easier for the model to follow by showing a target pattern and clearly separating sections.\n\n## Key Points\n\n- Few-shot examples help when the target format is easier to imitate than describe.\n- Delimiters help the model distinguish instructions, input, and expected output shape.\n- Examples should stay short and representative.\n\n## Minimal Code Mental Model\n\n```python\nexample_block = few_shot_block([(\"Q1\", \"A1\"), (\"Q2\", \"A2\")])\nsection = wrap_section(\"INPUT\", \"Summarize this note.\")\nprompt = compose_prompt_sections([example_block, section])\n```\n\n## Function\n\n```python\ndef few_shot_block(pairs: list[tuple[str, str]]) -> str:\ndef wrap_section(label: str, content: str) -> str:\ndef compose_prompt_sections(sections: list[str]) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/prompting/examples-and-delimiters/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/prompting/examples-and-delimiters/python/examples_and_delimiters.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef few_shot_block(pairs: list[tuple[str, str]]) -> str:\n    blocks: list[str] = []\n    for question, answer in pairs:\n        q = question.strip()\n        a = answer.strip()\n        if not q or not a:\n            continue\n        blocks.append(f\"Input: {q}\\nOutput: {a}\")\n    return \"\\n\\n\".join(blocks)\n\n\ndef wrap_section(label: str, content: str) -> str:\n    clean_label = label.strip()\n    clean_content = content.strip()\n    if not clean_label:\n        raise ValueError(\"label must be non-empty\")\n    return f\"<<<{clean_label}>>>\\n{clean_content}\\n<<<END {clean_label}>>>\"\n\n\ndef compose_prompt_sections(sections: list[str]) -> str:\n    cleaned = [section.strip() for section in sections if section.strip()]\n    return \"\\n\\n\".join(cleaned)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "prompting",
+      "slug": "prompt-structuring",
+      "title": "Prompt Structuring",
+      "path": "modules/ai-agents/prompting/prompt-structuring",
+      "summary": "> Track: `ai-agents` | Topic: `prompting`",
+      "readme": "# Prompt Structuring\n\n> Track: `ai-agents` | Topic: `prompting`\n\n## Concept\n\nPrompt structuring separates behavior instructions, user intent, and explicit constraints into a clearer message layout.\n\n## Key Points\n\n- Separate system behavior from the user request.\n- Put constraints in an explicit checklist when they matter.\n- Short structured prompts are easier to debug than long blended prompts.\n\n## Minimal Code Mental Model\n\n```python\nchecklist = format_checklist([\"answer in bullets\", \"cite sources\"])\nmessages = build_messages(\n    system_prompt=\"You are a careful research assistant.\",\n    user_prompt=\"Summarize the latest policy changes.\",\n    checklist=[\"answer in bullets\", \"cite sources\"],\n)\n```\n\n## Function\n\n```python\ndef format_checklist(items: list[str]) -> str:\ndef build_messages(\n    system_prompt: str,\n    user_prompt: str,\n    checklist: list[str] | None = None,\n) -> list[dict[str, str]]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/prompting/prompt-structuring/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/prompting/prompt-structuring/python/prompt_structuring.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef format_checklist(items: list[str]) -> str:\n    cleaned = [item.strip() for item in items if item.strip()]\n    return \"\\n\".join(f\"- {item}\" for item in cleaned)\n\n\ndef build_messages(\n    system_prompt: str,\n    user_prompt: str,\n    checklist: list[str] | None = None,\n) -> list[dict[str, str]]:\n    if not system_prompt.strip():\n        raise ValueError(\"system_prompt must be non-empty\")\n    if not user_prompt.strip():\n        raise ValueError(\"user_prompt must be non-empty\")\n\n    messages = [\n        {\"role\": \"system\", \"content\": system_prompt.strip()},\n        {\"role\": \"user\", \"content\": user_prompt.strip()},\n    ]\n    if checklist:\n        formatted = format_checklist(checklist)\n        if formatted:\n            messages.append(\n                {\n                    \"role\": \"user\",\n                    \"content\": f\"Constraints:\\n{formatted}\",\n                }\n            )\n    return messages\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "prompting",
+      "slug": "self-check-patterns",
+      "title": "Self-Check Patterns",
+      "path": "modules/ai-agents/prompting/self-check-patterns",
+      "summary": "> Track: `ai-agents` | Topic: `prompting`",
+      "readme": "# Self-Check Patterns\n\n> Track: `ai-agents` | Topic: `prompting`\n\n## Concept\n\nSelf-check patterns ask the model to verify a small checklist before it returns the final answer.\n\n## Key Points\n\n- A self-check is most useful for explicit constraints, not for deep hidden correctness.\n- The checklist should be short and easy to inspect.\n- The final answer should stay separate from the self-check notes.\n\n## Minimal Code Mental Model\n\n```python\nchecklist = self_check_checklist([\"answer in bullets\", \"cite sources\"])\nnotes = self_check_notes({\"bullets\": True, \"citations\": False})\nready = self_check_pass({\"bullets\": True, \"citations\": True})\n```\n\n## Function\n\n```python\ndef self_check_checklist(items: list[str]) -> list[str]:\ndef self_check_notes(results: dict[str, bool]) -> list[str]:\ndef self_check_pass(results: dict[str, bool]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/prompting/self-check-patterns/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/prompting/self-check-patterns/python/self_check_patterns.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef self_check_checklist(items: list[str]) -> list[str]:\n    return [item.strip() for item in items if item.strip()]\n\n\ndef self_check_notes(results: dict[str, bool]) -> list[str]:\n    notes: list[str] = []\n    for item, passed in results.items():\n        if not item.strip():\n            continue\n        status = \"ok\" if passed else \"fix\"\n        notes.append(f\"{item}: {status}\")\n    return notes\n\n\ndef self_check_pass(results: dict[str, bool]) -> bool:\n    cleaned = {item: passed for item, passed in results.items() if item.strip()}\n    if not cleaned:\n        raise ValueError(\"results must contain at least one non-empty item\")\n    return all(cleaned.values())\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "answer-grounding-checks",
+      "title": "Answer Grounding Checks",
+      "path": "modules/ai-agents/rag/answer-grounding-checks",
+      "summary": "> Track: `ai-agents` | Topic: `rag`",
+      "readme": "# Answer Grounding Checks\n\n> Track: `ai-agents` | Topic: `rag`\n\n## Concept\n\nAnswer grounding checks compare generated claims against retrieved evidence and summarize how much of the answer is actually supported.\n\n## Key Points\n\n- Grounding checks happen after answer generation, not before retrieval.\n- Claim-level support is more actionable than one coarse answer score.\n- Unsupported claims should be easy to list for review or regeneration.\n\n## Minimal Code Mental Model\n\n```python\nsupport = claim_support_map([\"csv is required\", \"weekly report due friday\"], evidence)\ngrounded = grounded_claim_rate(support)\nunsupported = unsupported_claims(support)\n```\n\n## Function\n\n```python\ndef claim_support_map(claims: list[str], evidence: list[str]) -> dict[str, bool]:\ndef grounded_claim_rate(support_map: dict[str, bool]) -> float:\ndef unsupported_claims(support_map: dict[str, bool]) -> list[str]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/rag/answer-grounding-checks/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/rag/answer-grounding-checks/python/answer_grounding_checks.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _tokens(text: str) -> set[str]:\n    return {token for token in text.lower().split() if token}\n\n\ndef claim_support_map(claims: list[str], evidence: list[str]) -> dict[str, bool]:\n    evidence_tokens = [_tokens(item) for item in evidence if item.strip()]\n    support: dict[str, bool] = {}\n    for claim in claims:\n        cleaned = claim.strip()\n        if not cleaned:\n            continue\n        claim_tokens = _tokens(cleaned)\n        support[cleaned] = any(claim_tokens <= evidence_set for evidence_set in evidence_tokens)\n    return support\n\n\ndef grounded_claim_rate(support_map: dict[str, bool]) -> float:\n    if not support_map:\n        raise ValueError(\"support_map must be non-empty\")\n    return sum(1 for value in support_map.values() if value) / len(support_map)\n\n\ndef unsupported_claims(support_map: dict[str, bool]) -> list[str]:\n    return [claim for claim, supported in support_map.items() if not supported]\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "rag-basics",
+      "title": "RAG Basics",
+      "path": "modules/ai-agents/rag/rag-basics",
+      "summary": "> Track: `ai-agents` | Topic: `rag`",
+      "readme": "# RAG Basics\n\n> Track: `ai-agents` | Topic: `rag`\n\n## Concept\n\nRAG basics cover the smallest useful loop: retrieve candidate chunks, keep the top ones, and pack them into a grounded context block.\n\n## Key Points\n\n- Retrieval should happen before generation, not during hallucinated answering.\n- Only the highest-value chunks should be packed into the final context.\n- Grounded context should be short enough that the model can still use it.\n\n## Minimal Code Mental Model\n\n```python\ntop_chunks = select_top_k([(\"A\", 0.9), (\"B\", 0.7), (\"C\", 0.4)], k=2)\ncontext = build_grounded_context(top_chunks, max_chunks=2)\n```\n\n## Function\n\n```python\ndef select_top_k(scored_chunks: list[tuple[str, float]], k: int) -> list[str]:\ndef build_grounded_context(chunks: list[str], max_chunks: int) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/rag/rag-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/rag/rag-basics/python/rag_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef select_top_k(scored_chunks: list[tuple[str, float]], k: int) -> list[str]:\n    if k <= 0:\n        raise ValueError(\"k must be positive\")\n    ranked = sorted(scored_chunks, key=lambda item: item[1], reverse=True)\n    return [chunk for chunk, _score in ranked[:k]]\n\n\ndef build_grounded_context(chunks: list[str], max_chunks: int) -> str:\n    if max_chunks <= 0:\n        raise ValueError(\"max_chunks must be positive\")\n    selected = [chunk.strip() for chunk in chunks[:max_chunks] if chunk.strip()]\n    return \"\\n\\n\".join(f\"[{i + 1}] {chunk}\" for i, chunk in enumerate(selected))\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "retrieval-quality-and-citations",
+      "title": "Retrieval Quality and Citations",
+      "path": "modules/ai-agents/rag/retrieval-quality-and-citations",
+      "summary": "> Track: `ai-agents` | Topic: `rag`",
+      "readme": "# Retrieval Quality and Citations\n\n> Track: `ai-agents` | Topic: `rag`\n\n## Concept\n\nRetrieval quality and citations measure how much of an answer is backed by evidence and which claims still lack support.\n\n## Key Points\n\n- A grounded answer should cover its important claims with evidence.\n- Missing citations are often more useful than one coarse retrieval score.\n- Citation summaries should stay simple enough to inspect by hand.\n\n## Minimal Code Mental Model\n\n```python\ncoverage = citation_coverage([\"c1\", \"c2\", \"c3\"], {\"c1\": [\"doc1\"], \"c3\": [\"doc2\"]})\nmissing = uncited_claims([\"c1\", \"c2\", \"c3\"], {\"c1\": [\"doc1\"], \"c3\": [\"doc2\"]})\nsource_counts = cited_source_counts({\"c1\": [\"doc1\"], \"c2\": [\"doc1\", \"doc2\"]})\n```\n\n## Function\n\n```python\ndef citation_coverage(claim_ids: list[str], citations: dict[str, list[str]]) -> float:\ndef uncited_claims(claim_ids: list[str], citations: dict[str, list[str]]) -> list[str]:\ndef cited_source_counts(citations: dict[str, list[str]]) -> dict[str, int]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/rag/retrieval-quality-and-citations/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/rag/retrieval-quality-and-citations/python/retrieval_quality_and_citations.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef _has_citation(values: list[str] | None) -> bool:\n    if values is None:\n        return False\n    return any(value.strip() for value in values)\n\n\ndef citation_coverage(claim_ids: list[str], citations: dict[str, list[str]]) -> float:\n    cleaned_claims = [claim.strip() for claim in claim_ids if claim.strip()]\n    if not cleaned_claims:\n        raise ValueError(\"claim_ids must contain at least one non-empty claim id\")\n    cited = sum(1 for claim in cleaned_claims if _has_citation(citations.get(claim)))\n    return cited / len(cleaned_claims)\n\n\ndef uncited_claims(claim_ids: list[str], citations: dict[str, list[str]]) -> list[str]:\n    return [\n        claim.strip()\n        for claim in claim_ids\n        if claim.strip() and not _has_citation(citations.get(claim.strip()))\n    ]\n\n\ndef cited_source_counts(citations: dict[str, list[str]]) -> dict[str, int]:\n    counts: dict[str, int] = {}\n    for sources in citations.values():\n        for source in sources:\n            cleaned = source.strip()\n            if not cleaned:\n                continue\n            counts[cleaned] = counts.get(cleaned, 0) + 1\n    return counts\n"
+        }
+      ]
+    },
     {
       "track": "ai-agents",
       "topic": "tool-use",
@@ -607,6 +1130,70 @@
     {
       "track": "ai-agents",
       "topic": "tool-use",
+      "slug": "tool-argument-normalization",
+      "title": "Tool Argument Normalization",
+      "path": "modules/ai-agents/tool-use/tool-argument-normalization",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "readme": "# Tool Argument Normalization\n\n> Track: `ai-agents` | Topic: `tool-use`\n\n## Concept\n\nTool argument normalization cleans, renames, and fills simple defaults in tool arguments before execution.\n\n## Key Points\n\n- Normalization should happen before the tool call, not after it fails.\n- Simple cleanup avoids many avoidable tool errors.\n- A small explicit mapping is easier to audit than hidden magic.\n\n## Minimal Code Mental Model\n\n```python\nnormalized = normalize_arguments({\"city\": \" Madison \", \"units\": \"\"}, {\"city\": \"location\"}, {\"units\": \"metric\"})\nmissing = missing_required_arguments(normalized, [\"location\", \"units\"])\nready = arguments_ready(normalized, [\"location\", \"units\"])\n```\n\n## Function\n\n```python\ndef normalize_arguments(arguments: dict[str, object], aliases: dict[str, str], defaults: dict[str, object]) -> dict[str, object]:\ndef missing_required_arguments(arguments: dict[str, object], required: list[str]) -> list[str]:\ndef arguments_ready(arguments: dict[str, object], required: list[str]) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/tool-use/tool-argument-normalization/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/tool-use/tool-argument-normalization/python/tool_argument_normalization.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef normalize_arguments(\n    arguments: dict[str, object],\n    aliases: dict[str, str],\n    defaults: dict[str, object],\n) -> dict[str, object]:\n    normalized: dict[str, object] = {}\n    for key, value in arguments.items():\n        target_key = aliases.get(key, key).strip()\n        if not target_key:\n            continue\n        if isinstance(value, str):\n            cleaned_value = value.strip()\n            if cleaned_value:\n                normalized[target_key] = cleaned_value\n        else:\n            normalized[target_key] = value\n\n    for key, value in defaults.items():\n        normalized.setdefault(key, value)\n    return normalized\n\n\ndef missing_required_arguments(arguments: dict[str, object], required: list[str]) -> list[str]:\n    missing: list[str] = []\n    for key in required:\n        cleaned_key = key.strip()\n        if not cleaned_key:\n            continue\n        value = arguments.get(cleaned_key)\n        if value is None or (isinstance(value, str) and not value.strip()):\n            missing.append(cleaned_key)\n    return missing\n\n\ndef arguments_ready(arguments: dict[str, object], required: list[str]) -> bool:\n    return len(missing_required_arguments(arguments, required)) == 0\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "tool-failure-handling",
+      "title": "Tool Failure Handling",
+      "path": "modules/ai-agents/tool-use/tool-failure-handling",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "readme": "# Tool Failure Handling\n\n> Track: `ai-agents` | Topic: `tool-use`\n\n## Concept\n\nTool failure handling decides whether a failed tool call should be retried, replaced with a fallback tool, or escalated out of the loop.\n\n## Key Points\n\n- Not every tool failure should be retried.\n- Retry is best for transient errors like timeouts or rate limits.\n- Fallback and escalation should be explicit so the next step is easy to inspect.\n\n## Minimal Code Mental Model\n\n```python\nkind = failure_kind({\"status\": \"error\", \"message\": \"timeout\"})\naction = next_action(kind, retryable_errors={\"timeout\"}, fallback_map={\"search\": \"browse_docs\"})\nroute = fallback_tool(\"search\", {\"search\": \"browse_docs\"})\n```\n\n## Function\n\n```python\ndef failure_kind(result: dict[str, object]) -> str:\ndef next_action(failure: str, retryable_errors: set[str], fallback_map: dict[str, str] | None = None) -> str:\ndef fallback_tool(tool_name: str, fallback_map: dict[str, str]) -> str | None:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/tool-use/tool-failure-handling/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/tool-use/tool-failure-handling/python/tool_failure_handling.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef failure_kind(result: dict[str, object]) -> str:\n    status = str(result.get(\"status\", \"\")).strip().lower()\n    message = str(result.get(\"message\", \"\")).strip().lower()\n    if status != \"error\" and not bool(result.get(\"is_error\", False)):\n        return \"ok\"\n    if \"timeout\" in message:\n        return \"timeout\"\n    if \"rate\" in message and \"limit\" in message:\n        return \"rate_limit\"\n    if \"auth\" in message or \"permission\" in message:\n        return \"auth\"\n    return \"tool_error\"\n\n\ndef next_action(\n    failure: str,\n    retryable_errors: set[str],\n    fallback_map: dict[str, str] | None = None,\n) -> str:\n    if failure == \"ok\":\n        return \"continue\"\n    if failure in retryable_errors:\n        return \"retry\"\n    if fallback_map:\n        return \"fallback\"\n    return \"escalate\"\n\n\ndef fallback_tool(tool_name: str, fallback_map: dict[str, str]) -> str | None:\n    cleaned = tool_name.strip()\n    if not cleaned:\n        raise ValueError(\"tool_name must be non-empty\")\n    return fallback_map.get(cleaned)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "tool-result-validation",
+      "title": "Tool Result Validation",
+      "path": "modules/ai-agents/tool-use/tool-result-validation",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "readme": "# Tool Result Validation\n\n> Track: `ai-agents` | Topic: `tool-use`\n\n## Concept\n\nTool result validation checks whether a tool response has the required fields, signals an execution error, or can be safely passed back into the agent loop.\n\n## Key Points\n\n- Tool outputs should be validated before the model reasons over them.\n- Missing required fields are often enough to stop a bad tool response early.\n- Validation should produce a simple pass/fail decision plus a reason.\n\n## Minimal Code Mental Model\n\n```python\nvalid = result_has_fields({\"temperature_f\": 41, \"status\": \"ok\"}, [\"temperature_f\", \"status\"])\nerror = result_has_error({\"status\": \"error\", \"message\": \"timeout\"})\nreport = validation_report({\"status\": \"ok\", \"temperature_f\": 41}, [\"temperature_f\", \"status\"])\n```\n\n## Function\n\n```python\ndef result_has_fields(result: dict[str, object], required_fields: list[str]) -> bool:\ndef result_has_error(result: dict[str, object]) -> bool:\ndef validation_report(result: dict[str, object], required_fields: list[str]) -> dict[str, object]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/tool-use/tool-result-validation/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/tool-use/tool-result-validation/python/tool_result_validation.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef result_has_fields(result: dict[str, object], required_fields: list[str]) -> bool:\n    return all(field in result for field in required_fields)\n\n\ndef result_has_error(result: dict[str, object]) -> bool:\n    status = str(result.get(\"status\", \"\")).strip().lower()\n    is_error_flag = bool(result.get(\"is_error\", False))\n    return status == \"error\" or is_error_flag\n\n\ndef validation_report(result: dict[str, object], required_fields: list[str]) -> dict[str, object]:\n    has_fields = result_has_fields(result, required_fields)\n    has_error = result_has_error(result)\n    return {\n        \"ok\": has_fields and not has_error,\n        \"has_required_fields\": has_fields,\n        \"has_error\": has_error,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "tool-selection-heuristics",
+      "title": "Tool Selection Heuristics",
+      "path": "modules/ai-agents/tool-use/tool-selection-heuristics",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "readme": "# Tool Selection Heuristics\n\n> Track: `ai-agents` | Topic: `tool-use`\n\n## Concept\n\nTool selection heuristics score candidate tools against the request and choose the most relevant one before any call happens.\n\n## Key Points\n\n- Tool choice should be explicit when several tools look plausible.\n- A simple score based on keyword overlap is often enough for a first router.\n- Ranking is useful even if the final system only calls one tool.\n\n## Minimal Code Mental Model\n\n```python\nscore = keyword_match_score(\"check the weather in Madison\", [\"weather\", \"temperature\"])\nranked = rank_tools(\"check the weather in Madison\", tool_keywords)\ntool = pick_tool(\"check the weather in Madison\", tool_keywords)\n```\n\n## Function\n\n```python\ndef keyword_match_score(intent: str, keywords: list[str]) -> int:\ndef rank_tools(intent: str, tool_keywords: dict[str, list[str]]) -> list[tuple[str, int]]:\ndef pick_tool(intent: str, tool_keywords: dict[str, list[str]]) -> str | None:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/tool-use/tool-selection-heuristics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/tool-use/tool-selection-heuristics/python/tool_selection_heuristics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef keyword_match_score(intent: str, keywords: list[str]) -> int:\n    lowered = intent.strip().lower()\n    if not lowered:\n        return 0\n    return sum(1 for keyword in keywords if keyword.strip().lower() in lowered)\n\n\ndef rank_tools(intent: str, tool_keywords: dict[str, list[str]]) -> list[tuple[str, int]]:\n    scores = [\n        (tool, keyword_match_score(intent, keywords))\n        for tool, keywords in tool_keywords.items()\n    ]\n    ranked = sorted(scores, key=lambda item: (-item[1], item[0]))\n    return [(tool, score) for tool, score in ranked if score > 0]\n\n\ndef pick_tool(intent: str, tool_keywords: dict[str, list[str]]) -> str | None:\n    ranked = rank_tools(intent, tool_keywords)\n    if not ranked:\n        return None\n    return ranked[0][0]\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "tool-use",
       "slug": "tool-use-basics",
       "title": "Tool Use Basics",
       "path": "modules/ai-agents/tool-use/tool-use-basics",
@@ -617,6 +1204,86 @@
           "path": "modules/ai-agents/tool-use/tool-use-basics/python/tool_use_basics.py",
           "language": "python",
           "content": "from __future__ import annotations\n\n\ndef select_tool(intent: str, tool_keywords: dict[str, list[str]]) -> str | None:\n    intent_lower = intent.strip().lower()\n    if not intent_lower:\n        return None\n\n    best_tool: str | None = None\n    best_score = 0\n    for tool_name, keywords in tool_keywords.items():\n        score = sum(keyword.lower() in intent_lower for keyword in keywords)\n        if score > best_score:\n            best_tool = tool_name\n            best_score = score\n    return best_tool\n\n\ndef tool_call(name: str, arguments: dict[str, object], call_id: str = \"call_1\") -> dict[str, object]:\n    if not name.strip():\n        raise ValueError(\"name must be non-empty\")\n    if not call_id.strip():\n        raise ValueError(\"call_id must be non-empty\")\n    return {\n        \"type\": \"tool_call\",\n        \"id\": call_id,\n        \"name\": name,\n        \"arguments\": arguments,\n    }\n\n\ndef tool_result(call_id: str, output: object, is_error: bool = False) -> dict[str, object]:\n    if not call_id.strip():\n        raise ValueError(\"call_id must be non-empty\")\n    return {\n        \"type\": \"tool_result\",\n        \"call_id\": call_id,\n        \"output\": output,\n        \"is_error\": is_error,\n    }\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "escalation-routing",
+      "title": "Escalation Routing",
+      "path": "modules/ai-agents/workflows/escalation-routing",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "readme": "# Escalation Routing\n\n> Track: `ai-agents` | Topic: `workflows`\n\n## Concept\n\nEscalation routing decides where a failed, risky, or low-confidence step should go next instead of blindly retrying.\n\n## Key Points\n\n- Escalation should happen for the right reason: policy review, repeated failure, or low confidence.\n- The route should be explicit so humans or fallback workers know why they were chosen.\n- A small escalation policy is easier to audit than retry logic mixed into every step.\n\n## Minimal Code Mental Model\n\n```python\nreason = escalation_reason(blocked=False, confidence=0.4, threshold=0.7, attempt=2, max_attempts=2)\nroute = escalation_target(reason, routing_table)\npacket = escalation_packet(\"task_9\", reason, route)\n```\n\n## Function\n\n```python\ndef escalation_reason(blocked: bool, confidence: float, threshold: float, attempt: int, max_attempts: int) -> str | None:\ndef escalation_target(reason: str | None, routing_table: dict[str, str]) -> str | None:\ndef escalation_packet(task_id: str, reason: str, route: str) -> dict[str, str]:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/workflows/escalation-routing/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/workflows/escalation-routing/python/escalation_routing.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef escalation_reason(\n    blocked: bool,\n    confidence: float,\n    threshold: float,\n    attempt: int,\n    max_attempts: int,\n) -> str | None:\n    if not 0.0 <= confidence <= 1.0:\n        raise ValueError(\"confidence must satisfy 0 <= value <= 1\")\n    if not 0.0 <= threshold <= 1.0:\n        raise ValueError(\"threshold must satisfy 0 <= value <= 1\")\n    if attempt < 0:\n        raise ValueError(\"attempt must be non-negative\")\n    if max_attempts <= 0:\n        raise ValueError(\"max_attempts must be positive\")\n    if blocked:\n        return \"policy_review\"\n    if confidence < threshold:\n        return \"low_confidence\"\n    if attempt >= max_attempts:\n        return \"retry_exhausted\"\n    return None\n\n\ndef escalation_target(reason: str | None, routing_table: dict[str, str]) -> str | None:\n    if reason is None:\n        return None\n    return routing_table.get(reason)\n\n\ndef escalation_packet(task_id: str, reason: str, route: str) -> dict[str, str]:\n    if not task_id.strip():\n        raise ValueError(\"task_id must be non-empty\")\n    if not reason.strip():\n        raise ValueError(\"reason must be non-empty\")\n    if not route.strip():\n        raise ValueError(\"route must be non-empty\")\n    return {\"task_id\": task_id, \"reason\": reason, \"route\": route}\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "handoffs-and-routing",
+      "title": "Handoffs and Routing",
+      "path": "modules/ai-agents/workflows/handoffs-and-routing",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "readme": "# Handoffs and Routing\n\n> Track: `ai-agents` | Topic: `workflows`\n\n## Concept\n\nHandoffs and routing decide which worker or step should handle a task, package the required state, and limit unnecessary retries.\n\n## Key Points\n\n- Routing should map task intent to a small number of known destinations.\n- Handoffs should contain compact state that the next worker can actually use.\n- Retries should be bounded so failed steps do not loop forever.\n\n## Minimal Code Mental Model\n\n```python\nroute = route_task(\"summarize docs and open a ticket\", routes)\nhandoff = build_handoff(\"task_7\", route, {\"doc_id\": \"abc\"})\nretry = should_retry(attempt=1, max_attempts=3, retryable=True)\n```\n\n## Function\n\n```python\ndef route_task(request: str, routes: dict[str, list[str]]) -> str | None:\ndef build_handoff(task_id: str, target: str, payload: dict[str, object]) -> dict[str, object]:\ndef should_retry(attempt: int, max_attempts: int, retryable: bool) -> bool:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/workflows/handoffs-and-routing/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/workflows/handoffs-and-routing/python/handoffs_and_routing.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef route_task(request: str, routes: dict[str, list[str]]) -> str | None:\n    lowered = request.lower()\n    scored: list[tuple[int, str]] = []\n    for target, keywords in routes.items():\n        matches = sum(1 for keyword in keywords if keyword.strip().lower() in lowered)\n        if matches:\n            scored.append((matches, target))\n    if not scored:\n        return None\n    scored.sort(reverse=True)\n    return scored[0][1]\n\n\ndef build_handoff(task_id: str, target: str, payload: dict[str, object]) -> dict[str, object]:\n    if not task_id.strip():\n        raise ValueError(\"task_id must be non-empty\")\n    if not target.strip():\n        raise ValueError(\"target must be non-empty\")\n    return {\n        \"task_id\": task_id,\n        \"target\": target,\n        \"payload\": payload,\n    }\n\n\ndef should_retry(attempt: int, max_attempts: int, retryable: bool) -> bool:\n    if attempt < 0:\n        raise ValueError(\"attempt must be non-negative\")\n    if max_attempts <= 0:\n        raise ValueError(\"max_attempts must be positive\")\n    return retryable and attempt < max_attempts\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "retries-and-recovery",
+      "title": "Retries and Recovery",
+      "path": "modules/ai-agents/workflows/retries-and-recovery",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "readme": "# Retries and Recovery\n\n> Track: `ai-agents` | Topic: `workflows`\n\n## Concept\n\nRetries and recovery decide when a failed step should be tried again, how long to wait, and when to fall back to a simpler safe path.\n\n## Key Points\n\n- Retries are useful for transient failures, not for every error.\n- Backoff prevents the agent from hammering the same failing dependency.\n- Recovery should move to a known fallback instead of looping forever.\n\n## Minimal Code Mental Model\n\n```python\nretry = should_retry(error_type=\"timeout\", attempt=1, max_attempts=3)\ndelay = exponential_backoff_ms(base_delay_ms=200, attempt=2)\nnext_step = fallback_action(\"search\")\n```\n\n## Function\n\n```python\ndef should_retry(error_type: str, attempt: int, max_attempts: int) -> bool:\ndef exponential_backoff_ms(base_delay_ms: int, attempt: int) -> int:\ndef fallback_action(primary_action: str, fallback_map: dict[str, str] | None = None) -> str | None:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/workflows/retries-and-recovery/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/workflows/retries-and-recovery/python/retries_and_recovery.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\nRETRYABLE_ERRORS = {\n    \"timeout\",\n    \"rate_limit\",\n    \"temporary_tool_error\",\n}\n\n\ndef should_retry(error_type: str, attempt: int, max_attempts: int) -> bool:\n    if attempt < 0:\n        raise ValueError(\"attempt must be non-negative\")\n    if max_attempts <= 0:\n        raise ValueError(\"max_attempts must be positive\")\n    return error_type.strip().lower() in RETRYABLE_ERRORS and attempt < max_attempts\n\n\ndef exponential_backoff_ms(base_delay_ms: int, attempt: int) -> int:\n    if base_delay_ms <= 0:\n        raise ValueError(\"base_delay_ms must be positive\")\n    if attempt < 0:\n        raise ValueError(\"attempt must be non-negative\")\n    return base_delay_ms * (2 ** attempt)\n\n\ndef fallback_action(\n    primary_action: str,\n    fallback_map: dict[str, str] | None = None,\n) -> str | None:\n    if fallback_map is None:\n        fallback_map = {\n            \"browser_search\": \"search_docs\",\n            \"search\": \"ask_user_for_clarification\",\n            \"web_lookup\": \"search_docs\",\n        }\n    cleaned = primary_action.strip()\n    if not cleaned:\n        raise ValueError(\"primary_action must be non-empty\")\n    return fallback_map.get(cleaned)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "state-machine-basics",
+      "title": "State Machine Basics",
+      "path": "modules/ai-agents/workflows/state-machine-basics",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "readme": "# State Machine Basics\n\n> Track: `ai-agents` | Topic: `workflows`\n\n## Concept\n\nState machine basics model a workflow as a small set of states and explicit transitions between them.\n\n## Key Points\n\n- State machines are useful when the workflow has a few stable stages.\n- Explicit transitions make debugging easier than hidden status flags.\n- Invalid transitions should fail early.\n\n## Minimal Code Mental Model\n\n```python\nstate = next_state(\"planned\", \"start\")\nallowed = valid_transition(\"running\", \"complete\", transitions)\ntrace = transition_trace([\"planned\", \"running\", \"done\"])\n```\n\n## Function\n\n```python\ndef valid_transition(current_state: str, next_state_name: str, transitions: dict[str, list[str]]) -> bool:\ndef next_state(current_state: str, event: str) -> str:\ndef transition_trace(states: list[str]) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/workflows/state-machine-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/workflows/state-machine-basics/python/state_machine_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\nEVENT_TO_STATE = {\n    (\"planned\", \"start\"): \"running\",\n    (\"running\", \"complete\"): \"done\",\n    (\"running\", \"block\"): \"blocked\",\n    (\"blocked\", \"resume\"): \"running\",\n}\n\n\ndef valid_transition(\n    current_state: str,\n    next_state_name: str,\n    transitions: dict[str, list[str]],\n) -> bool:\n    allowed = transitions.get(current_state.strip(), [])\n    return next_state_name.strip() in allowed\n\n\ndef next_state(current_state: str, event: str) -> str:\n    key = (current_state.strip(), event.strip())\n    if key not in EVENT_TO_STATE:\n        raise ValueError(\"invalid state transition\")\n    return EVENT_TO_STATE[key]\n\n\ndef transition_trace(states: list[str]) -> str:\n    cleaned = [state.strip() for state in states if state.strip()]\n    return \" -> \".join(cleaned)\n"
+        }
+      ]
+    },
+    {
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "workflow-concurrency-basics",
+      "title": "Workflow Concurrency Basics",
+      "path": "modules/ai-agents/workflows/workflow-concurrency-basics",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "readme": "# Workflow Concurrency Basics\n\n> Track: `ai-agents` | Topic: `workflows`\n\n## Concept\n\nWorkflow concurrency basics model which steps can run in parallel and when their results should join back into one path.\n\n## Key Points\n\n- Concurrency only helps when branches are independent.\n- Join points should make it explicit how many branches must finish.\n- A simple ready / waiting check is enough for a first workflow.\n\n## Minimal Code Mental Model\n\n```python\nready = runnable_branches(branch_states)\njoined = join_ready(branch_states, required=2)\nstate = join_state(branch_states, required=2)\n```\n\n## Function\n\n```python\ndef runnable_branches(branch_states: dict[str, str]) -> list[str]:\ndef join_ready(branch_states: dict[str, str], required: int) -> bool:\ndef join_state(branch_states: dict[str, str], required: int) -> str:\n```\n\n## Run tests\n\n```bash\npytest modules/ai-agents/workflows/workflow-concurrency-basics/python -q\n```\n",
+      "sources": [
+        {
+          "path": "modules/ai-agents/workflows/workflow-concurrency-basics/python/workflow_concurrency_basics.py",
+          "language": "python",
+          "content": "from __future__ import annotations\n\n\ndef runnable_branches(branch_states: dict[str, str]) -> list[str]:\n    return [\n        branch\n        for branch, state in branch_states.items()\n        if branch.strip() and state.strip().lower() == \"ready\"\n    ]\n\n\ndef join_ready(branch_states: dict[str, str], required: int) -> bool:\n    if required <= 0:\n        raise ValueError(\"required must be positive\")\n    completed = sum(1 for state in branch_states.values() if state.strip().lower() == \"done\")\n    return completed >= required\n\n\ndef join_state(branch_states: dict[str, str], required: int) -> str:\n    if join_ready(branch_states, required):\n        return \"join-ready\"\n    if any(state.strip().lower() == \"failed\" for state in branch_states.values()):\n        return \"blocked\"\n    return \"waiting\"\n"
         }
       ]
     },
@@ -8244,12 +8911,102 @@
   "docs": [
     {
       "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "evaluation",
+      "title": "Evaluation",
+      "path": "docs/ai-agents/evaluation/README.md",
+      "summary": "This section is about how to measure whether an agent succeeds, whether its tool calls work, and where failures happen.",
+      "content": "# Evaluation\n\nThis section is about how to measure whether an agent succeeds, whether its tool calls work, and where failures happen.\n\n## Purpose\n\nUse this page to understand:\n- task success\n- tool-call success\n- latency and cost baselines\n- failure category counts\n\n## First Principles\n\n- Agent evaluation should measure both final outcomes and the steps that produced them.\n- Simple metrics are usually enough to find the main bottlenecks.\n- A useful evaluation loop separates model failure, tool failure, and workflow failure.\n\n## Minimal Code Mental Model\n\n```python\nsuccess = task_success_rate([True, False, True])\ntool_success = tool_call_success_rate([True, True, False])\nbreakdown = failure_breakdown([\"tool\", \"model\", \"tool\"])\n```\n\n## Canonical Modules\n\n- Core agent metrics: `agent-evaluation-basics`\n\n## Supporting Modules\n\n- Step-level completion and blockage summaries: `step-level-evaluation`\n- Cost-quality summaries across runs: `cost-quality-tradeoffs`\n- A/B-style comparison between agent variants: `experiment-comparison`\n- Detecting quality drift against a baseline: `regression-checks`\n- Grouping failures into stable categories: `failure-taxonomy`\n\n## When To Use What\n\n- Start with `agent-evaluation-basics` before adding judge-based or benchmark-heavy evaluation.\n- Use `step-level-evaluation` when whole-run success is too coarse to explain where the agent fails.\n- Use `cost-quality-tradeoffs` when comparing variants where quality, cost, and success all matter.\n- Use `experiment-comparison` when you need a side-by-side summary of two prompts, tools, or workflows.\n- Use `regression-checks` when a new variant should not fall below an existing baseline on key metrics.\n- Use `failure-taxonomy` when repeated failures need a stable set of labels for triage and reporting.\n- Track latency and failure labels together so you know whether the bottleneck is planning, tool use, or execution.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "guardrails",
+      "title": "Guardrails",
+      "path": "docs/ai-agents/guardrails/README.md",
+      "summary": "Guardrails are the checks around an agent loop that prevent unsafe, malformed, or low-confidence actions.",
+      "content": "# Guardrails\n\nGuardrails are the checks around an agent loop that prevent unsafe, malformed, or low-confidence actions.\n\n## Purpose\n\nUse this page to understand:\n- how to block obviously unsafe inputs\n- how to validate structured outputs\n- when to escalate instead of answering\n\n## First Principles\n\n- Guardrails should check simple conditions before expensive reasoning or tool use.\n- Output validation is easier when the expected shape is explicit.\n- Escalation is often better than pretending uncertain output is safe.\n\n## Minimal Code Mental Model\n\n```python\nblocked = blocked_by_terms(user_text, [\"password\", \"private key\"])\nvalid = required_fields_present(record, [\"answer\", \"confidence\"])\nescalate = should_escalate(model_confidence=0.42, threshold=0.6, blocked=blocked)\n```\n\n## Canonical Modules\n\n- Main validation pattern: `input-output-guardrails`\n\n## Supporting Modules\n\n- Policy decisions and escalation paths: `policy-and-escalation`\n- Review queue packets and human handoff: `review-queue-handoff`\n\n## When To Use What\n\n- Start with `input-output-guardrails` when the main need is lightweight safety and validation.\n- Use `policy-and-escalation` when the system needs a clear allow / review / block decision.\n- Use `review-queue-handoff` when risky requests need a structured packet for human review instead of a direct answer.\n- Add stronger policy logic only after the simple checks are in place.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory",
+      "title": "Memory",
+      "path": "docs/ai-agents/memory/README.md",
+      "summary": "This section is about how an agent keeps useful state across steps and turns without replaying the full conversation every time.",
+      "content": "# Memory\n\nThis section is about how an agent keeps useful state across steps and turns without replaying the full conversation every time.\n\n## Purpose\n\nUse this page to understand:\n- short-term working memory\n- compressed summaries\n- retrieval-backed memory\n\n## First Principles\n\n- Memory is useful because agents often need facts from earlier steps after the prompt has changed.\n- Good memory is selective. Keeping everything is expensive and often noisy.\n- Short summaries are useful for recent task state. Retrieval is better for larger memory stores.\n\n## Minimal Code Mental Model\n\n```python\nmemory = append_memory(memory, \"User prefers CSV output\", max_items=5)\nsummary = summarize_recent_memory(memory, max_items=3)\nhits = retrieve_relevant_memories(\"csv report\", memory, k=2)\n```\n\n## Canonical Modules\n\n- Core memory patterns: `memory-patterns`\n\n## Supporting Modules\n\n- Retrieval-backed memory over stored notes: `retrieval-backed-memory`\n- Compaction of many notes into a shorter working summary: `memory-compaction`\n- Retaining high-value notes and evicting weak ones: `memory-retention-policy`\n- Scoring notes before retrieval returns them: `memory-retrieval-scoring`\n\n## When To Use What\n\n- Start with `memory-patterns` when the agent must remember user preferences or prior step outputs.\n- Use `retrieval-backed-memory` when recent summaries are not enough and the agent needs simple lookup over older notes.\n- Use `memory-compaction` when stored notes are growing but the active summary needs to stay short.\n- Use `memory-retention-policy` when the store is growing and the agent needs a simple keep-or-drop rule.\n- Use `memory-retrieval-scoring` when the memory store needs a better rank order than raw keyword overlap alone.\n- Use summaries for recent working state before building a larger retrieval-backed memory layer.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "multi-agent",
+      "title": "Multi-Agent",
+      "path": "docs/ai-agents/multi-agent/README.md",
+      "summary": "This section is about when more than one worker is useful, how roles should differ, and how results should be merged back into one answer.",
+      "content": "# Multi-Agent\n\nThis section is about when more than one worker is useful, how roles should differ, and how results should be merged back into one answer.\n\n## Purpose\n\nUse this page to understand:\n- role specialization\n- handoffs between workers\n- merging worker outputs\n\n## First Principles\n\n- A multi-agent system only helps when tasks naturally split into different roles.\n- Workers should differ by responsibility, not just by name.\n- Merging should be simple and structured so the coordinator can decide what to trust.\n\n## Minimal Code Mental Model\n\n```python\nworker = select_worker(\"write release notes\", worker_keywords)\nhandoff = worker_handoff(worker, \"write summary\", {\"doc_id\": \"abc\"})\nmerged = merge_worker_outputs(outputs)\n```\n\n## Canonical Modules\n\n- Coordination basics: `worker-coordination`\n\n## Supporting Modules\n\n- Arbitration over multiple worker answers: `debate-and-arbitration`\n- Assigning roles before workers start: `role-assignment`\n\n## When To Use What\n\n- Start with `worker-coordination` when one planner or executor is no longer enough.\n- Use `debate-and-arbitration` when workers can disagree and the coordinator needs a simple merge rule.\n- Use `role-assignment` when the main problem is deciding which workers should exist and what each one should own.\n- Do not add more workers until the role boundaries are obvious.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "observability",
+      "title": "Observability",
+      "path": "docs/ai-agents/observability/README.md",
+      "summary": "This section is about how to trace an agent run, inspect the steps it took, and measure where failures or latency come from.",
+      "content": "# Observability\n\nThis section is about how to trace an agent run, inspect the steps it took, and measure where failures or latency come from.\n\n## Purpose\n\nUse this page to understand:\n- trace structure\n- step-level latency\n- failed span counts\n\n## First Principles\n\n- Observability is how you debug the agent loop after the prompt leaves the editor.\n- A useful trace records steps, status, and latency with as little extra structure as possible.\n- The first goal is to separate model, tool, and workflow problems.\n\n## Minimal Code Mental Model\n\n```python\ntrace = start_trace(\"run_7\", \"prepare report\")\ntrace = add_span(trace, \"tool_call\", 180.0, \"ok\")\nsummary = summarize_trace(trace)\n```\n\n## Canonical Modules\n\n- Trace basics: `agent-tracing-basics`\n\n## Supporting Modules\n\n- Aggregate trace summaries across runs: `run-analysis-metrics`\n- Threshold-based alerts over run metrics: `alerting-thresholds`\n- A simple vocabulary for trace span types: `span-taxonomy`\n\n## When To Use What\n\n- Start with `agent-tracing-basics` as soon as the agent has more than one meaningful step.\n- Use `run-analysis-metrics` when you need one dashboard-like summary over many runs.\n- Use `alerting-thresholds` when the system needs a simple rule for raising alerts from latency or failure metrics.\n- Use `span-taxonomy` when traces need a consistent naming scheme across model, tool, and workflow steps.\n- Add richer dashboards later; first get the basic run trace right.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "overview",
+      "slug": "overview",
+      "title": "AI Agents",
+      "path": "docs/ai-agents/overview/README.md",
+      "summary": "This section is about how an agent turns a goal into actions, keeps useful state, calls tools, and measures whether the workflow actually works.",
+      "content": "# AI Agents\n\nThis section is about how an agent turns a goal into actions, keeps useful state, calls tools, and measures whether the workflow actually works.\n\n## Purpose\n\nUse this page to keep the agent stack in the right order:\n- prompting and task framing\n- retrieval and memory\n- planning and workflows\n- tool use\n- evaluation and guardrails\n\n## First Principles\n\n- An agent is not just a model. It is a loop around the model.\n- Good agents keep only the state they need, use tools when text alone is not enough, and recover when steps fail.\n- Most agent systems become easier to debug when planning, memory, tool use, and evaluation are separated.\n\n## Minimal Code Mental Model\n\n```python\nprompt = build_prompt(goal, context)\nplan = make_plan(goal, steps)\ncall = tool_call(\"search_docs\", {\"query\": goal})\nscore = task_success_rate([True, False, True])\n```\n\n## Canonical Modules\n\n- Prompt structure: `docs/ai-agents/prompting`\n- Retrieval: `docs/ai-agents/rag`\n- Memory: `docs/ai-agents/memory`\n- Planning: `docs/ai-agents/planning`\n- Workflows: `docs/ai-agents/workflows`\n- Multi-agent coordination: `docs/ai-agents/multi-agent`\n- Tool use: `docs/ai-agents/tool-use`\n- Observability: `docs/ai-agents/observability`\n- Evaluation: `docs/ai-agents/evaluation`\n- Guardrails: `docs/ai-agents/guardrails`\n\n## When To Use What\n\n- Start with prompting and one simple tool loop before adding more workflow structure.\n- Add retrieval or memory only when the task depends on outside or prior context.\n- Add planning and workflows when one free-form loop is no longer stable enough.\n- Add multi-agent coordination only when role split is clearer than one stronger single-agent loop.\n- Add observability once the agent is useful enough that failures need structured debugging.\n- Add evaluation and guardrails before scaling usage, not after.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "planning",
+      "title": "Planning",
+      "path": "docs/ai-agents/planning/README.md",
+      "summary": "Planning is the layer that turns a broad goal into ordered steps the agent can execute and track.",
+      "content": "# Planning\n\nPlanning is the layer that turns a broad goal into ordered steps the agent can execute and track.\n\n## Purpose\n\nUse this page to understand:\n- when a task needs an explicit plan\n- how to track unfinished work\n- why short plans beat vague reasoning loops\n\n## First Principles\n\n- Planning is most useful when a task has multiple dependent steps.\n- A plan should be explicit enough to inspect and update.\n- The next action should come from plan state, not just free-form generation.\n\n## Minimal Code Mental Model\n\n```python\nplan = make_plan(\"Prepare launch report\", [\"collect metrics\", \"write summary\", \"send report\"])\nstep = next_pending_step(plan)\nplan = mark_step_done(plan, 0)\n```\n\n## Canonical Modules\n\n- Main step-tracking pattern: `plan-act-loop`\n\n## Supporting Modules\n\n- Breaking a goal into smaller checkpoints: `task-decomposition`\n- Adjusting a plan after new constraints or blocked steps: `replanning`\n- Deciding when the plan should stop or hand off: `planning-stop-conditions`\n\n## When To Use What\n\n- Start with `plan-act-loop` when the task needs state and ordering.\n- Use `task-decomposition` when the main difficulty is splitting a broad goal into concrete subgoals.\n- Use `replanning` when the current plan becomes stale because the task changes or a step gets blocked.\n- Use `planning-stop-conditions` when the workflow needs an explicit rule for done, blocked, or escalate.\n- Keep plans short and concrete before adding branching or multi-agent coordination.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "prompting",
+      "slug": "prompting",
+      "title": "Prompting",
+      "path": "docs/ai-agents/prompting/README.md",
+      "summary": "Prompting is the layer that turns a raw user request into a structured input the model can reliably follow.",
+      "content": "# Prompting\n\nPrompting is the layer that turns a raw user request into a structured input the model can reliably follow.\n\n## Purpose\n\nUse this page to understand:\n- how to separate system instructions from user intent\n- when to add explicit constraints\n- how to keep prompts short and structured\n\n## First Principles\n\n- Good prompts reduce ambiguity before the model starts generating.\n- System instructions define behavior; user messages define the task.\n- Constraints are most useful when they are explicit and easy to check.\n\n## Minimal Code Mental Model\n\n```python\nchecklist = format_checklist([\"answer in bullets\", \"cite sources\"])\nmessages = build_messages(\n    system_prompt=\"You are a careful research assistant.\",\n    user_prompt=\"Summarize the latest policy changes.\",\n    checklist=[\"answer in bullets\", \"cite sources\"],\n)\n```\n\n## Canonical Modules\n\n- Main structuring pattern: `prompt-structuring`\n\n## Supporting Modules\n\n- Few-shot examples and explicit delimiters: `examples-and-delimiters`\n- Lightweight answer verification prompts: `self-check-patterns`\n\n## When To Use What\n\n- Start with `prompt-structuring` when the problem is basic message layout and instruction clarity.\n- Use `examples-and-delimiters` when the model needs a clearer output pattern or stronger separation between sections.\n- Use `self-check-patterns` when the model should verify constraints before returning a final answer.\n- Keep prompts short before adding more examples or scaffolding.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "rag",
+      "title": "RAG",
+      "path": "docs/ai-agents/rag/README.md",
+      "summary": "RAG is the pattern where an agent retrieves outside knowledge and then answers using that retrieved context.",
+      "content": "# RAG\n\nRAG is the pattern where an agent retrieves outside knowledge and then answers using that retrieved context.\n\n## Purpose\n\nUse this page to understand:\n- when retrieval is better than pure prompting\n- how to select and pack evidence\n- why grounded context should stay short\n\n## First Principles\n\n- Retrieval is useful when the answer depends on information not already in the prompt.\n- The model only benefits from context that is both relevant and compact.\n- Packing too many chunks can hurt just as much as retrieving too little.\n\n## Minimal Code Mental Model\n\n```python\ntop_chunks = select_top_k(search_results, k=3)\ncontext = build_grounded_context(top_chunks, max_chunks=2)\n```\n\n## Canonical Modules\n\n- Main retrieval-to-answer loop: `rag-basics`\n\n## Supporting Modules\n\n- Grounding checks and citation coverage: `retrieval-quality-and-citations`\n- Claim-level grounding checks after answer generation: `answer-grounding-checks`\n\n## When To Use What\n\n- Start with `rag-basics` when you need the simplest retrieve-then-answer workflow.\n- Use `retrieval-quality-and-citations` when the answer needs explicit evidence coverage.\n- Use `answer-grounding-checks` when the answer is already generated and you need to score whether each claim is actually supported.\n- Keep chunk packing conservative before optimizing fancier reranking or fusion.\n"
+    },
+    {
+      "track": "ai-agents",
       "topic": "tool-use",
       "slug": "tool-use",
       "title": "Tool Use",
       "path": "docs/ai-agents/tool-use/README.md",
       "summary": "This section is about how an agent decides to call tools, how computer-use loops differ from ordinary API tools, and where MCP fits.",
-      "content": "# Tool Use\n\nThis section is about how an agent decides to call tools, how computer-use loops differ from ordinary API tools, and where MCP fits.\n\n## Purpose\n\nUse this page to keep tool-using agents in the right order:\n- basic structured tool calls\n- computer-use actions over a UI\n- MCP as a standard way to expose tools and resources\n\n## First Principles\n\n- Tool use is about deciding when the model should act outside pure text generation.\n- Computer use is a special case where the agent acts over a changing interface instead of a fixed function API.\n- MCP is a transport and discovery layer for tools, resources, and prompts, not a reasoning policy by itself.\n- Good tool use needs structure, validation, and short feedback loops.\n\n## Minimal Code Mental Model\n\n```python\ntool = select_tool(user_intent, tool_keywords)\ncall = tool_call(tool, arguments)\nresult = tool_result(call[\"id\"], output)\n```\n\n## Canonical Modules\n\n- Core function calling: `tool-use-basics`\n- UI action loops: `computer-use`\n- Standardized tool and resource exposure: `mcp`\n\n## When To Use What\n\n- Start with `tool-use-basics` when the problem is ordinary function calling.\n- Use `computer-use` when the agent must click, type, scroll, or inspect a live interface.\n- Use `mcp` when tools and resources need a standard server-style interface instead of one-off adapters.\n"
+      "content": "# Tool Use\n\nThis section is about how an agent decides to call tools, how computer-use loops differ from ordinary API tools, and where MCP fits.\n\n## Purpose\n\nUse this page to keep tool-using agents in the right order:\n- basic structured tool calls\n- computer-use actions over a UI\n- MCP as a standard way to expose tools and resources\n\n## First Principles\n\n- Tool use is about deciding when the model should act outside pure text generation.\n- Computer use is a special case where the agent acts over a changing interface instead of a fixed function API.\n- MCP is a transport and discovery layer for tools, resources, and prompts, not a reasoning policy by itself.\n- Good tool use needs structure, validation, and short feedback loops.\n\n## Minimal Code Mental Model\n\n```python\ntool = select_tool(user_intent, tool_keywords)\ncall = tool_call(tool, arguments)\nresult = tool_result(call[\"id\"], output)\n```\n\n## Canonical Modules\n\n- Core function calling: `tool-use-basics`\n- UI action loops: `computer-use`\n- Standardized tool and resource exposure: `mcp`\n\n## Supporting Modules\n\n- Validation of tool results before reuse: `tool-result-validation`\n- Recovery decisions after tool failure: `tool-failure-handling`\n- Choosing the best tool before calling it: `tool-selection-heuristics`\n- Normalizing tool arguments before execution: `tool-argument-normalization`\n\n## When To Use What\n\n- Start with `tool-use-basics` when the problem is ordinary function calling.\n- Use `computer-use` when the agent must click, type, scroll, or inspect a live interface.\n- Use `mcp` when tools and resources need a standard server-style interface instead of one-off adapters.\n- Use `tool-result-validation` when tool outputs must be checked for schema shape, missing fields, or obvious execution errors.\n- Use `tool-failure-handling` when the agent needs a simple retry / fallback / escalate decision after a tool call fails.\n- Use `tool-selection-heuristics` when the main challenge is picking the right tool from several plausible options.\n- Use `tool-argument-normalization` when inputs need basic cleanup or default filling before the tool call.\n"
+    },
+    {
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "workflows",
+      "title": "Workflows",
+      "path": "docs/ai-agents/workflows/README.md",
+      "summary": "This section is about how an agent routes tasks, hands state to another step or worker, and decides when to retry.",
+      "content": "# Workflows\n\nThis section is about how an agent routes tasks, hands state to another step or worker, and decides when to retry.\n\n## Purpose\n\nUse this page to understand:\n- routing to the right worker\n- structured handoffs\n- bounded retries\n\n## First Principles\n\n- Workflows matter when one free-form agent loop is not enough.\n- Routing should depend on task type, not on vague prompt wording alone.\n- Handoffs should pass compact structured state, not the entire raw transcript.\n- Retries should be limited and explicit.\n\n## Minimal Code Mental Model\n\n```python\nroute = route_task(\"summarize docs and file a ticket\", routes)\nhandoff = build_handoff(\"task_7\", route, {\"doc_id\": \"abc\"})\nretry = should_retry(attempt=1, max_attempts=3, retryable=True)\n```\n\n## Canonical Modules\n\n- Routing and handoff basics: `handoffs-and-routing`\n- Retry and fallback basics: `retries-and-recovery`\n\n## Supporting Modules\n\n- Escalation routing after failed or risky steps: `escalation-routing`\n- Explicit state transitions for multi-step runs: `state-machine-basics`\n- Parallel branches and join points in a workflow: `workflow-concurrency-basics`\n\n## When To Use What\n\n- Start with `handoffs-and-routing` when the agent needs more than one specialized step.\n- Use `retries-and-recovery` when steps can fail transiently and need bounded retries or a safe fallback.\n- Use `escalation-routing` when failures need a structured handoff to review instead of another retry.\n- Use `state-machine-basics` when the workflow has a small fixed set of stages and transitions.\n- Use `workflow-concurrency-basics` when independent steps can run in parallel and later join.\n- Add more workflow depth only after the baseline route and handoff state are stable.\n"
     },
     {
       "track": "dsa",

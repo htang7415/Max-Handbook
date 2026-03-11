@@ -30,8 +30,19 @@ result = tool_result(call["id"], output)
 - UI action loops: `computer-use`
 - Standardized tool and resource exposure: `mcp`
 
+## Supporting Modules
+
+- Validation of tool results before reuse: `tool-result-validation`
+- Recovery decisions after tool failure: `tool-failure-handling`
+- Choosing the best tool before calling it: `tool-selection-heuristics`
+- Normalizing tool arguments before execution: `tool-argument-normalization`
+
 ## When To Use What
 
 - Start with `tool-use-basics` when the problem is ordinary function calling.
 - Use `computer-use` when the agent must click, type, scroll, or inspect a live interface.
 - Use `mcp` when tools and resources need a standard server-style interface instead of one-off adapters.
+- Use `tool-result-validation` when tool outputs must be checked for schema shape, missing fields, or obvious execution errors.
+- Use `tool-failure-handling` when the agent needs a simple retry / fallback / escalate decision after a tool call fails.
+- Use `tool-selection-heuristics` when the main challenge is picking the right tool from several plausible options.
+- Use `tool-argument-normalization` when inputs need basic cleanup or default filling before the tool call.

@@ -27,7 +27,14 @@ escalate = should_escalate(model_confidence=0.42, threshold=0.6, blocked=blocked
 
 - Main validation pattern: `input-output-guardrails`
 
+## Supporting Modules
+
+- Policy decisions and escalation paths: `policy-and-escalation`
+- Review queue packets and human handoff: `review-queue-handoff`
+
 ## When To Use What
 
 - Start with `input-output-guardrails` when the main need is lightweight safety and validation.
+- Use `policy-and-escalation` when the system needs a clear allow / review / block decision.
+- Use `review-queue-handoff` when risky requests need a structured packet for human review instead of a direct answer.
 - Add stronger policy logic only after the simple checks are in place.

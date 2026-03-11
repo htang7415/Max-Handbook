@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-10T20:59:20.173Z",
+  "generated_at": "2026-03-11T01:23:45.966Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -1790,6 +1790,30 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:ai-agents/evaluation/agent-evaluation-basics",
+      "type": "module",
+      "title": "Agent Evaluation Basics",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "agent-evaluation-basics",
+      "href": "/track/ai-agents/evaluation#agent-evaluation-basics",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ai-agents/observability/agent-tracing-basics",
+      "type": "module",
+      "title": "Agent Tracing Basics",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "agent-tracing-basics",
+      "href": "/track/ai-agents/observability#agent-tracing-basics",
+      "trackName": "AI Agents",
+      "topicName": "Observability"
+    },
+    {
       "id": "module:ml/evaluation/agreement-metrics",
       "type": "module",
       "title": "Agreement Metrics",
@@ -1802,6 +1826,18 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "doc:ai-agents/overview/overview",
+      "type": "doc",
+      "title": "AI Agents",
+      "summary": "This section is about how an agent turns a goal into actions, keeps useful state, calls tools, and measures whether the workflow actually works.",
+      "track": "ai-agents",
+      "topic": "overview",
+      "slug": "overview",
+      "href": "/track/ai-agents/overview#overview",
+      "trackName": "AI Agents",
+      "topicName": "Overview"
+    },
+    {
       "id": "module:ml/models/bic-aic",
       "type": "module",
       "title": "AIC and BIC",
@@ -1812,6 +1848,18 @@
       "href": "/track/ml/models#bic-aic",
       "trackName": "Machine Learning",
       "topicName": "Models"
+    },
+    {
+      "id": "module:ai-agents/observability/alerting-thresholds",
+      "type": "module",
+      "title": "Alerting Thresholds",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "alerting-thresholds",
+      "href": "/track/ai-agents/observability#alerting-thresholds",
+      "trackName": "AI Agents",
+      "topicName": "Observability"
     },
     {
       "id": "module:ml/llm/alignment-methods",
@@ -1836,6 +1884,18 @@
       "href": "/track/dsa/backtracking#alternative-deduplication-in-backtracking",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Backtracking"
+    },
+    {
+      "id": "module:ai-agents/rag/answer-grounding-checks",
+      "type": "module",
+      "title": "Answer Grounding Checks",
+      "summary": "> Track: `ai-agents` | Topic: `rag`",
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "answer-grounding-checks",
+      "href": "/track/ai-agents/rag#answer-grounding-checks",
+      "trackName": "AI Agents",
+      "topicName": "Rag"
     },
     {
       "id": "module:ml/llm/answer-verification",
@@ -2342,6 +2402,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:ai-agents/evaluation/cost-quality-tradeoffs",
+      "type": "module",
+      "title": "Cost-Quality Tradeoffs",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "cost-quality-tradeoffs",
+      "href": "/track/ai-agents/evaluation#cost-quality-tradeoffs",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/fundamentals/covariance",
       "type": "module",
       "title": "Covariance",
@@ -2448,6 +2520,18 @@
       "href": "/track/ml/generative#ddpm-sampling",
       "trackName": "Machine Learning",
       "topicName": "Generative"
+    },
+    {
+      "id": "module:ai-agents/multi-agent/debate-and-arbitration",
+      "type": "module",
+      "title": "Debate and Arbitration",
+      "summary": "> Track: `ai-agents` | Topic: `multi-agent`",
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "debate-and-arbitration",
+      "href": "/track/ai-agents/multi-agent#debate-and-arbitration",
+      "trackName": "AI Agents",
+      "topicName": "Multi Agent"
     },
     {
       "id": "module:ml/systems/debug-overfit-underfit",
@@ -2750,6 +2834,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:ai-agents/workflows/escalation-routing",
+      "type": "module",
+      "title": "Escalation Routing",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "escalation-routing",
+      "href": "/track/ai-agents/workflows#escalation-routing",
+      "trackName": "AI Agents",
+      "topicName": "Workflows"
+    },
+    {
       "id": "module:ml/mlops/etl-pipeline",
       "type": "module",
       "title": "ETL Pipeline",
@@ -2762,6 +2858,30 @@
       "topicName": "MLOps"
     },
     {
+      "id": "doc:ai-agents/evaluation/evaluation",
+      "type": "doc",
+      "title": "Evaluation",
+      "summary": "This section is about how to measure whether an agent succeeds, whether its tool calls work, and where failures happen.",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "evaluation",
+      "href": "/track/ai-agents/evaluation#evaluation",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
+    },
+    {
+      "id": "module:ai-agents/prompting/examples-and-delimiters",
+      "type": "module",
+      "title": "Examples and Delimiters",
+      "summary": "> Track: `ai-agents` | Topic: `prompting`",
+      "track": "ai-agents",
+      "topic": "prompting",
+      "slug": "examples-and-delimiters",
+      "href": "/track/ai-agents/prompting#examples-and-delimiters",
+      "trackName": "AI Agents",
+      "topicName": "Prompting"
+    },
+    {
       "id": "module:ml/fundamentals/expectation",
       "type": "module",
       "title": "Expectation",
@@ -2772,6 +2892,18 @@
       "href": "/track/ml/fundamentals#expectation",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "module:ai-agents/evaluation/experiment-comparison",
+      "type": "module",
+      "title": "Experiment Comparison",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "experiment-comparison",
+      "href": "/track/ai-agents/evaluation#experiment-comparison",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/systems/expert-load-balancing",
@@ -2808,6 +2940,18 @@
       "href": "/track/ml/reinforcement-learning#exploration-exploitation",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ai-agents/evaluation/failure-taxonomy",
+      "type": "module",
+      "title": "Failure Taxonomy",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "failure-taxonomy",
+      "href": "/track/ai-agents/evaluation#failure-taxonomy",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:ml/representation/features",
@@ -3014,6 +3158,18 @@
       "topicName": "Reinforcement Learning"
     },
     {
+      "id": "doc:ai-agents/guardrails/guardrails",
+      "type": "doc",
+      "title": "Guardrails",
+      "summary": "Guardrails are the checks around an agent loop that prevent unsafe, malformed, or low-confidence actions.",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "guardrails",
+      "href": "/track/ai-agents/guardrails#guardrails",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
+    },
+    {
       "id": "module:ml/data/class-imbalance",
       "type": "module",
       "title": "Handling Class Imbalance",
@@ -3024,6 +3180,18 @@
       "href": "/track/ml/data#class-imbalance",
       "trackName": "Machine Learning",
       "topicName": "Data"
+    },
+    {
+      "id": "module:ai-agents/workflows/handoffs-and-routing",
+      "type": "module",
+      "title": "Handoffs and Routing",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "handoffs-and-routing",
+      "href": "/track/ai-agents/workflows#handoffs-and-routing",
+      "trackName": "AI Agents",
+      "topicName": "Workflows"
     },
     {
       "id": "module:dsa/hash-tables/hash-table-summary",
@@ -3096,6 +3264,18 @@
       "href": "/track/ml/deep-learning#initialization-methods",
       "trackName": "Machine Learning",
       "topicName": "Deep Learning"
+    },
+    {
+      "id": "module:ai-agents/guardrails/input-output-guardrails",
+      "type": "module",
+      "title": "Input-Output Guardrails",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "input-output-guardrails",
+      "href": "/track/ai-agents/guardrails#input-output-guardrails",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
     },
     {
       "id": "doc:ml/path-interview/path-interview",
@@ -3662,6 +3842,66 @@
       "topicName": "Data"
     },
     {
+      "id": "doc:ai-agents/memory/memory",
+      "type": "doc",
+      "title": "Memory",
+      "summary": "This section is about how an agent keeps useful state across steps and turns without replaying the full conversation every time.",
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory",
+      "href": "/track/ai-agents/memory#memory",
+      "trackName": "AI Agents",
+      "topicName": "Memory"
+    },
+    {
+      "id": "module:ai-agents/memory/memory-compaction",
+      "type": "module",
+      "title": "Memory Compaction",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-compaction",
+      "href": "/track/ai-agents/memory#memory-compaction",
+      "trackName": "AI Agents",
+      "topicName": "Memory"
+    },
+    {
+      "id": "module:ai-agents/memory/memory-patterns",
+      "type": "module",
+      "title": "Memory Patterns",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-patterns",
+      "href": "/track/ai-agents/memory#memory-patterns",
+      "trackName": "AI Agents",
+      "topicName": "Memory"
+    },
+    {
+      "id": "module:ai-agents/memory/memory-retention-policy",
+      "type": "module",
+      "title": "Memory Retention Policy",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-retention-policy",
+      "href": "/track/ai-agents/memory#memory-retention-policy",
+      "trackName": "AI Agents",
+      "topicName": "Memory"
+    },
+    {
+      "id": "module:ai-agents/memory/memory-retrieval-scoring",
+      "type": "module",
+      "title": "Memory Retrieval Scoring",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "memory-retrieval-scoring",
+      "href": "/track/ai-agents/memory#memory-retrieval-scoring",
+      "trackName": "AI Agents",
+      "topicName": "Memory"
+    },
+    {
       "id": "doc:ml/representation/metric-learning",
       "type": "doc",
       "title": "Metric Learning",
@@ -3816,6 +4056,18 @@
       "href": "/track/ml/reinforcement-learning#monte-carlo-tree-search",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "doc:ai-agents/multi-agent/multi-agent",
+      "type": "doc",
+      "title": "Multi-Agent",
+      "summary": "This section is about when more than one worker is useful, how roles should differ, and how results should be merged back into one answer.",
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "multi-agent",
+      "href": "/track/ai-agents/multi-agent#multi-agent",
+      "trackName": "AI Agents",
+      "topicName": "Multi Agent"
     },
     {
       "id": "module:ml/llm/multimodal-evaluation",
@@ -3974,6 +4226,18 @@
       "topicName": "LLM"
     },
     {
+      "id": "doc:ai-agents/observability/observability",
+      "type": "doc",
+      "title": "Observability",
+      "summary": "This section is about how to trace an agent run, inspect the steps it took, and measure where failures or latency come from.",
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "observability",
+      "href": "/track/ai-agents/observability#observability",
+      "trackName": "AI Agents",
+      "topicName": "Observability"
+    },
+    {
       "id": "module:ml/reinforcement-learning/off-policy-estimation-methods",
       "type": "module",
       "title": "Off-Policy Estimation Methods",
@@ -4118,6 +4382,54 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:ai-agents/planning/plan-act-loop",
+      "type": "module",
+      "title": "Plan-Act Loop",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "plan-act-loop",
+      "href": "/track/ai-agents/planning#plan-act-loop",
+      "trackName": "AI Agents",
+      "topicName": "Planning"
+    },
+    {
+      "id": "doc:ai-agents/planning/planning",
+      "type": "doc",
+      "title": "Planning",
+      "summary": "Planning is the layer that turns a broad goal into ordered steps the agent can execute and track.",
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "planning",
+      "href": "/track/ai-agents/planning#planning",
+      "trackName": "AI Agents",
+      "topicName": "Planning"
+    },
+    {
+      "id": "module:ai-agents/planning/planning-stop-conditions",
+      "type": "module",
+      "title": "Planning Stop Conditions",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "planning-stop-conditions",
+      "href": "/track/ai-agents/planning#planning-stop-conditions",
+      "trackName": "AI Agents",
+      "topicName": "Planning"
+    },
+    {
+      "id": "module:ai-agents/guardrails/policy-and-escalation",
+      "type": "module",
+      "title": "Policy and Escalation",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "policy-and-escalation",
+      "href": "/track/ai-agents/guardrails#policy-and-escalation",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
+    },
+    {
       "id": "module:ml/reinforcement-learning/policy-gradient-methods",
       "type": "module",
       "title": "Policy Gradient Methods",
@@ -4238,6 +4550,30 @@
       "topicName": "Fundamentals"
     },
     {
+      "id": "module:ai-agents/prompting/prompt-structuring",
+      "type": "module",
+      "title": "Prompt Structuring",
+      "summary": "> Track: `ai-agents` | Topic: `prompting`",
+      "track": "ai-agents",
+      "topic": "prompting",
+      "slug": "prompt-structuring",
+      "href": "/track/ai-agents/prompting#prompt-structuring",
+      "trackName": "AI Agents",
+      "topicName": "Prompting"
+    },
+    {
+      "id": "doc:ai-agents/prompting/prompting",
+      "type": "doc",
+      "title": "Prompting",
+      "summary": "Prompting is the layer that turns a raw user request into a structured input the model can reliably follow.",
+      "track": "ai-agents",
+      "topic": "prompting",
+      "slug": "prompting",
+      "href": "/track/ai-agents/prompting#prompting",
+      "trackName": "AI Agents",
+      "topicName": "Prompting"
+    },
+    {
       "id": "module:ml/llm/qk-clip",
       "type": "module",
       "title": "QK-Clip",
@@ -4260,6 +4596,30 @@
       "href": "/track/dsa/greedy-algorithm#queue-reconstruction-by-height-vector-explanation",
       "trackName": "Data Structures & Algorithms",
       "topicName": "Greedy Algorithm"
+    },
+    {
+      "id": "doc:ai-agents/rag/rag",
+      "type": "doc",
+      "title": "RAG",
+      "summary": "RAG is the pattern where an agent retrieves outside knowledge and then answers using that retrieved context.",
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "rag",
+      "href": "/track/ai-agents/rag#rag",
+      "trackName": "AI Agents",
+      "topicName": "Rag"
+    },
+    {
+      "id": "module:ai-agents/rag/rag-basics",
+      "type": "module",
+      "title": "RAG Basics",
+      "summary": "> Track: `ai-agents` | Topic: `rag`",
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "rag-basics",
+      "href": "/track/ai-agents/rag#rag-basics",
+      "trackName": "AI Agents",
+      "topicName": "Rag"
     },
     {
       "id": "module:ml/evaluation/ranking-metrics",
@@ -4310,6 +4670,18 @@
       "topicName": "Binary Tree"
     },
     {
+      "id": "module:ai-agents/evaluation/regression-checks",
+      "type": "module",
+      "title": "Regression Checks",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "regression-checks",
+      "href": "/track/ai-agents/evaluation#regression-checks",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
+    },
+    {
       "id": "module:ml/evaluation/regression-metrics",
       "type": "module",
       "title": "Regression Metrics",
@@ -4346,6 +4718,18 @@
       "topicName": "Reinforcement Learning"
     },
     {
+      "id": "module:ai-agents/planning/replanning",
+      "type": "module",
+      "title": "Replanning",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "replanning",
+      "href": "/track/ai-agents/planning#replanning",
+      "trackName": "AI Agents",
+      "topicName": "Planning"
+    },
+    {
       "id": "doc:ml/representation/representation",
       "type": "doc",
       "title": "Representation Learning",
@@ -4368,6 +4752,18 @@
       "href": "/track/ml/mlops#request-batching",
       "trackName": "Machine Learning",
       "topicName": "MLOps"
+    },
+    {
+      "id": "module:ai-agents/workflows/retries-and-recovery",
+      "type": "module",
+      "title": "Retries and Recovery",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "retries-and-recovery",
+      "href": "/track/ai-agents/workflows#retries-and-recovery",
+      "trackName": "AI Agents",
+      "topicName": "Workflows"
     },
     {
       "id": "module:ml/llm/retrieval-fusion-methods",
@@ -4394,6 +4790,30 @@
       "topicName": "LLM"
     },
     {
+      "id": "module:ai-agents/rag/retrieval-quality-and-citations",
+      "type": "module",
+      "title": "Retrieval Quality and Citations",
+      "summary": "> Track: `ai-agents` | Topic: `rag`",
+      "track": "ai-agents",
+      "topic": "rag",
+      "slug": "retrieval-quality-and-citations",
+      "href": "/track/ai-agents/rag#retrieval-quality-and-citations",
+      "trackName": "AI Agents",
+      "topicName": "Rag"
+    },
+    {
+      "id": "module:ai-agents/memory/retrieval-backed-memory",
+      "type": "module",
+      "title": "Retrieval-Backed Memory",
+      "summary": "> Track: `ai-agents` | Topic: `memory`",
+      "track": "ai-agents",
+      "topic": "memory",
+      "slug": "retrieval-backed-memory",
+      "href": "/track/ai-agents/memory#retrieval-backed-memory",
+      "trackName": "AI Agents",
+      "topicName": "Memory"
+    },
+    {
       "id": "module:ml/reinforcement-learning/return-estimation-methods",
       "type": "module",
       "title": "Return Estimation Methods",
@@ -4404,6 +4824,18 @@
       "href": "/track/ml/reinforcement-learning#return-estimation-methods",
       "trackName": "Machine Learning",
       "topicName": "Reinforcement Learning"
+    },
+    {
+      "id": "module:ai-agents/guardrails/review-queue-handoff",
+      "type": "module",
+      "title": "Review Queue Handoff",
+      "summary": "> Track: `ai-agents` | Topic: `guardrails`",
+      "track": "ai-agents",
+      "topic": "guardrails",
+      "slug": "review-queue-handoff",
+      "href": "/track/ai-agents/guardrails#review-queue-handoff",
+      "trackName": "AI Agents",
+      "topicName": "Guardrails"
     },
     {
       "id": "module:ml/computer-vision/rgb-to-grayscale",
@@ -4430,6 +4862,18 @@
       "topicName": "Reinforcement Learning"
     },
     {
+      "id": "module:ai-agents/multi-agent/role-assignment",
+      "type": "module",
+      "title": "Role Assignment",
+      "summary": "> Track: `ai-agents` | Topic: `multi-agent`",
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "role-assignment",
+      "href": "/track/ai-agents/multi-agent#role-assignment",
+      "trackName": "AI Agents",
+      "topicName": "Multi Agent"
+    },
+    {
       "id": "module:ml/mlops/rollout-and-serving-modes",
       "type": "module",
       "title": "Rollout and Serving Modes",
@@ -4454,6 +4898,18 @@
       "topicName": "Systems"
     },
     {
+      "id": "module:ai-agents/observability/run-analysis-metrics",
+      "type": "module",
+      "title": "Run Analysis Metrics",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "run-analysis-metrics",
+      "href": "/track/ai-agents/observability#run-analysis-metrics",
+      "trackName": "AI Agents",
+      "topicName": "Observability"
+    },
+    {
       "id": "module:ml/data/scaling-methods",
       "type": "module",
       "title": "Scaling Methods",
@@ -4464,6 +4920,18 @@
       "href": "/track/ml/data#scaling-methods",
       "trackName": "Machine Learning",
       "topicName": "Data"
+    },
+    {
+      "id": "module:ai-agents/prompting/self-check-patterns",
+      "type": "module",
+      "title": "Self-Check Patterns",
+      "summary": "> Track: `ai-agents` | Topic: `prompting`",
+      "track": "ai-agents",
+      "topic": "prompting",
+      "slug": "self-check-patterns",
+      "href": "/track/ai-agents/prompting#self-check-patterns",
+      "trackName": "AI Agents",
+      "topicName": "Prompting"
     },
     {
       "id": "module:ml/mlops/sequential-testing",
@@ -4512,6 +4980,18 @@
       "href": "/track/ml/computer-vision#sobel-edge-detection",
       "trackName": "Machine Learning",
       "topicName": "Computer Vision"
+    },
+    {
+      "id": "module:ai-agents/observability/span-taxonomy",
+      "type": "module",
+      "title": "Span Taxonomy",
+      "summary": "> Track: `ai-agents` | Topic: `observability`",
+      "track": "ai-agents",
+      "topic": "observability",
+      "slug": "span-taxonomy",
+      "href": "/track/ai-agents/observability#span-taxonomy",
+      "trackName": "AI Agents",
+      "topicName": "Observability"
     },
     {
       "id": "module:ml/llm/moe-routing",
@@ -4574,6 +5054,18 @@
       "topicName": "Stack And Queue"
     },
     {
+      "id": "module:ai-agents/workflows/state-machine-basics",
+      "type": "module",
+      "title": "State Machine Basics",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "state-machine-basics",
+      "href": "/track/ai-agents/workflows#state-machine-basics",
+      "trackName": "AI Agents",
+      "topicName": "Workflows"
+    },
+    {
       "id": "doc:ml/fundamentals/stats",
       "type": "doc",
       "title": "Statistics for ML",
@@ -4584,6 +5076,18 @@
       "href": "/track/ml/fundamentals#stats",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "module:ai-agents/evaluation/step-level-evaluation",
+      "type": "module",
+      "title": "Step-Level Evaluation",
+      "summary": "> Track: `ai-agents` | Topic: `evaluation`",
+      "track": "ai-agents",
+      "topic": "evaluation",
+      "slug": "step-level-evaluation",
+      "href": "/track/ai-agents/evaluation#step-level-evaluation",
+      "trackName": "AI Agents",
+      "topicName": "Evaluation"
     },
     {
       "id": "module:dsa/dynamic-programming/stock-problems-summary",
@@ -4694,6 +5198,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "module:ai-agents/planning/task-decomposition",
+      "type": "module",
+      "title": "Task Decomposition",
+      "summary": "> Track: `ai-agents` | Topic: `planning`",
+      "track": "ai-agents",
+      "topic": "planning",
+      "slug": "task-decomposition",
+      "href": "/track/ai-agents/planning#task-decomposition",
+      "trackName": "AI Agents",
+      "topicName": "Planning"
+    },
+    {
       "id": "module:ml/reinforcement-learning/td-control-methods",
       "type": "module",
       "title": "TD Control Methods",
@@ -4740,6 +5256,54 @@
       "href": "/track/ml/llm#token-representation-methods",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:ai-agents/tool-use/tool-argument-normalization",
+      "type": "module",
+      "title": "Tool Argument Normalization",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "tool-argument-normalization",
+      "href": "/track/ai-agents/tool-use#tool-argument-normalization",
+      "trackName": "AI Agents",
+      "topicName": "Tool Use"
+    },
+    {
+      "id": "module:ai-agents/tool-use/tool-failure-handling",
+      "type": "module",
+      "title": "Tool Failure Handling",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "tool-failure-handling",
+      "href": "/track/ai-agents/tool-use#tool-failure-handling",
+      "trackName": "AI Agents",
+      "topicName": "Tool Use"
+    },
+    {
+      "id": "module:ai-agents/tool-use/tool-result-validation",
+      "type": "module",
+      "title": "Tool Result Validation",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "tool-result-validation",
+      "href": "/track/ai-agents/tool-use#tool-result-validation",
+      "trackName": "AI Agents",
+      "topicName": "Tool Use"
+    },
+    {
+      "id": "module:ai-agents/tool-use/tool-selection-heuristics",
+      "type": "module",
+      "title": "Tool Selection Heuristics",
+      "summary": "> Track: `ai-agents` | Topic: `tool-use`",
+      "track": "ai-agents",
+      "topic": "tool-use",
+      "slug": "tool-selection-heuristics",
+      "href": "/track/ai-agents/tool-use#tool-selection-heuristics",
+      "trackName": "AI Agents",
+      "topicName": "Tool Use"
     },
     {
       "id": "doc:ai-agents/tool-use/tool-use",
@@ -4980,6 +5544,42 @@
       "href": "/track/ml/llm#vote-metrics",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:ai-agents/multi-agent/worker-coordination",
+      "type": "module",
+      "title": "Worker Coordination",
+      "summary": "> Track: `ai-agents` | Topic: `multi-agent`",
+      "track": "ai-agents",
+      "topic": "multi-agent",
+      "slug": "worker-coordination",
+      "href": "/track/ai-agents/multi-agent#worker-coordination",
+      "trackName": "AI Agents",
+      "topicName": "Multi Agent"
+    },
+    {
+      "id": "module:ai-agents/workflows/workflow-concurrency-basics",
+      "type": "module",
+      "title": "Workflow Concurrency Basics",
+      "summary": "> Track: `ai-agents` | Topic: `workflows`",
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "workflow-concurrency-basics",
+      "href": "/track/ai-agents/workflows#workflow-concurrency-basics",
+      "trackName": "AI Agents",
+      "topicName": "Workflows"
+    },
+    {
+      "id": "doc:ai-agents/workflows/workflows",
+      "type": "doc",
+      "title": "Workflows",
+      "summary": "This section is about how an agent routes tasks, hands state to another step or worker, and decides when to retry.",
+      "track": "ai-agents",
+      "topic": "workflows",
+      "slug": "workflows",
+      "href": "/track/ai-agents/workflows#workflows",
+      "trackName": "AI Agents",
+      "topicName": "Workflows"
     },
     {
       "id": "module:ml/data/outlier-detection",

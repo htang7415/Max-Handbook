@@ -62,14 +62,16 @@ const TOPIC_ORDER: Record<string, string[]> = {
     "mlops",
   ],
   "ai-agents": [
+    "overview",
     "prompting",
-    "tool-use",
     "rag",
     "memory",
     "planning",
+    "workflows",
     "multi-agent",
-    "evals",
+    "tool-use",
     "observability",
+    "evaluation",
     "guardrails",
   ],
 };

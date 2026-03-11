@@ -27,7 +27,16 @@ plan = mark_step_done(plan, 0)
 
 - Main step-tracking pattern: `plan-act-loop`
 
+## Supporting Modules
+
+- Breaking a goal into smaller checkpoints: `task-decomposition`
+- Adjusting a plan after new constraints or blocked steps: `replanning`
+- Deciding when the plan should stop or hand off: `planning-stop-conditions`
+
 ## When To Use What
 
 - Start with `plan-act-loop` when the task needs state and ordering.
+- Use `task-decomposition` when the main difficulty is splitting a broad goal into concrete subgoals.
+- Use `replanning` when the current plan becomes stale because the task changes or a step gets blocked.
+- Use `planning-stop-conditions` when the workflow needs an explicit rule for done, blocked, or escalate.
 - Keep plans short and concrete before adding branching or multi-agent coordination.
