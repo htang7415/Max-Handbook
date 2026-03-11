@@ -68,7 +68,7 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
           className="h-2.5 w-2.5 rounded-full"
           style={{ background: `var(${track.accentVar})` }}
         />
-        <span className="text-[0.72rem] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+        <span className="text-[0.72rem] font-semibold tracking-widest text-[var(--text-muted)]">
           Track
         </span>
       </div>
@@ -83,7 +83,7 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
       {isMlTrack ? (
         <div className="mt-6">
           <section>
-            <h2 className="text-[0.72rem] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+            <h2 className="text-[0.72rem] font-semibold tracking-widest text-[var(--text-muted)]">
               Study Paths
             </h2>
             <div className="mt-2 space-y-0.5">
@@ -100,7 +100,7 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
           </section>
 
           <section className="mt-7">
-            <h2 className="text-[0.72rem] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+            <h2 className="text-[0.72rem] font-semibold tracking-widest text-[var(--text-muted)]">
               Sections
             </h2>
             <div className="mt-2 space-y-0.5">

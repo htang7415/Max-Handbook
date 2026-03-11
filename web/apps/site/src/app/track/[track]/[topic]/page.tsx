@@ -943,7 +943,7 @@ export default async function TopicPage({
             className="h-2 w-2 rounded-full"
             style={{ background: `var(${track.accentVar})` }}
           />
-          <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
+          <span className="text-[0.7rem] font-semibold tracking-widest text-[var(--text-muted)]">
             {track.name}
           </span>
         </div>
@@ -1038,7 +1038,7 @@ export default async function TopicPage({
                         className="h-1.5 w-1.5 rounded-full"
                         style={{ background: `var(${track.accentVar})` }}
                       />
-                      <span className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                      <span className="text-[0.7rem] font-semibold tracking-[0.18em] text-[var(--text-muted)]">
                         {groupLabel}
                       </span>
                     </div>
