@@ -12,10 +12,12 @@ import HomeSignalViz from "@/components/HomeSignalViz";
 import LongContextCachingViz from "@/components/LongContextCachingViz";
 import MonotonicStackViz from "@/components/MonotonicStackViz";
 import NormalizationMethodsViz from "@/components/NormalizationMethodsViz";
+import ReasoningTestTimeComputeViz from "@/components/ReasoningTestTimeComputeViz";
 import RetrievalMetricsViz from "@/components/RetrievalMetricsViz";
 import RetriesFallbacksViz from "@/components/RetriesFallbacksViz";
 import TokenizationViz from "@/components/TokenizationViz";
 import VectorsMatricesViz from "@/components/VectorsMatricesViz";
+import VoteMetricsViz from "@/components/VoteMetricsViz";
 import { getVisualRegistryKey, VISUALS } from "@/lib/visual-metadata";
 
 export const VISUAL_COMPONENTS: Record<string, ComponentType> = {
@@ -27,6 +29,8 @@ export const VISUAL_COMPONENTS: Record<string, ComponentType> = {
   "long-context-and-caching": LongContextCachingViz,
   "decoding-policy-explorer": DecodingMethodsViz,
   "retrieval-metrics": RetrievalMetricsViz,
+  "reasoning-and-test-time-compute": ReasoningTestTimeComputeViz,
+  "vote-metrics": VoteMetricsViz,
   "reliability-diagram": CalibrationViz,
   "gradient-descent-playground": GradientDescentViz,
   "activation-functions": ActivationFunctionsViz,
