@@ -1,6 +1,4 @@
-import ReactMarkdown from "react-markdown";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 interface FirstPrinciplesPanelProps {
   title: string;
@@ -62,6 +60,10 @@ function firstEquationMarkdown(text?: string) {
   return undefined;
 }
 
+function hasMarkdownList(text?: string) {
+  return Boolean(text && /^\s*([-*+]|\d+\.)\s+/m.test(text));
+}
+
 export default function FirstPrinciplesPanel({
   title,
   summary,
@@ -76,25 +78,37 @@ export default function FirstPrinciplesPanel({
     firstSentence(purpose, 155) ??
     firstSentence(summary, 155) ??
     `Understand the core job of ${title.toLowerCase()}.`;
+  const mechanismMarkdown = hasMarkdownList(intro) && intro ? intro.trim() : undefined;
   const mechanism =
+    mechanismMarkdown ??
     firstSentence(intro, 165) ??
     firstSentence(summary, 165) ??
     "Break the transformation into small, inspectable steps.";
+  const mechanismKind = mechanismMarkdown ? "markdown" : "text";
   const equationMarkdown = firstEquationMarkdown(math);
   const equation =
     equationMarkdown ??
     firstEquation(math) ??
     "Track how the input is transformed and what stays invariant.";
+  const verifyMarkdown =
+    !hasVisual && !hasCode && hasMarkdownList(keypoints) ? keypoints?.trim() : undefined;
   const verify = hasVisual
     ? "Use the visual below to connect the update rule to the behavior."
     : hasCode
       ? "Run the code below on a tiny example and compare the output to the rule."
-      : firstSentence(keypoints, 165) ??
+      : verifyMarkdown ??
+        firstSentence(keypoints, 165) ??
         "Check the invariants: what changes, what is preserved, and why.";
 
   const cards = [
     { step: "01", label: "Question", text: question, tone: "question", kind: "text" },
-    { step: "02", label: "Mechanism", text: mechanism, tone: "mechanism", kind: "text" },
+    {
+      step: "02",
+      label: "Mechanism",
+      text: mechanism,
+      tone: "mechanism",
+      kind: mechanismKind,
+    },
     {
       step: "03",
       label: "Equation",
@@ -102,7 +116,13 @@ export default function FirstPrinciplesPanel({
       tone: "equation",
       kind: equationMarkdown ? "math" : "text",
     },
-    { step: "04", label: "Verify", text: verify, tone: "verify", kind: "text" },
+    {
+      step: "04",
+      label: "Verify",
+      text: verify,
+      tone: "verify",
+      kind: verifyMarkdown ? "markdown" : "text",
+    },
   ];
 
   return (
@@ -129,13 +149,13 @@ export default function FirstPrinciplesPanel({
               <div className="first-principles-label">{card.label}</div>
             </div>
             {card.kind === "math" ? (
-              <ReactMarkdown
-                className="first-principles-math"
-                remarkPlugins={[remarkMath]}
-                rehypePlugins={[rehypeKatex]}
-              >
-                {card.text}
-              </ReactMarkdown>
+              <div className="first-principles-math">
+                <MarkdownRenderer content={card.text} />
+              </div>
+            ) : card.kind === "markdown" ? (
+              <div className="first-principles-rich">
+                <MarkdownRenderer content={card.text} />
+              </div>
             ) : (
               <p>{card.text}</p>
             )}
