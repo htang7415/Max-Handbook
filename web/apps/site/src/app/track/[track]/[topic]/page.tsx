@@ -4,21 +4,13 @@ import MarkdownRenderer from "@/components/MarkdownRenderer";
 import TableOfContents from "@/components/TableOfContents";
 import type { TocHeading } from "@/components/TableOfContents";
 import PrevNextNav from "@/components/PrevNextNav";
-import GradientDescentViz from "@/components/GradientDescentViz";
-import VectorsMatricesViz from "@/components/VectorsMatricesViz";
 import { buildNavItems, getAdjacentPages } from "@/lib/navigation";
 import type { ContentIndex } from "@/lib/content";
 import { extractModuleOrder, extractTopicEntryGroups } from "@/lib/roadmap";
+import { VIZ_REGISTRY } from "@/lib/visual-registry";
 import contentData from "@/content/content_index.json";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
-
-type VizComponent = () => React.ReactElement;
-
-const VIZ_REGISTRY: Partial<Record<string, VizComponent>> = {
-  "ml/fundamentals/gradient-descent": GradientDescentViz,
-  "ml/fundamentals/vectors-matrices": VectorsMatricesViz,
-};
 
 /* ── Markdown cleaning helpers ─────────────────────────── */
 

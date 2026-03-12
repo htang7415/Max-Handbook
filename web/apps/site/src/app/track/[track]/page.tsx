@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ContentIndex } from "@/lib/content";
 import contentData from "@/content/content_index.json";
 import { sortTopicsForTrack } from "@/lib/roadmap";
+import { countTopicVisuals, countVisualsForTrack } from "@/lib/visual-metadata";
 import { notFound } from "next/navigation";
 
 const ML_STUDY_PATHS: Record<string, { label: string; note: string }> = {
@@ -17,12 +18,14 @@ function TopicLink({
   name,
   meta,
   note,
+  badge,
 }: {
   href: string;
   accentVar: string;
   name: string;
   meta?: string;
   note?: string;
+  badge?: string;
 }) {
   return (
     <Link href={href} className="topic-list-item" data-parallax="4">
@@ -33,7 +36,10 @@ function TopicLink({
           <span className="mt-0.5 block text-[0.76rem] text-[var(--text-muted)]">{note}</span>
         ) : null}
       </span>
-      {meta ? <span className="topic-list-meta">{meta}</span> : null}
+      <span className="topic-list-tail">
+        {badge ? <span className="topic-list-badge">{badge}</span> : null}
+        {meta ? <span className="topic-list-meta">{meta}</span> : null}
+      </span>
     </Link>
   );
 }
@@ -54,6 +60,7 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
     track.id
   );
   const isMlTrack = track.id === "ml";
+  const trackVisualCount = countVisualsForTrack(track.id);
   const studyPaths = isMlTrack
     ? topics.filter((topic) => topic.topic in ML_STUDY_PATHS)
     : [];
@@ -79,6 +86,13 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
       <p className="mt-2 text-[0.75rem] text-[var(--text-muted)]">
         {topics.length} topics
       </p>
+      {trackVisualCount > 0 ? (
+        <p className="mt-1 text-[0.78rem] text-[var(--text-secondary)]">
+          <Link href={`/visuals?track=${track.id}`} className="topic-visuals-link">
+            Browse {trackVisualCount} visual{trackVisualCount === 1 ? "" : "s"} for this track
+          </Link>
+        </p>
+      ) : null}
 
       {isMlTrack ? (
         <div className="mt-6">
@@ -94,6 +108,11 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
                   accentVar={track.accentVar}
                   name={ML_STUDY_PATHS[topic.topic]?.label ?? topic.name}
                   note={ML_STUDY_PATHS[topic.topic]?.note}
+                  badge={
+                    countTopicVisuals(track.id, topic.topic) > 0
+                      ? `${countTopicVisuals(track.id, topic.topic)} visual`
+                      : undefined
+                  }
                 />
               ))}
             </div>
@@ -106,12 +125,18 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
             <div className="mt-2 space-y-0.5">
               {sectionTopics.map((topic) => {
                 const entryCount = topic.docCount + topic.moduleCount;
+                const visualCount = countTopicVisuals(track.id, topic.topic);
                 return (
                   <TopicLink
                     key={topic.topic}
                     href={`/track/${track.id}/${topic.topic}`}
                     accentVar={track.accentVar}
                     name={topic.name}
+                    badge={
+                      visualCount > 0
+                        ? `${visualCount} visual${visualCount === 1 ? "" : "s"}`
+                        : undefined
+                    }
                     meta={
                       entryCount > 0
                         ? `${entryCount} ${entryCount === 1 ? "entry" : "entries"}`
@@ -128,12 +153,18 @@ export default async function TrackPage({ params }: { params: Promise<{ track: s
         <div className="mt-6 space-y-0.5">
           {topics.map((topic) => {
             const entryCount = topic.docCount + topic.moduleCount;
+            const visualCount = countTopicVisuals(track.id, topic.topic);
             return (
               <TopicLink
                 key={topic.topic}
                 href={`/track/${track.id}/${topic.topic}`}
                 accentVar={track.accentVar}
                 name={topic.name}
+                badge={
+                  visualCount > 0
+                    ? `${visualCount} visual${visualCount === 1 ? "" : "s"}`
+                    : undefined
+                }
                 meta={
                   entryCount > 0
                     ? `${entryCount} ${entryCount === 1 ? "entry" : "entries"}`

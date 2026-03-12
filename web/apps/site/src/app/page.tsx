@@ -5,6 +5,7 @@ import contentData from "@/content/content_index.json";
 import { sortTracks } from "@/lib/roadmap";
 import HomeSoftmaxViz from "@/components/HomeSoftmaxViz";
 import HomeSignalViz from "@/components/HomeSignalViz";
+import { countVisualsForTrack, VISUALS } from "@/lib/visual-metadata";
 
 export default function Home() {
   const content = contentData as ContentIndex;
@@ -63,9 +64,11 @@ export default function Home() {
       (sum, topic) => sum + (topic.docCount ?? 0),
       0
     );
+    const visualCount = countVisualsForTrack(track.id);
 
-    return { track, trackNotes };
+    return { track, trackNotes, visualCount };
   });
+  const featuredVisuals = VISUALS.slice(0, 4);
 
   return (
     <div className="home-page">
@@ -151,7 +154,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="home-track-cards">
-          {trackSpotlights.map(({ track, trackNotes }) => (
+          {trackSpotlights.map(({ track, trackNotes, visualCount }) => (
             <article
               key={track.id}
               className="home-track-card"
@@ -184,7 +187,20 @@ export default function Home() {
                   <strong>{track.moduleCount}</strong>
                   Labs
                 </span>
+                {visualCount > 0 ? (
+                  <span>
+                    <strong>{visualCount}</strong>
+                    Visuals
+                  </span>
+                ) : null}
               </div>
+              {visualCount > 0 ? (
+                <div className="home-track-card-links">
+                  <Link href={`/visuals?track=${track.id}`} className="home-track-card-link">
+                    Browse visuals
+                  </Link>
+                </div>
+              ) : null}
             </article>
           ))}
         </div>
@@ -208,7 +224,23 @@ export default function Home() {
       <section className="home-lab-grid">
         <div className="home-lab-intro">
           <h2>Labs</h2>
-          <p>Quick previews: attention, token probabilities, encodings.</p>
+          <p>
+            Quick previews: attention, token probabilities, encodings. The site now has
+            {" "}
+            {VISUALS.length}
+            {" "}
+            interactive visuals.
+          </p>
+          <div className="home-lab-links">
+            {featuredVisuals.map((visual) => (
+              <Link key={visual.id} href={visual.href} className="home-lab-link">
+                {visual.title}
+              </Link>
+            ))}
+            <Link href="/visuals" className="home-lab-link home-lab-link-all">
+              All visuals
+            </Link>
+          </div>
         </div>
         <div className="home-lab-cards">
           <HomeSoftmaxViz />
