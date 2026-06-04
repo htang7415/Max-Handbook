@@ -18,28 +18,17 @@ Use this page to keep tool-using agents in the right order:
 - Good tool use needs structure, validation, and short feedback loops.
 - Every tool surface should have an owner, a schema, a permission scope, a validation rule, and a failure path.
 
-## Core Math
+## Concept Ladder
 
-- Expected tool value:
-  $$
-  p(\text{success}) \cdot \text{success value} - \text{tool cost} - p(\text{failure}) \cdot \text{failure penalty}
-  $$
-- Validation rate:
-  $$
-  \frac{\text{valid tool results}}{\text{tool calls}}
-  $$
-- Selection margin:
-  $$
-  \text{best tool score} - \text{runner-up score}
-  $$
+1. Start with one typed function call.
+2. Add result validation before using tool output as truth.
+3. Add failure handling before retries become loops.
+4. Add scopes, approval, and sandboxing before external side effects.
+5. Add MCP when tool discovery and server lifecycle need a standard boundary.
 
-## Minimal Code Mental Model
+## Engineering Boundary
 
-```python
-tool = select_tool(user_intent, tool_keywords)
-call = tool_call(tool, arguments)
-result = tool_result(call["id"], output)
-```
+This page is the tool-use map. The runnable select-call-result loop lives in `tool-use-basics`; decision math belongs in `expected-value-tool-selection` and security boundaries belong in `guardrails-and-security`.
 
 ## Canonical Modules
 
@@ -52,7 +41,6 @@ result = tool_result(call["id"], output)
 
 - Shell-based execution with dry-run and review rules: `terminal-use`
 - Adaptive tool choice with exploration vs exploitation tradeoffs: `bandit-style-exploration-exploitation`
-- External app access with narrow scopes and auth refresh: `connectors-and-auth-scopes`
 - Utility-style ranking of tools by upside, cost, and failure downside: `expected-value-tool-selection`
 - Validation of tool results before reuse: `tool-result-validation`
 - Recovery decisions after tool failure: `tool-failure-handling`

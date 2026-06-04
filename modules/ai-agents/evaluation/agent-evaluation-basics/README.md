@@ -11,6 +11,7 @@ Agent evaluation basics measure whether tasks finish successfully, whether tools
 - Final task success is the main outcome metric.
 - Tool-call success tells you whether failures come from execution instead of reasoning.
 - A simple failure breakdown is often enough to find the next bottleneck.
+- Use `benchmark-harness-basics` only after these raw telemetry metrics are defined.
 
 ## Core Math
 

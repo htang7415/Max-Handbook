@@ -15,28 +15,17 @@ Use this page to understand:
 - Good memory is selective. Keeping everything is expensive and often noisy.
 - Short summaries are useful for recent task state. Retrieval is better for larger memory stores.
 
-## Core Math
+## Concept Ladder
 
-- Memory score:
-  $$
-  \text{relevance} + \text{recency} + \text{trust}
-  $$
-- Retention budget:
-  $$
-  \text{stored items} \le \text{memory cap}
-  $$
-- Compaction ratio:
-  $$
-  \frac{\text{summary length}}{\text{raw memory length}}
-  $$
+1. Start with short working memory for the current task.
+2. Add summaries when recent context is too long to replay.
+3. Add retrieval-backed memory when useful facts span many tasks or turns.
+4. Add conflict and retention policies when old memories can become stale or wrong.
+5. Add scoring only after you know which memories should win.
 
-## Minimal Code Mental Model
+## Engineering Boundary
 
-```python
-memory = append_memory(memory, "User prefers CSV output", max_items=5)
-summary = summarize_recent_memory(memory, max_items=3)
-hits = retrieve_relevant_memories("csv report", memory, k=2)
-```
+This page is the memory map. The runnable implementation lives in `memory-patterns`; use the supporting modules only when the core memory shape is not enough.
 
 ## Canonical Modules
 

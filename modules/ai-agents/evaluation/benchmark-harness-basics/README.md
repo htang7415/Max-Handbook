@@ -13,6 +13,7 @@ Use this after `agent-evaluation-basics`: that module defines the metrics, while
 - A benchmark harness should keep the task set stable while variants change.
 - Bucket counts help you see whether coverage is balanced across failure modes or task types.
 - A frozen baseline turns benchmark runs into an auditable gate instead of a moving target.
+- This module does not define raw success or latency metrics; it packages those metrics into a repeatable comparison.
 
 ## Minimal Code Mental Model
 
@@ -34,12 +35,6 @@ def benchmark_gate(
     max_drop: float,
 ) -> str:
 ```
-
-## References
-
-- Liang et al. (2022). [Holistic Evaluation of Language Models](https://arxiv.org/abs/2211.09110)
-- Liu et al. (2023). [AgentBench: Evaluating LLMs as Agents](https://arxiv.org/abs/2308.03688)
-- Jimenez et al. (2024). [SWE-bench: Can Language Models Resolve Real-World GitHub Issues?](https://arxiv.org/abs/2310.06770)
 
 ## Run tests
 

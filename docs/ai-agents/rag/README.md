@@ -15,27 +15,17 @@ Use this page to understand:
 - The model only benefits from context that is both relevant and compact.
 - Packing too many chunks can hurt just as much as retrieving too little.
 
-## Core Math
+## Concept Ladder
 
-- Retrieval score ranking:
-  $$
-  \text{top-}k = \operatorname{arg\,sort}_k(\text{chunk score})
-  $$
-- Coverage rate:
-  $$
-  \frac{\text{supported claims}}{\text{claims made}}
-  $$
-- Packed-context budget:
-  $$
-  \sum_i \text{chunk tokens}_i \le \text{context budget}
-  $$
+1. Retrieve candidate chunks.
+2. Keep only the evidence that is relevant enough to use.
+3. Pack a short grounded context.
+4. Generate an answer that cites or depends on that context.
+5. Check whether each important claim is supported.
 
-## Minimal Code Mental Model
+## Engineering Boundary
 
-```python
-top_chunks = select_top_k(search_results, k=3)
-context = build_grounded_context(top_chunks, max_chunks=2)
-```
+This page is the RAG map. The runnable retrieve-pack loop lives in `rag-basics`; use the supporting modules when the problem is evidence coverage, citations, abstention, or post-answer grounding.
 
 ## Canonical Modules
 

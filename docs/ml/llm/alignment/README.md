@@ -18,20 +18,17 @@ Use this page to keep alignment in the right order:
 - Policy optimization improves toward preference or reward signals but needs guardrails against drift.
 - KL and PTX-style anchoring preserve useful base behavior while aligning the model.
 
-## Core Math
+## Alignment Stack
 
-- Preference-style objective shape:
-  $$
-  \log \sigma(s_{\text{chosen}} - s_{\text{rejected}})
-  $$
-- KL control penalizes moving too far from a reference policy.
+1. SFT teaches the instruction format.
+2. Preference data ranks acceptable and unacceptable outputs.
+3. DPO-style objectives optimize pairwise preferences without a separate online RL loop.
+4. RLHF-style pipelines add reward modeling and policy optimization when that extra machinery is justified.
+5. KL or PTX anchoring keeps the aligned model from losing useful base behavior.
 
-## Minimal Code Mental Model
+## Engineering Boundary
 
-```python
-model = supervised_fine_tune(base_model, demonstrations)
-model = optimize_preferences(model, chosen, rejected, kl_penalty)
-```
+This guide is the alignment map. The dense formulas and runnable helpers live in `alignment-methods`; use this page to decide which training stage or failure mode matters.
 
 ## Canonical Modules
 
@@ -45,7 +42,6 @@ model = optimize_preferences(model, chosen, rejected, kl_penalty)
 ## When To Use What
 
 - Start with SFT before any preference optimization.
-- Start with SFT inside `alignment-methods`, then move to preference objectives.
 - Use DPO inside `alignment-methods` when pairwise data is strong and you want a simpler path than RLHF.
 - Use RLHF inside `alignment-methods` when reward modeling and online policy improvement are central.
 - Use KL or PTX anchoring inside `alignment-methods` when the aligned model starts losing useful base-model behavior.
