@@ -11,6 +11,8 @@ Use this topic to learn how embeddings, ANN indexes, metadata filters, reranking
 - A vector store is rarely enough by itself. Good retrieval also needs document metadata, permissions, freshness rules, and often lexical ranking.
 - Chunking and embedding quality often matter more than the database brand.
 - Exact search and approximate nearest neighbor search trade recall, latency, and memory differently.
+- Postgres plus vector extensions can be the right baseline when transactional data, permissions, and retrieval metadata belong together.
+- Dedicated vector databases or ANN libraries matter when recall-latency scale, index operations, or specialized filtering exceed the baseline.
 - Agent memory is retrieval over prior state. It still needs schema, scoring, decay, and conflict rules.
 
 ## Minimal Query Mental Model
@@ -42,6 +44,7 @@ LIMIT 5;
 - Use ANN when collection size or latency targets make exact search too expensive.
 - Use `hnsw-graph-search` when low-latency search and incremental inserts matter.
 - Use `ivf-search` when coarse partitioning plus `nprobe` tuning is the main ANN pattern.
+- Use hybrid search when lexical terms, metadata filters, and embeddings each capture a different part of relevance.
 - Use `faiss-index-families` when choosing which FAISS family fits memory, recall, and update constraints.
 - Use `scann-search` when you want to reason about partition-and-reorder search at large scale.
 - Add reranking and retrieval evaluation once first-stage retrieval is stable enough to measure.

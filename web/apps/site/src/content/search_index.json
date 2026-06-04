@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T07:08:37.049Z",
+  "generated_at": "2026-06-04T17:39:59.443Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -520,8 +520,8 @@
     {
       "id": "doc:ai-agents/overview/roadmap-2026",
       "type": "doc",
-      "title": "2026 Gap-Closure Roadmap",
-      "summary": "This roadmap closes the largest gaps between the current `ai-agents` track and a production-grade 2026 agent curriculum.",
+      "title": "2026 Production Roadmap",
+      "summary": "This roadmap keeps the `ai-agents` track aligned with production-grade agent practice in 2026.",
       "track": "ai-agents",
       "topic": "overview",
       "slug": "roadmap-2026",

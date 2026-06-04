@@ -83,6 +83,8 @@ Each software-engineering module should answer the same six questions:
 - Observability and rollback before aggressive automation.
 - Reliability rules for retries, queues, overload, and partial failure.
 - Platform leverage that improves delivery speed without hiding ownership.
+- Secure agentic workflows with least privilege, scoped credentials, approval gates, and traceable tool calls.
+- Treat AI evals and red-team cases as release checks when software behavior depends on model or agent decisions.
 
 ## First 20 Canonical Modules
 

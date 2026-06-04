@@ -53,10 +53,11 @@ Use the track in this order:
 ## AI-Time 2026 Priorities
 
 - Keep PostgreSQL-level relational fundamentals, MVCC, and `EXPLAIN` central.
-- Treat DuckDB and Parquet as part of the normal analytics toolbox, not a separate specialty.
+- Treat recent PostgreSQL releases as a reason to teach better operational fundamentals, not as a vendor-feature catalog.
+- Treat DuckDB and Parquet as part of the normal analytics toolbox for offline evals, data debugging, and local experimentation.
 - Teach CDC and streaming as the bridge between operational systems, analytics, and AI pipelines.
 - Teach caching with invalidation first, then semantic caching for repeated model calls.
-- Teach vector search as one retrieval component inside a larger metadata and ranking system.
+- Teach vector search as one retrieval component inside a larger metadata, permissions, lexical ranking, and reranking system.
 
 ## Scope Rule
 

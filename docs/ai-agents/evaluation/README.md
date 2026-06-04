@@ -7,14 +7,18 @@ This section is about how to measure whether an agent succeeds, whether its tool
 Use this page to understand:
 - task success
 - tool-call success
+- trace-level behavior
+- repeatable datasets and baseline gates
 - latency and cost baselines
 - failure category counts
 
 ## First Principles
 
 - Agent evaluation should measure both final outcomes and the steps that produced them.
-- Simple metrics are usually enough to find the main bottlenecks.
+- Start with traces when behavior is still unclear, then turn repeated cases into datasets.
+- Simple metrics are usually enough to find the first bottleneck.
 - A useful evaluation loop separates model failure, tool failure, and workflow failure.
+- Benchmark harnesses should keep cases stable while prompts, tools, models, and policies change.
 
 ## Core Math
 
@@ -37,6 +41,7 @@ Use this page to understand:
 success = task_success_rate([True, False, True])
 tool_success = tool_call_success_rate([True, True, False])
 breakdown = failure_breakdown(["tool", "model", "tool"])
+gate = benchmark_gate(candidate_success=0.76, baseline_success=0.78, min_success=0.75, max_drop=0.03)
 ```
 
 ## Canonical Modules
@@ -66,7 +71,9 @@ breakdown = failure_breakdown(["tool", "model", "tool"])
 ## When To Use What
 
 - Start with `agent-evaluation-basics` before adding judge-based or benchmark-heavy evaluation.
+- Use `agent-evaluation-basics` for telemetry metrics: final success, tool success, latency, and failure labels.
 - Use `benchmark-harness-basics` when you need a fixed task suite with bucket labels and a frozen baseline before comparing variants.
+- Use `judge-and-trace-grading` when final-answer scoring hides where the agent failed inside the run.
 - Use `bayesian-benchmark-updating` when benchmark evidence arrives in batches and you want an explicit posterior belief instead of only raw running averages.
 - Use `hierarchical-benchmark-aggregation` when benchmark results are naturally grouped and you need explicit bucket, group, and overall rollups.
 - Use `bucketed-calibration-diagnostics` when a single global calibration gap is too coarse and you need to see where confidence is misaligned by band.

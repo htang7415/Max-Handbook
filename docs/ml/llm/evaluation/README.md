@@ -20,6 +20,7 @@ Use this page to understand the main evaluation modes for modern LLM systems wit
 - `Judge and preference evaluation` asks which answer is better when exact references are weak. This is where judge evaluation methods and Bradley-Terry style models fit.
 - `Multimodal evaluation` asks whether the answer is correct and whether the required modalities were actually present or used.
 - `Retrieval and reranking` ask whether the system surfaces relevant documents early enough. This is where Recall@k, MRR, and NDCG fit.
+- `Agent and workflow evaluation` asks whether model calls, tool calls, guardrails, and handoffs succeeded as a trace, not only as a final answer.
 
 ## Core Math
 
@@ -52,6 +53,7 @@ score = exact_match(normalize(prediction), normalize(reference))
 votes = count_normalized_answers(sample_many(model, prompt, k=8))
 retrieval = reciprocal_rank(ranked_docs, relevant_doc_ids)
 preference = judge_pairwise(answer_a, answer_b)
+trace_score = grade_trace(model_calls, tool_calls, guardrail_events)
 ```
 
 ## Canonical Modules
@@ -78,3 +80,4 @@ preference = judge_pairwise(answer_a, answer_b)
 - Use judge-based methods when references are weak or style matters.
 - Use `multimodal-evaluation` when image, audio, or video inputs are part of the task definition.
 - Use retrieval metrics when answer quality depends on document ranking.
+- Switch to `docs/ai-agents/evaluation` when the unit being graded is an end-to-end workflow trace with tools, memory, handoffs, or guardrails.

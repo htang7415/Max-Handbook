@@ -7,14 +7,16 @@ This section is about how an agent decides to call tools, how computer-use loops
 Use this page to keep tool-using agents in the right order:
 - basic structured tool calls
 - computer-use actions over a UI
-- MCP as a standard way to expose tools and resources
+- connector auth and scoped external access
+- MCP as a standard way to expose tools, resources, and prompts
 
 ## First Principles
 
 - Tool use is about deciding when the model should act outside pure text generation.
 - Computer use is a special case where the agent acts over a changing interface instead of a fixed function API.
-- MCP is a transport and discovery layer for tools, resources, and prompts, not a reasoning policy by itself.
+- MCP standardizes host-client-server integration for tools, resources, and prompts, but it is not a reasoning policy or an authorization system by itself.
 - Good tool use needs structure, validation, and short feedback loops.
+- Every tool surface should have an owner, a schema, a permission scope, a validation rule, and a failure path.
 
 ## Core Math
 
@@ -44,6 +46,7 @@ result = tool_result(call["id"], output)
 - Core function calling: `tool-use-basics`
 - UI action loops: `computer-use`
 - Standardized tool and resource exposure: `mcp`
+- External app scopes and auth refresh: `connectors-and-auth-scopes`
 
 ## Supporting Modules
 
@@ -71,3 +74,4 @@ result = tool_result(call["id"], output)
 - Use `tool-selection-heuristics` when the main challenge is picking the right tool from several plausible options.
 - Use `tool-argument-normalization` when inputs need basic cleanup or default filling before the tool call.
 - Use `tool-schema-matching` when several tools look similar and the main question is which schema best fits the requested arguments.
+- Pair tool use with `prompt-injection-defense`, `approval-gated-actions`, and `least-privilege-and-sandboxing` when tool output or external content can influence later actions.

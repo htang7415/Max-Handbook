@@ -9,6 +9,7 @@ Use this page to organize security into:
 - data handling and validation
 - secret and credential control
 - dependency and SDLC risk
+- LLM and agentic workflow risk
 
 ## First Principles
 
@@ -16,6 +17,7 @@ Use this page to organize security into:
 - Trust boundaries should be explicit in code, config, and operational rules.
 - Least privilege is easier to maintain than broad access plus ad hoc exceptions.
 - AI-assisted coding increases supply-chain, secret-handling, and unsafe-action risk if boundaries are vague.
+- Agentic systems add a new trust boundary: untrusted text can influence tool calls, memory, permissions, and external side effects.
 
 ## Canonical Modules
 
@@ -38,3 +40,4 @@ Use this page to organize security into:
 - Use least privilege and secret isolation early, not after incidents.
 - Add supply-chain controls once dependency count and automation increase.
 - Treat secure SDLC work as part of delivery quality, not a separate domain.
+- Use `docs/ai-agents/guardrails` when model output can trigger tools, connector actions, memory writes, or other external effects.

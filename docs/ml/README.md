@@ -43,6 +43,7 @@ code = implement_smallest_working_version(equation)
 
 - If your goal is interview prep, use `docs/ml/path-interview`.
 - Otherwise, start with `docs/ml/fundamentals`, then move to `docs/ml/data` and `docs/ml/models`.
+- For modern AI systems, continue into `docs/ml/evaluation`, `docs/ml/llm`, and `docs/ml/systems` before treating deployment as finished.
 
 ## Main Sections
 
@@ -70,6 +71,7 @@ code = implement_smallest_working_version(equation)
 - Use the top-level section docs when you need the next concept family, not the final detail.
 - Use canonical family modules before narrow variants or preserved alias pages.
 - Add systems and MLOps after you can already choose models, metrics, and core deep-learning tools.
+- Use LLM evaluation, retrieval, long-context, and inference modules when product behavior depends on prompts, tools, or serving constraints rather than only model weights.
 - Treat reinforcement learning, generative models, representation learning, and computer vision as specializations after the main spine is comfortable.
 
 ## Scope Rule

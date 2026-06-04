@@ -6,6 +6,8 @@
 
 Benchmark harness basics turn a fixed set of cases, bucket labels, and a frozen baseline into one repeatable evaluation suite for agent variants.
 
+Use this after `agent-evaluation-basics`: that module defines the metrics, while this module defines the repeatable suite and release gate.
+
 ## Key Points
 
 - A benchmark harness should keep the task set stable while variants change.
