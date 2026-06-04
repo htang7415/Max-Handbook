@@ -50,20 +50,20 @@ next_token = decode(hidden[-1], strategy="top_p")
 - Training stages: `pretraining`, `alignment-methods`
 - Reasoning: `reasoning-and-test-time-compute`
 - Multimodal inputs: `multimodal-llms`
-- Evaluation: `docs/ml/llm/evaluation`
+- Evaluation: likelihood, task scoring, judges, retrieval metrics, and trace-aware checks
 - Decoding: `decoding-methods`
 - Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion-methods`, `cross-encoder-vs-bi-encoder`
 - Efficiency and systems: `long-context-and-caching`, `context-budgeting-and-truncation`, `parameter-efficient-fine-tuning`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `flashattention-and-io-aware-attention`, `qk-clip`
 
 ## Supporting Guides
 
-- Tokenization guide (`docs/ml/llm/tokenization`)
-- Reasoning guide (`docs/ml/llm/reasoning`)
-- Long-context guide (`docs/ml/llm/long-context`)
-- Multimodal guide (`docs/ml/llm/multimodal`)
-- Alignment guide (`docs/ml/llm/alignment`)
-- LLM evaluation guide (`docs/ml/llm/evaluation`)
-- Inference serving guide (`docs/ml/llm/inference-serving`)
+- Tokenization: tokens, subwords, vocabulary, and representation boundaries.
+- Reasoning: test-time compute, verification, answer stability, and reasoning evals.
+- Long context: context budgeting, truncation, caching, and positional limits.
+- Multimodal: image, audio, video, and token-like cross-modal representations.
+- Alignment: SFT, preference learning, RLHF/RLAIF, DPO, and safety behavior.
+- LLM evaluation: likelihood, task metrics, judges, retrieval metrics, and workflow traces.
+- Inference serving: batching, KV cache, quantization, latency, throughput, and cost.
 
 ## When To Use What
 
@@ -77,5 +77,5 @@ next_token = decode(hidden[-1], strategy="top_p")
 - Use `grouped-query-and-multi-query-attention` when KV cache size or memory bandwidth is the main inference constraint.
 - Use `flashattention-and-io-aware-attention` when the attention kernel itself is the serving or training bottleneck.
 - Use serving and systems topics when latency, memory, or throughput becomes the bottleneck.
-- If the model must call APIs, browse interfaces, or use MCP-style tool servers, switch to `docs/ai-agents/tool-use`.
+- If the model must call APIs, browse interfaces, or use MCP-style tool servers, switch to agent tool use.
 - Treat this page as the stack overview; use the leaf guides for the real detail.

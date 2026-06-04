@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-04T19:26:24.920Z",
+  "generated_at": "2026-06-04T19:36:42.921Z",
   "tracks": [
     {
       "id": "dsa",
@@ -85,19 +85,19 @@
       "moduleCount": 0
     },
     {
-      "track": "databases",
+      "track": "ai-agents",
       "topic": "assessments",
       "name": "Assessments",
-      "path": "/track/databases/assessments",
+      "path": "/track/ai-agents/assessments",
       "hasDoc": true,
       "docCount": 1,
       "moduleCount": 0
     },
     {
-      "track": "ai-agents",
+      "track": "databases",
       "topic": "assessments",
       "name": "Assessments",
-      "path": "/track/ai-agents/assessments",
+      "path": "/track/databases/assessments",
       "hasDoc": true,
       "docCount": 1,
       "moduleCount": 0
@@ -148,15 +148,6 @@
       "moduleCount": 1
     },
     {
-      "track": "databases",
-      "topic": "capstones",
-      "name": "Capstones",
-      "path": "/track/databases/capstones",
-      "hasDoc": true,
-      "docCount": 1,
-      "moduleCount": 1
-    },
-    {
       "track": "ai-agents",
       "topic": "capstones",
       "name": "Capstones",
@@ -164,6 +155,15 @@
       "hasDoc": true,
       "docCount": 1,
       "moduleCount": 2
+    },
+    {
+      "track": "databases",
+      "topic": "capstones",
+      "name": "Capstones",
+      "path": "/track/databases/capstones",
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 1
     },
     {
       "track": "ml",
@@ -14203,7 +14203,7 @@
       "title": "NLP and LLMs",
       "path": "docs/ml/llm/README.md",
       "summary": "This section is about how modern language models represent text, train, decode, align, and serve.",
-      "content": "# NLP and LLMs\n\nThis section is about how modern language models represent text, train, decode, align, and serve.\n\n## Purpose\n\nUse this page to keep the LLM stack in the right order:\n- tokenization and representations\n- attention and transformer structure\n- training stages\n- reasoning and test-time compute\n- multimodal inputs\n- evaluation\n- decoding and inference systems\n\n## First Principles\n\n- Tokenization defines the units the model sees.\n- Attention lets each token condition on earlier context.\n- The transformer stacks attention and feed-forward blocks into a scalable sequence model.\n- Training moves from pretraining to task adaptation and then often to alignment.\n- Reasoning models trade extra inference compute for better answers on harder tasks.\n- Modern LLMs often consume images, audio, or video by turning them into token-like embeddings.\n- Good LLM systems are not just good models; they also need good decoding and serving behavior.\n\n## Core Math\n\n- The whole LLM stack mostly rests on three equations:\n  $$\n  \\mathrm{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_k}}\\right)V,\n  \\quad\n  -\\sum_t \\log p(x_t \\mid x_{<t}),\n  \\quad\n  \\text{preference objective}\n  $$\n- The details live in the section guides and canonical modules below.\n\n## Minimal Code Mental Model\n\n```python\ntokens = tokenizer(text)\nhidden = transformer(tokens)\nnext_token = decode(hidden[-1], strategy=\"top_p\")\n```\n\n## Canonical Modules\n\n- Tokenization and representations: `token-representation-methods`, `rope-and-position-scaling`\n- Transformer core: `attention-mechanisms`, `transformer`, `grouped-query-and-multi-query-attention`\n- Training stages: `pretraining`, `alignment-methods`\n- Reasoning: `reasoning-and-test-time-compute`\n- Multimodal inputs: `multimodal-llms`\n- Evaluation: `docs/ml/llm/evaluation`\n- Decoding: `decoding-methods`\n- Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion-methods`, `cross-encoder-vs-bi-encoder`\n- Efficiency and systems: `long-context-and-caching`, `context-budgeting-and-truncation`, `parameter-efficient-fine-tuning`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `flashattention-and-io-aware-attention`, `qk-clip`\n\n## Supporting Guides\n\n- Tokenization guide (`docs/ml/llm/tokenization`)\n- Reasoning guide (`docs/ml/llm/reasoning`)\n- Long-context guide (`docs/ml/llm/long-context`)\n- Multimodal guide (`docs/ml/llm/multimodal`)\n- Alignment guide (`docs/ml/llm/alignment`)\n- LLM evaluation guide (`docs/ml/llm/evaluation`)\n- Inference serving guide (`docs/ml/llm/inference-serving`)\n\n## When To Use What\n\n- Start with token-representation methods and attention before jumping to alignment or serving.\n- Use `rope-and-position-scaling` when the long-context question is positional extrapolation rather than cache reuse.\n- Use `reasoning-and-test-time-compute` before tuning sampling-heavy reasoning workflows.\n- Use `multimodal-llms` when the system has to mix text with images, audio, or video.\n- Use the evaluation guide before choosing metrics module by module.\n- Use decoding methods when generation behavior is the issue.\n- Use `cross-encoder-vs-bi-encoder` when choosing between first-stage dense retrieval and second-stage reranking.\n- Use `grouped-query-and-multi-query-attention` when KV cache size or memory bandwidth is the main inference constraint.\n- Use `flashattention-and-io-aware-attention` when the attention kernel itself is the serving or training bottleneck.\n- Use serving and systems topics when latency, memory, or throughput becomes the bottleneck.\n- If the model must call APIs, browse interfaces, or use MCP-style tool servers, switch to `docs/ai-agents/tool-use`.\n- Treat this page as the stack overview; use the leaf guides for the real detail.\n"
+      "content": "# NLP and LLMs\n\nThis section is about how modern language models represent text, train, decode, align, and serve.\n\n## Purpose\n\nUse this page to keep the LLM stack in the right order:\n- tokenization and representations\n- attention and transformer structure\n- training stages\n- reasoning and test-time compute\n- multimodal inputs\n- evaluation\n- decoding and inference systems\n\n## First Principles\n\n- Tokenization defines the units the model sees.\n- Attention lets each token condition on earlier context.\n- The transformer stacks attention and feed-forward blocks into a scalable sequence model.\n- Training moves from pretraining to task adaptation and then often to alignment.\n- Reasoning models trade extra inference compute for better answers on harder tasks.\n- Modern LLMs often consume images, audio, or video by turning them into token-like embeddings.\n- Good LLM systems are not just good models; they also need good decoding and serving behavior.\n\n## Core Math\n\n- The whole LLM stack mostly rests on three equations:\n  $$\n  \\mathrm{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_k}}\\right)V,\n  \\quad\n  -\\sum_t \\log p(x_t \\mid x_{<t}),\n  \\quad\n  \\text{preference objective}\n  $$\n- The details live in the section guides and canonical modules below.\n\n## Minimal Code Mental Model\n\n```python\ntokens = tokenizer(text)\nhidden = transformer(tokens)\nnext_token = decode(hidden[-1], strategy=\"top_p\")\n```\n\n## Canonical Modules\n\n- Tokenization and representations: `token-representation-methods`, `rope-and-position-scaling`\n- Transformer core: `attention-mechanisms`, `transformer`, `grouped-query-and-multi-query-attention`\n- Training stages: `pretraining`, `alignment-methods`\n- Reasoning: `reasoning-and-test-time-compute`\n- Multimodal inputs: `multimodal-llms`\n- Evaluation: likelihood, task scoring, judges, retrieval metrics, and trace-aware checks\n- Decoding: `decoding-methods`\n- Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion-methods`, `cross-encoder-vs-bi-encoder`\n- Efficiency and systems: `long-context-and-caching`, `context-budgeting-and-truncation`, `parameter-efficient-fine-tuning`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `flashattention-and-io-aware-attention`, `qk-clip`\n\n## Supporting Guides\n\n- Tokenization: tokens, subwords, vocabulary, and representation boundaries.\n- Reasoning: test-time compute, verification, answer stability, and reasoning evals.\n- Long context: context budgeting, truncation, caching, and positional limits.\n- Multimodal: image, audio, video, and token-like cross-modal representations.\n- Alignment: SFT, preference learning, RLHF/RLAIF, DPO, and safety behavior.\n- LLM evaluation: likelihood, task metrics, judges, retrieval metrics, and workflow traces.\n- Inference serving: batching, KV cache, quantization, latency, throughput, and cost.\n\n## When To Use What\n\n- Start with token-representation methods and attention before jumping to alignment or serving.\n- Use `rope-and-position-scaling` when the long-context question is positional extrapolation rather than cache reuse.\n- Use `reasoning-and-test-time-compute` before tuning sampling-heavy reasoning workflows.\n- Use `multimodal-llms` when the system has to mix text with images, audio, or video.\n- Use the evaluation guide before choosing metrics module by module.\n- Use decoding methods when generation behavior is the issue.\n- Use `cross-encoder-vs-bi-encoder` when choosing between first-stage dense retrieval and second-stage reranking.\n- Use `grouped-query-and-multi-query-attention` when KV cache size or memory bandwidth is the main inference constraint.\n- Use `flashattention-and-io-aware-attention` when the attention kernel itself is the serving or training bottleneck.\n- Use serving and systems topics when latency, memory, or throughput becomes the bottleneck.\n- If the model must call APIs, browse interfaces, or use MCP-style tool servers, switch to agent tool use.\n- Treat this page as the stack overview; use the leaf guides for the real detail.\n"
     },
     {
       "track": "ml",

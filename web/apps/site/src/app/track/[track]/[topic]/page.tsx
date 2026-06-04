@@ -56,10 +56,26 @@ function stripRunTests(markdown: string): string {
   return result.join("\n");
 }
 
-function stripModuleReferences(markdown: string): string {
+function stripSourceReferences(markdown: string): string {
   const lines = markdown.split(/\r?\n/);
   const result: string[] = [];
   let inCodeBlock = false;
+
+  function humanizePath(path: string) {
+    const parts = path
+      .replace(/^docs\//i, "")
+      .replace(/^modules\//i, "")
+      .replace(/\/(?:README|overview)\.md$/i, "")
+      .replace(/\.md$/i, "")
+      .split("/")
+      .filter(Boolean);
+    const meaningful = parts.at(-1) ?? "";
+    return meaningful
+      .split("-")
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+  }
 
   for (const line of lines) {
     const trimmed = line.trim();
@@ -76,6 +92,10 @@ function stripModuleReferences(markdown: string): string {
     const leading = line.match(/^\s*/)?.[0] ?? "";
     let content = line.slice(leading.length);
 
+    content = content.replace(
+      /\((?:see\s+)?`?docs\/[a-z0-9\-_/]+(?:\.md)?`?\)/gi,
+      ""
+    );
     content = content.replace(/\(([^)]*modules\/[^)]*)\)/gi, (match, inner) => {
       let cleaned = inner as string;
       cleaned = cleaned.replace(/see\s+modules\/[a-z0-9\-_/]+/gi, "");
@@ -83,6 +103,12 @@ function stripModuleReferences(markdown: string): string {
       cleaned = cleaned.replace(/^[;:,\s]+|[;:,\s]+$/g, "");
       return cleaned.trim() ? `(${cleaned.trim()})` : "";
     });
+    content = content.replace(/`(docs\/[^`]+)`/gi, (_match, path) =>
+      humanizePath(path)
+    );
+    content = content.replace(/(?<![A-Za-z0-9./:-])docs\/[a-z0-9\-_/]+(?:\.md)?/gi, (path) =>
+      humanizePath(path)
+    );
     content = content.replace(/`modules\/[^`]+`/gi, "");
     content = content.replace(/modules\/[a-z0-9\-_/]+/gi, "");
     content = content.replace(/`\s*`/g, "");
@@ -945,7 +971,7 @@ export default async function TopicPage({
       const mod = moduleBySlug.get(slug);
       const sourceTopic = doc?.topic ?? mod?.topic ?? topicId;
       const title = doc?.title ?? mod?.title ?? slug;
-      const summary = stripModuleReferences(
+      const summary = stripSourceReferences(
         cleanSummary(doc?.summary) ?? cleanSummary(mod?.summary) ?? ""
       ).trim() || undefined;
 
@@ -954,7 +980,7 @@ export default async function TopicPage({
       rawContent = stripTopHeading(rawContent);
       rawContent = stripTrackMeta(rawContent);
       rawContent = stripRunTests(rawContent);
-      rawContent = stripModuleReferences(rawContent);
+      rawContent = stripSourceReferences(rawContent);
 
       const parsed = parseSections(rawContent);
       const normalizedSections = normalizeSections(parsed.sections, summary, title, parsed.intro);
