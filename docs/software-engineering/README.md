@@ -18,6 +18,13 @@ Use this track to learn the engineering responsibilities that still matter most 
 - Good engineering turns hidden assumptions into explicit schemas, thresholds, tests, alerts, and operating rules.
 - Software quality is not just code quality. It also includes delivery safety, production behavior, and incident recovery.
 
+## Frontier Lab Lessons
+
+- OpenAI's structured-output and function-calling guidance reinforces contract-first engineering: schemas and tool outputs are runtime boundaries, not just prompt hints.
+- Anthropic's Claude Code security model is a useful coding-agent pattern: read-only by default, explicit approval for edits and commands, sandboxing, and project-scoped write access.
+- DeepMind's Frontier Safety Framework generalizes release engineering for powerful AI systems: identify capability thresholds, run early-warning evals, and require safety-case reviews for higher-risk deployments.
+- Anthropic and OpenAI agent-eval guidance both turn traces, datasets, graders, and regression suites into normal software delivery artifacts.
+
 ## How To Use This Track
 
 - Start with `tooling`, `apis`, `testing`, and `security-basics`.
@@ -117,6 +124,13 @@ Build the track in this order:
 - Use `docs/ai-agents/guardrails` when software workflows give agents external actions.
 - Use `docs/databases/vector-db/overview.md` when AI product behavior depends on retrieval freshness or permissions.
 - Use `docs/ml/llm/evaluation` when release gates depend on model or judge behavior.
+
+## References
+
+- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
+- [OpenAI Function Calling](https://developers.openai.com/api/docs/guides/function-calling)
+- [Claude Code Security](https://code.claude.com/docs/en/security)
+- [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
 
 ## Capstones
 

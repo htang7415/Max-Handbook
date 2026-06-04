@@ -35,6 +35,8 @@ This page is the tool-use map. The runnable select-call-result loop lives in `to
 - Treat MCP as a protocol boundary for tools, resources, prompts, and server lifecycle, not as a substitute for product policy.
 - Current MCP practice should assume structured tool outputs, protected-resource metadata, resource indicators for OAuth safety, and explicit protocol-version handling for streamable HTTP clients.
 - Tool results that include resources or external content still need validation before they can influence later tool calls.
+- OpenAI and Anthropic both emphasize typed tool definitions, explicit tool outputs, and traceable tool calls; tool documentation should be treated like API design, not prompt decoration.
+- Anthropic's MCP donation to the Linux Foundation's Agentic AI Foundation makes MCP a vendor-neutral ecosystem standard, so handbook content should teach protocol boundaries rather than provider-specific connector habits.
 
 ## Canonical Modules
 
@@ -53,6 +55,12 @@ This page is the tool-use map. The runnable select-call-result loop lives in `to
 - Choosing the best tool before calling it: `tool-selection-heuristics`
 - Normalizing tool arguments before execution: `tool-argument-normalization`
 - Matching requested arguments to the right tool schema: `tool-schema-matching`
+
+## References
+
+- [OpenAI Function Calling](https://developers.openai.com/api/docs/guides/function-calling)
+- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
+- [Anthropic MCP Donation and AAIF](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation)
 
 ## When To Use What
 

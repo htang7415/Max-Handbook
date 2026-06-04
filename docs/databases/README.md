@@ -18,6 +18,12 @@ Use this track to learn databases in the order that matters most in 2026:
 - AI products add new data needs like embeddings, chunk metadata, eval logs, lineage, and freshness, but they do not replace transactional fundamentals.
 - Most production systems are hybrid: one operational store, one cache, one stream, one retrieval layer, and one analytics path.
 
+## Frontier Lab Lessons
+
+- OpenAI's retrieval guidance treats vector stores as semantic-search indices over uploaded data, with attributes, chunking, filtering, expiration, and eventual consistency as engineering details.
+- Anthropic's MCP work reinforces that agents need standard ways to connect to external systems and data sources; database interfaces should expose metadata, permissions, and tool boundaries cleanly.
+- DeepMind's AlphaEvolve shows that AI systems can optimize infrastructure and algorithms, which increases the value of telemetry, eval data, experiment lineage, and reproducible analytics stores.
+
 ## Recommended Path
 
 Use the track in this order:
@@ -74,6 +80,13 @@ Use the track in this order:
 - Use `docs/ai-agents/rag` and `docs/ai-agents/memory` when retrieval becomes part of an agent loop.
 - Use `docs/ml/llm/evaluation` when retrieval quality is judged by model or answer behavior.
 - Use `docs/software-engineering/reliability` when CDC, cache, or retrieval lag becomes an operational SLO.
+
+## References
+
+- [OpenAI Retrieval](https://developers.openai.com/api/docs/guides/retrieval)
+- [OpenAI File Search](https://platform.openai.com/docs/guides/tools-file-search/)
+- [Anthropic Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
+- [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)
 
 ## Scope Rule
 

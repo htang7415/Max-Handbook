@@ -12,6 +12,8 @@ A hybrid AI data stack keeps durable product state in a source-of-truth database
 - CDC connects operational state to analytics, caches, and retrieval updates.
 - DuckDB/Parquet-style analytics are useful for offline evals and data debugging without replacing the operational store.
 - Vector retrieval should fail closed when permissions, freshness, or eval quality are missing.
+- OpenAI's retrieval model makes vector-store files, attributes, chunking, filtering, and lifecycle state part of the data contract.
+- MCP-style tool access should not bypass database ownership, audit, retention, or authorization rules.
 
 ## Minimal Code Mental Model
 
@@ -45,6 +47,11 @@ def release_gate(
     observed_cdc_lag_seconds: int,
 ) -> dict[str, object]:
 ```
+
+## References
+
+- [OpenAI Retrieval](https://developers.openai.com/api/docs/guides/retrieval)
+- [Anthropic Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
 
 ## Run tests
 

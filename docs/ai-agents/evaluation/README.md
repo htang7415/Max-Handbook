@@ -20,6 +20,12 @@ Use this page to understand:
 - A useful evaluation loop separates model failure, tool failure, and workflow failure.
 - Benchmark harnesses should keep cases stable while prompts, tools, models, and policies change.
 
+## Frontier Lab Lessons
+
+- OpenAI's trace-grading guidance makes traces the first debugging surface, then moves to repeatable datasets and eval runs once "good" is defined.
+- Anthropic's agent-eval guidance separates task, trial, grader, transcript, outcome, harness, and suite; this is a useful vocabulary for multi-turn agent testing.
+- DeepMind's Frontier Safety Framework uses early-warning evaluations and capability thresholds for severe-risk domains; production agent evals should similarly include early warning cases before full release gates.
+
 ## Core Math
 
 - Task success rate:
@@ -67,6 +73,13 @@ gate = benchmark_gate(candidate_success=0.76, baseline_success=0.78, min_success
 - A/B-style comparison between agent variants: `experiment-comparison`
 - Detecting quality drift against a baseline: `regression-checks`
 - Grouping failures into stable categories: `failure-taxonomy`
+
+## References
+
+- [OpenAI Agent Evals](https://developers.openai.com/api/docs/guides/agent-evals)
+- [OpenAI Trace Grading](https://developers.openai.com/api/docs/guides/trace-grading)
+- [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
 
 ## When To Use What
 

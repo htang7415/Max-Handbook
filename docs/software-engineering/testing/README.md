@@ -16,6 +16,8 @@ Use this page to organize testing into:
 - Fast and focused tests usually catch more useful regressions than large end-to-end suites alone.
 - AI-generated code needs strong regression checks because the implementation can look plausible while violating contracts.
 - Flaky tests destroy trust in the whole verification system.
+- Agentic software needs trace, transcript, and final-state tests when the system changes state over several tool calls.
+- Evaluation suites should include both quality benchmarks and regression checks, with human calibration when model graders are used.
 
 ## Canonical Modules
 
@@ -29,6 +31,17 @@ Use this page to organize testing into:
 ## Supporting Modules
 
 - `metamorphic-tests-for-generated-code`
+
+## Frontier Lab Notes
+
+- OpenAI trace grading and Anthropic agent evals both emphasize that final output is not enough for multi-step systems; test the trajectory and the environment outcome.
+- DeepMind's frontier-safety process is a reminder to add early-warning cases for capabilities or behaviors that would change the release risk.
+
+## References
+
+- [OpenAI Trace Grading](https://developers.openai.com/api/docs/guides/trace-grading)
+- [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
 
 ## Math And Code
 

@@ -18,6 +18,7 @@ Use this page to organize tooling into:
 - AI-generated code increases the need for review structure, not less.
 - Tooling should reduce accidental variation in how code is built, tested, and shipped.
 - Build and release automation should make provenance, dependency review, and generated-code boundaries visible to reviewers.
+- Coding agents should run inside explicit permission, sandbox, and review boundaries; convenience modes are not substitutes for ownership or tests.
 
 ## Canonical Modules
 
@@ -31,6 +32,11 @@ Use this page to organize tooling into:
 
 - `spec-first-ai-coding`
 - `generated-code-review-checklists`
+
+## References
+
+- [Claude Code Security](https://code.claude.com/docs/en/security)
+- [Claude Agent SDK Overview](https://code.claude.com/docs/en/agent-sdk/overview)
 
 ## Math And Code
 

@@ -12,6 +12,8 @@ An LLM release gate combines quality, calibration, latency, cost, and regression
 - Release gates should return explicit reasons so failures can be debugged.
 - Regression risk should block rollout even when aggregate quality improves.
 - This capstone connects LLM evaluation with serving and MLOps release discipline.
+- OpenAI and Anthropic eval guidance both push toward traceable, repeatable datasets once behavior matters in product workflows.
+- DeepMind frontier-safety guidance adds the missing high-risk dimension: some capability gains require stronger safety cases before deployment.
 
 ## Core Math
 
@@ -59,6 +61,12 @@ def serving_fit(
 ) -> float:
 def release_gate(metrics: dict[str, float], budgets: dict[str, float]) -> dict[str, object]:
 ```
+
+## References
+
+- [OpenAI Evals](https://developers.openai.com/api/docs/guides/evals)
+- [Anthropic Agent Evals](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
 
 ## Run tests
 

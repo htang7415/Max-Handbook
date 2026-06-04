@@ -15,6 +15,12 @@ Use this topic to learn how embeddings, ANN indexes, metadata filters, reranking
 - Dedicated vector databases or ANN libraries matter when recall-latency scale, index operations, or specialized filtering exceed the baseline.
 - Agent memory is retrieval over prior state. It still needs schema, scoring, decay, and conflict rules.
 
+## Frontier Lab Lessons
+
+- OpenAI's retrieval docs make attributes, chunking strategy, vector-store lifecycle, search filtering, and eventual consistency part of the retrieval contract.
+- Hosted file-search tools are useful baselines, but engineering teams still need explicit metadata, permissions, freshness, and eval datasets around the retrieval layer.
+- MCP-style connectors should be treated as data-access boundaries: the tool can expose context, but the database still owns schema, identity, retention, and auditability.
+
 ## Minimal Query Mental Model
 
 ```sql
@@ -45,6 +51,12 @@ LIMIT 5;
 - `retrieval-evaluation-dataset-shapes`
 - `long-context-vs-retrieval-tradeoffs`
 - `hybrid-ai-data-stack`
+
+## References
+
+- [OpenAI Retrieval](https://developers.openai.com/api/docs/guides/retrieval)
+- [OpenAI File Search](https://platform.openai.com/docs/guides/tools-file-search/)
+- [Anthropic Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
 
 ## When To Use What
 

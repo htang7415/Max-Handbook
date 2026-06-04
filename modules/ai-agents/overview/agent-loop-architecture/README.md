@@ -12,6 +12,8 @@ An agent loop repeatedly turns state into an action, observes the result, record
 - A useful architecture has explicit routes for answer, tool, review, block, and stop.
 - Risk and remaining budget should affect the next action before the loop takes another step.
 - Traces make later evaluation and debugging possible.
+- OpenAI and Anthropic both treat agents as model-plus-tools-plus-state loops; the engineering value comes from explicit control points and inspectable traces.
+- DeepMind's AlphaEvolve is a strong example of an agent loop grounded by automated evaluators rather than free-form self-assessment.
 
 ## Minimal Code Mental Model
 
@@ -44,6 +46,12 @@ def choose_next_action(
 def update_loop_state(state: dict[str, object], route: str, observation: str) -> dict[str, object]:
 def trace_step(step_id: str, route: str, latency_ms: int, success: bool) -> dict[str, object]:
 ```
+
+## References
+
+- [OpenAI Agents SDK](https://developers.openai.com/api/docs/guides/agents)
+- [Anthropic Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)
 
 ## Run tests
 

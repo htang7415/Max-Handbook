@@ -16,6 +16,7 @@ Use this page to understand:
 - The first goal is to separate model, tool, and workflow problems.
 - Modern GenAI tracing should separate inference, embeddings, retrieval, and tool execution spans so failures are attributable.
 - Content capture should be deliberate because prompts, tool outputs, and retrieved documents can contain sensitive data.
+- OpenTelemetry GenAI conventions and OpenAI trace grading point to the same shape: traces should preserve enough structure to grade model calls, retrievals, tool executions, and handoffs separately.
 
 ## Core Math
 
@@ -51,6 +52,11 @@ summary = summarize_trace(trace)
 - Attributing failures to model, tool, or workflow sources: `root-cause-attribution`
 - A simple vocabulary for trace span types: `span-taxonomy`
 - Deterministic retention of only some runs: `run-sampling`
+
+## References
+
+- [OpenAI Trace Grading](https://developers.openai.com/api/docs/guides/trace-grading)
+- [OpenTelemetry GenAI Spans](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/)
 
 ## When To Use What
 

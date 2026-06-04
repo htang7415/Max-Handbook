@@ -17,6 +17,13 @@ This track is optimized for:
 - Use docs pages as routing maps and modules as executable learning units.
 - Treat classical ML, deep learning, LLMs, and systems as one connected stack rather than separate silos.
 
+## Frontier Lab Lessons
+
+- OpenAI's deliberative alignment work shows that safety behavior can improve when models learn interpretable specifications and how to reason over them, not only outcome labels.
+- Anthropic's interpretability work shows that model understanding is becoming an engineering discipline, but features are not enough; circuits, usage, and safety interventions still need evidence.
+- DeepMind's AlphaEvolve shows that LLMs can become optimization systems when paired with automated evaluators and iterative search over code or algorithms.
+- DeepMind's frontier-safety work turns capability evaluation into a release discipline; ML handbook topics should connect model capability, eval coverage, and deployment risk.
+
 ## How To Use This Track
 
 - Start with one section, not the whole tree.
@@ -87,3 +94,10 @@ code = implement_smallest_working_version(equation)
 - Use `docs/ai-agents/evaluation` when model behavior is embedded in a tool-using workflow.
 - Use `docs/databases/vector-db/overview.md` when retrieval, metadata, or freshness affects LLM output quality.
 - Use `docs/software-engineering/performance` and `docs/software-engineering/reliability` when serving budgets or rollback rules decide deployment.
+
+## References
+
+- [OpenAI Deliberative Alignment](https://openai.com/index/deliberative-alignment/)
+- [Anthropic Mapping the Mind of a Large Language Model](https://www.anthropic.com/research/mapping-mind-language-model)
+- [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)
+- [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)

@@ -21,6 +21,13 @@ Use this page to keep the agent stack in the right order:
 - In 2026, useful agents need traces first, then repeatable eval datasets, then release gates.
 - As systems grow, routing, latency, and risk decisions should become explicit scores, budgets, or thresholds instead of ad hoc prompt intuition.
 
+## Frontier Lab Lessons
+
+- OpenAI's agent guidance separates one-call tool use, SDK-owned orchestration, guardrails, handoffs, traces, and evals; use the smallest surface that gives the workflow enough control.
+- Anthropic's agent guidance starts from simple composable workflows before autonomous loops; use routing, prompt chaining, parallelization, orchestrator-workers, and evaluator-optimizer loops only when the task shape justifies them.
+- DeepMind's AlphaEvolve shows the practical value of pairing generative agents with automated evaluators and iterative search when objective feedback is available.
+- Frontier-safety work from DeepMind and OpenAI reinforces the same engineering rule: as autonomy and capability rise, evaluation, human review, and shutdown or rollback paths must become explicit.
+
 ## Core Math
 
 - Success rate:
@@ -67,6 +74,12 @@ score = task_success_rate([True, False, True])
 
 - Decision patterns: `decision-methods`
 - 2026 production priorities: `roadmap-2026`
+
+## References
+
+- [OpenAI Agents SDK](https://developers.openai.com/api/docs/guides/agents)
+- [Anthropic Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)
+- [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)
 
 ## When To Use What
 

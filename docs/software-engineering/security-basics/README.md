@@ -20,6 +20,8 @@ Use this page to organize security into:
 - Agentic systems add a new trust boundary: untrusted text can influence tool calls, memory, permissions, and external side effects.
 - Supply-chain controls should include provenance, dependency review, and automated risk signals instead of relying only on package reputation.
 - Agentic security reviews should include goal manipulation, unsafe tool use, overbroad permissions, memory poisoning, and human-approval boundaries.
+- Claude Code's security model is a useful reference pattern: read-only by default, explicit permission for edits or shell commands, sandboxing, and write boundaries around the project.
+- Frontier-model safety frameworks should influence software threat modeling when model capability, autonomy, or deployment scale increases.
 
 ## Canonical Modules
 
@@ -35,6 +37,11 @@ Use this page to organize security into:
 - Math level: `low`
 - Main quantitative objects: scope counts, credential age, risk thresholds, and exposure surface.
 - Code shape: deny-by-default checks, validators, secret-handling policies, and reviewable privilege transitions.
+
+## References
+
+- [Claude Code Security](https://code.claude.com/docs/en/security)
+- [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
 
 ## When To Use What
 

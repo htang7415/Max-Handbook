@@ -22,6 +22,12 @@ Use this page to understand the main evaluation modes for modern LLM systems wit
 - `Retrieval and reranking` ask whether the system surfaces relevant documents early enough. This is where Recall@k, MRR, and NDCG fit.
 - `Agent and workflow evaluation` asks whether model calls, tool calls, guardrails, and handoffs succeeded as a trace, not only as a final answer.
 
+## Frontier Lab Lessons
+
+- OpenAI's eval platform guidance emphasizes datasets, criteria-level results, external-model comparisons, usage accounting, and dashboard reports; product LLM evals should preserve both quality and cost evidence.
+- OpenAI and Anthropic both treat trace or transcript grading as necessary once model calls are embedded in tools, memory, or handoffs.
+- DeepMind's frontier-safety approach treats capability evals as early-warning systems, so high-capability LLM evals should include risk-triggering cases, not only benchmark averages.
+
 ## Core Math
 
 - Perplexity:
@@ -69,6 +75,13 @@ trace_score = grade_trace(model_calls, tool_calls, guardrail_events)
 ## Supporting Guides
 
 - Vote and minority-cluster guide (`docs/ml/llm/vote-metrics`)
+
+## References
+
+- [OpenAI Evals](https://developers.openai.com/api/docs/guides/evals)
+- [OpenAI Agent Evals](https://developers.openai.com/api/docs/guides/agent-evals)
+- [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
 
 ## When To Use What
 
