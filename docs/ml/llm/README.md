@@ -33,7 +33,7 @@ Use this page to keep the LLM stack in the right order:
   \quad
   \text{preference objective}
   $$
-- The details live in the section guides and canonical modules below.
+- The rest of the page maps those equations to interfaces, evaluation, serving, and safety checks.
 
 ## Minimal Code Mental Model
 
@@ -43,7 +43,7 @@ hidden = transformer(tokens)
 next_token = decode(hidden[-1], strategy="top_p")
 ```
 
-## Canonical Modules
+## Engineering Stack
 
 - Tokenization and representations: `token-representation-methods`, `rope-and-position-scaling`
 - Transformer core: `attention-mechanisms`, `transformer`, `grouped-query-and-multi-query-attention`
@@ -65,17 +65,29 @@ next_token = decode(hidden[-1], strategy="top_p")
 - LLM evaluation: likelihood, task metrics, judges, retrieval metrics, and workflow traces.
 - Inference serving: batching, KV cache, quantization, latency, throughput, and cost.
 
-## When To Use What
+## Engineering Checklist
 
-- Start with token-representation methods and attention before jumping to alignment or serving.
-- Use `rope-and-position-scaling` when the long-context question is positional extrapolation rather than cache reuse.
-- Use `reasoning-and-test-time-compute` before tuning sampling-heavy reasoning workflows.
-- Use `multimodal-llms` when the system has to mix text with images, audio, or video.
-- Use the evaluation guide before choosing metrics module by module.
-- Use decoding methods when generation behavior is the issue.
-- Use `cross-encoder-vs-bi-encoder` when choosing between first-stage dense retrieval and second-stage reranking.
-- Use `grouped-query-and-multi-query-attention` when KV cache size or memory bandwidth is the main inference constraint.
-- Use `flashattention-and-io-aware-attention` when the attention kernel itself is the serving or training bottleneck.
-- Use serving and systems topics when latency, memory, or throughput becomes the bottleneck.
-- If the model must call APIs, browse interfaces, or use MCP-style tool servers, switch to agent tool use.
-- Treat this page as the stack overview; use the leaf guides for the real detail.
+- Interface: tokenizer, context budget, output schema, and refusal boundary.
+- Quality: task metric, judge rubric, retrieval metric, slices, and regression set.
+- Context: truncation rule, cache strategy, citation policy, and long-context degradation check.
+- Serving: prefill latency, decode latency, KV-cache memory, batching, quantization, and cost.
+- Safety: alignment objective, policy test cases, red-team cases, and rollback gate.
+- Iteration: fixed baseline, eval report, release threshold, and production monitoring signal.
+
+## Lab Signals
+
+- OpenAI: reason with explicit effort, return structured outputs, and evaluate with datasets and graders.
+- Anthropic: write evals before prompt fixes become folklore; keep transcripts and failure labels inspectable.
+- DeepMind: pair generation with automated evaluators when optimizing algorithms or system behavior.
+- Hugging Face: keep implementation concrete through Transformers generation, KV cache choices, Evaluate metrics, and TRL post-training.
+
+## References
+
+- [OpenAI Reasoning Models](https://developers.openai.com/api/docs/guides/reasoning)
+- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
+- [OpenAI Evals](https://developers.openai.com/api/docs/guides/evals)
+- [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)
+- [Hugging Face KV Cache Strategies](https://huggingface.co/docs/transformers/en/kv_cache)
+- [Hugging Face Evaluate](https://huggingface.co/docs/evaluate/choosing_a_metric)
+- [Hugging Face TRL](https://huggingface.co/docs/trl)

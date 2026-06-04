@@ -77,6 +77,40 @@ function stripSourceReferences(markdown: string): string {
       .join(" ");
   }
 
+  function humanizeSlug(slug: string) {
+    return slug
+      .split("-")
+      .filter(Boolean)
+      .map((part) => {
+        const known = new Map([
+          ["llm", "LLM"],
+          ["llms", "LLMs"],
+          ["nlp", "NLP"],
+          ["rag", "RAG"],
+          ["mcp", "MCP"],
+          ["rlhf", "RLHF"],
+          ["rlaif", "RLAIF"],
+          ["dpo", "DPO"],
+          ["sft", "SFT"],
+          ["kv", "KV"],
+          ["qk", "QK"],
+          ["io", "IO"],
+          ["bm25", "BM25"],
+          ["gpu", "GPU"],
+          ["api", "API"],
+          ["apis", "APIs"],
+          ["ui", "UI"],
+          ["cdc", "CDC"],
+          ["sql", "SQL"],
+          ["ann", "ANN"],
+          ["vs", "vs"],
+          ["flashattention", "FlashAttention"],
+        ]);
+        return known.get(part) ?? part.charAt(0).toUpperCase() + part.slice(1);
+      })
+      .join(" ");
+  }
+
   for (const line of lines) {
     const trimmed = line.trim();
     if (trimmed.startsWith("```")) {
@@ -108,6 +142,9 @@ function stripSourceReferences(markdown: string): string {
     );
     content = content.replace(/(?<![A-Za-z0-9./:-])docs\/[a-z0-9\-_/]+(?:\.md)?/gi, (path) =>
       humanizePath(path)
+    );
+    content = content.replace(/`([a-z0-9]+(?:-[a-z0-9]+)+)`/g, (_match, slug) =>
+      humanizeSlug(slug)
     );
     content = content.replace(/`modules\/[^`]+`/gi, "");
     content = content.replace(/modules\/[a-z0-9\-_/]+/gi, "");

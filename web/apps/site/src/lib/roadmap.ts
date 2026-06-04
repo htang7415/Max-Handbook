@@ -934,6 +934,7 @@ export function extractTopicEntryGroups(
     "canonical modules",
     "canonical families",
     "canonical learning units",
+    "engineering stack",
   ]);
   const supportingBodies = extractSectionBodies(docContent, [
     "supporting modules",
