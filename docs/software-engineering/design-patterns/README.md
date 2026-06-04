@@ -17,6 +17,26 @@ Use this page to organize patterns into:
 - Prefer patterns that explain a boundary or control flow clearly in code review.
 - If a pattern hides behavior, it is probably the wrong pattern for a learning-first repo.
 
+## Decision Table
+
+| Pattern | Use when | Avoid when |
+| --- | --- | --- |
+| Adapter | External or legacy shape should not leak inward | You only need a one-line rename |
+| Dependency injection | Tests or deployments need replaceable side effects | The dependency is pure and stable |
+| Strategy | One stable contract needs several policy choices | Branching is simpler and local |
+| State machine | Only some transitions are valid | The flow has no meaningful state |
+| Composition | Small capabilities should combine without inheritance | The object hierarchy is already fixed and shallow |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Name the boundary or behavior variation | Reason for the pattern |
+| 2 | Write the smallest stable interface | Contract |
+| 3 | Implement one concrete path first | Baseline behavior |
+| 4 | Add the second path only when needed | Proof the abstraction pays for itself |
+| 5 | Test through the interface | Reviewable behavior |
+
 ## Canonical Modules
 
 - `adapters-and-anti-corruption-layers`

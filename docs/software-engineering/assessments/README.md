@@ -2,6 +2,25 @@
 
 Use this page to check whether the track is changing how you reason about software, not just increasing the number of modules you have read.
 
+## Decision Table
+
+| Readiness area | You are ready when | Weak signal |
+| --- | --- | --- |
+| Contracts | You can name caller expectations and compatibility rules | You describe only implementation details |
+| Tests | You can pick the smallest useful verification set | You add broad tests without knowing the invariant |
+| Security | You can draw the trust boundary and privilege rule | You treat security as a final checklist |
+| Operations | You can name the production signal and rollback trigger | You cannot say what should page or rollback |
+| AI-assisted work | You can review generated code against specs and failure modes | You trust the diff because it looks plausible |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Pick one proposed change or module | Assessment target |
+| 2 | Answer contract, failure, test, signal, rollback, and AI-impact questions | Readiness score |
+| 3 | Identify the weakest answer | Next module or section to revisit |
+| 4 | Repeat on a capstone scenario | End-to-end evidence |
+
 ## Section Checks
 
 - Tooling: Can you explain what spec, review, and CI gates are required before AI-generated code should merge?

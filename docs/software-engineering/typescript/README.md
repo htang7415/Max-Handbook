@@ -17,6 +17,26 @@ Use this page to organize TypeScript engineering into:
 - Shared types are useful only when ownership and versioning stay clear.
 - TypeScript should clarify contracts, not turn every file into type-level metaprogramming.
 
+## Decision Table
+
+| Practice | Use when | Failure to guard |
+| --- | --- | --- |
+| Type-driven API design | Request and response shapes drive implementation | Types drift from runtime behavior |
+| Runtime validation | Data comes from users, storage, network, or AI output | Trusting unvalidated values |
+| Async service patterns | Work depends on external I/O | Lost errors, unbounded concurrency, and missing cancellation |
+| Backend tests | Type safety does not prove behavior | Untested error and boundary paths |
+| Shared frontend/backend types | One contract serves both sides and ownership is clear | Tight coupling across independent release cycles |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Define the public contract as types | Reviewable API shape |
+| 2 | Add runtime validation at untrusted boundaries | Parser or validator |
+| 3 | Model async success and failure explicitly | Result or error path |
+| 4 | Test through boundary behavior | Service-level checks |
+| 5 | Share types only with versioning discipline | Stable client/server contract |
+
 ## Canonical Modules
 
 - `type-driven-api-design`

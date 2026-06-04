@@ -20,6 +20,27 @@ Use this page to organize tooling into:
 - Build and release automation should make provenance, dependency review, and generated-code boundaries visible to reviewers.
 - Coding agents should run inside explicit permission, sandbox, and review boundaries; convenience modes are not substitutes for ownership or tests.
 
+## Decision Table
+
+| Tooling concern | Use when | Guard |
+| --- | --- | --- |
+| Reproducible environment | Local setup or CI differs across machines | One command produces the same baseline |
+| Codegen boundary | Generated files can be edited or reviewed incorrectly | Ownership and regeneration path are explicit |
+| CI pipeline | Checks must run before merge or release | Fast targeted checks block regressions |
+| Review discipline | Change risk exceeds what tests can prove | Human review focuses on contract and failure modes |
+| Spec-first AI coding | AI helps implement nontrivial changes | Acceptance checks exist before code generation |
+| Generated-code checklist | AI or tools produce large diffs | Reviewers know what not to trust blindly |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Make setup reproducible | Local and CI baseline |
+| 2 | Mark generated and owned code paths | Review boundary |
+| 3 | Define required checks by risk | CI gate |
+| 4 | Use specs before AI-generated edits | Acceptance criteria |
+| 5 | Review and merge with evidence | Traceable delivery decision |
+
 ## Canonical Modules
 
 - `ai-assisted-dev-loop`

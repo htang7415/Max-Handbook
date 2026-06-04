@@ -17,6 +17,27 @@ Use this page to organize performance into:
 - Throughput, memory, and cost trade off against each other.
 - The right optimization depends on the bottleneck shape: CPU, I/O, memory, network, or contention.
 
+## Decision Table
+
+| Tool | Use when | Guard |
+| --- | --- | --- |
+| Latency budget | A request path has multiple steps | Optimize the largest budget breach first |
+| Profiling | The bottleneck is unknown | Measure before changing code |
+| Caching | Reads repeat and freshness rules are explicit | Define invalidation before rollout |
+| Batching | Fixed overhead dominates per-item work | Watch tail latency and partial failure |
+| Streaming | Early output matters more than total completion | Preserve ordering and backpressure |
+| Allocation analysis | Memory churn or GC pauses dominate | Measure object lifetime and peak usage |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Define the user-facing budget | Latency, throughput, memory, or cost target |
+| 2 | Measure the current path | Baseline profile |
+| 3 | Classify the bottleneck | CPU, I/O, memory, network, or contention |
+| 4 | Pick the narrowest optimization | Cache, batch, stream, allocate less, or redesign |
+| 5 | Re-measure correctness and performance | Before/after evidence |
+
 ## Canonical Modules
 
 - `latency-budgeting`

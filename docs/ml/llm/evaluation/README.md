@@ -22,6 +22,27 @@ Use this page to understand the main evaluation modes for modern LLM systems wit
 - `Retrieval and reranking` ask whether the system surfaces relevant documents early enough. This is where Recall@k, MRR, and NDCG fit.
 - `Agent and workflow evaluation` asks whether model calls, tool calls, guardrails, and handoffs succeeded as a trace, not only as a final answer.
 
+## Decision Table
+
+| Eval mode | Use when | Primary signal | Do not use as |
+| --- | --- | --- | --- |
+| Perplexity | Comparing language modeling checkpoints or domains | Token likelihood | Product quality by itself |
+| Exact match / answer verification | References are strong and deterministic | Correctness against ground truth | Open-ended quality scoring |
+| Pass@k | Multiple samples or attempts are allowed | Chance at least one answer works | Single-shot reliability |
+| Vote metrics | Sampling exposes consensus or minority clusters | Agreement and disagreement shape | Proof that the majority is correct |
+| Judge evaluation | References are weak, subjective, or style-dependent | Rubric score or preference | Uncalibrated authority |
+| Retrieval metrics | Answer quality depends on ranked context | Recall@k, MRR, NDCG | Final answer quality without grounding checks |
+| Trace grading | Tools, memory, or handoffs affect the result | Step-level pass/fail and failure labels | A replacement for final outcome scoring |
+
+## Workflow
+
+1. Define the decision the eval will gate: model choice, prompt change, retrieval change, or release.
+2. Freeze a representative dataset with task labels, slices, and known hard cases.
+3. Pick the smallest metric set that catches the expected failure.
+4. Run a baseline before changing prompts, models, tools, or retrieval.
+5. Compare quality, latency, cost, and safety signals together.
+6. Turn repeated failures into regression cases.
+
 ## Frontier Lab Lessons
 
 - OpenAI's eval platform guidance emphasizes datasets, criteria-level results, external-model comparisons, usage accounting, and dashboard reports; product LLM evals should preserve both quality and cost evidence.

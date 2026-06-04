@@ -17,6 +17,26 @@ Use this page to understand:
 - Queues trade immediate coupling for delayed coordination.
 - A clear state machine is often easier to reason about than a pile of interleavings.
 
+## Decision Table
+
+| Mechanism | Use when | Failure to guard |
+| --- | --- | --- |
+| Shared-state protection | Multiple workers can touch the same state | Lost updates and stale reads |
+| Queue | Work can be delayed, retried, and observed asynchronously | Duplicate delivery and poison messages |
+| Timeout or cancellation | Work may outlive the caller or budget | Leaked work and partial side effects |
+| Idempotent consumer | Messages or jobs can run more than once | Duplicate writes and repeated external calls |
+| State machine | Workflow correctness depends on allowed transitions | Hidden interleavings and invalid states |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Name the shared state and owner | State boundary |
+| 2 | Identify ordering, duplicate, and cancellation cases | Failure model |
+| 3 | Pick queue, lock, idempotency, or state machine | Coordination mechanism |
+| 4 | Add retry and deadline behavior | Bounded worker policy |
+| 5 | Test the race or duplicate path directly | Focused concurrency check |
+
 ## Canonical Modules
 
 - `race-conditions-and-shared-state`

@@ -151,6 +151,7 @@ const TOPIC_NAMES: Record<string, string> = {
 };
 
 const MAX_SUMMARY_LENGTH = 180;
+const TRACK_ORDER = new Map(TRACKS.map((track, index) => [track.id, index]));
 
 function isDirectory(path: string) {
   try {
@@ -255,6 +256,85 @@ function languageFromPath(filePath: string) {
   return extension.replace(".", "") || "text";
 }
 
+function compareTrackOrder(a: string, b: string) {
+  const aIndex = TRACK_ORDER.get(a) ?? Number.MAX_SAFE_INTEGER;
+  const bIndex = TRACK_ORDER.get(b) ?? Number.MAX_SAFE_INTEGER;
+  if (aIndex !== bIndex) return aIndex - bIndex;
+  return a.localeCompare(b);
+}
+
+function compareTopicEntries(a: TopicIndexEntry, b: TopicIndexEntry) {
+  const trackCompare = compareTrackOrder(a.track, b.track);
+  if (trackCompare !== 0) return trackCompare;
+  return a.topic.localeCompare(b.topic);
+}
+
+function compareSearchEntries(a: SearchEntry, b: SearchEntry) {
+  const titleCompare = a.title.localeCompare(b.title);
+  if (titleCompare !== 0) return titleCompare;
+
+  const typeCompare = a.type.localeCompare(b.type);
+  if (typeCompare !== 0) return typeCompare;
+
+  const trackCompare = compareTrackOrder(a.track, b.track);
+  if (trackCompare !== 0) return trackCompare;
+
+  const topicCompare = a.topic.localeCompare(b.topic);
+  if (topicCompare !== 0) return topicCompare;
+
+  const slugCompare = a.slug.localeCompare(b.slug);
+  if (slugCompare !== 0) return slugCompare;
+
+  return a.id.localeCompare(b.id);
+}
+
+function readExistingIndex(filePath: string) {
+  try {
+    return JSON.parse(readFileSync(filePath, "utf-8")) as Record<string, unknown>;
+  } catch {
+    return undefined;
+  }
+}
+
+function stripGeneratedAt(index: Record<string, unknown>) {
+  return {
+    ...index,
+    generated_at: "",
+  };
+}
+
+function sameIndexContent(
+  existing: Record<string, unknown> | undefined,
+  candidate: Record<string, unknown>
+) {
+  if (!existing) return false;
+  return JSON.stringify(stripGeneratedAt(existing)) === JSON.stringify(candidate);
+}
+
+function resolveGeneratedAt(
+  contentPath: string,
+  searchPath: string,
+  contentCandidate: ContentIndex,
+  searchCandidate: SearchIndex
+) {
+  const existingContent = readExistingIndex(contentPath);
+  const existingSearch = readExistingIndex(searchPath);
+  const existingGeneratedAt =
+    typeof existingContent?.generated_at === "string"
+      ? existingContent.generated_at
+      : undefined;
+
+  if (
+    existingGeneratedAt &&
+    sameIndexContent(existingContent, contentCandidate as unknown as Record<string, unknown>) &&
+    sameIndexContent(existingSearch, searchCandidate as unknown as Record<string, unknown>)
+  ) {
+    return existingGeneratedAt;
+  }
+
+  return new Date().toISOString();
+}
+
 async function main() {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
@@ -320,7 +400,7 @@ async function main() {
         absolute: true,
         nodir: true,
       });
-      for (const sourcePath of pythonSources) {
+      for (const sourcePath of pythonSources.sort()) {
         const fileName = basename(sourcePath);
         if (fileName.startsWith("test_")) continue;
         if (sourcePath.includes("__pycache__")) continue;
@@ -336,7 +416,7 @@ async function main() {
         absolute: true,
         nodir: true,
       });
-      for (const sourcePath of typescriptSources) {
+      for (const sourcePath of typescriptSources.sort()) {
         const fileName = basename(sourcePath);
         if (fileName.startsWith("test_")) continue;
         if (sourcePath.endsWith(".d.ts")) continue;
@@ -352,7 +432,7 @@ async function main() {
         absolute: true,
         nodir: true,
       });
-      for (const sourcePath of rustSources) {
+      for (const sourcePath of rustSources.sort()) {
         sources.push({
           path: relative(repoRoot, sourcePath),
           language: languageFromPath(sourcePath),
@@ -469,7 +549,7 @@ async function main() {
       };
     })
     .filter((topic) => Boolean(topic.track) && Boolean(topic.topic))
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort(compareTopicEntries);
 
   const tracks: TrackIndexEntry[] = TRACKS.map((track) => {
     const topicCount = topics.filter((topic) => topic.track === track.id).length;
@@ -483,10 +563,11 @@ async function main() {
 
   const outDir = resolve(repoRoot, "web/apps/site/src/content");
   mkdirSync(outDir, { recursive: true });
-  const generatedAt = new Date().toISOString();
+  const contentPath = resolve(outDir, "content_index.json");
+  const searchPath = resolve(outDir, "search_index.json");
 
-  const contentIndex: ContentIndex = {
-    generated_at: generatedAt,
+  const contentIndexCandidate: ContentIndex = {
+    generated_at: "",
     tracks,
     topics,
     modules,
@@ -494,16 +575,30 @@ async function main() {
     docs,
   };
 
-  const contentPath = resolve(outDir, "content_index.json");
+  const searchIndexCandidate: SearchIndex = {
+    generated_at: "",
+    entries: searchEntries
+      .slice()
+      .sort(compareSearchEntries),
+  };
+
+  const generatedAt = resolveGeneratedAt(
+    contentPath,
+    searchPath,
+    contentIndexCandidate,
+    searchIndexCandidate
+  );
+
+  const contentIndex: ContentIndex = {
+    ...contentIndexCandidate,
+    generated_at: generatedAt,
+  };
   writeFileSync(contentPath, JSON.stringify(contentIndex, null, 2) + "\n");
 
   const searchIndex: SearchIndex = {
+    ...searchIndexCandidate,
     generated_at: generatedAt,
-    entries: searchEntries
-      .slice()
-      .sort((a, b) => a.title.localeCompare(b.title)),
   };
-  const searchPath = resolve(outDir, "search_index.json");
   writeFileSync(searchPath, JSON.stringify(searchIndex, null, 2) + "\n");
 
   console.log(

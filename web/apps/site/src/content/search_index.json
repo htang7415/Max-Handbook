@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-04T20:02:49.195Z",
+  "generated_at": "2026-06-04T20:21:20.337Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -2090,6 +2090,18 @@
       "topicName": "SQL Patterns"
     },
     {
+      "id": "doc:ml/assessments/assessments",
+      "type": "doc",
+      "title": "Assessments",
+      "summary": "Use this page to check whether the ML track is building engineering judgment, not just formula recall.",
+      "track": "ml",
+      "topic": "assessments",
+      "slug": "assessments",
+      "href": "/track/ml/assessments#assessments",
+      "trackName": "Machine Learning",
+      "topicName": "Assessments"
+    },
+    {
       "id": "doc:ai-agents/assessments/assessments",
       "type": "doc",
       "title": "Assessments",
@@ -2111,18 +2123,6 @@
       "slug": "assessments",
       "href": "/track/databases/assessments#assessments",
       "trackName": "Databases",
-      "topicName": "Assessments"
-    },
-    {
-      "id": "doc:ml/assessments/assessments",
-      "type": "doc",
-      "title": "Assessments",
-      "summary": "Use this page to check whether the ML track is building engineering judgment, not just formula recall.",
-      "track": "ml",
-      "topic": "assessments",
-      "slug": "assessments",
-      "href": "/track/ml/assessments#assessments",
-      "trackName": "Machine Learning",
       "topicName": "Assessments"
     },
     {
@@ -2678,6 +2678,18 @@
       "topicName": "MLOps"
     },
     {
+      "id": "doc:ml/capstones/capstones",
+      "type": "doc",
+      "title": "Capstones",
+      "summary": "Use ML capstones to combine modeling, evaluation, serving, and rollout decisions into one engineering workflow.",
+      "track": "ml",
+      "topic": "capstones",
+      "slug": "capstones",
+      "href": "/track/ml/capstones#capstones",
+      "trackName": "Machine Learning",
+      "topicName": "Capstones"
+    },
+    {
       "id": "doc:ai-agents/capstones/capstones",
       "type": "doc",
       "title": "Capstones",
@@ -2699,18 +2711,6 @@
       "slug": "capstones",
       "href": "/track/databases/capstones#capstones",
       "trackName": "Databases",
-      "topicName": "Capstones"
-    },
-    {
-      "id": "doc:ml/capstones/capstones",
-      "type": "doc",
-      "title": "Capstones",
-      "summary": "Use ML capstones to combine modeling, evaluation, serving, and rollout decisions into one engineering workflow.",
-      "track": "ml",
-      "topic": "capstones",
-      "slug": "capstones",
-      "href": "/track/ml/capstones#capstones",
-      "trackName": "Machine Learning",
       "topicName": "Capstones"
     },
     {
@@ -3686,18 +3686,6 @@
       "topicName": "Evaluation"
     },
     {
-      "id": "module:ml/generative/diffusion-models",
-      "type": "module",
-      "title": "Diffusion Models",
-      "summary": "> Track: `ml` | Topic: `generative`",
-      "track": "ml",
-      "topic": "generative",
-      "slug": "diffusion-models",
-      "href": "/track/ml/generative#diffusion-models",
-      "trackName": "Machine Learning",
-      "topicName": "Generative"
-    },
-    {
       "id": "doc:ml/generative/diffusion",
       "type": "doc",
       "title": "Diffusion Models",
@@ -3706,6 +3694,18 @@
       "topic": "generative",
       "slug": "diffusion",
       "href": "/track/ml/generative#diffusion",
+      "trackName": "Machine Learning",
+      "topicName": "Generative"
+    },
+    {
+      "id": "module:ml/generative/diffusion-models",
+      "type": "module",
+      "title": "Diffusion Models",
+      "summary": "> Track: `ml` | Topic: `generative`",
+      "track": "ml",
+      "topic": "generative",
+      "slug": "diffusion-models",
+      "href": "/track/ml/generative#diffusion-models",
       "trackName": "Machine Learning",
       "topicName": "Generative"
     },
@@ -3936,6 +3936,18 @@
       "href": "/track/ml/fundamentals#empirical-pmf",
       "trackName": "Machine Learning",
       "topicName": "Fundamentals"
+    },
+    {
+      "id": "doc:software-engineering/learning-paths/engineering-handbook-style",
+      "type": "doc",
+      "title": "Engineering Handbook Style",
+      "summary": "This page defines the writing contract for Max Handbook. The goal is not brand imitation. The goal is an engineer-facing style: clear decisions, runnable checks, and concise explan…",
+      "track": "software-engineering",
+      "topic": "learning-paths",
+      "slug": "engineering-handbook-style",
+      "href": "/track/software-engineering/learning-paths#engineering-handbook-style",
+      "trackName": "Software Engineering",
+      "topicName": "Learning Paths"
     },
     {
       "id": "module:databases/relational/entity-resolution-keys",
@@ -5366,18 +5378,6 @@
       "topicName": "Learning Paths"
     },
     {
-      "id": "module:ml/optimization/learning-rate-schedules",
-      "type": "module",
-      "title": "Learning Rate Schedules",
-      "summary": "> Track: `ml` | Topic: `optimization`",
-      "track": "ml",
-      "topic": "optimization",
-      "slug": "learning-rate-schedules",
-      "href": "/track/ml/optimization#learning-rate-schedules",
-      "trackName": "Machine Learning",
-      "topicName": "Optimization"
-    },
-    {
       "id": "doc:ml/optimization/schedules",
       "type": "doc",
       "title": "Learning Rate Schedules",
@@ -5386,6 +5386,18 @@
       "topic": "optimization",
       "slug": "schedules",
       "href": "/track/ml/optimization#schedules",
+      "trackName": "Machine Learning",
+      "topicName": "Optimization"
+    },
+    {
+      "id": "module:ml/optimization/learning-rate-schedules",
+      "type": "module",
+      "title": "Learning Rate Schedules",
+      "summary": "> Track: `ml` | Topic: `optimization`",
+      "track": "ml",
+      "topic": "optimization",
+      "slug": "learning-rate-schedules",
+      "href": "/track/ml/optimization#learning-rate-schedules",
       "trackName": "Machine Learning",
       "topicName": "Optimization"
     },
@@ -5426,18 +5438,6 @@
       "topicName": "Representation"
     },
     {
-      "id": "module:ml/models/linear-models",
-      "type": "module",
-      "title": "Linear Models",
-      "summary": "> Track: `ml` | Topic: `models`",
-      "track": "ml",
-      "topic": "models",
-      "slug": "linear-models",
-      "href": "/track/ml/models#linear-models",
-      "trackName": "Machine Learning",
-      "topicName": "Models"
-    },
-    {
       "id": "doc:ml/models/linear",
       "type": "doc",
       "title": "Linear Models",
@@ -5446,6 +5446,18 @@
       "topic": "models",
       "slug": "linear",
       "href": "/track/ml/models#linear",
+      "trackName": "Machine Learning",
+      "topicName": "Models"
+    },
+    {
+      "id": "module:ml/models/linear-models",
+      "type": "module",
+      "title": "Linear Models",
+      "summary": "> Track: `ml` | Topic: `models`",
+      "track": "ml",
+      "topic": "models",
+      "slug": "linear-models",
+      "href": "/track/ml/models#linear-models",
       "trackName": "Machine Learning",
       "topicName": "Models"
     },
@@ -6110,18 +6122,6 @@
       "topicName": "LLM"
     },
     {
-      "id": "module:ml/llm/multimodal-llms",
-      "type": "module",
-      "title": "Multimodal LLMs",
-      "summary": "> Track: `ml` | Topic: `llm`",
-      "track": "ml",
-      "topic": "llm",
-      "slug": "multimodal-llms",
-      "href": "/track/ml/llm#multimodal-llms",
-      "trackName": "Machine Learning",
-      "topicName": "LLM"
-    },
-    {
       "id": "doc:ml/llm/multimodal",
       "type": "doc",
       "title": "Multimodal LLMs",
@@ -6130,6 +6130,18 @@
       "topic": "llm",
       "slug": "multimodal",
       "href": "/track/ml/llm#multimodal",
+      "trackName": "Machine Learning",
+      "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/llm/multimodal-llms",
+      "type": "module",
+      "title": "Multimodal LLMs",
+      "summary": "> Track: `ml` | Topic: `llm`",
+      "track": "ml",
+      "topic": "llm",
+      "slug": "multimodal-llms",
+      "href": "/track/ml/llm#multimodal-llms",
       "trackName": "Machine Learning",
       "topicName": "LLM"
     },
@@ -6494,10 +6506,10 @@
       "topicName": "Relational"
     },
     {
-      "id": "module:ml/data/overflow-metrics",
-      "type": "module",
+      "id": "doc:ml/data/overflow-metrics",
+      "type": "doc",
       "title": "Overflow Metrics",
-      "summary": "> Track: `ml` | Topic: `data`",
+      "summary": "Overflow metrics describe what happens when examples exceed a hard token or length budget.",
       "track": "ml",
       "topic": "data",
       "slug": "overflow-metrics",
@@ -6506,10 +6518,10 @@
       "topicName": "Data"
     },
     {
-      "id": "doc:ml/data/overflow-metrics",
-      "type": "doc",
+      "id": "module:ml/data/overflow-metrics",
+      "type": "module",
       "title": "Overflow Metrics",
-      "summary": "Overflow metrics describe what happens when examples exceed a hard token or length budget.",
+      "summary": "> Track: `ml` | Topic: `data`",
       "track": "ml",
       "topic": "data",
       "slug": "overflow-metrics",

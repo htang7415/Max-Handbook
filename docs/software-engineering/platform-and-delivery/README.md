@@ -17,6 +17,27 @@ Use this page to organize platform engineering into:
 - Team interfaces shape system design as much as code interfaces do.
 - Cognitive load is a real architecture constraint.
 
+## Decision Table
+
+| Lever | Use when | Failure to avoid |
+| --- | --- | --- |
+| Release engineering | Changes need repeatable build, test, and deploy gates | Manual release drift |
+| Progressive delivery | Blast radius and rollback cost matter | All-at-once exposure |
+| Internal platform | Many teams repeat the same operational work | Hiding ownership behind abstractions |
+| Developer experience | Local or CI friction slows safe change | Optimizing comfort while losing rigor |
+| Ownership boundaries | Coordination cost blocks delivery | Shared responsibility with no owner |
+| Change budget | Risk accumulates faster than teams can review | Too many risky changes at once |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Identify the repeated delivery pain | Platform or process candidate |
+| 2 | Name the owner and user | Team interface |
+| 3 | Add the smallest safe gate | Build, test, rollout, or approval rule |
+| 4 | Measure lead time and failure rate | Delivery signal |
+| 5 | Expand only when ownership stays clear | Scaled platform capability |
+
 ## Canonical Modules
 
 - `release-engineering-basics`

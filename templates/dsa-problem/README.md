@@ -13,6 +13,10 @@
 - What words in the prompt hint at the right approach?
 -->
 
+| Signal | What it suggests |
+| --- | --- |
+| <!-- input/constraint/prompt cue --> | <!-- pattern implication --> |
+
 ## Baseline Idea
 
 <!-- Describe the brute-force or naive approach and why it is too slow. -->
@@ -33,6 +37,10 @@
 
 <!-- Walk through one representative example in a few short steps. -->
 
+| Step | State | Reason |
+| --- | --- | --- |
+| 1 | <!-- state --> | <!-- why this move is valid --> |
+
 ## Complexity
 
 <!--
@@ -42,17 +50,12 @@
 
 ## Edge Cases
 
-<!--
-- Empty input
-- Single element
-- Duplicates
-- No-solution case
-- Problem-specific corner cases
--->
-
-## Common Mistakes
-
-<!-- List the mistakes learners commonly make on this problem. -->
+| Case | Expected behavior | Why it matters |
+| --- | --- | --- |
+| Empty input | <!-- behavior --> | Boundary |
+| Single element | <!-- behavior --> | Boundary |
+| Duplicates | <!-- behavior --> | Invariant |
+| No-solution case | <!-- behavior --> | Contract |
 
 ## Pattern Transfer
 

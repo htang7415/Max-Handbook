@@ -23,11 +23,13 @@ Use this page to keep the agent stack in the right order:
 
 ## Frontier Lab Lessons
 
-- OpenAI's agent guidance separates one-call tool use, SDK-owned orchestration, guardrails, handoffs, traces, and evals; use the smallest surface that gives the workflow enough control.
-- Anthropic's agent guidance starts from simple composable workflows before autonomous loops; use routing, prompt chaining, parallelization, orchestrator-workers, and evaluator-optimizer loops only when the task shape justifies them.
-- DeepMind's AlphaEvolve shows the practical value of pairing generative agents with automated evaluators and iterative search when objective feedback is available.
-- Frontier-safety work from DeepMind and OpenAI reinforces the same engineering rule: as autonomy and capability rise, evaluation, human review, and shutdown or rollback paths must become explicit.
-- Hugging Face's agents course is useful as a practice reference because it organizes agents from fundamentals to frameworks, agentic RAG, observability, evaluation, and a final build/test/certify project.
+| Source | Engineering habit | Handbook implication |
+| --- | --- | --- |
+| OpenAI | Separate tool use, orchestration, guardrails, handoffs, traces, and evals. | Use the smallest control surface that gives enough observability and safety. |
+| Anthropic | Start with composable workflows before open-ended autonomy. | Teach routing, chaining, parallelization, orchestrator-workers, and evaluator loops by task shape. |
+| DeepMind | AlphaEvolve pairs generation with automated evaluators and iterative search. | Use agent loops when objective feedback can guide improvement. |
+| DeepMind and OpenAI | More autonomy requires evals, human review, and shutdown or rollback paths. | Make risk controls part of the architecture, not an appendix. |
+| Hugging Face | Agent courses move from fundamentals to RAG, observability, evaluation, and certification. | End practice with build, test, certify, and benchmark artifacts. |
 
 ## Core Math
 

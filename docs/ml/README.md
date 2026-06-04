@@ -19,11 +19,13 @@ This track is optimized for:
 
 ## Frontier Lab Lessons
 
-- OpenAI's deliberative alignment work shows that safety behavior can improve when models learn interpretable specifications and how to reason over them, not only outcome labels.
-- Anthropic's interpretability work shows that model understanding is becoming an engineering discipline, but features are not enough; circuits, usage, and safety interventions still need evidence.
-- DeepMind's AlphaEvolve shows that LLMs can become optimization systems when paired with automated evaluators and iterative search over code or algorithms.
-- DeepMind's frontier-safety work turns capability evaluation into a release discipline; ML handbook topics should connect model capability, eval coverage, and deployment risk.
-- Hugging Face's Transformers, Evaluate, and TRL docs keep the practice layer concrete: metrics, KV cache, quantization, and post-training methods should map to runnable libraries, not only papers.
+| Source | Engineering habit | Handbook implication |
+| --- | --- | --- |
+| OpenAI | Alignment and eval work makes behavior specification measurable. | Teach model behavior as objective, dataset, grader, and failure slice. |
+| Anthropic | Interpretability needs evidence that connects features, circuits, and interventions. | Avoid treating explanations as proof without tests or interventions. |
+| DeepMind | AlphaEvolve-style systems pair generation with automated evaluators and search. | Present LLMs as optimization systems when objective feedback exists. |
+| DeepMind | Frontier safety frames capability evaluation as release discipline. | Connect model capability, eval coverage, and deployment risk. |
+| Hugging Face | Transformers, Evaluate, and TRL keep concepts tied to runnable APIs. | Map metrics, KV cache, quantization, and post-training to compact code paths. |
 
 ## How To Use This Track
 

@@ -19,6 +19,26 @@ Use this page to organize testing into:
 - Agentic software needs trace, transcript, and final-state tests when the system changes state over several tool calls.
 - Evaluation suites should include both quality benchmarks and regression checks, with human calibration when model graders are used.
 
+## Decision Table
+
+| Testing layer | Use when | Primary signal | Common failure |
+| --- | --- | --- | --- |
+| Example/unit tests | The behavior has a clear input-output contract | Deterministic pass/fail | Missing boundary cases |
+| Contract tests | A caller, schema, API, or service boundary can drift | Compatibility failures | Tests mirror one implementation instead of the contract |
+| Property tests | Inputs are wide and hand-picked cases are weak | Invariant violations | Properties are too vague to catch real bugs |
+| Snapshot/golden tests | Output shape matters more than internal structure | Unexpected output diff | Brittle snapshots hide semantic regressions |
+| Agent or LLM evals | Behavior depends on prompts, tools, or model calls | Task, trace, cost, and failure labels | Final-answer scoring misses broken trajectories |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Name the invariant or contract | A one-sentence behavior rule |
+| 2 | Pick the smallest test layer that can observe it | Unit, contract, property, golden, or eval |
+| 3 | Add one regression case for the known failure | A focused failing case before the fix |
+| 4 | Add breadth only where the input space is large | Property, fuzz, or sampled eval cases |
+| 5 | Keep the check in the delivery path | CI, release gate, or eval report |
+
 ## Canonical Modules
 
 - `test-portfolio-in-practice`

@@ -20,10 +20,12 @@ Use this track to learn databases in the order that matters most in 2026:
 
 ## Frontier Lab Lessons
 
-- OpenAI's retrieval guidance treats vector stores as semantic-search indices over uploaded data, with attributes, chunking, filtering, expiration, and eventual consistency as engineering details.
-- Anthropic's MCP work reinforces that agents need standard ways to connect to external systems and data sources; database interfaces should expose metadata, permissions, and tool boundaries cleanly.
-- DeepMind's AlphaEvolve shows that AI systems can optimize infrastructure and algorithms, which increases the value of telemetry, eval data, experiment lineage, and reproducible analytics stores.
-- Hugging Face's RAG and agentic RAG material makes the retrieval lesson practical: retrieval databases need eval datasets, metadata, reranking, and answer-quality feedback, not just embeddings.
+| Source | Engineering habit | Handbook implication |
+| --- | --- | --- |
+| OpenAI | Retrieval systems need attributes, chunking, filtering, expiration, and consistency rules. | Teach vector search as an index with metadata and lifecycle constraints. |
+| Anthropic | MCP-style integrations expose external systems through clear tool and resource boundaries. | Database interfaces should make metadata, permissions, and ownership explicit. |
+| DeepMind | Optimization agents increase the value of telemetry, lineage, and reproducible experiments. | Treat eval logs and analytics stores as first-class data products. |
+| Hugging Face | RAG practice ties retrieval to eval datasets, reranking, and answer-quality feedback. | Teach embeddings as one component inside a measured retrieval workflow. |
 
 ## Recommended Path
 

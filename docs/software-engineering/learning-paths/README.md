@@ -2,6 +2,23 @@
 
 Use this page when you want a role-shaped route through software engineering instead of traversing the whole track in section order.
 
+## Decision Table
+
+| Path | Use when your work is mostly | Primary outcome |
+| --- | --- | --- |
+| Backend | APIs, services, contracts, tests, and concurrent work | Safer service changes under real failure modes |
+| Platform / Reliability | Delivery systems, operations, rollout, observability, and team leverage | Faster change with bounded risk |
+| AI Product Engineer | AI-assisted feature delivery, runtime validation, and regression control | Faster implementation without weaker engineering gates |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Pick the path closest to your current work | Role-shaped route |
+| 2 | Finish sections in order | Layered foundation |
+| 3 | Use assessments to find weak spots | Targeted revisit |
+| 4 | Complete one capstone before switching paths | Portfolio artifact |
+
 ## Backend Path
 
 ### Goal

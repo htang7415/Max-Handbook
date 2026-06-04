@@ -17,6 +17,26 @@ Use this page to organize Rust engineering into:
 - Explicit error types improve recovery and observability.
 - Performance gains are strongest when memory and concurrency behavior are already understood.
 
+## Decision Table
+
+| Practice | Use when | Engineering signal |
+| --- | --- | --- |
+| Ownership at API boundaries | State lifetime or mutation must be explicit | The compiler enforces the ownership contract |
+| Result error handling | Callers need recovery or observability context | Errors are typed and handled intentionally |
+| Traits | Multiple implementations share a stable behavior contract | Abstraction is narrow and testable |
+| Async Rust | I/O concurrency matters enough to manage runtime complexity | Cancellation and backpressure are explicit |
+| Library tests | Invariants should be stable across refactors | Tests document behavior and failure paths |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Name the state and ownership boundary | Borrowing or ownership contract |
+| 2 | Define recoverable errors | Result type |
+| 3 | Keep traits narrow until the boundary repeats | Minimal abstraction |
+| 4 | Add async only when I/O shape justifies it | Runtime-aware service path |
+| 5 | Test invariants through public APIs | Executable contract |
+
 ## Canonical Modules
 
 - `result-error-handling`

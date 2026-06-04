@@ -18,6 +18,24 @@ Use this page to combine:
 - A capstone is complete only when it includes verification and operating behavior, not just implementation logic.
 - AI-assisted code generation should make the capstone stricter about specs and review, not looser.
 
+## Decision Table
+
+| Capstone | Use when practicing | Completion signal |
+| --- | --- | --- |
+| Contract-to-production API service | API contracts, tests, observability, and rollout decisions | A change can move from spec to canary with rollback criteria |
+| AI-assisted feature delivery | Generated-code review, regression control, and scoped automation | AI speeds implementation without weakening checks |
+| Incident recovery drill | Mitigation, communication, postmortem, and follow-up action | The system has a clear recovery path under pressure |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Write the scenario and acceptance checks | Short spec with risk boundary |
+| 2 | Identify contracts and invariants | What must remain true across the flow |
+| 3 | Implement the smallest end-to-end path | Runnable artifact |
+| 4 | Add verification and operating signals | Tests, metrics, logs, dashboard, or eval gate |
+| 5 | Make the release or incident decision | Rollout, rollback, mitigation, or follow-up |
+
 ## Canonical Modules
 
 - `contract-to-production-api-service`

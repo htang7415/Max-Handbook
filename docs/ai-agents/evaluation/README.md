@@ -20,6 +20,28 @@ Use this page to understand:
 - A useful evaluation loop separates model failure, tool failure, and workflow failure.
 - Benchmark harnesses should keep cases stable while prompts, tools, models, and policies change.
 
+## Decision Table
+
+| Evaluation surface | Use when | Signal | Failure it catches |
+| --- | --- | --- | --- |
+| Final outcome | The task has an observable success condition | Pass/fail or score | Wrong answer or incomplete task |
+| Tool-call checks | External actions can fail or mutate state | Tool success rate and argument errors | Bad arguments, flaky tools, unsafe retries |
+| Trace grading | Multi-step behavior matters | Step correctness and route quality | Good final answer from a broken path |
+| Failure taxonomy | Repeated failures need triage | Stable category counts | Mixing model, tool, data, and workflow defects |
+| Cost-quality gate | Variants trade quality against latency or spend | Pareto frontier or threshold table | Expensive wins that should not ship |
+| Red-team evals | The agent can touch untrusted input or external systems | Block, escalate, or safe-complete rate | Prompt injection, exfiltration, privilege misuse |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Inspect traces from real or staged tasks | Candidate failure categories |
+| 2 | Freeze a small suite of representative cases | Dataset with task labels and risk tags |
+| 3 | Add graders for final outcome and key steps | Reproducible score fields |
+| 4 | Run baseline and candidate variants on the same cases | Paired comparison |
+| 5 | Review disagreements and risky passes | Updated grader or new eval case |
+| 6 | Promote stable checks into the release gate | Regression threshold |
+
 ## Frontier Lab Lessons
 
 - OpenAI's trace-grading guidance makes traces the first debugging surface, then moves to repeatable datasets and eval runs once "good" is defined.

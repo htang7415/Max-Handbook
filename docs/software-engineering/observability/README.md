@@ -17,6 +17,26 @@ Use this page to organize observability into:
 - Alerts should represent user or service risk, not raw noise volume.
 - Observability should be designed into the system before incidents force it.
 
+## Decision Table
+
+| Signal | Use when | Answers |
+| --- | --- | --- |
+| Structured logs | You need event context for one request or actor | What happened and with which fields? |
+| Metrics | You need aggregate health, rate, or threshold behavior | Is the service inside its objective? |
+| Traces | Latency or failure crosses service boundaries | Where did time or failure accumulate? |
+| SLI/SLO | Alerting should map to user impact | When should humans act? |
+| Runbook/dashboard | Operators need a repeatable response | What should be checked and done first? |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Define the user-visible behavior | Candidate SLI |
+| 2 | Add logs for local event context | Structured event schema |
+| 3 | Add metrics for aggregate health | Dashboard and alert inputs |
+| 4 | Add traces for dependency chains | Span taxonomy |
+| 5 | Tie alerts to runbooks | Actionable operating loop |
+
 ## Canonical Modules
 
 - `logs-metrics-and-traces`

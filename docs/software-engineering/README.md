@@ -20,11 +20,13 @@ Use this track to learn the engineering responsibilities that still matter most 
 
 ## Frontier Lab Lessons
 
-- OpenAI's structured-output and function-calling guidance reinforces contract-first engineering: schemas and tool outputs are runtime boundaries, not just prompt hints.
-- Anthropic's Claude Code security model is a useful coding-agent pattern: read-only by default, explicit approval for edits and commands, sandboxing, and project-scoped write access.
-- DeepMind's Frontier Safety Framework generalizes release engineering for powerful AI systems: identify capability thresholds, run early-warning evals, and require safety-case reviews for higher-risk deployments.
-- Anthropic and OpenAI agent-eval guidance both turn traces, datasets, graders, and regression suites into normal software delivery artifacts.
-- Hugging Face's agents course and evaluation material reinforce a practical engineering rule: systems should end in build, test, certify, share, and benchmark artifacts, not only explanations.
+| Source | Engineering habit | Handbook implication |
+| --- | --- | --- |
+| OpenAI | Structured outputs and function calls make schemas runtime boundaries. | Teach contract-first APIs and tool interfaces before prompt tuning. |
+| Anthropic | Coding agents need scoped permissions, approvals, and sandboxed execution. | Treat AI-assisted development as a security and review workflow. |
+| DeepMind | Frontier safety work turns capability thresholds and early-warning evals into release gates. | Connect high-risk behavior to explicit evals, reviews, and rollback paths. |
+| OpenAI and Anthropic | Agent evals use traces, datasets, graders, and regression suites. | Treat model behavior checks as normal software delivery artifacts. |
+| Hugging Face | Practical courses end in build, test, certify, share, and benchmark artifacts. | Make modules runnable, measurable, and easy to compare. |
 
 ## How To Use This Track
 
@@ -35,6 +37,30 @@ Use this track to learn the engineering responsibilities that still matter most 
 - Use `learning-paths` if you want a role-specific order instead of the full track order.
 - Use `assessments` to check readiness before moving into capstones.
 - Finish with `capstones` to combine contracts, tests, operations, and delivery decisions in one workflow.
+
+## Decision Table
+
+| Section | Use when the engineering question is | Output |
+| --- | --- | --- |
+| Tooling | How should changes be specified, generated, checked, reviewed, and merged? | Reproducible delivery loop |
+| APIs | What contract do callers depend on, and how does it evolve? | Stable boundary |
+| Testing | What is the smallest useful proof that behavior still holds? | Verification set |
+| Security basics | Where are the trust boundaries and privileges? | Misuse-resistant design |
+| Concurrency | What happens under parallel work, retries, duplicates, and cancellation? | State and coordination model |
+| Observability | How will production behavior explain itself? | Logs, metrics, traces, SLOs, and runbooks |
+| Reliability | How does the system stay useful under failure or risky change? | Containment and recovery path |
+| Performance | What bottleneck matters, and what evidence proves it? | Budget and optimization decision |
+| System design | Where should ownership, state, storage, and failure domains live? | Architecture trade-off |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Frame the change as a contract and risk boundary | Spec |
+| 2 | Choose the smallest section that answers the current question | Focused learning path |
+| 3 | Build or inspect the production-shaped mechanism | Runnable artifact |
+| 4 | Verify behavior with tests, metrics, traces, or release checks | Evidence |
+| 5 | Decide rollout, rollback, ownership, and follow-up | Operating decision |
 
 ## Module Authoring Rule
 
@@ -59,10 +85,16 @@ Each software-engineering module should answer the same six questions:
 
 ## Writing Shape
 
-- Section docs should follow: `Purpose`, `First Principles`, `Canonical Modules`, optional `Supporting Modules`, `Math And Code`, `When To Use What`.
-- Module docs should usually follow: `Concept`, `Key Points`, `Minimal Code Mental Model`, `Function`, `Run tests`.
-- In section docs, `Math And Code` should usually answer three things in order: `Math level`, `Main quantitative objects`, `Code shape`.
-- Add explicit math inside a module only when the topic genuinely needs a formula or threshold calculation.
+| Content type | Required shape |
+| --- | --- |
+| Section docs | `Purpose`, `First Principles`, `Canonical Modules`, optional `Supporting Modules`, `Math And Code`, `When To Use What` |
+| Module docs | `Concept`, `Use When`, `First Principles`, `Workflow`, `Minimal Code Mental Model`, `Failure Modes`, `Function`, `Run tests` |
+| Math section | `Math level`, `Main quantitative objects`, `Code shape` |
+| External reference | Official docs, papers, or engineering posts; explain the reusable engineering habit |
+
+Add explicit math inside a module only when the topic genuinely needs a formula, threshold, budget, or probability calculation.
+
+For the repo-wide authoring contract, see `docs/software-engineering/learning-paths/engineering-handbook-style.md`.
 
 ## Handbook Subsections
 

@@ -17,6 +17,27 @@ Use this page to understand:
 - Stateful systems need explicit consistency and recovery rules.
 - Architecture is mostly about choosing what can fail independently and what must stay coupled.
 
+## Decision Table
+
+| Decision | Use when | Engineering signal |
+| --- | --- | --- |
+| Requirements and failure model | The system shape is still unclear | Latency, durability, consistency, and risk are explicit |
+| Service boundary | Ownership, scaling, or failure isolation needs separation | The boundary reduces coordination or blast radius |
+| Stateless design | State can live in a durable dependency | Instances are replaceable |
+| Stateful design | Local state is needed for correctness or performance | Recovery and consistency rules are defined |
+| Storage choice | Access pattern and consistency needs differ | Reads, writes, indexes, and retention match the workload |
+| Background workflow | Work is long-running, retryable, or asynchronous | State transitions and retries are observable |
+
+## Workflow
+
+| Step | Action | Output |
+| --- | --- | --- |
+| 1 | Write nonfunctional requirements | Latency, scale, consistency, durability, and risk targets |
+| 2 | Name state and ownership | Boundary candidates |
+| 3 | Choose storage and workflow shape | Data and control-flow design |
+| 4 | Define failure domains | What can fail independently |
+| 5 | Verify with scenarios | Design review cases |
+
 ## Canonical Modules
 
 - `requirements-and-failure-models`

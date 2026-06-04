@@ -48,6 +48,23 @@ max-handbook/
 - `modules/` turns that map into executable learning units with minimal code and small tests.
 - `web/` publishes the same source material without becoming a second content system.
 
+## Engineering Style Contract
+
+The handbook is written for builders. Each page should help an engineer decide, implement, verify, and operate an idea.
+
+| Page element | What it must answer |
+| --- | --- |
+| Purpose | What problem does this solve? |
+| First principles | What invariant, boundary, or trade-off matters? |
+| Decision table | When should an engineer choose one option over another? |
+| Workflow | What order should the work happen in? |
+| Minimal code | What is the smallest executable shape of the idea? |
+| Verification | What test, eval, metric, or check proves it works? |
+
+Use tables when comparing choices. Use workflows when order matters. Use code only when it makes the concept executable.
+
+See [Engineering Handbook Style](docs/software-engineering/learning-paths/engineering-handbook-style.md) for the authoring standard.
+
 ## Current Knowledge Map
 
 ### DSA
@@ -72,11 +89,12 @@ The software-engineering track focuses on stable contracts, verification, failur
 
 ## Learning Style
 
-- Start from first principles.
+- Start from first principles: problem, invariant, trade-off.
 - Prefer canonical modules over near-duplicate variants.
-- Keep code minimal and easy to inspect.
-- Use tests to make ideas executable.
-- Optimize for concise, teachable explanations instead of exhaustive catalogs.
+- Keep code minimal, typed where useful, and easy to inspect.
+- Use tests, evals, metrics, or release checks to make ideas executable.
+- Prefer short decision tables and workflows over long prose.
+- Optimize for concise engineering judgment instead of exhaustive catalogs.
 
 ## License
 
