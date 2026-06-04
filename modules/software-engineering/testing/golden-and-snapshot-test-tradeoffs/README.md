@@ -6,11 +6,27 @@
 
 Golden and snapshot tests are useful when output shape matters, but they become noisy when the output changes often or includes nondeterministic values.
 
-## Key Points
+## Use When
+
+| Situation | Use this when | Avoid when |
+| --- | --- | --- |
+| Golden test | Output is stable and exact expected text matters | Output is large structured data |
+| Snapshot test | Large structured output should be reviewed as a whole | Output includes nondeterministic values |
+| Specific assertions | Only a few fields matter | Whole-output diffs improve review quality |
+
+## First Principles
 
 - Snapshot tests are best for stable output formats, not highly volatile text.
 - Nondeterministic values like timestamps make snapshot diffs noisy.
 - Large snapshot changes should trigger review of whether the test is still the right tool.
+
+## Workflow
+
+1. Decide whether the output is stable.
+2. Choose golden, snapshot, or specific-field assertions.
+3. Estimate snapshot noise from changed lines and nondeterministic values.
+4. Require reviewer sign-off for snapshot updates.
+5. Block high-noise snapshots instead of blessing churn.
 
 ## Minimal Code Mental Model
 
@@ -23,6 +39,14 @@ ok = snapshot_update_allowed(
     reviewer_signed_off=True,
 )
 ```
+
+## Failure Modes
+
+| Failure | Symptom | Guard or test |
+| --- | --- | --- |
+| Snapshot includes nondeterminism | Diff changes every run | `snapshot_noise_risk` returns `high` |
+| Large diff auto-accepted | Review hides semantic change | `snapshot_update_allowed` requires sign-off |
+| Wrong test type | Test is noisy or too weak | `recommended_output_test` chooses by stability and size |
 
 ## Function
 

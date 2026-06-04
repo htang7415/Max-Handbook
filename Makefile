@@ -1,4 +1,4 @@
-.PHONY: run-py run-rust lint format
+.PHONY: run-py run-rust audit-module-readmes lint format
 
 # Prefer PATH when set on the command line (per prompt),
 # otherwise fall back to TARGET for backward compatibility.
@@ -25,6 +25,12 @@ run-rust:
 		exit 1; \
 	fi
 	cargo test --manifest-path $(MANIFEST)
+
+# Audit module README files for the engineering module shape.
+# Usage: make audit-module-readmes
+# Usage: make audit-module-readmes PATHS="modules/software-engineering/apis/api-contract-basics"
+audit-module-readmes:
+	python scripts/audit_module_readmes.py $(PATHS)
 
 # Optional: lint Python with ruff
 lint:

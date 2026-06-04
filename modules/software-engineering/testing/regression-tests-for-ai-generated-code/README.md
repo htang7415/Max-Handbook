@@ -6,11 +6,27 @@
 
 AI-generated code should trigger targeted regression suites based on touched areas and recent failures, not just generic smoke tests.
 
-## Key Points
+## Use When
+
+| Situation | Use this when | Avoid when |
+| --- | --- | --- |
+| AI-generated code change | A model edited logic, schemas, tests, or generated outputs | The model only summarized code |
+| Recent bugfix | A known failure should stay covered | The case is unrelated to this change path |
+| Generated output drift | Generated clients or artifacts changed | The generator output is not part of the repo |
+
+## First Principles
 
 - The regression suite should be selected from change scope and failure history.
 - Recent bug-fix cases should stay in the required suite.
 - Generated-code changes deserve extra drift checks because the output can look plausible while still breaking contracts.
+
+## Workflow
+
+1. Map changed paths to historical regression cases.
+2. Always include a smoke case.
+3. Add recent bugfix cases.
+4. Add generated-output drift checks when generated code is touched.
+5. Block release until required cases pass.
 
 ## Minimal Code Mental Model
 
@@ -24,6 +40,14 @@ required = select_regression_cases(
 missing = missing_regression_cases(required, ["smoke", "auth-deny-default"])
 ready = release_ready(required, ["smoke", "auth-deny-default", "client-contract-drift", "incident-1427"])
 ```
+
+## Failure Modes
+
+| Failure | Symptom | Guard or test |
+| --- | --- | --- |
+| Generic smoke tests only | Known failure mode is not exercised | `select_regression_cases` maps paths to historical cases |
+| Recent incident forgotten | Fixed bug returns | Recent bugfix IDs are included in required cases |
+| Required case not executed | Release proceeds without evidence | `missing_regression_cases` reports gaps |
 
 ## Function
 

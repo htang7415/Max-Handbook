@@ -6,11 +6,26 @@
 
 Shared TypeScript types can reduce drift across frontend and backend code, but only when the boundary is versioned clearly and runtime validation still protects network inputs.
 
-## Key Points
+## Use When
+
+| Signal | Shared Type Decision |
+| --- | --- |
+| Multiple clients consume the same contract | Share a versioned API type |
+| UI needs only a subset | Expose a narrow projection |
+| Network input is untrusted | Keep runtime validation |
+
+## First Principles
 
 - Shared packages do not eliminate API versioning.
 - UI-facing projections should stay narrower than server storage records.
 - Shared types help most when multiple clients consume the same stable contract.
+
+## Workflow
+
+1. Define the API contract separately from storage records.
+2. Version the shared package or schema.
+3. Project server data into UI-facing shapes.
+4. Validate runtime input before trusting the shared type.
 
 ## Minimal Code Mental Model
 
@@ -23,6 +38,14 @@ const card = toUserCard({
 });
 const compatible = schemaVersionsCompatible(2, 2);
 ```
+
+## Failure Modes
+
+| Mistake | Result |
+| --- | --- |
+| Sharing database records | Storage changes leak into UI contracts |
+| No versioning | Clients break on server changes |
+| Type-only trust at network boundary | Invalid JSON reaches application logic |
 
 ## Function
 

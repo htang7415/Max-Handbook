@@ -6,11 +6,27 @@
 
 An AI-assisted dev loop is safe when the task, constraints, checks, and review handoff are explicit instead of being left inside the model's hidden reasoning.
 
-## Key Points
+## Use When
+
+| Situation | Use this when | Avoid when |
+| --- | --- | --- |
+| AI-generated change | The model will edit production code or tests | You are only asking for explanation |
+| Review handoff | A human needs to evaluate generated output | No code or artifact will be produced |
+| Risk triage | Paths include auth, payments, migrations, secrets, or generated code | The change is isolated documentation |
+
+## First Principles
 
 - A change request should include acceptance checks, not just a task sentence.
 - The next step after code generation should usually be targeted verification, not immediate merge.
 - Risk should rise when a change touches sensitive paths or generated outputs.
+
+## Workflow
+
+1. Write the task, constraints, and acceptance checks.
+2. Generate or edit the patch.
+3. Run targeted checks before review.
+4. Send passing changes to human review.
+5. Ship only after checks and review both pass.
 
 ## Minimal Code Mental Model
 
@@ -23,6 +39,14 @@ request = make_change_request(
 stage = next_stage(patch_ready=True, checks_passed=False, review_signed_off=False)
 risk = review_risk(["services/payments/api.py", "docs/payments.md"])
 ```
+
+## Failure Modes
+
+| Failure | Symptom | Guard or test |
+| --- | --- | --- |
+| Missing acceptance checks | Generated code has no objective finish line | `make_change_request` rejects empty checks |
+| Skipping verification | Patch moves to review or ship too early | `next_stage` returns `run_checks` before review |
+| Sensitive or generated diff | Plausible code hides high-risk behavior | `review_risk` returns `high` |
 
 ## Function
 

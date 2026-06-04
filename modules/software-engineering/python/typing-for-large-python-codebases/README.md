@@ -6,11 +6,26 @@
 
 Typing helps large Python codebases by making public boundaries explicit and by showing where interface drift would otherwise stay hidden until runtime.
 
-## Key Points
+## Use When
+
+| Boundary | Typing Priority |
+| --- | --- |
+| Public function or service API | Annotate parameters and return type |
+| Multiple implementations share behavior | Consider a protocol |
+| Internal one-off helper | Keep typing useful but lightweight |
+
+## First Principles
 
 - Missing annotations at public boundaries create ambiguity that spreads through the codebase.
 - Return types matter as much as parameter types for readers and checkers.
 - Protocol-style interfaces become useful when multiple implementations need one contract.
+
+## Workflow
+
+1. Annotate public boundaries before private helpers.
+2. Add return types for anything consumed by another module.
+3. Use protocols when callers need one contract across implementations.
+4. Tighten internal typing as the code stabilizes.
 
 ## Minimal Code Mental Model
 
@@ -19,6 +34,14 @@ missing = missing_annotations({"user_id": "str", "limit": None}, return_type="li
 ready = typed_api_ready({"user_id": "str", "limit": "int"}, return_type="list[str]")
 protocol = needs_protocol(interface_methods=4, multiple_implementations=True)
 ```
+
+## Failure Modes
+
+| Mistake | Result |
+| --- | --- |
+| Only annotating parameters | Return shape still drifts |
+| Protocol for one implementation | Extra abstraction without payoff |
+| Leaving public APIs untyped | Ambiguity spreads to callers |
 
 ## Function
 

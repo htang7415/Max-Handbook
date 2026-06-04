@@ -6,11 +6,27 @@
 
 Webhook receivers should verify sender authenticity before trusting the payload, usually with a signed timestamp and an HMAC over the request body.
 
-## Key Points
+## Use When
+
+| Situation | Use this when | Avoid when |
+| --- | --- | --- |
+| External callback | A third-party system sends events into your service | The sender is already authenticated by another trusted channel |
+| Replay risk | Attackers could resend an old valid payload | Events have no side effects and no sensitive data |
+| Event routing | Invalid requests must stop before business logic | You only need to parse a local fixture |
+
+## First Principles
 
 - Signature validation should use constant-time comparison.
 - Freshness checks reduce replay risk.
 - Invalid signatures should fail closed before event routing logic runs.
+
+## Workflow
+
+1. Build the signed payload from timestamp and body.
+2. Compute the HMAC with the shared secret.
+3. Reject timestamps outside the freshness window.
+4. Compare signatures with constant-time comparison.
+5. Route only valid events; reject everything else.
 
 ## Minimal Code Mental Model
 
@@ -25,6 +41,14 @@ valid = webhook_request_valid(
 )
 decision = webhook_decision(valid, "payment.paid")
 ```
+
+## Failure Modes
+
+| Failure | Symptom | Guard or test |
+| --- | --- | --- |
+| Blank secret | Signature has no trust anchor | `webhook_signature` rejects empty secrets |
+| Stale timestamp | Old event can be replayed | `webhook_request_valid` checks max age |
+| Invalid event type | Receiver cannot route safely | `webhook_decision` rejects empty event types |
 
 ## Function
 

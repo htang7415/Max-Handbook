@@ -6,11 +6,27 @@
 
 A development environment is reproducible when another machine can rebuild the same runtime and dependency set without relying on local accident.
 
-## Key Points
+## Use When
+
+| Situation | Use this when | Avoid when |
+| --- | --- | --- |
+| Onboarding | A new machine should match the project runtime | The project is a throwaway local script |
+| CI drift | Builds differ between local and CI | The runtime is managed outside the repo by policy |
+| Dependency review | Version ranges or wildcards can change behavior | All dependencies are pinned and locked |
+
+## First Principles
 
 - Reproducibility needs both a pinned runtime and pinned dependencies.
 - A lockfile reduces ambiguity, but it does not fix unpinned dependency intent by itself.
 - Version drift should be reported explicitly instead of being discovered by failed builds later.
+
+## Workflow
+
+1. Pin the runtime version.
+2. Commit a lockfile for resolved dependencies.
+3. Detect unpinned dependency specs.
+4. Compare required and actual tool versions.
+5. Report missing controls before the build fails later.
 
 ## Minimal Code Mental Model
 
@@ -23,6 +39,14 @@ missing = missing_reproducibility_controls(
     dependencies={"fastapi": "0.116.0", "pydantic": "2.11.0"},
 )
 ```
+
+## Failure Modes
+
+| Failure | Symptom | Guard or test |
+| --- | --- | --- |
+| Floating dependency | Same install produces different code later | `find_unpinned_dependencies` flags ranges and wildcards |
+| Runtime drift | Local and CI disagree about versions | `environment_drift` reports missing and mismatched tools |
+| Missing lockfile | Dependency resolution is not reproducible | `missing_reproducibility_controls` reports `commit lockfile` |
 
 ## Function
 

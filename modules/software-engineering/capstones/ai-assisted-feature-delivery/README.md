@@ -6,12 +6,28 @@
 
 This capstone combines spec-first prompting, generated-code review gates, regression strength, and rollout readiness into one compact AI-assisted delivery workflow.
 
-## Key Points
+## Use When
+
+| Delivery Stage | Engineer Gate |
+| --- | --- |
+| Before prompting or generation | Spec covers contracts, tests, and rollback |
+| Before review approval | Compatibility, security, and regression blockers are clear |
+| Before shipping | Unit, regression, and metamorphic checks match the risk |
+| Before promotion | Rollback path is ready |
+
+## First Principles
 
 - AI should not start implementation before the spec covers contracts, tests, and rollback.
 - Review needs explicit blockers for compatibility, security, and regression risk.
 - Verification should be strong enough to catch plausible but wrong generated code.
 - Shipping still depends on rollback readiness, not just passing tests.
+
+## Workflow
+
+1. Write the spec before generating code.
+2. Check generated code against explicit review blockers.
+3. Run verification that targets plausible wrong behavior.
+4. Ship only when rollback readiness matches the change risk.
 
 ## Minimal Code Mental Model
 
@@ -26,6 +42,15 @@ decision = delivery_decision(
     rollback_ready=True,
 )
 ```
+
+## Failure Modes
+
+| Mistake | Result |
+| --- | --- |
+| Prompt before spec | Generated code optimizes an unclear target |
+| Review without blockers | Compatibility or security risk is missed |
+| Tests only cover happy path | Plausible generated mistakes survive |
+| No rollback check | Passing tests still ship an unrecoverable change |
 
 ## Function
 

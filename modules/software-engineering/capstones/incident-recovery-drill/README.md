@@ -6,12 +6,28 @@
 
 This capstone combines SLO breach detection, incident severity, mitigation choice, and postmortem follow-up into one compact recovery workflow.
 
-## Key Points
+## Use When
+
+| Drill Signal | Response |
+| --- | --- |
+| SLO or error budget breach | Declare alert state |
+| User-visible degradation | Pick mitigation by recovery option |
+| Data loss risk | Escalate severity immediately |
+| Service is stable again | Write follow-up actions |
+
+## First Principles
 
 - Incident response starts from user-visible degradation, not internal suspicion.
 - Mitigation choice depends on rollback readiness, degraded-mode options, and data risk.
 - Data-loss scenarios should escalate faster than ordinary availability incidents.
 - Recovery is incomplete until follow-up actions are explicit.
+
+## Workflow
+
+1. Compare actual SLI to target SLO.
+2. Classify severity from user impact, duration, and data risk.
+3. Choose rollback, degraded mode, or escalation based on available options.
+4. Close the drill only after postmortem follow-ups are named.
 
 ## Minimal Code Mental Model
 
@@ -28,6 +44,15 @@ decision = incident_recovery_decision(
     degraded_mode_available=False,
 )
 ```
+
+## Failure Modes
+
+| Mistake | Result |
+| --- | --- |
+| Starting from internal suspicion only | User impact is detected late |
+| No degraded-mode option | Recovery has fewer safe choices |
+| Treating data loss like availability | Severity is too low |
+| No follow-up actions | The drill does not reduce future risk |
 
 ## Function
 
