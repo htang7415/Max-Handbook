@@ -45,18 +45,18 @@ code = implement_smallest_working_version(equation)
 - Otherwise, start with `docs/ml/fundamentals`, then move to `docs/ml/data` and `docs/ml/models`.
 - For modern AI systems, continue into `docs/ml/evaluation`, `docs/ml/llm`, and `docs/ml/systems` before treating deployment as finished.
 
-## Main Sections
+## Handbook Subsections
 
-- Foundations: `docs/ml/fundamentals`
-- Data: `docs/ml/data`
-- Models: `docs/ml/models`
-- Evaluation: `docs/ml/evaluation`
-- Deep learning: `docs/ml/deep-learning`
-- LLMs: `docs/ml/llm`
-- Systems and MLOps: `docs/ml/systems`, `docs/ml/mlops`
-- Reinforcement learning: `docs/ml/reinforcement-learning`
-- Generative and representation: `docs/ml/generative`, `docs/ml/representation`
-- Computer vision: `docs/ml/computer-vision`
+1. Fundamentals: math, probability, statistics, and learning paths.
+2. Data and representation: preprocessing, features, embeddings, and metric learning.
+3. Classical models: linear models, trees, Bayes, kernels, clusters, and ensembles.
+4. Evaluation and calibration: metrics, uncertainty, ranking, judges, and confidence.
+5. Optimization and training: loss surfaces, optimizers, schedules, stability, and clipping.
+6. Deep learning: activations, normalization, initialization, losses, and regularization.
+7. LLMs: tokenization, attention, training, retrieval, reasoning, alignment, and serving.
+8. Generative and vision: diffusion, VAE/GAN concepts, CNNs, pooling, and architectures.
+9. Systems and MLOps: training loops, hardware bottlenecks, serving, monitoring, and rollout.
+10. Reinforcement learning: MDPs, value methods, policy gradients, off-policy ideas, and RL for LLMs.
 
 ## Canonical Families
 
@@ -70,6 +70,7 @@ code = implement_smallest_working_version(equation)
 
 - Use the top-level section docs when you need the next concept family, not the final detail.
 - Use canonical family modules before narrow variants or preserved alias pages.
+- Follow the subsection order until you know what kind of failure you are debugging: data, model, metric, training, serving, or policy.
 - Add systems and MLOps after you can already choose models, metrics, and core deep-learning tools.
 - Use LLM evaluation, retrieval, long-context, and inference modules when product behavior depends on prompts, tools, or serving constraints rather than only model weights.
 - Treat reinforcement learning, generative models, representation learning, and computer vision as specializations after the main spine is comfortable.

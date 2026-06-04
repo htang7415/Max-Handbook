@@ -1,5 +1,5 @@
-import type { ContentIndex, Track, Topic } from "./content";
-import { sortTopics } from "./roadmap";
+import type { ContentIndex, Track } from "./content";
+import { getHandbookTopics } from "./roadmap";
 
 export interface NavItem {
   trackId: string;
@@ -28,7 +28,7 @@ export function buildNavItems(content: ContentIndex): NavItem[] {
     trackMap.set(track.id, track);
   }
 
-  return sortTopics(content.topics).map((topic) => {
+  return getHandbookTopics(content).map((topic) => {
       const track = trackMap.get(topic.track)!;
       return {
         trackId: track.id,

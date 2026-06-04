@@ -1,3 +1,5 @@
+import { getCanonicalTopicId } from "./roadmap";
+
 export interface VisualDefinition {
   id: string;
   title: string;
@@ -229,6 +231,6 @@ export function countTopicVisuals(track: string, topic: string) {
     (visual) =>
       visual.showOnTopicPage &&
       visual.track === track &&
-      visual.topic === topic
+      (visual.topic === topic || getCanonicalTopicId(track, visual.topic) === topic)
   ).length;
 }

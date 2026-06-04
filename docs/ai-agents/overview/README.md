@@ -46,20 +46,18 @@ plan = make_plan(goal, steps)
 score = task_success_rate([True, False, True])
 ```
 
-## Canonical Modules
+## Handbook Subsections
 
-- Prompt structure: `docs/ai-agents/prompting`
-- Tool use: `docs/ai-agents/tool-use`
-- Retrieval: `docs/ai-agents/rag`
-- Memory: `docs/ai-agents/memory`
-- Planning: `docs/ai-agents/planning`
-- Workflows: `docs/ai-agents/workflows`
-- Observability: `docs/ai-agents/observability`
-- Evaluation: `docs/ai-agents/evaluation`
-- Guardrails: `docs/ai-agents/guardrails`
-- Assessments: `docs/ai-agents/assessments`
-- Capstones: `docs/ai-agents/capstones`
-- Multi-agent coordination: `docs/ai-agents/multi-agent`
+1. Overview and architecture: agent loops, decision methods, and production priorities.
+2. Prompting and context: instructions, examples, delimiters, and context engineering.
+3. Tool use and MCP: structured tools, UI actions, terminal actions, connectors, and MCP.
+4. Retrieval and memory: RAG, grounded answers, memory storage, retrieval, and compaction.
+5. Planning and workflows: plans, routing, state machines, handoffs, retries, and concurrency.
+6. Observability and tracing: spans, run analysis, sampling, dashboards, and root cause.
+7. Evaluation and benchmarks: task success, trace grading, red-team evals, and release gates.
+8. Guardrails and security: injection defense, approval gates, least privilege, and escalation.
+9. Multi-agent systems: orchestration, workers, delegation budgets, arbitration, and roles.
+10. Practice and capstones: assessments and end-to-end agent workflow builds.
 
 ## Supporting Guides
 

@@ -37,18 +37,18 @@ Use the track in this order:
 7. AI retrieval
    Finish with `vector-db` once metadata, freshness, and product constraints already make sense.
 
-## Topic Map
+## Handbook Subsections
 
-- Relational core: `relational/overview.md`
-- Schema design: `schema-design/overview.md`
-- SQL and analytics patterns: `sql-patterns/overview.md`
-- Indexing and access paths: `indexing/overview.md`
-- Transactions and concurrency: `transactions/overview.md`
-- Query plans and tuning: `query-plans/overview.md`
-- Caching and semantic caching: `caching/overview.md`
-- NoSQL trade-offs: `nosql/overview.md`
-- Streaming and CDC: `streaming/overview.md`
-- Vector retrieval and memory: `vector-db/overview.md`
+1. Relational core: tables, keys, joins, constraints, cascades, and null semantics.
+2. Schema design: entity/event tables, many-to-many shapes, grain, history, and tenancy.
+3. SQL and analytics: windows, latest-row patterns, as-of joins, upserts, DuckDB, and Parquet.
+4. Indexing and access paths: B-trees, composite order, partial/expression indexes, and pruning.
+5. Transactions and concurrency: isolation, MVCC, retries, sagas, outbox, and replica behavior.
+6. Query plans and performance: `EXPLAIN`, selectivity, joins, sorts, scans, and regressions.
+7. Caching: cache-aside, invalidation, stampedes, hot keys, semantic caching, and TTL jitter.
+8. Streaming and CDC: events, connectors, offsets, watermarks, schema evolution, and replay.
+9. NoSQL and distributed data: document/key-value/wide-row trade-offs, quorum, repair, and compaction.
+10. Vector retrieval and memory: embeddings, ANN, metadata filters, hybrid search, reranking, and agent memory.
 
 ## AI-Time 2026 Priorities
 

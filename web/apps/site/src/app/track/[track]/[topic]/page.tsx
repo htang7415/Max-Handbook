@@ -6,7 +6,12 @@ import type { TocHeading } from "@/components/TableOfContents";
 import PrevNextNav from "@/components/PrevNextNav";
 import { buildNavItems, getAdjacentPages } from "@/lib/navigation";
 import type { ContentIndex } from "@/lib/content";
-import { extractModuleOrder, extractTopicEntryGroups } from "@/lib/roadmap";
+import {
+  extractModuleOrder,
+  extractTopicEntryGroups,
+  getHandbookTopics,
+  resolveHandbookTopic,
+} from "@/lib/roadmap";
 import { VIZ_REGISTRY } from "@/lib/visual-registry";
 import contentData from "@/content/content_index.json";
 import { notFound } from "next/navigation";
@@ -798,10 +803,17 @@ function SectionIcon({ icon }: { icon: ContentSection["icon"] }) {
 
 export function generateStaticParams() {
   const content = contentData as ContentIndex;
-  return content.topics.map((topic) => ({
-    track: topic.track,
-    topic: topic.topic,
-  }));
+  const params = new Map<string, { track: string; topic: string }>();
+
+  for (const topic of [...content.topics, ...getHandbookTopics(content)]) {
+    const key = `${topic.track}/${topic.topic}`;
+    params.set(key, {
+      track: topic.track,
+      topic: topic.topic,
+    });
+  }
+
+  return Array.from(params.values());
 }
 
 export default async function TopicPage({
@@ -812,22 +824,23 @@ export default async function TopicPage({
   const { track: trackId, topic: topicId } = await params;
   const content = contentData as ContentIndex;
   const track = content.tracks.find((item) => item.id === trackId);
-  const topic = content.topics.find(
-    (item) => item.track === trackId && item.topic === topicId
-  );
-  if (!track || !topic) return notFound();
+  const resolvedTopic = resolveHandbookTopic(content, trackId, topicId);
+  const topic = resolvedTopic?.topic;
+  const sourceTopics = resolvedTopic?.sourceTopics ?? [];
+  const sourceTopicSet = new Set(sourceTopics);
+  if (!track || !topic || sourceTopicSet.size === 0) return notFound();
 
   const navItems = buildNavItems(content);
   const { prev, next } = getAdjacentPages(navItems, trackId, topicId);
 
   const docs = content.docs.filter(
-    (item) => item.track === trackId && item.topic === topicId
+    (item) => item.track === trackId && sourceTopicSet.has(item.topic)
   );
   const modules = content.modules.filter(
-    (item) => item.track === trackId && item.topic === topicId
+    (item) => item.track === trackId && sourceTopicSet.has(item.topic)
   );
   const moduleAliases = (content.moduleAliases ?? []).filter(
-    (item) => item.track === trackId && item.topic === topicId
+    (item) => item.track === trackId && sourceTopicSet.has(item.topic)
   );
   const aliasesByCanonical = new Map<string, string[]>();
   for (const alias of moduleAliases) {
@@ -836,9 +849,11 @@ export default async function TopicPage({
     aliasesByCanonical.set(alias.aliasOf, aliases);
   }
 
-  // Exclude topic-level README docs (slug === topicId) from rendered entries;
-  // they only provide the module ordering outline.
-  const entryDocs = docs.filter((doc) => doc.slug !== topicId);
+  // Legacy source-topic pages keep README docs as ordering outlines only.
+  // Grouped handbook pages render those README docs as subsection overviews.
+  const entryDocs = resolvedTopic.isGrouped
+    ? docs
+    : docs.filter((doc) => doc.slug !== topicId);
   const docBySlug = new Map(entryDocs.map((doc) => [doc.slug, doc]));
   const moduleBySlug = new Map(modules.map((module) => [module.slug, module]));
   const entrySlugs = Array.from(
@@ -848,16 +863,30 @@ export default async function TopicPage({
     ])
   );
 
-  const moduleOrder = extractModuleOrder(docs[0]?.content, trackId, topicId);
-  const supportsTopicGroups =
-    trackId === "ml" || trackId === "software-engineering";
-  const topicEntryGroups = supportsTopicGroups
-    ? extractTopicEntryGroups(docs[0]?.content, trackId, topicId)
-    : { canonical: [], supporting: [] };
+  const outlineDocs = sourceTopics.map(
+    (sourceTopic) =>
+      docs.find((doc) => doc.topic === sourceTopic && doc.slug === sourceTopic) ??
+      docs.find((doc) => doc.topic === sourceTopic)
+  );
+  const moduleOrder = outlineDocs.flatMap((doc, index) =>
+    extractModuleOrder(doc?.content, trackId, sourceTopics[index])
+  );
+  const topicEntryGroups = outlineDocs.reduce(
+    (groups, doc, index) => {
+      const extracted = extractTopicEntryGroups(
+        doc?.content,
+        trackId,
+        sourceTopics[index]
+      );
+      groups.canonical.push(...extracted.canonical);
+      groups.supporting.push(...extracted.supporting);
+      return groups;
+    },
+    { canonical: [] as string[], supporting: [] as string[] }
+  );
   const canonicalEntrySet = new Set(topicEntryGroups.canonical);
   const supportingEntrySet = new Set(topicEntryGroups.supporting);
   const hasStructuredGroups =
-    supportsTopicGroups &&
     (canonicalEntrySet.size > 0 || supportingEntrySet.size > 0);
   const slugOrder = new Map<string, number>();
   let orderIndex = 0;
@@ -883,6 +912,7 @@ export default async function TopicPage({
     .map((slug) => {
       const doc = docBySlug.get(slug);
       const mod = moduleBySlug.get(slug);
+      const sourceTopic = doc?.topic ?? mod?.topic ?? topicId;
       const title = doc?.title ?? mod?.title ?? slug;
       const summary = stripModuleReferences(
         cleanSummary(doc?.summary) ?? cleanSummary(mod?.summary) ?? ""
@@ -900,15 +930,18 @@ export default async function TopicPage({
       const hasTheory = parsed.intro.length > 0 || parsed.sections.length > 0;
       const codeSources = mod?.sources ?? [];
       const hasCode = codeSources.length > 0;
-      const vizKey = `${trackId}/${topicId}/${slug}`;
+      const vizKey = `${trackId}/${sourceTopic}/${slug}`;
       const Viz = VIZ_REGISTRY[vizKey];
 
       return {
         slug,
+        sourceTopic,
         title,
         summary,
         group:
-          hasStructuredGroups && Boolean(doc) && slug === topicId
+          hasStructuredGroups &&
+          Boolean(doc) &&
+          (slug === topicId || (resolvedTopic.isGrouped && sourceTopicSet.has(slug)))
             ? "overview"
             : canonicalEntrySet.has(slug)
             ? "canonical"

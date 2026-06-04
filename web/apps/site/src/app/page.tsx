@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import type { ContentIndex } from "@/lib/content";
 import contentData from "@/content/content_index.json";
-import { sortTracks } from "@/lib/roadmap";
+import { getHandbookTopics, sortTracks } from "@/lib/roadmap";
 import HomeSoftmaxViz from "@/components/HomeSoftmaxViz";
 import HomeSignalViz from "@/components/HomeSignalViz";
 import { countVisualsForTrack, VISUALS } from "@/lib/visual-metadata";
@@ -10,7 +10,7 @@ import { countVisualsForTrack, VISUALS } from "@/lib/visual-metadata";
 export default function Home() {
   const content = contentData as ContentIndex;
   const tracks = sortTracks(content.tracks);
-  const topics = content.topics;
+  const topics = getHandbookTopics(content);
   const { modules } = content;
   const docs = content.docs ?? [];
   const primaryTrack = tracks[0];
@@ -66,7 +66,7 @@ export default function Home() {
     );
     const visualCount = countVisualsForTrack(track.id);
 
-    return { track, trackNotes, visualCount };
+    return { track, topicCount: trackTopics.length, trackNotes, visualCount };
   });
   const featuredVisuals = VISUALS.slice(0, 4);
 
@@ -154,7 +154,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="home-track-cards">
-          {trackSpotlights.map(({ track, trackNotes, visualCount }) => (
+          {trackSpotlights.map(({ track, topicCount, trackNotes, visualCount }) => (
             <article
               key={track.id}
               className="home-track-card"
@@ -176,7 +176,7 @@ export default function Home() {
               </div>
               <div className="home-track-card-meta">
                 <span>
-                  <strong>{track.topicCount}</strong>
+                  <strong>{topicCount}</strong>
                   Topics
                 </span>
                 <span>

@@ -56,25 +56,18 @@ Each software-engineering module should answer the same six questions:
 - In section docs, `Math And Code` should usually answer three things in order: `Math level`, `Main quantitative objects`, `Code shape`.
 - Add explicit math inside a module only when the topic genuinely needs a formula or threshold calculation.
 
-## Main Sections
+## Handbook Subsections
 
-- Tooling and AI-assisted workflow: `docs/software-engineering/tooling`
-- APIs and compatibility: `docs/software-engineering/apis`
-- Testing and verification: `docs/software-engineering/testing`
-- Security and trust boundaries: `docs/software-engineering/security-basics`
-- Concurrency and background work: `docs/software-engineering/concurrency`
-- Observability and debug signals: `docs/software-engineering/observability`
-- Reliability and safe delivery: `docs/software-engineering/reliability`
-- Performance and cost: `docs/software-engineering/performance`
-- System design and boundaries: `docs/software-engineering/system-design`
-- Platform and delivery systems: `docs/software-engineering/platform-and-delivery`
-- Learning paths by goal: `docs/software-engineering/learning-paths`
-- Assessments and readiness checks: `docs/software-engineering/assessments`
-- Capstones and synthesis: `docs/software-engineering/capstones`
-- Python engineering: `docs/software-engineering/python`
-- Rust engineering: `docs/software-engineering/rust`
-- TypeScript engineering: `docs/software-engineering/typescript`
-- Practical design patterns: `docs/software-engineering/design-patterns`
+1. Workflow and AI tooling: reproducible loops, codegen boundaries, CI, review, and AI-assisted delivery.
+2. Contracts and APIs: schemas, compatibility, pagination, idempotency, retries, and webhooks.
+3. Testing and verification: portfolios, contracts, properties, snapshots, flaky tests, and AI regressions.
+4. Security and trust: authn/authz, validation, secrets, least privilege, supply chain, and agentic risk.
+5. Concurrency and state: shared state, queues, idempotent consumers, cancellation, and state machines.
+6. Observability and operations: logs, metrics, traces, SLOs, dashboards, runbooks, and debugging.
+7. Reliability and delivery: retries, degradation, incidents, rollback, progressive delivery, and platforms.
+8. Performance and cost: latency budgets, caching, profiling, batching, allocation, and trade-offs.
+9. System design and patterns: requirements, boundaries, storage, statefulness, workflows, and practical patterns.
+10. Implementation and practice: Python, Rust, TypeScript, learning paths, assessments, and capstones.
 
 ## AI-Time 2026 Priorities
 
