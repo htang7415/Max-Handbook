@@ -4,14 +4,7 @@ This section is about how modern language models represent text, train, decode, 
 
 ## Purpose
 
-Use this page to keep the LLM stack in the right order:
-- tokenization and representations
-- attention and transformer structure
-- training stages
-- reasoning and test-time compute
-- multimodal inputs
-- evaluation
-- decoding and inference systems
+Use this page as the engineer's map for LLM systems: interface, model core, adaptation, evaluation, serving, and safety.
 
 ## First Principles
 
@@ -45,41 +38,47 @@ next_token = decode(hidden[-1], strategy="top_p")
 
 ## Engineering Stack
 
-- Tokenization and representations: `token-representation-methods`, `rope-and-position-scaling`
-- Transformer core: `attention-mechanisms`, `transformer`, `grouped-query-and-multi-query-attention`
-- Training stages: `pretraining`, `alignment-methods`
-- Reasoning: `reasoning-and-test-time-compute`
-- Multimodal inputs: `multimodal-llms`
-- Evaluation: likelihood, task scoring, judges, retrieval metrics, and trace-aware checks
-- Decoding: `decoding-methods`
-- Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion-methods`, `cross-encoder-vs-bi-encoder`
-- Efficiency and systems: `long-context-and-caching`, `context-budgeting-and-truncation`, `parameter-efficient-fine-tuning`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `flashattention-and-io-aware-attention`, `qk-clip`
+| Layer | Engineer's Question | Core Knowledge |
+| --- | --- | --- |
+| Interface | What text enters and what contract must come out? | `token-representation-methods`, `rope-and-position-scaling`, structured outputs |
+| Model core | How does the model move information across tokens? | `attention-mechanisms`, `transformer`, `grouped-query-and-multi-query-attention` |
+| Training and adaptation | What changed the model behavior? | `pretraining`, `alignment-methods`, preference learning, `parameter-efficient-fine-tuning` |
+| Reasoning and multimodal | When does extra compute or extra modality help? | `reasoning-and-test-time-compute`, `multimodal-llms`, verification and answer stability |
+| Evaluation | What evidence says the system is better? | likelihood, task scoring, judges, retrieval metrics, slice checks, trace-aware checks |
+| Decoding and retrieval | How is output shaped and grounded? | `decoding-methods`, `bm25-ranking`, `retrieval-fusion-methods`, `cross-encoder-vs-bi-encoder` |
+| Serving | What limits latency, memory, throughput, and cost? | `long-context-and-caching`, `context-budgeting-and-truncation`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `flashattention-and-io-aware-attention`, `qk-clip` |
 
 ## Supporting Guides
 
-- Tokenization: tokens, subwords, vocabulary, and representation boundaries.
-- Reasoning: test-time compute, verification, answer stability, and reasoning evals.
-- Long context: context budgeting, truncation, caching, and positional limits.
-- Multimodal: image, audio, video, and token-like cross-modal representations.
-- Alignment: SFT, preference learning, RLHF/RLAIF, DPO, and safety behavior.
-- LLM evaluation: likelihood, task metrics, judges, retrieval metrics, and workflow traces.
-- Inference serving: batching, KV cache, quantization, latency, throughput, and cost.
+| Guide | What To Learn | Engineering Output |
+| --- | --- | --- |
+| Tokenization | Tokens, subwords, vocabulary, and representation boundaries. | Stable input accounting and context budgeting. |
+| Reasoning | Test-time compute, verification, answer stability, and reasoning evals. | Hard-task policy with cost and quality evidence. |
+| Long context | Truncation, caching, positional limits, and long-context degradation. | Context policy that fails predictably. |
+| Multimodal | Image, audio, video, and token-like cross-modal representations. | Input contract for mixed-modality tasks. |
+| Alignment | SFT, preference learning, RLHF/RLAIF, DPO, and safety behavior. | Behavior-change record and policy eval set. |
+| LLM evaluation | Likelihood, task metrics, judges, retrieval metrics, and workflow traces. | Release gate with baseline and regression cases. |
+| Inference serving | Batching, KV cache, quantization, latency, throughput, and cost. | Capacity plan and rollback threshold. |
 
 ## Engineering Checklist
 
-- Interface: tokenizer, context budget, output schema, and refusal boundary.
-- Quality: task metric, judge rubric, retrieval metric, slices, and regression set.
-- Context: truncation rule, cache strategy, citation policy, and long-context degradation check.
-- Serving: prefill latency, decode latency, KV-cache memory, batching, quantization, and cost.
-- Safety: alignment objective, policy test cases, red-team cases, and rollback gate.
-- Iteration: fixed baseline, eval report, release threshold, and production monitoring signal.
+| Area | Check Before Shipping |
+| --- | --- |
+| Interface | Tokenizer, context budget, output schema, refusal boundary. |
+| Quality | Task metric, judge rubric, retrieval metric, slices, regression set. |
+| Context | Truncation rule, cache strategy, citation policy, degradation check. |
+| Serving | Prefill latency, decode latency, KV-cache memory, batching, quantization, cost. |
+| Safety | Alignment objective, policy test cases, red-team cases, rollback gate. |
+| Iteration | Fixed baseline, eval report, release threshold, production monitoring signal. |
 
 ## Lab Signals
 
-- OpenAI: reason with explicit effort, return structured outputs, and evaluate with datasets and graders.
-- Anthropic: write evals before prompt fixes become folklore; keep transcripts and failure labels inspectable.
-- DeepMind: pair generation with automated evaluators when optimizing algorithms or system behavior.
-- Hugging Face: keep implementation concrete through Transformers generation, KV cache choices, Evaluate metrics, and TRL post-training.
+| Source | Handbook Lesson |
+| --- | --- |
+| OpenAI | Treat reasoning effort, structured output, and eval datasets as engineering controls. |
+| Anthropic | Define evals early; keep transcripts, graders, and failure labels inspectable. |
+| DeepMind | Pair generation with automated evaluators when optimizing code, algorithms, or system behavior. |
+| Hugging Face | Ground the theory in implementation: generation APIs, KV cache choices, evaluation metrics, and TRL post-training. |
 
 ## References
 

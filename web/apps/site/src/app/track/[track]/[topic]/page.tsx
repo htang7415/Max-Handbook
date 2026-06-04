@@ -78,6 +78,13 @@ function stripSourceReferences(markdown: string): string {
   }
 
   function humanizeSlug(slug: string) {
+    const wholeSlugNames = new Map([
+      ["transformer", "Transformer Block"],
+      ["pretraining", "Pretraining"],
+    ]);
+    const wholeName = wholeSlugNames.get(slug);
+    if (wholeName) return wholeName;
+
     return slug
       .split("-")
       .filter(Boolean)
@@ -144,6 +151,9 @@ function stripSourceReferences(markdown: string): string {
       humanizePath(path)
     );
     content = content.replace(/`([a-z0-9]+(?:-[a-z0-9]+)+)`/g, (_match, slug) =>
+      humanizeSlug(slug)
+    );
+    content = content.replace(/`(transformer|pretraining)`/g, (_match, slug) =>
       humanizeSlug(slug)
     );
     content = content.replace(/`modules\/[^`]+`/gi, "");

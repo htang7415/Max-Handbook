@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-04T19:56:10.166Z",
+  "generated_at": "2026-06-04T20:02:49.195Z",
   "tracks": [
     {
       "id": "dsa",
@@ -67,15 +67,6 @@
       "moduleCount": 7
     },
     {
-      "track": "software-engineering",
-      "topic": "assessments",
-      "name": "Assessments",
-      "path": "/track/software-engineering/assessments",
-      "hasDoc": true,
-      "docCount": 1,
-      "moduleCount": 0
-    },
-    {
       "track": "ml",
       "topic": "assessments",
       "name": "Assessments",
@@ -85,10 +76,10 @@
       "moduleCount": 0
     },
     {
-      "track": "ai-agents",
+      "track": "software-engineering",
       "topic": "assessments",
       "name": "Assessments",
-      "path": "/track/ai-agents/assessments",
+      "path": "/track/software-engineering/assessments",
       "hasDoc": true,
       "docCount": 1,
       "moduleCount": 0
@@ -98,6 +89,15 @@
       "topic": "assessments",
       "name": "Assessments",
       "path": "/track/databases/assessments",
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 0
+    },
+    {
+      "track": "ai-agents",
+      "topic": "assessments",
+      "name": "Assessments",
+      "path": "/track/ai-agents/assessments",
       "hasDoc": true,
       "docCount": 1,
       "moduleCount": 0
@@ -130,6 +130,15 @@
       "moduleCount": 15
     },
     {
+      "track": "ml",
+      "topic": "capstones",
+      "name": "Capstones",
+      "path": "/track/ml/capstones",
+      "hasDoc": true,
+      "docCount": 1,
+      "moduleCount": 1
+    },
+    {
       "track": "software-engineering",
       "topic": "capstones",
       "name": "Capstones",
@@ -139,10 +148,10 @@
       "moduleCount": 3
     },
     {
-      "track": "ml",
+      "track": "databases",
       "topic": "capstones",
       "name": "Capstones",
-      "path": "/track/ml/capstones",
+      "path": "/track/databases/capstones",
       "hasDoc": true,
       "docCount": 1,
       "moduleCount": 1
@@ -155,15 +164,6 @@
       "hasDoc": true,
       "docCount": 1,
       "moduleCount": 2
-    },
-    {
-      "track": "databases",
-      "topic": "capstones",
-      "name": "Capstones",
-      "path": "/track/databases/capstones",
-      "hasDoc": true,
-      "docCount": 1,
-      "moduleCount": 1
     },
     {
       "track": "ml",
@@ -14203,7 +14203,7 @@
       "title": "NLP and LLMs",
       "path": "docs/ml/llm/README.md",
       "summary": "This section is about how modern language models represent text, train, decode, align, and serve.",
-      "content": "# NLP and LLMs\n\nThis section is about how modern language models represent text, train, decode, align, and serve.\n\n## Purpose\n\nUse this page to keep the LLM stack in the right order:\n- tokenization and representations\n- attention and transformer structure\n- training stages\n- reasoning and test-time compute\n- multimodal inputs\n- evaluation\n- decoding and inference systems\n\n## First Principles\n\n- Tokenization defines the units the model sees.\n- Attention lets each token condition on earlier context.\n- The transformer stacks attention and feed-forward blocks into a scalable sequence model.\n- Training moves from pretraining to task adaptation and then often to alignment.\n- Reasoning models trade extra inference compute for better answers on harder tasks.\n- Modern LLMs often consume images, audio, or video by turning them into token-like embeddings.\n- Good LLM systems are not just good models; they also need good decoding and serving behavior.\n\n## Core Math\n\n- The whole LLM stack mostly rests on three equations:\n  $$\n  \\mathrm{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_k}}\\right)V,\n  \\quad\n  -\\sum_t \\log p(x_t \\mid x_{<t}),\n  \\quad\n  \\text{preference objective}\n  $$\n- The rest of the page maps those equations to interfaces, evaluation, serving, and safety checks.\n\n## Minimal Code Mental Model\n\n```python\ntokens = tokenizer(text)\nhidden = transformer(tokens)\nnext_token = decode(hidden[-1], strategy=\"top_p\")\n```\n\n## Engineering Stack\n\n- Tokenization and representations: `token-representation-methods`, `rope-and-position-scaling`\n- Transformer core: `attention-mechanisms`, `transformer`, `grouped-query-and-multi-query-attention`\n- Training stages: `pretraining`, `alignment-methods`\n- Reasoning: `reasoning-and-test-time-compute`\n- Multimodal inputs: `multimodal-llms`\n- Evaluation: likelihood, task scoring, judges, retrieval metrics, and trace-aware checks\n- Decoding: `decoding-methods`\n- Retrieval and lexical baselines: `bm25-ranking`, `retrieval-fusion-methods`, `cross-encoder-vs-bi-encoder`\n- Efficiency and systems: `long-context-and-caching`, `context-budgeting-and-truncation`, `parameter-efficient-fine-tuning`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `flashattention-and-io-aware-attention`, `qk-clip`\n\n## Supporting Guides\n\n- Tokenization: tokens, subwords, vocabulary, and representation boundaries.\n- Reasoning: test-time compute, verification, answer stability, and reasoning evals.\n- Long context: context budgeting, truncation, caching, and positional limits.\n- Multimodal: image, audio, video, and token-like cross-modal representations.\n- Alignment: SFT, preference learning, RLHF/RLAIF, DPO, and safety behavior.\n- LLM evaluation: likelihood, task metrics, judges, retrieval metrics, and workflow traces.\n- Inference serving: batching, KV cache, quantization, latency, throughput, and cost.\n\n## Engineering Checklist\n\n- Interface: tokenizer, context budget, output schema, and refusal boundary.\n- Quality: task metric, judge rubric, retrieval metric, slices, and regression set.\n- Context: truncation rule, cache strategy, citation policy, and long-context degradation check.\n- Serving: prefill latency, decode latency, KV-cache memory, batching, quantization, and cost.\n- Safety: alignment objective, policy test cases, red-team cases, and rollback gate.\n- Iteration: fixed baseline, eval report, release threshold, and production monitoring signal.\n\n## Lab Signals\n\n- OpenAI: reason with explicit effort, return structured outputs, and evaluate with datasets and graders.\n- Anthropic: write evals before prompt fixes become folklore; keep transcripts and failure labels inspectable.\n- DeepMind: pair generation with automated evaluators when optimizing algorithms or system behavior.\n- Hugging Face: keep implementation concrete through Transformers generation, KV cache choices, Evaluate metrics, and TRL post-training.\n\n## References\n\n- [OpenAI Reasoning Models](https://developers.openai.com/api/docs/guides/reasoning)\n- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)\n- [OpenAI Evals](https://developers.openai.com/api/docs/guides/evals)\n- [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)\n- [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)\n- [Hugging Face KV Cache Strategies](https://huggingface.co/docs/transformers/en/kv_cache)\n- [Hugging Face Evaluate](https://huggingface.co/docs/evaluate/choosing_a_metric)\n- [Hugging Face TRL](https://huggingface.co/docs/trl)\n"
+      "content": "# NLP and LLMs\n\nThis section is about how modern language models represent text, train, decode, align, and serve.\n\n## Purpose\n\nUse this page as the engineer's map for LLM systems: interface, model core, adaptation, evaluation, serving, and safety.\n\n## First Principles\n\n- Tokenization defines the units the model sees.\n- Attention lets each token condition on earlier context.\n- The transformer stacks attention and feed-forward blocks into a scalable sequence model.\n- Training moves from pretraining to task adaptation and then often to alignment.\n- Reasoning models trade extra inference compute for better answers on harder tasks.\n- Modern LLMs often consume images, audio, or video by turning them into token-like embeddings.\n- Good LLM systems are not just good models; they also need good decoding and serving behavior.\n\n## Core Math\n\n- The whole LLM stack mostly rests on three equations:\n  $$\n  \\mathrm{softmax}\\left(\\frac{QK^\\top}{\\sqrt{d_k}}\\right)V,\n  \\quad\n  -\\sum_t \\log p(x_t \\mid x_{<t}),\n  \\quad\n  \\text{preference objective}\n  $$\n- The rest of the page maps those equations to interfaces, evaluation, serving, and safety checks.\n\n## Minimal Code Mental Model\n\n```python\ntokens = tokenizer(text)\nhidden = transformer(tokens)\nnext_token = decode(hidden[-1], strategy=\"top_p\")\n```\n\n## Engineering Stack\n\n| Layer | Engineer's Question | Core Knowledge |\n| --- | --- | --- |\n| Interface | What text enters and what contract must come out? | `token-representation-methods`, `rope-and-position-scaling`, structured outputs |\n| Model core | How does the model move information across tokens? | `attention-mechanisms`, `transformer`, `grouped-query-and-multi-query-attention` |\n| Training and adaptation | What changed the model behavior? | `pretraining`, `alignment-methods`, preference learning, `parameter-efficient-fine-tuning` |\n| Reasoning and multimodal | When does extra compute or extra modality help? | `reasoning-and-test-time-compute`, `multimodal-llms`, verification and answer stability |\n| Evaluation | What evidence says the system is better? | likelihood, task scoring, judges, retrieval metrics, slice checks, trace-aware checks |\n| Decoding and retrieval | How is output shaped and grounded? | `decoding-methods`, `bm25-ranking`, `retrieval-fusion-methods`, `cross-encoder-vs-bi-encoder` |\n| Serving | What limits latency, memory, throughput, and cost? | `long-context-and-caching`, `context-budgeting-and-truncation`, `precision-and-quantization`, `kv-cache`, `prefix-cache`, `speculative-decoding`, `flashattention-and-io-aware-attention`, `qk-clip` |\n\n## Supporting Guides\n\n| Guide | What To Learn | Engineering Output |\n| --- | --- | --- |\n| Tokenization | Tokens, subwords, vocabulary, and representation boundaries. | Stable input accounting and context budgeting. |\n| Reasoning | Test-time compute, verification, answer stability, and reasoning evals. | Hard-task policy with cost and quality evidence. |\n| Long context | Truncation, caching, positional limits, and long-context degradation. | Context policy that fails predictably. |\n| Multimodal | Image, audio, video, and token-like cross-modal representations. | Input contract for mixed-modality tasks. |\n| Alignment | SFT, preference learning, RLHF/RLAIF, DPO, and safety behavior. | Behavior-change record and policy eval set. |\n| LLM evaluation | Likelihood, task metrics, judges, retrieval metrics, and workflow traces. | Release gate with baseline and regression cases. |\n| Inference serving | Batching, KV cache, quantization, latency, throughput, and cost. | Capacity plan and rollback threshold. |\n\n## Engineering Checklist\n\n| Area | Check Before Shipping |\n| --- | --- |\n| Interface | Tokenizer, context budget, output schema, refusal boundary. |\n| Quality | Task metric, judge rubric, retrieval metric, slices, regression set. |\n| Context | Truncation rule, cache strategy, citation policy, degradation check. |\n| Serving | Prefill latency, decode latency, KV-cache memory, batching, quantization, cost. |\n| Safety | Alignment objective, policy test cases, red-team cases, rollback gate. |\n| Iteration | Fixed baseline, eval report, release threshold, production monitoring signal. |\n\n## Lab Signals\n\n| Source | Handbook Lesson |\n| --- | --- |\n| OpenAI | Treat reasoning effort, structured output, and eval datasets as engineering controls. |\n| Anthropic | Define evals early; keep transcripts, graders, and failure labels inspectable. |\n| DeepMind | Pair generation with automated evaluators when optimizing code, algorithms, or system behavior. |\n| Hugging Face | Ground the theory in implementation: generation APIs, KV cache choices, evaluation metrics, and TRL post-training. |\n\n## References\n\n- [OpenAI Reasoning Models](https://developers.openai.com/api/docs/guides/reasoning)\n- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)\n- [OpenAI Evals](https://developers.openai.com/api/docs/guides/evals)\n- [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)\n- [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)\n- [Hugging Face KV Cache Strategies](https://huggingface.co/docs/transformers/en/kv_cache)\n- [Hugging Face Evaluate](https://huggingface.co/docs/evaluate/choosing_a_metric)\n- [Hugging Face TRL](https://huggingface.co/docs/trl)\n"
     },
     {
       "track": "ml",
