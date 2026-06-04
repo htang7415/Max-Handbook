@@ -33,6 +33,20 @@ return value
 - `hot-key-and-rate-limit-protection`
 - `semantic-caching-basics`
 
+## Supporting Modules
+
+- `semantic-cache-invalidation`
+- `semantic-cache-hit-rate-analysis`
+- `cache-stampede-mitigation`
+- `cache-admission-policies`
+- `negative-caching-patterns`
+
+## Boundary Notes
+
+- `semantic-caching-basics` teaches when a request can reuse a previous answer.
+- `semantic-cache-invalidation` teaches when a previous answer must be removed or ignored because policy, source data, or tenant scope changed.
+- `ttl-and-invalidation` is the general cache freshness module; semantic invalidation is the AI-answer-specific version with policy and corpus versions.
+
 ## When To Use What
 
 - Start with `cache-aside`, then learn TTL and invalidation before any more advanced cache policy.

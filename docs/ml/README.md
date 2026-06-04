@@ -55,7 +55,7 @@ code = implement_smallest_working_version(equation)
 6. Deep learning: activations, normalization, initialization, losses, and regularization.
 7. LLMs: tokenization, attention, training, retrieval, reasoning, alignment, and serving.
 8. Generative and vision: diffusion, VAE/GAN concepts, CNNs, pooling, and architectures.
-9. Systems and MLOps: training loops, hardware bottlenecks, serving, monitoring, and rollout.
+9. Systems and MLOps: training loops, hardware bottlenecks, serving, monitoring, rollout, and capstone release gates.
 10. Reinforcement learning: MDPs, value methods, policy gradients, off-policy ideas, and RL for LLMs.
 
 ## Canonical Families
@@ -73,6 +73,7 @@ code = implement_smallest_working_version(equation)
 - Follow the subsection order until you know what kind of failure you are debugging: data, model, metric, training, serving, or policy.
 - Add systems and MLOps after you can already choose models, metrics, and core deep-learning tools.
 - Use LLM evaluation, retrieval, long-context, and inference modules when product behavior depends on prompts, tools, or serving constraints rather than only model weights.
+- Use assessments and capstones to check whether model quality, calibration, latency, cost, and rollout rules work together.
 - Treat reinforcement learning, generative models, representation learning, and computer vision as specializations after the main spine is comfortable.
 
 ## Scope Rule
@@ -80,3 +81,9 @@ code = implement_smallest_working_version(equation)
 - Prefer concise explanations over exhaustive catalogs.
 - Prefer canonical families over many near-duplicate modules.
 - Only add ML topics outside `problem_titles.md` when they are clearly important to AI practice in 2026.
+
+## Neighbor Tracks
+
+- Use `docs/ai-agents/evaluation` when model behavior is embedded in a tool-using workflow.
+- Use `docs/databases/vector-db/overview.md` when retrieval, metadata, or freshness affects LLM output quality.
+- Use `docs/software-engineering/performance` and `docs/software-engineering/reliability` when serving budgets or rollback rules decide deployment.

@@ -13,6 +13,10 @@ Read-repair fixes divergence only for keys that happen to be read. Background re
 - Read-repair can leave cold divergent keys broken for a long time.
 - Background repair costs extra work but converges the whole replica set.
 
+## Boundary
+
+Use `anti-entropy-and-repair` for the basic convergence mechanism. Use this module when the design question is which trigger should repair divergence: a client read of a key or a background scan over all keys.
+
 ## Minimal Code Mental Model
 
 ```python
@@ -27,17 +31,6 @@ remaining = background_repair(left, right)
 ## Function
 
 ```python
-def empty_replica(name: str) -> dict[str, object]:
-def write_value(
-    replica: dict[str, object],
-    key: str,
-    value: object,
-    version: int,
-) -> None:
-def divergent_keys(
-    left: dict[str, object],
-    right: dict[str, object],
-) -> list[str]:
 def read_with_repair(
     left: dict[str, object],
     right: dict[str, object],
@@ -47,7 +40,6 @@ def background_repair(
     left: dict[str, object],
     right: dict[str, object],
 ) -> list[str]:
-def visible_values(replica: dict[str, object]) -> dict[str, object]:
 ```
 
 ## Run tests

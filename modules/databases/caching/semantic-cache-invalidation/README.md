@@ -14,6 +14,10 @@ Semantic caches should be invalidated by the data and policy versions that shape
 - TTL helps, but version-aware invalidation is the safer correctness boundary.
 - Similarity thresholds should stay in `0..1`, and max-age windows should not be negative.
 
+## Boundary
+
+Use `semantic-caching-basics` to learn hit eligibility. Use this module when the problem is eviction or bypass after policy, prompt, corpus, or tenant-scope versions change.
+
 ## Minimal Code Mental Model
 
 ```python
@@ -26,8 +30,6 @@ removed = invalidate_scope(entries, 7, current_policy_version="policy-v2", curre
 ## Function
 
 ```python
-def token_overlap_score(left: str, right: str) -> float:
-def validate_lookup_inputs(similarity_threshold: float, max_age_seconds: int) -> None:
 def store_semantic_entry(
     entries: list[dict[str, object]],
     query: str,

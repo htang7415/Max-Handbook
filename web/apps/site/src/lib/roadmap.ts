@@ -139,7 +139,7 @@ export const HANDBOOK_TOPIC_GROUPS: Record<string, HandbookTopicGroup[]> = {
       track: "ml",
       topic: "systems-and-mlops",
       name: "Systems And MLOps",
-      sourceTopics: ["systems", "mlops"],
+      sourceTopics: ["systems", "mlops", "assessments", "capstones"],
     },
     {
       track: "ml",
@@ -269,7 +269,7 @@ export const HANDBOOK_TOPIC_GROUPS: Record<string, HandbookTopicGroup[]> = {
       track: "databases",
       topic: "vector-retrieval-and-memory",
       name: "Vector Retrieval And Memory",
-      sourceTopics: ["vector-db"],
+      sourceTopics: ["vector-db", "assessments", "capstones"],
     },
   ],
   "software-engineering": [

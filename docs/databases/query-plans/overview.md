@@ -34,6 +34,21 @@ GROUP BY c.document_id;
 - `or-predicate-plan-shapes`
 - `sort-limit-and-group-by-costs`
 
+## Supporting Modules
+
+- `covering-index-vs-table-lookups`
+- `join-order-and-cardinality`
+- `join-selectivity-mistakes`
+- `predicate-correlation-and-stats`
+- `plan-regression-debugging`
+
+## Boundary Notes
+
+- `explain-basics` teaches how to read the plan tree.
+- `seq-scan-vs-index-scan` teaches why the optimizer may choose a full scan or an index path.
+- `covering-index-vs-table-lookups` is the bridge back to indexing when the plan spends time fetching base-table rows.
+- `or-predicate-plan-shapes` belongs here because the plan shape can combine or split access paths even when the index design is unchanged.
+
 ## When To Use What
 
 - Start with `explain-basics`, then compare scan and join shapes before debugging edge cases.

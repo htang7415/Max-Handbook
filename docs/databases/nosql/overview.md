@@ -36,6 +36,20 @@ Use this topic to understand when document, key-value, and wide-column systems f
 - `wide-row-and-time-series-patterns`
 - `tenant-sharding-basics`
 
+## Supporting Modules
+
+- `anti-entropy-and-repair`
+- `repair-vs-read-repair`
+- `compaction-vs-repair-tradeoffs`
+- `compaction-debt-signals`
+- `secondary-indexes-in-lsm-systems`
+
+## Boundary Notes
+
+- `anti-entropy-and-repair` teaches the background convergence mechanism.
+- `repair-vs-read-repair` compares two repair triggers: client reads versus background scans.
+- `compaction-vs-repair-tradeoffs` is about storage maintenance pressure, not replica divergence itself.
+
 ## When To Use What
 
 - Start with `when-postgres-is-enough` before assuming you need a NoSQL system.

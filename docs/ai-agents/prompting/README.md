@@ -15,27 +15,17 @@ Use this page to understand:
 - System instructions define behavior; user messages define the task.
 - Constraints are most useful when they are explicit and easy to check.
 
-## Core Math
+## Concept Ladder
 
-- Active prompt budget:
-  $$
-  \text{system} + \text{task} + \text{memory} + \text{retrieved context} \le \text{context window}
-  $$
-- Constraint coverage:
-  $$
-  \frac{\text{satisfied constraints}}{\text{required constraints}}
-  $$
+1. Separate stable behavior from the user's current task.
+2. Add only constraints that the model or evaluator can check.
+3. Use examples and delimiters when format ambiguity causes errors.
+4. Pack memory and retrieved context only when the task needs them.
+5. Add self-checks after the prompt has a clear contract.
 
-## Minimal Code Mental Model
+## Engineering Boundary
 
-```python
-checklist = format_checklist(["answer in bullets", "cite sources"])
-messages = build_messages(
-    system_prompt="You are a careful research assistant.",
-    user_prompt="Summarize the latest policy changes.",
-    checklist=["answer in bullets", "cite sources"],
-)
-```
+This page is the prompting map. The runnable message-building pattern lives in `prompt-structuring`; context packing belongs in `context-engineering-for-agents`.
 
 ## Canonical Modules
 

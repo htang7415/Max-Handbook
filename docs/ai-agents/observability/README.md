@@ -14,6 +14,8 @@ Use this page to understand:
 - Observability is how you debug the agent loop after the prompt leaves the editor.
 - A useful trace records steps, status, and latency with as little extra structure as possible.
 - The first goal is to separate model, tool, and workflow problems.
+- Modern GenAI tracing should separate inference, embeddings, retrieval, and tool execution spans so failures are attributable.
+- Content capture should be deliberate because prompts, tool outputs, and retrieved documents can contain sensitive data.
 
 ## Core Math
 

@@ -18,6 +18,8 @@ Use this page to organize security into:
 - Least privilege is easier to maintain than broad access plus ad hoc exceptions.
 - AI-assisted coding increases supply-chain, secret-handling, and unsafe-action risk if boundaries are vague.
 - Agentic systems add a new trust boundary: untrusted text can influence tool calls, memory, permissions, and external side effects.
+- Supply-chain controls should include provenance, dependency review, and automated risk signals instead of relying only on package reputation.
+- Agentic security reviews should include goal manipulation, unsafe tool use, overbroad permissions, memory poisoning, and human-approval boundaries.
 
 ## Canonical Modules
 
@@ -38,6 +40,6 @@ Use this page to organize security into:
 
 - Start with identity and trust boundaries before specialized controls.
 - Use least privilege and secret isolation early, not after incidents.
-- Add supply-chain controls once dependency count and automation increase.
+- Add supply-chain controls such as SLSA-style provenance checks and OpenSSF Scorecard-style repository signals once dependency count and automation increase.
 - Treat secure SDLC work as part of delivery quality, not a separate domain.
 - Use `docs/ai-agents/guardrails` when model output can trigger tools, connector actions, memory writes, or other external effects.

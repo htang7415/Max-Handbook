@@ -14,6 +14,10 @@
 - Overlap between branches matters because duplicate candidates still cost work.
 - The overlap between branches cannot exceed either branch on its own.
 
+## Boundary
+
+Use `index-merge-vs-composite-indexes` when the question is whether repeated `AND` predicates deserve one composite index. Use this module when the query itself has multiple `OR` branches and the planner must choose scan versus index-union behavior.
+
 ## Minimal Code Mental Model
 
 ```python
@@ -28,7 +32,6 @@ summary = or_plan_summary(
 ## Function
 
 ```python
-def matching_rows(total_rows: int, selectivity: float) -> int:
 def union_rows(
     total_rows: int,
     left_selectivity: float,

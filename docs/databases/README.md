@@ -48,16 +48,32 @@ Use the track in this order:
 7. Caching: cache-aside, invalidation, stampedes, hot keys, semantic caching, and TTL jitter.
 8. Streaming and CDC: events, connectors, offsets, watermarks, schema evolution, and replay.
 9. NoSQL and distributed data: document/key-value/wide-row trade-offs, quorum, repair, and compaction.
-10. Vector retrieval and memory: embeddings, ANN, metadata filters, hybrid search, reranking, and agent memory.
+10. Vector retrieval and memory: embeddings, ANN, metadata filters, hybrid search, reranking, agent memory, and data-stack capstones.
 
 ## AI-Time 2026 Priorities
 
 - Keep PostgreSQL-level relational fundamentals, MVCC, and `EXPLAIN` central.
-- Treat recent PostgreSQL releases as a reason to teach better operational fundamentals, not as a vendor-feature catalog.
+- Treat recent PostgreSQL releases, including asynchronous I/O, skip scans, and retained optimizer statistics on upgrade, as a reason to teach better operational fundamentals, not as a vendor-feature catalog.
 - Treat DuckDB and Parquet as part of the normal analytics toolbox for offline evals, data debugging, and local experimentation.
 - Teach CDC and streaming as the bridge between operational systems, analytics, and AI pipelines.
 - Teach caching with invalidation first, then semantic caching for repeated model calls.
 - Teach vector search as one retrieval component inside a larger metadata, permissions, lexical ranking, and reranking system.
+- Add assessments and capstones only after source-of-truth, analytics, CDC, and retrieval responsibilities are separated.
+
+## When To Use What
+
+- Use relational and schema modules before choosing NoSQL or vector infrastructure.
+- Use query-plan modules when the schema is reasonable but the runtime behavior is wrong.
+- Use caching only after the correctness boundary and invalidation trigger are known.
+- Use streaming and CDC when downstream systems need ordered change propagation.
+- Use vector retrieval only after metadata, permissions, freshness, and eval data are explicit.
+- Use assessments and capstones to verify that the whole data stack can survive product changes, stale data, and AI retrieval failures.
+
+## Neighbor Tracks
+
+- Use `docs/ai-agents/rag` and `docs/ai-agents/memory` when retrieval becomes part of an agent loop.
+- Use `docs/ml/llm/evaluation` when retrieval quality is judged by model or answer behavior.
+- Use `docs/software-engineering/reliability` when CDC, cache, or retrieval lag becomes an operational SLO.
 
 ## Scope Rule
 

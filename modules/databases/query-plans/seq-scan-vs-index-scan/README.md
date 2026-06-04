@@ -13,6 +13,10 @@ Query optimizers choose between reading the whole table and probing an index. A 
 - Good plans depend on both filtering and sort order.
 - `EXPLAIN QUERY PLAN` shows when the planner switches from scan to indexed search.
 
+## Boundary
+
+Use `explain-basics` to learn the vocabulary of plans. Use this module when the tuning question is why the optimizer chose a full scan or indexed search for one query shape.
+
 ## Minimal Code Mental Model
 
 ```python
@@ -23,9 +27,6 @@ flags = plan_flags(plan)
 ## Function
 
 ```python
-def create_connection() -> sqlite3.Connection:
-def create_events_table(conn: sqlite3.Connection) -> None:
-def seed_events(conn: sqlite3.Connection, rows: list[tuple[int, str, str]]) -> None:
 def add_workspace_created_index(conn: sqlite3.Connection) -> None:
 def explain_recent_workspace_events(
     conn: sqlite3.Connection,

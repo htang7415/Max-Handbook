@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-04T18:09:24.220Z",
+  "generated_at": "2026-06-04T19:04:12.128Z",
   "entries": [
     {
       "id": "module:dsa/dynamic-programming/0-1-knapsack-theory-part-1",
@@ -1838,6 +1838,18 @@
       "topicName": "Evaluation"
     },
     {
+      "id": "module:ai-agents/overview/agent-loop-architecture",
+      "type": "module",
+      "title": "Agent Loop Architecture",
+      "summary": "> Track: `ai-agents` | Topic: `overview`",
+      "track": "ai-agents",
+      "topic": "overview",
+      "slug": "agent-loop-architecture",
+      "href": "/track/ai-agents/overview#agent-loop-architecture",
+      "trackName": "AI Agents",
+      "topicName": "Overview"
+    },
+    {
       "id": "module:databases/vector-db/agent-memory-retrieval",
       "type": "module",
       "title": "Agent Memory Retrieval",
@@ -2087,6 +2099,30 @@
       "slug": "assessments",
       "href": "/track/ai-agents/assessments#assessments",
       "trackName": "AI Agents",
+      "topicName": "Assessments"
+    },
+    {
+      "id": "doc:databases/assessments/assessments",
+      "type": "doc",
+      "title": "Assessments",
+      "summary": "Use this page to check whether the database track is improving system design judgment, not just SQL vocabulary.",
+      "track": "databases",
+      "topic": "assessments",
+      "slug": "assessments",
+      "href": "/track/databases/assessments#assessments",
+      "trackName": "Databases",
+      "topicName": "Assessments"
+    },
+    {
+      "id": "doc:ml/assessments/assessments",
+      "type": "doc",
+      "title": "Assessments",
+      "summary": "Use this page to check whether the ML track is building engineering judgment, not just formula recall.",
+      "track": "ml",
+      "topic": "assessments",
+      "slug": "assessments",
+      "href": "/track/ml/assessments#assessments",
+      "trackName": "Machine Learning",
       "topicName": "Assessments"
     },
     {
@@ -2651,6 +2687,30 @@
       "slug": "capstones",
       "href": "/track/ai-agents/capstones#capstones",
       "trackName": "AI Agents",
+      "topicName": "Capstones"
+    },
+    {
+      "id": "doc:databases/capstones/capstones",
+      "type": "doc",
+      "title": "Capstones",
+      "summary": "Use database capstones to combine relational state, analytics, streaming, caching, and retrieval into one product-shaped data system.",
+      "track": "databases",
+      "topic": "capstones",
+      "slug": "capstones",
+      "href": "/track/databases/capstones#capstones",
+      "trackName": "Databases",
+      "topicName": "Capstones"
+    },
+    {
+      "id": "doc:ml/capstones/capstones",
+      "type": "doc",
+      "title": "Capstones",
+      "summary": "Use ML capstones to combine modeling, evaluation, serving, and rollout decisions into one engineering workflow.",
+      "track": "ml",
+      "topic": "capstones",
+      "slug": "capstones",
+      "href": "/track/ml/capstones#capstones",
+      "trackName": "Machine Learning",
       "topicName": "Capstones"
     },
     {
@@ -4610,6 +4670,18 @@
       "topicName": "Caching"
     },
     {
+      "id": "module:databases/capstones/hybrid-ai-data-stack",
+      "type": "module",
+      "title": "Hybrid AI Data Stack",
+      "summary": "> Track: `databases` | Topic: `capstones`",
+      "track": "databases",
+      "topic": "capstones",
+      "slug": "hybrid-ai-data-stack",
+      "href": "/track/databases/capstones#hybrid-ai-data-stack",
+      "trackName": "Databases",
+      "topicName": "Capstones"
+    },
+    {
       "id": "module:databases/vector-db/hybrid-retrieval-evaluation",
       "type": "module",
       "title": "Hybrid Retrieval Evaluation",
@@ -5436,6 +5508,18 @@
       "href": "/track/ml/llm#alignment",
       "trackName": "Machine Learning",
       "topicName": "LLM"
+    },
+    {
+      "id": "module:ml/capstones/llm-eval-serving-gate",
+      "type": "module",
+      "title": "LLM Eval Serving Gate",
+      "summary": "> Track: `ml` | Topic: `capstones`",
+      "track": "ml",
+      "topic": "capstones",
+      "slug": "llm-eval-serving-gate",
+      "href": "/track/ml/capstones#llm-eval-serving-gate",
+      "trackName": "Machine Learning",
+      "topicName": "Capstones"
     },
     {
       "id": "doc:ml/llm/evaluation",

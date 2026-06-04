@@ -37,6 +37,15 @@ LIMIT 5;
 - `hybrid-retrieval-evaluation`
 - `agent-memory-retrieval`
 
+## Supporting Modules
+
+- `golden-query-eval-sets`
+- `hard-negative-eval-cases`
+- `retrieval-failure-analysis`
+- `retrieval-evaluation-dataset-shapes`
+- `long-context-vs-retrieval-tradeoffs`
+- `hybrid-ai-data-stack`
+
 ## When To Use What
 
 - Start with embedding table design and metadata filters before ANN tuning.
@@ -49,3 +58,4 @@ LIMIT 5;
 - Use `scann-search` when you want to reason about partition-and-reorder search at large scale.
 - Add reranking and retrieval evaluation once first-stage retrieval is stable enough to measure.
 - Use agent memory only after scoring, freshness, and conflict rules are already explicit.
+- Use the capstone only after relational state, CDC, analytics, and retrieval boundaries are all clear.

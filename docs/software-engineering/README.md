@@ -78,6 +78,7 @@ Each software-engineering module should answer the same six questions:
 - Platform leverage that improves delivery speed without hiding ownership.
 - Secure agentic workflows with least privilege, scoped credentials, approval gates, and traceable tool calls.
 - Treat AI evals and red-team cases as release checks when software behavior depends on model or agent decisions.
+- Treat supply-chain provenance, dependency risk, and generated-code review as normal delivery gates.
 
 ## First 20 Canonical Modules
 
@@ -110,6 +111,12 @@ Build the track in this order:
 - Prefer compact modules with clear failure modes over long catalogs of tips.
 - Prefer operationally meaningful topics over interview-style trivia.
 - Treat AI as a workflow amplifier layered on top of software fundamentals, not as a replacement for them.
+
+## Neighbor Tracks
+
+- Use `docs/ai-agents/guardrails` when software workflows give agents external actions.
+- Use `docs/databases/vector-db/overview.md` when AI product behavior depends on retrieval freshness or permissions.
+- Use `docs/ml/llm/evaluation` when release gates depend on model or judge behavior.
 
 ## Capstones
 

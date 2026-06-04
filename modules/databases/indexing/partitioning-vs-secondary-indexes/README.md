@@ -13,6 +13,10 @@ Partitioning reduces the partitions you touch. Secondary indexes reduce the rows
 - Partitioning alone does not make per-tenant or per-user lookups cheap.
 - Good indexing design usually combines both ideas instead of treating them as substitutes.
 
+## Boundary
+
+Use `partition-pruning-basics` to learn how partitions are skipped. Use this module when the design question is whether pruning is enough or each remaining partition still needs its own secondary access path.
+
 ## Minimal Code Mental Model
 
 ```python
@@ -30,15 +34,6 @@ scanned, inspected, matches = query_with_secondary_index(
 ## Function
 
 ```python
-def month_key(date_text: str) -> str:
-def build_monthly_partitions(
-    rows: list[dict[str, object]],
-) -> dict[str, list[dict[str, object]]]:
-def scanned_partition_keys(
-    partitions: dict[str, list[dict[str, object]]],
-    start_date: str,
-    end_date: str,
-) -> list[str]:
 def build_workspace_secondary_index(
     partitions: dict[str, list[dict[str, object]]],
 ) -> dict[str, dict[int, list[dict[str, object]]]]:

@@ -33,6 +33,20 @@ ORDER BY d.created_at DESC;
 - `null-semantics-in-joins`
 - `jsonb-inside-relational-systems`
 
+## Supporting Modules
+
+- `join-vs-subquery-shapes`
+- `semi-join-and-anti-join-shapes`
+- `outer-join-filter-traps`
+- `row-level-security-basics`
+- `soft-delete-and-tombstone-patterns`
+
+## Boundary Notes
+
+- `join-vs-subquery-shapes` is about row shape: whether a query duplicates parent rows or preserves one row per parent.
+- `semi-join-and-anti-join-shapes` is about existence tests: `EXISTS`, `IN`, and missing-related-row checks.
+- `outer-join-filter-traps` is the failure mode when optional relationships are accidentally turned into inner joins.
+
 ## When To Use What
 
 - Start here before `nosql` or `vector-db`.

@@ -13,6 +13,10 @@ Partial indexes index only the subset of rows that a hot query actually cares ab
 - The query predicate has to match the partial condition closely.
 - Queries outside the indexed subset still need another access path or a scan.
 
+## Boundary
+
+Use `btree-basics` for ordinary equality, range, and ordering access. Use this module when the useful rows are a stable subset and indexing the whole table would waste write cost and storage.
+
 ## Minimal Code Mental Model
 
 ```python
@@ -27,9 +31,6 @@ completed_plan = plan_flags(plan_for_recent_completed_runs(conn, 7))
 ## Function
 
 ```python
-def create_connection() -> sqlite3.Connection:
-def create_eval_runs_table(conn: sqlite3.Connection) -> None:
-def seed_eval_runs(conn: sqlite3.Connection, rows: list[tuple[int, str, str]]) -> None:
 def add_failed_runs_partial_index(conn: sqlite3.Connection) -> None:
 def plan_for_recent_failed_runs(
     conn: sqlite3.Connection,

@@ -13,6 +13,10 @@ Semi-joins keep left-side rows that have a match. Anti-joins keep left-side rows
 - Both shapes return left-side rows, not one row per matching pair.
 - These shapes often map better to existence questions than raw joins.
 
+## Boundary
+
+Use `join-vs-subquery-shapes` when the problem is accidental row multiplication. Use this module when the SQL should express existence or absence directly.
+
 ## Minimal Code Mental Model
 
 ```python
@@ -27,10 +31,6 @@ anti = anti_join_customers_without_paid_orders(conn)
 ## Function
 
 ```python
-def create_connection() -> sqlite3.Connection:
-def create_demo_tables(conn: sqlite3.Connection) -> None:
-def seed_customers(conn: sqlite3.Connection, rows: list[tuple[int, str]]) -> None:
-def seed_orders(conn: sqlite3.Connection, rows: list[tuple[int, str]]) -> None:
 def inner_join_paid_order_names(conn: sqlite3.Connection) -> list[str]:
 def semi_join_customers_with_paid_orders(conn: sqlite3.Connection) -> list[str]:
 def anti_join_customers_without_paid_orders(conn: sqlite3.Connection) -> list[str]:

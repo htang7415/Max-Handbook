@@ -12,16 +12,13 @@ This capstone combines retrieval grounding, short memory, tool choice, and revie
 - Tool use should beat direct answering by explicit expected value, not habit.
 - Block and review paths should be as explicit as the happy path.
 - Active context should stay small enough to inspect.
+- The dedicated tool-selection math lives in `expected-value-tool-selection`; this capstone shows how that choice interacts with grounding and memory.
 
 ## Core Math
 
 - Grounding coverage:
   $$
   \frac{\text{supported claims}}{\text{claims made}}
-  $$
-- Expected tool value:
-  $$
-  p(\text{success}) \cdot \text{success value} - \text{tool cost} - (1-p(\text{success})) \cdot \text{failure penalty}
   $$
 - Context budget:
   $$
@@ -52,12 +49,6 @@ def build_support_context(
     max_chunks: int = 2,
     max_memories: int = 1,
 ) -> dict[str, list[str]]:
-def expected_tool_value(
-    success_probability: float,
-    success_value: float,
-    tool_cost: float,
-    failure_penalty: float = 0.0,
-) -> float:
 def select_support_tool(
     tool_to_profile: dict[str, dict[str, float]],
     min_expected_value: float,

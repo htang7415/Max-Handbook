@@ -35,6 +35,22 @@ LIMIT 20;
 - `index-write-amplification`
 - `jsonb-and-gin-indexing`
 
+## Supporting Modules
+
+- `partition-pruning-basics`
+- `partitioning-vs-secondary-indexes`
+- `index-merge-vs-composite-indexes`
+- `point-lookups-vs-range-scans`
+- `sparse-index-selectivity`
+
+## Boundary Notes
+
+- `btree-basics` teaches the default ordered access path.
+- `composite-index-order` teaches column order inside one index.
+- `partial-indexes` teaches narrowing an index to rows that match a stable predicate.
+- `partition-pruning-basics` removes whole partitions before normal access paths run; it is not a replacement for secondary indexes.
+- `index-merge-vs-composite-indexes` is the fallback comparison when a query could use several single-column indexes or one purpose-built composite index.
+
 ## When To Use What
 
 - Start with `btree-basics`, then learn `composite-index-order` and `covering-index-concepts`.

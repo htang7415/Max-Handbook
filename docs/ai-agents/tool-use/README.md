@@ -30,6 +30,12 @@ Use this page to keep tool-using agents in the right order:
 
 This page is the tool-use map. The runnable select-call-result loop lives in `tool-use-basics`; decision math belongs in `expected-value-tool-selection` and security boundaries belong in `guardrails-and-security`.
 
+## Current Standards Notes
+
+- Treat MCP as a protocol boundary for tools, resources, prompts, and server lifecycle, not as a substitute for product policy.
+- Current MCP practice should assume structured tool outputs, protected-resource metadata, resource indicators for OAuth safety, and explicit protocol-version handling for streamable HTTP clients.
+- Tool results that include resources or external content still need validation before they can influence later tool calls.
+
 ## Canonical Modules
 
 - Core function calling: `tool-use-basics`

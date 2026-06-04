@@ -59,6 +59,10 @@ score = task_success_rate([True, False, True])
 9. Multi-agent systems: orchestration, workers, delegation budgets, arbitration, and roles.
 10. Practice and capstones: assessments and end-to-end agent workflow builds.
 
+## Canonical Modules
+
+- `agent-loop-architecture`
+
 ## Supporting Guides
 
 - Decision patterns: `decision-methods`

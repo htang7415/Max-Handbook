@@ -17,6 +17,7 @@ Use this page to organize tooling into:
 - Generated code should have clear ownership boundaries.
 - AI-generated code increases the need for review structure, not less.
 - Tooling should reduce accidental variation in how code is built, tested, and shipped.
+- Build and release automation should make provenance, dependency review, and generated-code boundaries visible to reviewers.
 
 ## Canonical Modules
 
@@ -43,3 +44,4 @@ Use this page to organize tooling into:
 - Use reproducible environment modules before debugging flaky local setup.
 - Make code generation boundaries explicit before generated files spread through the repo.
 - Add AI workflow rules before relying on agents for large code edits.
+- Pair AI-assisted delivery with security-basics when generated changes touch dependencies, secrets, permissions, or external tool actions.
