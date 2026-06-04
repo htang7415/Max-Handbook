@@ -10,6 +10,8 @@ import {
   extractModuleOrder,
   extractTopicEntryGroups,
   getHandbookTopics,
+  getHandbookTopicOutline,
+  MAX_HANDBOOK_SUBSUBSECTIONS,
   resolveHandbookTopic,
 } from "@/lib/roadmap";
 import { VIZ_REGISTRY } from "@/lib/visual-registry";
@@ -832,6 +834,10 @@ export default async function TopicPage({
 
   const navItems = buildNavItems(content);
   const { prev, next } = getAdjacentPages(navItems, trackId, topicId);
+  const handbookOutline = getHandbookTopicOutline(trackId, topicId).slice(
+    0,
+    MAX_HANDBOOK_SUBSUBSECTIONS
+  );
 
   const docs = content.docs.filter(
     (item) => item.track === trackId && sourceTopicSet.has(item.topic)
@@ -849,34 +855,22 @@ export default async function TopicPage({
     aliasesByCanonical.set(alias.aliasOf, aliases);
   }
 
-  // Legacy source-topic pages keep README docs as ordering outlines only.
-  // Grouped handbook pages render those README docs as subsection overviews.
-  const entryDocs = resolvedTopic.isGrouped
-    ? docs
-    : docs.filter((doc) => doc.slug !== topicId);
-  const docBySlug = new Map(entryDocs.map((doc) => [doc.slug, doc]));
-  const moduleBySlug = new Map(modules.map((module) => [module.slug, module]));
-  const entrySlugs = Array.from(
-    new Set([
-      ...entryDocs.map((doc) => doc.slug),
-      ...modules.map((module) => module.slug),
-    ])
+  const outlineDocEntries = sourceTopics.flatMap((sourceTopic) => {
+    const doc =
+      docs.find((candidate) => candidate.topic === sourceTopic && candidate.slug === sourceTopic) ??
+      docs.find((candidate) => candidate.topic === sourceTopic);
+    return doc ? [{ sourceTopic, doc }] : [];
+  });
+  const outlineDocs = outlineDocEntries.map((entry) => entry.doc);
+  const moduleOrder = outlineDocEntries.flatMap(({ doc, sourceTopic }) =>
+    extractModuleOrder(doc?.content, trackId, sourceTopic)
   );
-
-  const outlineDocs = sourceTopics.map(
-    (sourceTopic) =>
-      docs.find((doc) => doc.topic === sourceTopic && doc.slug === sourceTopic) ??
-      docs.find((doc) => doc.topic === sourceTopic)
-  );
-  const moduleOrder = outlineDocs.flatMap((doc, index) =>
-    extractModuleOrder(doc?.content, trackId, sourceTopics[index])
-  );
-  const topicEntryGroups = outlineDocs.reduce(
-    (groups, doc, index) => {
+  const topicEntryGroups = outlineDocEntries.reduce(
+    (groups, { doc, sourceTopic }) => {
       const extracted = extractTopicEntryGroups(
         doc?.content,
         trackId,
-        sourceTopics[index]
+        sourceTopic
       );
       groups.canonical.push(...extracted.canonical);
       groups.supporting.push(...extracted.supporting);
@@ -888,6 +882,43 @@ export default async function TopicPage({
   const supportingEntrySet = new Set(topicEntryGroups.supporting);
   const hasStructuredGroups =
     (canonicalEntrySet.size > 0 || supportingEntrySet.size > 0);
+  const uniqueOutlineDocs = Array.from(
+    new Map(outlineDocs.map((doc) => [`${doc.topic}/${doc.slug}`, doc])).values()
+  );
+  const moduleOrderRank = new Map(moduleOrder.map((slug, index) => [slug, index]));
+
+  // Legacy source-topic pages keep README docs as ordering outlines only.
+  // Grouped handbook pages render only the curated learning sequence. Extra
+  // legacy labs remain available on their original source-topic pages.
+  const entryDocs = resolvedTopic.isGrouped
+    ? uniqueOutlineDocs
+    : docs.filter((doc) => doc.slug !== topicId);
+  const entryModules =
+    resolvedTopic.isGrouped && hasStructuredGroups
+      ? modules
+          .filter(
+            (module) =>
+              canonicalEntrySet.has(module.slug) || supportingEntrySet.has(module.slug)
+          )
+          .sort((a, b) => {
+            const rankA = moduleOrderRank.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
+            const rankB = moduleOrderRank.get(b.slug) ?? Number.MAX_SAFE_INTEGER;
+            if (rankA !== rankB) return rankA - rankB;
+            return a.title.localeCompare(b.title);
+          })
+          .slice(
+            0,
+            Math.max(0, MAX_HANDBOOK_SUBSUBSECTIONS - entryDocs.length)
+          )
+      : modules;
+  const docBySlug = new Map(entryDocs.map((doc) => [doc.slug, doc]));
+  const moduleBySlug = new Map(entryModules.map((module) => [module.slug, module]));
+  const entrySlugs = Array.from(
+    new Set([
+      ...entryDocs.map((doc) => doc.slug),
+      ...entryModules.map((module) => module.slug),
+    ])
+  );
   const slugOrder = new Map<string, number>();
   let orderIndex = 0;
 
@@ -1056,6 +1087,36 @@ export default async function TopicPage({
         <h1 className="text-[1.65rem] font-semibold tracking-tight leading-tight">
           {topic.name}
         </h1>
+
+        {handbookOutline.length > 0 && (
+          <section className="handbook-map" aria-labelledby="handbook-map-title">
+            <div className="handbook-map-head">
+              <div>
+                <div className="handbook-map-eyebrow">Handbook Map</div>
+                <h2 id="handbook-map-title" className="handbook-map-title">
+                  Systematic learning order
+                </h2>
+              </div>
+              <span className="handbook-map-count">
+                {handbookOutline.length}/{MAX_HANDBOOK_SUBSUBSECTIONS}
+              </span>
+            </div>
+            <ol className="handbook-map-grid">
+              {handbookOutline.map((item, index) => (
+                <li key={`${item.stage}-${item.title}`} className="handbook-map-item">
+                  <div className="handbook-map-item-top">
+                    <span className="handbook-map-number">{index + 1}</span>
+                    <span className="handbook-map-stage">{item.stage}</span>
+                  </div>
+                  <div className="handbook-map-item-title">{item.title}</div>
+                  <p className="handbook-map-item-description">
+                    {item.description}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         {entries.length === 0 ? (
           <div className="empty-state mt-10">

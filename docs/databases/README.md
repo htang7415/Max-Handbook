@@ -23,6 +23,7 @@ Use this track to learn databases in the order that matters most in 2026:
 - OpenAI's retrieval guidance treats vector stores as semantic-search indices over uploaded data, with attributes, chunking, filtering, expiration, and eventual consistency as engineering details.
 - Anthropic's MCP work reinforces that agents need standard ways to connect to external systems and data sources; database interfaces should expose metadata, permissions, and tool boundaries cleanly.
 - DeepMind's AlphaEvolve shows that AI systems can optimize infrastructure and algorithms, which increases the value of telemetry, eval data, experiment lineage, and reproducible analytics stores.
+- Hugging Face's RAG and agentic RAG material makes the retrieval lesson practical: retrieval databases need eval datasets, metadata, reranking, and answer-quality feedback, not just embeddings.
 
 ## Recommended Path
 
@@ -56,6 +57,16 @@ Use the track in this order:
 9. NoSQL and distributed data: document/key-value/wide-row trade-offs, quorum, repair, and compaction.
 10. Vector retrieval and memory: embeddings, ANN, metadata filters, hybrid search, reranking, agent memory, and data-stack capstones.
 
+## Handbook Map Style
+
+Each subsection should expose at most 20 curated subsubsections. Use this order:
+- Frame the data responsibility and correctness boundary.
+- Explain the storage or query model.
+- Build the schema, query, index, cache, stream, or retrieval path.
+- Measure correctness, performance, freshness, and quality.
+- Operate migrations, lag, repair, invalidation, or permissions.
+- Finish with practice that combines source-of-truth data and AI retrieval.
+
 ## AI-Time 2026 Priorities
 
 - Keep PostgreSQL-level relational fundamentals, MVCC, and `EXPLAIN` central.
@@ -87,6 +98,8 @@ Use the track in this order:
 - [OpenAI File Search](https://platform.openai.com/docs/guides/tools-file-search/)
 - [Anthropic Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
 - [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)
+- [Hugging Face RAG Evaluation](https://huggingface.co/learn/cookbook/rag_evaluation)
+- [Hugging Face Agentic RAG](https://huggingface.co/learn/agents-course/en/unit2/smolagents/retrieval_agents)
 
 ## Scope Rule
 

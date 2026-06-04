@@ -23,6 +23,7 @@ This track is optimized for:
 - Anthropic's interpretability work shows that model understanding is becoming an engineering discipline, but features are not enough; circuits, usage, and safety interventions still need evidence.
 - DeepMind's AlphaEvolve shows that LLMs can become optimization systems when paired with automated evaluators and iterative search over code or algorithms.
 - DeepMind's frontier-safety work turns capability evaluation into a release discipline; ML handbook topics should connect model capability, eval coverage, and deployment risk.
+- Hugging Face's Transformers, Evaluate, and TRL docs keep the practice layer concrete: metrics, KV cache, quantization, and post-training methods should map to runnable libraries, not only papers.
 
 ## How To Use This Track
 
@@ -65,6 +66,16 @@ code = implement_smallest_working_version(equation)
 9. Systems and MLOps: training loops, hardware bottlenecks, serving, monitoring, rollout, and capstone release gates.
 10. Reinforcement learning: MDPs, value methods, policy gradients, off-policy ideas, and RL for LLMs.
 
+## Handbook Map Style
+
+Each subsection should expose at most 20 curated subsubsections. Use this order:
+- Frame the problem and boundary.
+- Explain the core model or math.
+- Show the smallest useful build path.
+- Measure quality, uncertainty, and failure.
+- Operate the idea in production or workflow context.
+- Finish with practice, capstones, or release gates.
+
 ## Canonical Families
 
 - Deep learning: `activation-functions`, `normalization-methods`
@@ -101,3 +112,6 @@ code = implement_smallest_working_version(equation)
 - [Anthropic Mapping the Mind of a Large Language Model](https://www.anthropic.com/research/mapping-mind-language-model)
 - [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)
 - [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
+- [Hugging Face Evaluate: Choosing a Metric](https://huggingface.co/docs/evaluate/choosing_a_metric)
+- [Hugging Face Transformers: KV Cache Strategies](https://huggingface.co/docs/transformers/en/kv_cache)
+- [Hugging Face TRL](https://huggingface.co/docs/trl)

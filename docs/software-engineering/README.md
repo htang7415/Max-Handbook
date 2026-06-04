@@ -24,6 +24,7 @@ Use this track to learn the engineering responsibilities that still matter most 
 - Anthropic's Claude Code security model is a useful coding-agent pattern: read-only by default, explicit approval for edits and commands, sandboxing, and project-scoped write access.
 - DeepMind's Frontier Safety Framework generalizes release engineering for powerful AI systems: identify capability thresholds, run early-warning evals, and require safety-case reviews for higher-risk deployments.
 - Anthropic and OpenAI agent-eval guidance both turn traces, datasets, graders, and regression suites into normal software delivery artifacts.
+- Hugging Face's agents course and evaluation material reinforce a practical engineering rule: systems should end in build, test, certify, share, and benchmark artifacts, not only explanations.
 
 ## How To Use This Track
 
@@ -75,6 +76,16 @@ Each software-engineering module should answer the same six questions:
 8. Performance and cost: latency budgets, caching, profiling, batching, allocation, and trade-offs.
 9. System design and patterns: requirements, boundaries, storage, statefulness, workflows, and practical patterns.
 10. Implementation and practice: Python, Rust, TypeScript, learning paths, assessments, and capstones.
+
+## Handbook Map Style
+
+Each subsection should expose at most 20 curated subsubsections. Use this order:
+- Frame the contract, invariant, boundary, or failure mode.
+- Explain the engineering model or trade-off.
+- Build the smallest production-shaped mechanism.
+- Verify with tests, traces, metrics, or release checks.
+- Operate with rollback, security, observability, and ownership.
+- Finish with practice that leaves runnable artifacts.
 
 ## AI-Time 2026 Priorities
 
@@ -131,6 +142,8 @@ Build the track in this order:
 - [OpenAI Function Calling](https://developers.openai.com/api/docs/guides/function-calling)
 - [Claude Code Security](https://code.claude.com/docs/en/security)
 - [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
+- [Hugging Face AI Agents Course](https://huggingface.co/learn/agents-course/en)
+- [Hugging Face Agent Observability and Evaluation](https://huggingface.co/learn/agents-course/en/bonus-unit2/what-is-agent-observability-and-evaluation)
 
 ## Capstones
 

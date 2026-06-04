@@ -27,6 +27,7 @@ Use this page to understand the main evaluation modes for modern LLM systems wit
 - OpenAI's eval platform guidance emphasizes datasets, criteria-level results, external-model comparisons, usage accounting, and dashboard reports; product LLM evals should preserve both quality and cost evidence.
 - OpenAI and Anthropic both treat trace or transcript grading as necessary once model calls are embedded in tools, memory, or handoffs.
 - DeepMind's frontier-safety approach treats capability evals as early-warning systems, so high-capability LLM evals should include risk-triggering cases, not only benchmark averages.
+- Hugging Face's Evaluate docs keep metric choice tied to task and dataset shape, while its RAG evaluation cookbook shows how synthetic QA, filters, and LLM judges fit retrieval-heavy LLM systems.
 
 ## Core Math
 
@@ -82,6 +83,8 @@ trace_score = grade_trace(model_calls, tool_calls, guardrail_events)
 - [OpenAI Agent Evals](https://developers.openai.com/api/docs/guides/agent-evals)
 - [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
 - [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
+- [Hugging Face Evaluate: Choosing a Metric](https://huggingface.co/docs/evaluate/choosing_a_metric)
+- [Hugging Face RAG Evaluation](https://huggingface.co/learn/cookbook/rag_evaluation)
 
 ## When To Use What
 

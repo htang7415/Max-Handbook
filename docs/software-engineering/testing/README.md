@@ -36,12 +36,14 @@ Use this page to organize testing into:
 
 - OpenAI trace grading and Anthropic agent evals both emphasize that final output is not enough for multi-step systems; test the trajectory and the environment outcome.
 - DeepMind's frontier-safety process is a reminder to add early-warning cases for capabilities or behaviors that would change the release risk.
+- Hugging Face's agent observability and evaluation guidance is a practical reminder to define success first, then combine automated metrics, traces, labels, and regression checks.
 
 ## References
 
 - [OpenAI Trace Grading](https://developers.openai.com/api/docs/guides/trace-grading)
 - [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
 - [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
+- [Hugging Face Agent Observability and Evaluation](https://huggingface.co/learn/agents-course/en/bonus-unit2/what-is-agent-observability-and-evaluation)
 
 ## Math And Code
 

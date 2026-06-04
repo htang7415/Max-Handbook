@@ -27,6 +27,7 @@ Use this page to keep the agent stack in the right order:
 - Anthropic's agent guidance starts from simple composable workflows before autonomous loops; use routing, prompt chaining, parallelization, orchestrator-workers, and evaluator-optimizer loops only when the task shape justifies them.
 - DeepMind's AlphaEvolve shows the practical value of pairing generative agents with automated evaluators and iterative search when objective feedback is available.
 - Frontier-safety work from DeepMind and OpenAI reinforces the same engineering rule: as autonomy and capability rise, evaluation, human review, and shutdown or rollback paths must become explicit.
+- Hugging Face's agents course is useful as a practice reference because it organizes agents from fundamentals to frameworks, agentic RAG, observability, evaluation, and a final build/test/certify project.
 
 ## Core Math
 
@@ -66,6 +67,16 @@ score = task_success_rate([True, False, True])
 9. Multi-agent systems: orchestration, workers, delegation budgets, arbitration, and roles.
 10. Practice and capstones: assessments and end-to-end agent workflow builds.
 
+## Handbook Map Style
+
+Each subsection should expose at most 20 curated subsubsections. Use this order:
+- Frame the agent boundary and task.
+- Separate workflow pattern from autonomous loop.
+- Build the state, tool, retrieval, or guardrail path.
+- Measure final outcome and trajectory.
+- Operate with traces, permissions, and release gates.
+- Finish with practice artifacts that can be inspected.
+
 ## Canonical Modules
 
 - `agent-loop-architecture`
@@ -80,6 +91,8 @@ score = task_success_rate([True, False, True])
 - [OpenAI Agents SDK](https://developers.openai.com/api/docs/guides/agents)
 - [Anthropic Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [Google DeepMind AlphaEvolve](https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/)
+- [Hugging Face AI Agents Course](https://huggingface.co/learn/agents-course/en)
+- [Hugging Face Agent Observability and Evaluation](https://huggingface.co/learn/agents-course/en/bonus-unit2/what-is-agent-observability-and-evaluation)
 
 ## When To Use What
 

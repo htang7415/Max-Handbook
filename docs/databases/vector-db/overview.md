@@ -20,6 +20,7 @@ Use this topic to learn how embeddings, ANN indexes, metadata filters, reranking
 - OpenAI's retrieval docs make attributes, chunking strategy, vector-store lifecycle, search filtering, and eventual consistency part of the retrieval contract.
 - Hosted file-search tools are useful baselines, but engineering teams still need explicit metadata, permissions, freshness, and eval datasets around the retrieval layer.
 - MCP-style connectors should be treated as data-access boundaries: the tool can expose context, but the database still owns schema, identity, retention, and auditability.
+- Hugging Face's RAG evaluation and agentic RAG material show why retrieval should be benchmarked with QA pairs, filters, judges, and query reformulation instead of only embedding similarity.
 
 ## Minimal Query Mental Model
 
@@ -57,6 +58,8 @@ LIMIT 5;
 - [OpenAI Retrieval](https://developers.openai.com/api/docs/guides/retrieval)
 - [OpenAI File Search](https://platform.openai.com/docs/guides/tools-file-search/)
 - [Anthropic Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
+- [Hugging Face RAG Evaluation](https://huggingface.co/learn/cookbook/rag_evaluation)
+- [Hugging Face Agentic RAG](https://huggingface.co/learn/agents-course/en/unit2/smolagents/retrieval_agents)
 
 ## When To Use What
 

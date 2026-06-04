@@ -25,6 +25,7 @@ Use this page to understand:
 - OpenAI's trace-grading guidance makes traces the first debugging surface, then moves to repeatable datasets and eval runs once "good" is defined.
 - Anthropic's agent-eval guidance separates task, trial, grader, transcript, outcome, harness, and suite; this is a useful vocabulary for multi-turn agent testing.
 - DeepMind's Frontier Safety Framework uses early-warning evaluations and capability thresholds for severe-risk domains; production agent evals should similarly include early warning cases before full release gates.
+- Hugging Face's agent observability material reinforces the same shape: define success, track traces, combine automated scores with task labels, and use regular evaluation to catch drift.
 
 ## Core Math
 
@@ -80,6 +81,7 @@ gate = benchmark_gate(candidate_success=0.76, baseline_success=0.78, min_success
 - [OpenAI Trace Grading](https://developers.openai.com/api/docs/guides/trace-grading)
 - [Anthropic Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
 - [Google DeepMind Frontier Safety Framework](https://deepmind.google/blog/strengthening-our-frontier-safety-framework/)
+- [Hugging Face Agent Observability and Evaluation](https://huggingface.co/learn/agents-course/en/bonus-unit2/what-is-agent-observability-and-evaluation)
 
 ## When To Use What
 
